@@ -1,0 +1,207 @@
+/* Default CSS Stylesheet for a new Web Application project */
+
+BODY
+{
+	padding-right: 0px;
+	border-top: black thin;
+	padding-left: 0px;
+	font-weight: normal;
+	font-size: smaller;
+	padding-bottom: 0px;
+	margin: 5px;
+	word-spacing: normal;
+	text-transform: none;
+	padding-top: 0px;
+	font-family: Verdana, Helvetica, sans-serif;
+	border-right-style: none;
+	border-left-style: none;
+	letter-spacing: normal;
+	background-color: #FFF8DF;
+	border-bottom-style: none;
+}
+
+P {
+font-size: smaller;
+}
+
+H1, H2, H3, H4, H5, TH, THEAD, TFOOT
+{
+    COLOR: #003366;
+}
+H1	{	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:	2em;
+	font-weight:	700;
+	font-style:	normal;
+	text-decoration:	none;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	}	
+		
+H2	{	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:	1.75em;
+	font-weight:	700;
+	font-style:	normal;
+	text-decoration:	none;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	}	
+		
+H3	{	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:	1.58em;
+	font-weight:	500;
+	font-style:	normal;
+	text-decoration:	none;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	}	
+		
+H4	{	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:	1.33em;
+	font-weight:	500;
+	text-decoration:	none;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	}	
+		
+H5, DT	{	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:	1em;
+	font-weight:	700;
+	font-style:	normal;
+	text-decoration:	none;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	}	
+		
+H6	{	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:	.8em;
+	font-weight:	700;
+	font-style:	normal;
+	text-decoration:	none;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	}	
+		
+TFOOT, THEAD	{	
+	font-size:	1em;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	font-family: Arial, Helvetica, sans-serif;
+	}	
+		
+TH	{	
+	vertical-align:	baseline;
+	font-size:	1em;
+	font-weight:	bold;
+	word-spacing:	normal;
+	letter-spacing:	normal;
+	text-transform:	none;
+	font-family: Arial, Helvetica, sans-serif;
+	}	
+
+
+A:link
+{
+	color: #3333cc;
+	text-decoration: underline;
+}	
+		
+A:visited
+{
+	color: #333399;
+	text-decoration: underline;
+}	
+		
+A:active	{	
+	text-decoration:	underline;
+	color:	#333399;
+	}	
+		
+A:hover
+{
+	color: maroon;
+	text-decoration: underline;
+}
+	
+SMALL	{	
+	font-size:	.7em;
+	}	
+
+BIG	{	
+	font-size:	1.17em;
+	}	
+
+BLOCKQUOTE, PRE	{	
+	font-family:	Courier New, monospace;
+	}	
+	
+
+UL LI	{	
+	list-style-type:	square ;
+	}	
+
+UL LI LI	{	
+	list-style-type:	disc;
+	}	
+
+UL LI LI LI	{	
+	list-style-type:	circle;
+	}	
+	
+OL LI	{	
+	list-style-type:	decimal;
+	}	
+
+OL OL LI	{	
+	list-style-type:	lower-alpha;
+	}	
+
+OL OL OL LI	{	
+	list-style-type:	lower-roman;
+	}	
+
+IMG 	{
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	}
+
+.TableHeader {
+	background-color: #DBB7B7;
+	fore-color: #000000;
+	font-size: smaller;
+}
+.TableDetail1 {
+	background-color: #FFEA91;
+	fore-color: #000000;
+	font-size: smaller;
+}
+.TableDetail2 {
+	background-color: #FFF2BF;
+	fore-color: #000000;
+	font-size: smaller;
+}
+.TableDetail0 {
+	font-size: smaller;
+}
+	
+.SLSTitle
+{
+	font-weight: normal;
+	font-size: medium;
+	color: navy;
+	font-style: italic;
+	font-family: Verdana, Helvetica, sans-serif;
+}

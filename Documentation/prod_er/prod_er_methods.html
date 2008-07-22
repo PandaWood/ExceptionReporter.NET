@@ -1,0 +1,59 @@
+<HTML>
+<HEADER>
+<LINK href="styles.css" type="text/css" rel="stylesheet"/>
+</HEADER>
+<BODY>
+<p align="center"><image src="images/ExceptionReporter.gif"/></p>
+<H1>4. Methods</H1>
+The Exception Reporter has 2 methods. These are described below.<BR/><BR/>
+<TABLE border=1>
+<TR class="TableHeader">
+<TD><b>Method</b></TD>
+<TD><b>Return Type</b></TD>
+<TD><b>Parameter(s)</b></TD>
+<TD><b>Description</b></TD>
+</TR>
+<TR class="TableDetail1">
+<TD valign="top">LoadPropertiesFromConfig</TD>
+<TD valign="top">Void</TD>
+<TD valign="top">NONE</TD>
+<TD>Causes the Exception Reporter to set it's properties based on values stored in the application's config file.  Any properties not specified in the Application's config file are left unchanged.  This method provides a way for the Exception Reporter's behaviour to be changed based on the contents of a text file, so that contact information can be changed without the need to recompile the application.<BR/><BR/>Note that this is a good method of storing and using the Serial Number provided when you purchased the product in order to set the SerialNumber property of the component<BR/><BR/>Values in the Application's config file must be one of:
+<UL>
+<LI>SLS_ER_SHOW_GENERAL&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_SHOW_EXCEPTIONS&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_SHOW_ASSEMBLIES&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_SHOW_SETTINGS&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_SHOW_ENVIRONMENT&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_SHOW_CONTACT&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_PRINT_BUTTON&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_SAVE_BUTTON&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_COPY_BUTTON&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_EMAIL_BUTTON&nbsp;&nbsp;("Y" or "N")</LI>
+<LI>SLS_ER_CONTACT_EMAIL</LI>
+<LI>SLS_ER_CONTACT_WEB</LI>
+<LI>SLS_ER_CONTACT_PHONE</LI>
+<LI>SLS_ER_CONTACT_FAX</LI>
+<LI>SLS_ER_MAIL_TYPE&nbsp;&nbsp;("SMTP" or "SIMPLEMAPI")</LI>
+<LI>SLS_ER_SEND_ADDRESS</LI>
+<LI>SLS_ER_SMTP_SERVER</LI>
+<LI>SLS_ER_SMTP_FROM</LI>
+<LI>SLS_ER_SMTP_USERNAME</LI>
+<LI>SLS_ER_SMTP_PASSWORD</LI>
+<LI>SLS_ER_GENERAL_MESSAGE</LI>
+<LI>SLS_ER_EXPLANATION_MESSAGE</LI>
+<LI>SLS_ER_CONTACT_MESSAGE_1&nbsp;&nbsp;(i.e. ContactMessageTop)</LI>
+<LI>SLS_ER_CONTACT_MESSAGE_2&nbsp;&nbsp;(i.e. ContactMessageBottom)</LI>
+</UL>
+See the properties description page for details of these properties. <b>Note:</b>Property names and "Y" or "N" values are case sensitive.
+</TD>
+</TR>
+<TR class="TableDetail2">
+<TD valign="top">DisplayException</TD>
+<TD valign="top">Void</TD>
+<TD valign="top">Exception</TD>
+<TD>Causes the Exception Reporter to be visible.  Details of the passed in Exception are displayed.</TD>
+</TR>
+<TR class="TableDetail1"><TD COLSPAN=4>&nbsp</TD></TR>
+</TABLE>
+</BODY>
+</HTML>
