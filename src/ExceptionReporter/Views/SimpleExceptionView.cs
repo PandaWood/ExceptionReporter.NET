@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Resources;
 using System.Text;
 using System.Windows.Forms;
 
@@ -25,7 +24,7 @@ using System.Windows.Forms;
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //--------------------------------------------------------------------------
 
-namespace TheExceptionReporter.Views
+namespace ExceptionReporting.Views
 {
 	internal class SimpleExceptionView : Form
 	{
@@ -48,7 +47,6 @@ namespace TheExceptionReporter.Views
 		
 		private void InitializeComponent()
 		{
-			var resources = new ResourceManager(typeof (SimpleExceptionView));
 			pictureBox = new PictureBox();
 			txtExceptionType = new TextBox();
 			txtExceptionDetails = new TextBox();

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net.Mail;
 
-namespace TheExceptionReporter.Views
+namespace ExceptionReporting.Views
 {
 	/// <summary>
 	/// The IExceptionReportView and ExceptionReportPresenter is the beginning of my attempt to move this code

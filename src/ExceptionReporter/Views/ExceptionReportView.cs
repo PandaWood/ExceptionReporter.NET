@@ -10,10 +10,9 @@ using System.Reflection;
 using System.Text;
 using System.Web.Mail;
 using System.Windows.Forms;
-using SLSExceptionReporter;
 using Win32Mapi;
 
-namespace TheExceptionReporter.Views
+namespace ExceptionReporting.Views
 {
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	{
