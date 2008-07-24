@@ -55,19 +55,17 @@
     <Compile Include="ExceptionReporter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="frmER.cs">
+    <Compile Include="Views\ExceptionReportPresenter.cs" />
+    <Compile Include="Views\ExceptionReportView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmExceptionReporter.cs">
+    <Compile Include="Views\ExceptionReportView.Designer.cs">
+      <DependentUpon>ExceptionReportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrintSelectionView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPrintSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRegistrationReminder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSimpleException.cs">
+    <Compile Include="Views\SimpleExceptionView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +73,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ExceptionReportView.resx">
+      <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -90,14 +91,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SLSExceptionReporter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="slsMAPIMail.cs" />
     <Compile Include="slsSMTPMail.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

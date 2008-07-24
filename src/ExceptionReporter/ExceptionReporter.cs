@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Configuration;
+using TheExceptionReporter.Views;
 
 //-------------------------------------------------------------------------
 // ExceptionReporter - Error Reporting Component for .Net
@@ -34,21 +35,12 @@ namespace SLSExceptionReporter
 	[ToolboxBitmap(typeof(ExceptionReporter),"ExceptionReporter.ico")]
 	public class ExceptionReporter : System.ComponentModel.Component
 	{
-		/**********************************************************
-		 * Exception Reporter Class - the main interface to the 
-		 * StrataLogic Software Exception Reporter
-		 * 
-		 * Developer		Date		Comment  
-		 * Phillip Pettit	Mar/04		Initial Creation
-		 **********************************************************/
-			 
 		/// <summary>
 		/// Exception Reporter Component.  Used to display detailed 
 		/// exception and system information on occurence of application error.
 		/// Can be added as a component to a form or be created dynamically
 		/// </summary>
 		private System.ComponentModel.Container components = null;
-		private bool blnLicensed = true;
 		
 		// Enumerated type used to represent supported e-mail mechanisms
 		public enum slsMailType {SimpleMAPI, SMTP};
@@ -1002,69 +994,58 @@ namespace SLSExceptionReporter
 			}
 			
 			try {
-				// created a new Exception display form
-				frmER frmException = new frmER();
+				var frmException = new ExceptionReportView
+				                                   	{
+				                                   		EnumeratePrinters = EnumeratePrinters,
+				                                   		ContactEmail = strContactEmail,
+				                                   		ContactWeb = strContactWeb,
+				                                   		ContactPhone = strContactPhone,
+				                                   		ContactFax = strContactFax,
+				                                   		ShowAssembliesTab = blnAssembliesTab,
+				                                   		ShowEnvironmentTab = blnEnvironmentTab,
+				                                   		ShowGeneralTab = blnGeneralTab,
+				                                   		ShowSettingsTab = blnSettingsTab,
+				                                   		ShowContactTab = blnContactTab,
+				                                   		ShowExceptionsTab = blnExceptionsTab,
+				                                   		ShowPrintButton = visiblePrintButton,
+				                                   		ShowCopyButton = visibleCopyButton,
+				                                   		ShowSaveButton = visibleSaveButton,
+				                                   		ShowEmailButton = visibleEmailButton,
+				                                   		MailType = sendMailType,
+				                                   		SMTPServer = strSMTPServer,
+				                                   		SMTPUsername = strSMTPUsername,
+				                                   		SMTPPassword = strSMTPPassword,
+				                                   		SMTPFromAddress = strSMTPFromAddress,
+				                                   		SendEmailAddress = strSendEmailAddress,
+				                                   		GeneralMessage = strGeneralMessage,
+				                                   		ExplanationMessage = strExplanationMessage,
+				                                   		ContactMessageBottom = ContactMessageBottom,
+				                                   		ContactMessageTop = ContactMessageTop
+				                                   	};
 				
 				// set the properties of the form based on the properties assigned to this object
-				
-				frmException.EnumeratePrinters = this.EnumeratePrinters;
-				
+
 				// contact details
-				frmException.ContactEmail = strContactEmail;
-				frmException.ContactWeb = strContactWeb;
-				frmException.ContactPhone = strContactPhone;
-				frmException.ContactFax = strContactFax;
 				// display tabs
-				frmException.ShowAssembliesTab = blnAssembliesTab;
-				frmException.ShowEnvironmentTab = blnEnvironmentTab;
-				frmException.ShowGeneralTab = blnGeneralTab;
-				frmException.ShowSettingsTab = blnSettingsTab;
-				frmException.ShowContactTab = blnContactTab;
-				frmException.ShowExceptionsTab = blnExceptionsTab;
 				// determine which buttons to display
-				frmException.ShowPrintButton = visiblePrintButton;
-				frmException.ShowCopyButton = visibleCopyButton;
-				frmException.ShowSaveButton = visibleSaveButton;
-				frmException.ShowEmailButton = visibleEmailButton;
 				// mail settings
-				frmException.MailType = sendMailType;
-				frmException.SMTPServer = strSMTPServer;
-				frmException.SMTPUsername = strSMTPUsername;
-				frmException.SMTPPassword = strSMTPPassword;
-				frmException.SMTPFromAddress = strSMTPFromAddress;
-				frmException.SendEmailAddress = strSendEmailAddress;
 				// messages shown on the form
-				frmException.GeneralMessage = strGeneralMessage;
-				frmException.ExplanationMessage = strExplanationMessage;
-				frmException.ContactMessageBottom = ContactMessageBottom;
-				frmException.ContactMessageTop = ContactMessageTop;
 				// call the main method that starts the display
-				frmException.displayException(ex,Assembly.GetCallingAssembly(),blnLicensed);	
+				frmException.displayException(ex,Assembly.GetCallingAssembly());	
 			} catch (Exception exc) {
 				handleError("There has been a problem displaying the Exception Reporter",exc);
 			}
 		}
-		
-		private void handleError(string strMessage,Exception ex) {
-			/**********************************************************
-			 * Handle the occurrence of application error
-			 * 
-			 * Pass:	strMessage - message to display in form
-			 * 			ex - the exception that has occurred
-			 * Returns: Nothing
-			 * 
-			 * 
-			 * Developer		Date		Comment  
-			 * Phillip Pettit	Mar/04		Initial Creation
-			 **********************************************************/
-			/// <summary>
-			/// Handles application error by displaying a simple error form to the user
-			/// The form contains 2 tabs, one for simple information and the other for a more detailed
-			/// exception message
-			/// </summary>
 
-			frmSimpleException frm = new frmSimpleException();
-			frm.ShowException(strMessage,ex);
+		/// <summary>
+		/// Handles application error by displaying a simple error form to the user
+		/// The form contains 2 tabs, one for simple information and the other for a more detailed
+		/// exception message
+		/// </summary>
+		private static void handleError(string strMessage,Exception ex) {
+
+			var exceptionView = new SimpleExceptionView();
+			exceptionView.ShowException(strMessage,ex);
 		}
 	}
 }
