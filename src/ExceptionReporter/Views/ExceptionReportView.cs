@@ -8,7 +8,6 @@ using System.IO;
 using System.Management;
 using System.Reflection;
 using System.Text;
-using System.Web.Mail;
 using System.Windows.Forms;
 using Win32Mapi;
 
@@ -16,24 +15,31 @@ namespace ExceptionReporting.Views
 {
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	{
-		private Exception exSelected;
-		private StringBuilder sbExceptionString;
-		private StringBuilder sbPrintString;
-		private StringReader sPrintReader;
-		private int intCharactersLine;
-		private int intLinesPage;
-		private Font printFont;
-		private Font boldFont;
-		private int drawWidth;
-		private int drawHeight;
-		private int PageCount;
-		private ExceptionReporter.slsMailType sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
-		private Assembly cAssembly;
-		private bool refreshData;
-		private String strSendEmailAddress;
-		private String strSMTPServer;
+		private Exception _exception;
+		private StringBuilder _exceptionString;
+		private StringBuilder _printString;
+		private StringReader _stringReader;
+		private int _charactersPerLine;
+		private int _linesPerPage;
+		private Font _printFont;
+		private Font _boldFont;
+		private int _drawWidth;
+		private int _drawHeight;
+		private int _pageCount;
+		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
+		private Assembly _assembly;
+		private bool _refreshData;
+		private String _email;
 
-		private ExceptionReportPresenter _presenter;
+		private bool _showGeneralTab = true;
+		private bool _showEnvironmentTab = true;
+		private bool _showSettingsTab = true;
+		private bool _showContactTab = true;
+		private bool _showExceptionsTab = true;
+		private bool _showAssembliesTab = true;
+		private bool _showEnumeratePrinters = true;
+
+		private readonly ExceptionReportPresenter _presenter;
 
 		public ExceptionReportView()
 		{
@@ -68,15 +74,15 @@ namespace ExceptionReporting.Views
 				ma.Logon(Handle);
 
 				ma.Reset();
-				if (strSendEmailAddress != null)
+				if (_email != null)
 				{
-					if (strSendEmailAddress.Length > 0)
+					if (_email.Length > 0)
 					{
-						ma.AddRecip(strSendEmailAddress, null, false);
+						ma.AddRecip(_email, null, false);
 					}
 				}
 
-				ma.Send("An Exception has occured", sbExceptionString.ToString(), true);
+				ma.Send("An Exception has occured", _exceptionString.ToString(), true);
 				ma.Logoff();
 			}
 			catch (Exception ex)
@@ -89,58 +95,8 @@ namespace ExceptionReporting.Views
 
 		public void sendSMTPEmail()
 		{
-			try
-			{
-				var objMyMessage = new MailMessage
-				                   	{
-				                   		To = strSendEmailAddress,
-				                   		From = strSMTPFromAddress,
-				                   		Subject = "An Error has occured",
-				                   		Body = sbExceptionString.ToString(),
-				                   		BodyFormat = MailFormat.Text
-				                   	};
-
-#if SMTP_AUTH
-	// conditionally include support for SMTP authentication
-				if (strSMTPUsername != null)
-				{
-					objMyMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate", "1");
-					//basic authentication
-					objMyMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/sendUSERNAME", strSMTPUsername);
-					//set your USERNAME here
-
-					if (strSMTPPassword != null)
-					{
-						objMyMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/sendpassword", strSMTPPassword);
-						//set your password here
-					}
-				}
-#endif
-
-				if (strSMTPServer != null)
-				{
-					SmtpMail.SmtpServer = strSMTPServer;
-				}
-
-				SmtpMail.Send(objMyMessage);
-			}
-			catch (Exception ex)
-			{
-				handleError(
-					"There has been a problem sending e-mail through SMTP. Suitable configuration details or required protocols may not be configured on the machine. Instead, you can use the copy button to place details of the error onto the clipboard, you can then paste this information directly into your mail client",
-					ex);
-			}
+			_presenter.SendSmtpMail(_exceptionString.ToString());
 		}
-
-		// pivate boolean variable to store state of tab page
-		// default to true
-		private bool blnGeneralTab = true;
-		private bool blnEnvironmentTab = true;
-		private bool blnSettingsTab = true;
-		private bool blnContactTab = true;
-		private bool blnExceptionsTab = true;
-		private bool blnAssembliesTab = true;
-		private bool blnEnumeratePrinters = true;
 
 		private void setTabs()
 		{
@@ -151,27 +107,27 @@ namespace ExceptionReporting.Views
 
 				// add back the tabs one by one that have the appropriate
 				// property set
-				if (blnGeneralTab)
+				if (_showGeneralTab)
 				{
 					tcTabs.TabPages.Add(tpGeneral);
 				}
-				if (blnExceptionsTab)
+				if (_showExceptionsTab)
 				{
 					tcTabs.TabPages.Add(tpExceptions);
 				}
-				if (blnAssembliesTab)
+				if (_showAssembliesTab)
 				{
 					tcTabs.TabPages.Add(tpAssemblies);
 				}
-				if (blnSettingsTab)
+				if (_showSettingsTab)
 				{
 					tcTabs.TabPages.Add(tpSettings);
 				}
-				if (blnEnvironmentTab)
+				if (_showEnvironmentTab)
 				{
 					tcTabs.TabPages.Add(tpEnvironment);
 				}
-				if (blnContactTab)
+				if (_showContactTab)
 				{
 					tcTabs.TabPages.Add(tpContact);
 				}
@@ -224,36 +180,36 @@ namespace ExceptionReporting.Views
 		// public property used to set/get visibility of Tab
 		public bool ShowGeneralTab
 		{
-			get { return blnGeneralTab; }
+			get { return _showGeneralTab; }
 			set
 			{
-				blnGeneralTab = value;
+				_showGeneralTab = value;
 				setTabs();
 			}
 		}
 
 		public bool EnumeratePrinters
 		{
-			get { return blnEnumeratePrinters; }
-			set { blnEnumeratePrinters = value; }
+			get { return _showEnumeratePrinters; }
+			set { _showEnumeratePrinters = value; }
 		}
 
 		public bool ShowEnvironmentTab
 		{
-			get { return blnEnvironmentTab; }
+			get { return _showEnvironmentTab; }
 			set
 			{
-				blnEnvironmentTab = value;
+				_showEnvironmentTab = value;
 				setTabs();
 			}
 		}
 
 		public bool ShowAssembliesTab
 		{
-			get { return blnAssembliesTab; }
+			get { return _showAssembliesTab; }
 			set
 			{
-				blnAssembliesTab = value;
+				_showAssembliesTab = value;
 				setTabs();
 			}
 		}
@@ -268,23 +224,10 @@ namespace ExceptionReporting.Views
 			set { btnEmail.Enabled = value; }
 		}
 
-		public String SMTPServer
-		{
-			get { return strSMTPServer; }
-			set { strSMTPServer = value; }
-		}
-
+		public String SMTPServer { get; set; }
 		public string SMTPUsername { get; set; }
-
 		public String SMTPPassword { get; set; }
-
-		private String strSMTPFromAddress;
-
-		public String SMTPFromAddress
-		{
-			get { return strSMTPFromAddress; }
-			set { strSMTPFromAddress = value; }
-		}
+		public String SMTPFromAddress { get; set; }
 
 		public string EmailToSendTo
 		{
@@ -311,77 +254,37 @@ namespace ExceptionReporting.Views
 
 		public String SendEmailAddress
 		{
-			get { return strSendEmailAddress; }
-			set { strSendEmailAddress = value; }
+			get { return _email; }
+			set { _email = value; }
 		}
 
 		public bool ShowSettingsTab
 		{
-			get { return blnSettingsTab; }
+			get { return _showSettingsTab; }
 			set
 			{
-				blnSettingsTab = value;
+				_showSettingsTab = value;
 				setTabs();
 			}
 		}
 
 		public bool ShowContactTab
 		{
-			get { return blnContactTab; }
+			get { return _showContactTab; }
 			set
 			{
-				blnContactTab = value;
+				_showContactTab = value;
 				setTabs();
 			}
 		}
 
 		public bool ShowExceptionsTab
 		{
-			get { return blnExceptionsTab; }
+			get { return _showExceptionsTab; }
 			set
 			{
-				blnExceptionsTab = value;
+				_showExceptionsTab = value;
 				setTabs();
-			}
-		}
-
-		public bool ShowCopyButton
-		{
-			get { return btnCopy.Visible; }
-			set
-			{
-				btnCopy.Visible = value;
-				setButtons();
-			}
-		}
-
-		public bool ShowEmailButton
-		{
-			get { return btnEmail.Visible; }
-			set
-			{
-				btnEmail.Visible = value;
-				setButtons();
-			}
-		}
-
-		public bool ShowSaveButton
-		{
-			get { return btnSave.Visible; }
-			set
-			{
-				btnSave.Visible = value;
-				setButtons();
-			}
-		}
-
-		public bool ShowPrintButton
-		{
-			get { return btnPrint.Visible; }
-			set
-			{
-				btnPrint.Visible = value;
-				setButtons();
 			}
 		}
 
@@ -429,8 +332,8 @@ namespace ExceptionReporting.Views
 
 		public ExceptionReporter.slsMailType MailType
 		{
-			get { return sendMailType; }
-			set { sendMailType = value; }
+			get { return _sendMailType; }
+			set { _sendMailType = value; }
 		}
 
 		public String ExplanationMessage
@@ -450,174 +353,124 @@ namespace ExceptionReporting.Views
 		{
 			try
 			{
-				sbExceptionString = new StringBuilder();
-				var swWriter = new StringWriter(sbExceptionString);
-
+				_exceptionString = new StringBuilder();
 
 				if (blnGeneral)
 				{
 					if (!blnForPrint)
 					{
-						swWriter.WriteLine(lblGeneral.Text);
-						swWriter.WriteLine((String) null);
-						swWriter.WriteLine("-----------------------------");
-						swWriter.WriteLine((String) null);
+						_exceptionString.AppendLine(lblGeneral.Text);
+						_exceptionString.AppendLine();
+						AppendDottedLine(_exceptionString);
+						_exceptionString.AppendLine();
 					}
-					swWriter.WriteLine("General");
-					swWriter.WriteLine((String) null);
-					swWriter.WriteLine("Application: " + txtApplication.Text);
-					swWriter.WriteLine("Version:     " + txtVersion.Text);
-					swWriter.WriteLine("Region:      " + txtRegion.Text);
-					swWriter.WriteLine("Machine:     " + " " + txtMachine.Text);
-					swWriter.WriteLine("User:        " + txtUserName.Text);
-					swWriter.WriteLine("-----------------------------");
+					_exceptionString.AppendLine("General");
+					_exceptionString.AppendLine();
+					_exceptionString.AppendLine("Application: " + txtApplication.Text);
+					_exceptionString.AppendLine("Version:     " + txtVersion.Text);
+					_exceptionString.AppendLine("Region:      " + txtRegion.Text);
+					_exceptionString.AppendLine("Machine:     " + " " + txtMachine.Text);
+					_exceptionString.AppendLine("User:        " + txtUserName.Text);
+					AppendDottedLine(_exceptionString);
 					if (!blnForPrint)
 					{
-						swWriter.WriteLine((String) null);
-						swWriter.WriteLine("Date: " + txtDate.Text);
-						swWriter.WriteLine("Time: " + txtTime.Text);
-						swWriter.WriteLine("-----------------------------");
+						_exceptionString.AppendLine();
+						_exceptionString.AppendLine("Date: " + txtDate.Text);
+						_exceptionString.AppendLine("Time: " + txtTime.Text);
+						AppendDottedLine(_exceptionString);
 					}
-					swWriter.WriteLine((String) null);
-					swWriter.WriteLine("Explanation");
-					swWriter.WriteLine(txtExplanation.Text.Trim());
-					swWriter.WriteLine((String) null);
-					swWriter.WriteLine("-----------------------------");
-					swWriter.WriteLine((String) null);
+					_exceptionString.AppendLine();
+					_exceptionString.AppendLine("Explanation");
+					_exceptionString.AppendLine(txtExplanation.Text.Trim());
+					_exceptionString.AppendLine();
+					AppendDottedLine(_exceptionString);
+					_exceptionString.AppendLine();
 				}
 
 				if (blnExceptions)
 				{
-					swWriter.WriteLine("Exceptions");
-					swWriter.WriteLine((String) null);
-					exceptionHeirarchyToString(swWriter);
-					swWriter.WriteLine((String) null);
-					swWriter.WriteLine("-----------------------------");
-					swWriter.WriteLine((String) null);
+					_exceptionString.AppendLine("Exceptions");
+					_exceptionString.AppendLine();
+					_exceptionString.AppendLine(_presenter.ExceptionHierarchyToString(_exception));
+					_exceptionString.AppendLine();
+					AppendDottedLine(_exceptionString);
+					_exceptionString.AppendLine();
 				}
 
 				if (blnAssemblies)
 				{
-					swWriter.WriteLine("Assemblies");
-					swWriter.WriteLine((String) null);
-					referencedAssembliesToString(swWriter);
-					swWriter.WriteLine("-----------------------------");
-					swWriter.WriteLine((String) null);
+					_exceptionString.AppendLine("Assemblies");
+					_exceptionString.AppendLine();
+					_exceptionString.AppendLine(_presenter.ReferencedAssembliesToString(_assembly));
+					AppendDottedLine(_exceptionString);
+					_exceptionString.AppendLine();
 				}
 
 				if (blnSettings)
 				{
-					treeToString(tvwSettings, swWriter);
-					swWriter.WriteLine("-----------------------------");
-					swWriter.WriteLine((String) null);
+//					TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
+					AppendDottedLine(_exceptionString);
+					_exceptionString.AppendLine();
 				}
 
 				if (blnEnvironment)
 				{
-					treeToString(tvwEnvironment, swWriter);
-					swWriter.WriteLine("-----------------------------");
-					swWriter.WriteLine((String) null);
+//					TreeToString(tvwEnvironment, stringBuilder);
+					AppendDottedLine(_exceptionString);
+					_exceptionString.AppendLine();
 				}
 
 				if (blnContact)
 				{
-					swWriter.WriteLine("Contact");
-					swWriter.WriteLine((String) null);
-					swWriter.WriteLine("E-Mail: " + lnkEmail.Text);
-					swWriter.WriteLine("Web:    " + lnkWeb.Text);
-					swWriter.WriteLine("Phone:  " + txtPhone.Text);
-					swWriter.WriteLine("Fax:    " + txtFax.Text);
-					swWriter.WriteLine("-----------------------------");
-					swWriter.WriteLine((String) null);
+					_exceptionString.AppendLine("Contact");
+					_exceptionString.AppendLine();
+					_exceptionString.AppendLine("E-Mail: " + lnkEmail.Text);
+					_exceptionString.AppendLine("Web:    " + lnkWeb.Text);
+					_exceptionString.AppendLine("Phone:  " + txtPhone.Text);
+					_exceptionString.AppendLine("Fax:    " + txtFax.Text);
+					_exceptionString.AppendLine("-----------------------------");
+					_exceptionString.AppendLine();
 				}
 			}
 			catch (Exception ex)
 			{
-				handleError(
-					"There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
+				handleError("There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
 			}
+		}
 
+		private static void AppendDottedLine(StringBuilder stringBuilder)
+		{
+			stringBuilder.AppendLine("-----------------------------");
+		}
+
+		private static void TreeToString(TreeView treeView, TextWriter treeWriter)
+		{
+			TreeNodeToString(treeView.Nodes[0], treeWriter, 0);
 			return;
 		}
 
-		private static void treeToString(TreeView tvConvert, TextWriter swTreeWriter)
+		private static void TreeNodeToString(TreeNode tnNode, TextWriter swWriter, int level)
 		{
-			treeNodeToString(tvConvert.Nodes[0], swTreeWriter, 0);
-			return;
-		}
+			string space = "";
 
-		private static void treeNodeToString(TreeNode tnNode, TextWriter swWriter, int level)
-		{
-			String space = "";
-
-			for (Int32 intCount = 0; intCount < (level*4); intCount++)
+			for (int intCount = 0; intCount < (level*4); intCount++)
 			{
 				space = space + " ";
 			}
+
 			if (level <= 2)
 			{
-				swWriter.WriteLine((String) null);
+				swWriter.WriteLine(string.Empty);
 			}
+
 			swWriter.WriteLine(space + tnNode.Text);
 			foreach (TreeNode tnChild in tnNode.Nodes)
 			{
-				treeNodeToString(tnChild, swWriter, level + 1);
+				TreeNodeToString(tnChild, swWriter, level + 1);
 			}
-			//bubble error back
-			return;
 		}
 
-		private void referencedAssembliesToString(TextWriter swWriter)
-		{
-			if (cAssembly == null)
-			{
-				return;
-			}
-			foreach (AssemblyName a in
-				cAssembly.GetReferencedAssemblies())
-			{
-				swWriter.WriteLine(a.FullName);
-				swWriter.WriteLine((String) null);
-			}
-			//bubble error back
-
-			return;
-		}
-
-		/// <summary>
-		/// convert a an exception and it's hierarchy of inner exceptions to a string for use 
-		/// within the Exception String (for printing etc)
-		/// </summary>
-		/// <param name="swWriter"></param>
-		private void exceptionHeirarchyToString(TextWriter swWriter)
-		{
-			int intCount = 0;
-			Exception current = exSelected;
-
-			while (current != null)
-			{
-				if (intCount == 0)
-				{
-					swWriter.WriteLine("Top Level Exception");
-				}
-				else
-				{
-					swWriter.WriteLine("Inner Exception " + intCount);
-				}
-				swWriter.WriteLine("Type:        " + current.GetType());
-				swWriter.WriteLine("Message:     " + current.Message);
-				swWriter.WriteLine("Source:      " + current.Source);
-				swWriter.WriteLine("Stack Trace: " + current.StackTrace.Trim());
-				swWriter.WriteLine((String) null);
-
-				current = current.InnerException;
-				intCount++;
-			}
-			// bubble error back
-			return;
-		}
-
-		private static void wrapText(TextReader sr, TextWriter sw, int intMaxLineChars)
+		private static void WrapText(TextReader sr, TextWriter sw, int intMaxLineChars)
 		{
 			String strSubLine;
 
@@ -664,12 +517,12 @@ namespace ExceptionReporting.Views
 			try
 			{
 				// only refresh when we need to
-				if (!refreshData)
+				if (!_refreshData)
 				{
 					return;
 				}
 				// next time we won't refresh unless this flag is set back to true
-				refreshData = false;
+				_refreshData = false;
 
 				setButtons();
 				Cursor = Cursors.WaitCursor;
@@ -801,12 +654,12 @@ namespace ExceptionReporting.Views
 				// fill the settings tab
 				var settingsRoot = new TreeNode("Application Settings");
 
-				IEnumerator ienum = ConfigurationSettings.AppSettings.GetEnumerator();
+				IEnumerator ienum = ConfigurationManager.AppSettings.GetEnumerator();
 
 				while (ienum.MoveNext())
 				{
 					settingsRoot.Nodes.Add(
-						new TreeNode(ienum.Current + " : " + ConfigurationSettings.AppSettings.Get(ienum.Current.ToString())));
+						new TreeNode(ienum.Current + " : " + ConfigurationManager.AppSettings.Get(ienum.Current.ToString())));
 				}
 
 				tvwSettings.Nodes.Add(settingsRoot);
@@ -814,7 +667,7 @@ namespace ExceptionReporting.Views
 				progressBar.Value = progressBar.Value + 1;
 				Application.DoEvents();
 
-				buildExceptionHeirarchy(exSelected);
+				buildExceptionHeirarchy(_exception);
 				progressBar.Value = progressBar.Value + 1;
 				Application.DoEvents();
 
@@ -823,7 +676,7 @@ namespace ExceptionReporting.Views
 				lstAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 				lstAssemblies.Columns.Add("Culture", 150, HorizontalAlignment.Left);
 
-				foreach (AssemblyName assemblyName in cAssembly.GetReferencedAssemblies())
+				foreach (AssemblyName assemblyName in _assembly.GetReferencedAssemblies())
 				{
 					var listViewItem = new ListViewItem {Text = assemblyName.Name};
 					listViewItem.SubItems.Add(assemblyName.Version.ToString());
@@ -849,9 +702,9 @@ namespace ExceptionReporting.Views
 
 		public bool displayException(Exception ex, Assembly callingAssembly)
 		{
-			cAssembly = callingAssembly;
-			exSelected = ex;
-			refreshData = true;
+			_assembly = callingAssembly;
+			_exception = ex;
+			_refreshData = true;
 
 			ShowDialog();
 
@@ -1009,7 +862,7 @@ namespace ExceptionReporting.Views
 			try
 			{
 				buildExceptionString();
-				Clipboard.SetDataObject(sbExceptionString.ToString(), true);
+				Clipboard.SetDataObject(_exceptionString.ToString(), true);
 			}
 			catch (Exception ex)
 			{
@@ -1022,18 +875,18 @@ namespace ExceptionReporting.Views
 			buildExceptionString();
 			try
 			{
-				if (strSendEmailAddress == null)
+				if (_email == null)
 				{
-					strSendEmailAddress = lnkEmail.Text;
+					_email = lnkEmail.Text;
 				}
 
-				if (sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
+				if (_sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
 				{
 					sendMAPIEmail();
 				}
-				if (sendMailType == ExceptionReporter.slsMailType.SMTP)
+				if (_sendMailType == ExceptionReporter.slsMailType.SMTP)
 				{
-					if (strSendEmailAddress != null)
+					if (_email != null)
 					{
 						sendSMTPEmail();
 					}
@@ -1051,10 +904,9 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-
 		private void printDocument1_BeginPrint(object sender, PrintEventArgs e)
 		{
-			PageCount = 0;
+			_pageCount = 0;
 		}
 
 		private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
@@ -1062,69 +914,68 @@ namespace ExceptionReporting.Views
 			int leftMargin = e.MarginBounds.Left;
 			int rightMargin = e.MarginBounds.Right;
 			int topMargin = e.MarginBounds.Top;
-			bool blnSkip;
 			int intCount = 0;
 
-			PageCount ++;
-			if (PageCount == 1)
+			_pageCount ++;
+			if (_pageCount == 1)
 			{
-				printFont = new Font("Courier New", 12);
-				boldFont = new Font("Courier New", 12, FontStyle.Bold);
+				_printFont = new Font("Courier New", 12);
+				_boldFont = new Font("Courier New", 12, FontStyle.Bold);
 			}
 
-			SizeF fSize = e.Graphics.MeasureString("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", printFont);
+			SizeF fSize = e.Graphics.MeasureString("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", _printFont);
 			float fltFontWidth = fSize.Width/30;
 
-			if (PageCount == 1)
+			if (_pageCount == 1)
 			{
 				// setup for first page
-				drawWidth = e.MarginBounds.Size.Width; //- (e.MarginBounds.Left + e.MarginBounds.Right);
-				drawHeight = e.MarginBounds.Size.Height; //- (e.MarginBounds.Top+ e.MarginBounds.Bottom);
+				_drawWidth = e.MarginBounds.Size.Width; //- (e.MarginBounds.Left + e.MarginBounds.Right);
+				_drawHeight = e.MarginBounds.Size.Height; //- (e.MarginBounds.Top+ e.MarginBounds.Bottom);
 
-				intCharactersLine = (int) (drawWidth/fltFontWidth); //fSize.ToSize().Width;
-				intLinesPage = (int) (drawHeight/printFont.GetHeight());
+				_charactersPerLine = (int) (_drawWidth/fltFontWidth); //fSize.ToSize().Width;
+				_linesPerPage = (int) (_drawHeight/_printFont.GetHeight());
 
 
-				sbPrintString = new StringBuilder();
-				var swPrint = new StringWriter(sbPrintString);
-				var srException = new StringReader(sbExceptionString.ToString());
-				wrapText(srException, swPrint, intCharactersLine);
-				sPrintReader = new StringReader(sbPrintString.ToString());
+				_printString = new StringBuilder();
+				var swPrint = new StringWriter(_printString);
+				var srException = new StringReader(_exceptionString.ToString());
+				WrapText(srException, swPrint, _charactersPerLine);
+				_stringReader = new StringReader(_printString.ToString());
 			}
 			// draw the border
-			var rect = new Rectangle(leftMargin, topMargin, drawWidth, drawHeight);
+			var rect = new Rectangle(leftMargin, topMargin, _drawWidth, _drawHeight);
 			e.Graphics.DrawRectangle(Pens.Black, rect);
 
 			//draw the header
 			string strLine = "Error Report: " + txtApplication.Text;
-			e.Graphics.DrawString(strLine, boldFont, Brushes.Black, leftMargin, topMargin + ((intCount)*printFont.GetHeight()));
+			e.Graphics.DrawString(strLine, _boldFont, Brushes.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()));
 			intCount++;
 			strLine = "Date/Time:    " + txtDate.Text + " " + txtTime.Text;
-			e.Graphics.DrawString(strLine, boldFont, Brushes.Black, leftMargin, topMargin + ((intCount)*printFont.GetHeight()));
+			e.Graphics.DrawString(strLine, _boldFont, Brushes.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()));
 			intCount++;
-			e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intCount)*printFont.GetHeight()), rightMargin,
-			                    topMargin + ((intCount)*printFont.GetHeight()));
+			e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()), rightMargin,
+			                    topMargin + ((intCount)*_printFont.GetHeight()));
 			intCount++; // leave a space from header
 
 
 			// draw the footer
-			strLine = "Page: " + PageCount;
-			e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intLinesPage - 2)*printFont.GetHeight()), rightMargin,
-			                    topMargin + ((intLinesPage - 2)*printFont.GetHeight()));
-			e.Graphics.DrawString(strLine, boldFont, Brushes.Black, leftMargin,
-			                      topMargin + ((intLinesPage - 1)*printFont.GetHeight()));
+			strLine = "Page: " + _pageCount;
+			e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((_linesPerPage - 2)*_printFont.GetHeight()), rightMargin,
+			                    topMargin + ((_linesPerPage - 2)*_printFont.GetHeight()));
+			e.Graphics.DrawString(strLine, _boldFont, Brushes.Black, leftMargin,
+			                      topMargin + ((_linesPerPage - 1)*_printFont.GetHeight()));
 
 
 			//loop for the number of lines a page
-			while (intCount <= (intLinesPage - 3)) // - 1 because of footer
+			while (intCount <= (_linesPerPage - 3)) // - 1 because of footer
 			{
-				Font currentFont = printFont;
-				blnSkip = false;
+				Font currentFont = _printFont;
+				bool blnSkip = false;
 				// read the line
-				strLine = sPrintReader.ReadLine();
+				strLine = _stringReader.ReadLine();
 				if (strLine == null)
 				{
-					intCount = intLinesPage + 1; //exit the loop
+					intCount = _linesPerPage + 1; //exit the loop
 				}
 				else
 				{
@@ -1133,8 +984,8 @@ namespace ExceptionReporting.Views
 						if (strLine.Substring(1, 4).Equals("----"))
 						{
 							//draw a seperator line
-							e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intCount)*printFont.GetHeight()), rightMargin,
-							                    topMargin + ((intCount)*printFont.GetHeight()));
+							e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()), rightMargin,
+							                    topMargin + ((intCount)*_printFont.GetHeight()));
 							blnSkip = true;
 						}
 					}
@@ -1145,18 +996,18 @@ namespace ExceptionReporting.Views
 						    strLine.Equals("Assemblies") || strLine.Equals("Application Settings") || strLine.Equals("Environment") ||
 						    strLine.Equals("Contact"))
 						{
-							currentFont = boldFont;
+							currentFont = _boldFont;
 						}
 
 						// output the text line
 						e.Graphics.DrawString(strLine, currentFont, Brushes.Black, leftMargin,
-						                      topMargin + ((intCount)*printFont.GetHeight()));
+						                      topMargin + ((intCount)*_printFont.GetHeight()));
 					}
 				}
 				intCount++;
 			}
 
-			e.HasMorePages = sPrintReader.Peek() != -1;
+			e.HasMorePages = _stringReader.Peek() != -1;
 			// let error bubble back
 		}
 
@@ -1186,7 +1037,7 @@ namespace ExceptionReporting.Views
 					{
 						var strWriter = new StreamWriter(strStream);
 
-						strWriter.Write(sbExceptionString.ToString());
+						strWriter.Write(_exceptionString.ToString());
 
 						strStream.Close();
 					}
@@ -1201,7 +1052,7 @@ namespace ExceptionReporting.Views
 
 		private void LstExceptionsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			Exception displayException = exSelected;
+			Exception displayException = _exception;
 			try
 			{
 				foreach (ListViewItem lvi in lstExceptions.Items)
@@ -1216,7 +1067,7 @@ namespace ExceptionReporting.Views
 
 				txtStackTrace.Text = "";
 				txtMessage.Text = "";
-				if (displayException == null) displayException = exSelected;
+				if (displayException == null) displayException = _exception;
 				if (!(displayException == null))
 				{
 					txtStackTrace.Text = displayException.StackTrace;
