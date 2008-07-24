@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter\ExceptionReporter", "ExceptionReporter\ExceptionReporter.csproj", "{F9133E79-D0C7-4A08-A4B8-75DD06314270}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter", "ExceptionReporter\ExceptionReporter.csproj", "{F9133E79-D0C7-4A08-A4B8-75DD06314270}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.ExceptionReporter\Test.ExceptionReporter", "Test.ExceptionReporter\Test.ExceptionReporter.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "Test.ExceptionReporter\DemoApp.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

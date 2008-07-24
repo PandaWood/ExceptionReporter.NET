@@ -23,7 +23,6 @@ namespace ExceptionReporting.Views
 	public class ExceptionReportPresenter
 	{
 		private readonly IExceptionReportView _view;
-		private ExceptionReportPresenter _presenter;
 
 		public ExceptionReportPresenter(IExceptionReportView view)
 		{
