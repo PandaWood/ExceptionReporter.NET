@@ -1,23 +1,18 @@
 Exception Reporter
 ------------------
 
-Thankyou for downloading and installing the Exception Reporter. We hope you find this product useful.
+ExceptionReporter is in the process of being moved to VS2008 and significantly updated as of 24th July, 2008 - I will be making updates very soon. In the meantime here is some summary of what's in here now.
 
-The following has been installed:
+* Folder Structure
 
-SLSExceptionReporter.dll - this DLL contains the Exception Reporter component for you to reference from your projects.  This file must be distributed with any application that makes use of the Exception Reporter.
-
-License.htm   - Text of the GNU Lesser General Public License which the Exception Reporter is distributed under
-
-SLSExceptionReporterDemo.exe  - this is an executable that demonstrates the Exception Reporter.
-
+SLSExceptionReporter.dll - this DLL contains the Exception Reporter component for you to reference from your projects.  This file must be distributed with any application that makes use of the Exception Reporter
+SLSExceptionReporterDemo.exe  - this is an executable that demonstrates the Exception Reporter
 SLSExceptionReporterDemo.exe.config  - this file is used by the Demo, and illustrates the usage of a config file to set Exception Reporter properties
+doc  - HTML documentation for the Exception Reporter, refer to Documentation\index.html
+src - the source code for the exception reporter and the demo application
 
-Documentation - this directory contains HTML documentation for the Exception Reporter, refer to Documentation\index.html
-
-SourceCode - this directory contains the Source Code for the exception reporter and the demo application
-
-
-Check for updates at www.stratalogic.com and SourceForge.Net
+Contributors:
+phillippettit
+PandaWood (spurrymoses@gmail.com)
 
 
