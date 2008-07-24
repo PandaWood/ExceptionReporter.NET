@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using TestExceptionReporter;
 
-namespace Test.ExceptionReporter
+namespace ExceptionReporting.DemoApp
 {
 	static class Program
 	{
@@ -14,7 +13,7 @@ namespace Test.ExceptionReporter
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new TestExceptionReporterView());
+			Application.Run(new DemoAppView());
 		}
 	}
 }

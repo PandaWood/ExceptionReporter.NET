@@ -8,11 +8,11 @@
     <ProjectGuid>{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test.ExceptionReporter</RootNamespace>
-    <AssemblyName>Test.ExceptionReporter</AssemblyName>
+    <RootNamespace>ExceptionReporting.DemoApp</RootNamespace>
+    <AssemblyName>DemoApp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>Test.ExceptionReporter.Program</StartupObject>
+    <StartupObject>ExceptionReporting.DemoApp.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,12 +56,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TestExceptionReporterView.resx">
-      <DependentUpon>TestExceptionReporterView.cs</DependentUpon>
+    <EmbeddedResource Include="DemoAppView.resx">
+      <DependentUpon>DemoAppView.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -72,11 +73,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TestExceptionReporterView.cs">
+    <Compile Include="DemoAppView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestExceptionReporterView.designer.cs">
-      <DependentUpon>TestExceptionReporterView.cs</DependentUpon>
+    <Compile Include="DemoAppView.designer.cs">
+      <DependentUpon>DemoAppView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

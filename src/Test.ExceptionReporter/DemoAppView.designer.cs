@@ -1,6 +1,6 @@
-namespace TestExceptionReporter
+namespace ExceptionReporting.DemoApp
 {
-	partial class TestExceptionReporterView
+	partial class DemoAppView
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -39,13 +39,13 @@ namespace TestExceptionReporter
 			this.button1.TabIndex = 1;
 			this.button1.Text = "Throw Exception";
 			// 
-			// TestExceptionReporterView
+			// DemoAppView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(291, 79);
 			this.Controls.Add(this.button1);
-			this.Name = "TestExceptionReporterView";
+			this.Name = "DemoAppView";
 			this.Text = "ExceptionReportView";
 			this.ResumeLayout(false);
 
@@ -57,4 +57,3 @@ namespace TestExceptionReporter
 
 	}
 }
-

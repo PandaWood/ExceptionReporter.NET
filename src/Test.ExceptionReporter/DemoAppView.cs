@@ -1,12 +1,11 @@
 using System;
 using System.Windows.Forms;
-using SLSExceptionReporter;
 
-namespace TestExceptionReporter
+namespace ExceptionReporting.DemoApp
 {
-	public partial class TestExceptionReporterView : Form
+	public partial class DemoAppView : Form
 	{
-		public TestExceptionReporterView()
+		public DemoAppView()
 		{
 			InitializeComponent();
 
@@ -17,7 +16,8 @@ namespace TestExceptionReporter
 		{
 			try
 			{
-				throw new Exception("Something went boom!");
+				int? x = null;
+				int y = x.Value;
 			}
 			catch (Exception ex)
 			{
