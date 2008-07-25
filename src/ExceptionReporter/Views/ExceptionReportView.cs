@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
-using System.IO;
-using System.Management;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -42,14 +40,14 @@ namespace ExceptionReporting.Views
 
 		private void WireUpEvents()
 		{
-			btnEmail.Click += cmdEmail_Click;
+			btnEmail.Click += Email_Click;
 			btnPrint.Click += cmdPrint_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			lblApplication.Click += lblApplication_Click;
 			btnCopy.Click += cmdCopy_Click;
 			lnkEmail.LinkClicked += lnkEmail_LinkClicked;
-			btnSave.Click += cmdSave_Click;
-			lnkWeb.LinkClicked += LnkWebLinkClicked;
+			btnSave.Click += Save_Click;
+			lnkWeb.LinkClicked += UrlClicked;
 		}
 
 		public bool ShowGeneralTab { get; set; }
@@ -59,11 +57,6 @@ namespace ExceptionReporting.Views
 		public bool ShowExceptionsTab { get; set; }
 		public bool ShowEnvironmentTab { get; set; }
 		public bool ShowAssembliesTab { get; set; }
-		public string SMTPServer { get; set; }
-		public string SMTPUsername { get; set; }
-		public string SMTPPassword { get; set; }
-		public string SMTPFromAddress { get; set; }
-		public string SendEmailAddress { get; set; }
 
 		public string ProgressMessage
 		{
@@ -83,6 +76,12 @@ namespace ExceptionReporting.Views
 		public bool ShowProgressBar
 		{
 			set { throw new NotImplementedException(); }
+		}
+
+		public int ProgressValue
+		{
+			get { return progressBar.Value; }
+			set { progressBar.Value = value; }
 		}
 
 		public string ContactEmail
@@ -155,7 +154,7 @@ namespace ExceptionReporting.Views
 
 		public void sendMAPIEmail()
 		{
-			_presenter.SendMapiEmail(SendEmailAddress, Handle);
+			_presenter.SendMapiEmail(Handle);
 		}
 
 		public void sendSMTPEmail()
@@ -165,47 +164,38 @@ namespace ExceptionReporting.Views
 
 		public void SetTabs()
 		{
-			try
-			{
-				// remove all the tabs to start with
-				tcTabs.TabPages.Clear();			//TODO should optimise this out
+			tabControl.TabPages.Clear(); 
 
-				// add back the tabs one by one that are configured to be shown
-				if (ShowGeneralTab)
-				{
-					tcTabs.TabPages.Add(tpGeneral);
-				}
-				if (ShowExceptionsTab)
-				{
-					tcTabs.TabPages.Add(tpExceptions);
-				}
-				if (ShowAssembliesTab)
-				{
-					tcTabs.TabPages.Add(tpAssemblies);
-				}
-				if (ShowSettingsTab)
-				{
-					tcTabs.TabPages.Add(tpSettings);
-				}
-				if (ShowEnvironmentTab)
-				{
-					tcTabs.TabPages.Add(tpEnvironment);
-				}
-				if (ShowContactTab)
-				{
-					tcTabs.TabPages.Add(tpContact);
-				}
-			}
-			catch (Exception ex)
+			// add back the tabs one by one that are configured to be shown
+			if (ShowGeneralTab)
 			{
-				ShowError("There has been a problem configuring tab page display within the Exception Reporter", ex);
+				tabControl.TabPages.Add(tabGeneral);
 			}
-			return;
+			if (ShowExceptionsTab)
+			{
+				tabControl.TabPages.Add(tabExceptions);
+			}
+			if (ShowAssembliesTab)
+			{
+				tabControl.TabPages.Add(tabAssemblies);
+			}
+			if (ShowSettingsTab)
+			{
+				tabControl.TabPages.Add(tabSettings);
+			}
+			if (ShowEnvironmentTab)
+			{
+				tabControl.TabPages.Add(tabEnvironment);
+			}
+			if (ShowContactTab)
+			{
+				tabControl.TabPages.Add(tabContact);
+			}
 		}
 
 		public void HandleError(string message, Exception ex)
 		{
-			var simpleExceptionView = new SimpleExceptionView();
+			var simpleExceptionView = new InternalExceptionView();
 			simpleExceptionView.ShowException(message, ex);
 		}
 
@@ -214,124 +204,16 @@ namespace ExceptionReporting.Views
 			return _presenter.BuildExceptionString();
 		}
 
-//		//TODO this is being moved to the ExceptionStringBuilder class
-//		private string BuildExceptionString(bool showGeneral, bool showExceptionHierarchy, bool showAssemblies, bool showSettings,
-//		                                    bool showEnvironment, bool showContact, bool isForPrinting)
-//		{
-
-//			_exceptionString = new StringBuilder();
-//
-//			if (showGeneral)
-//			{
-//				if (!isForPrinting)
-//				{
-//					_exceptionString.AppendLine(lblGeneral.Text);
-//					_exceptionString.AppendLine();
-//					AppendDottedLine(_exceptionString);
-//					_exceptionString.AppendLine();
-//				}
-//
-//				_exceptionString.AppendLine("General");
-//				_exceptionString.AppendLine();
-//				_exceptionString.AppendLine("Application: " + txtApplication.Text);
-//				_exceptionString.AppendLine("Version:     " + txtVersion.Text);
-//				_exceptionString.AppendLine("Region:      " + txtRegion.Text);
-//				_exceptionString.AppendLine("Machine:     " + " " + txtMachine.Text);
-//				_exceptionString.AppendLine("User:        " + txtUserName.Text);
-//				AppendDottedLine(_exceptionString);
-//
-//				if (!isForPrinting)
-//				{
-//					_exceptionString.AppendLine();
-//					_exceptionString.AppendLine("Date: " + txtDate.Text);
-//					_exceptionString.AppendLine("Time: " + txtTime.Text);
-//					AppendDottedLine(_exceptionString);
-//				}
-//
-//				_exceptionString.AppendLine();
-//				_exceptionString.AppendLine("Explanation");
-//				_exceptionString.AppendLine(txtExplanation.Text.Trim());
-//				_exceptionString.AppendLine();
-//				AppendDottedLine(_exceptionString);
-//				_exceptionString.AppendLine();
-//			}
-//
-//			if (showExceptionHierarchy)
-//			{
-//				_exceptionString.AppendLine("Exceptions");
-//				_exceptionString.AppendLine();
-//				_exceptionString.AppendLine(_presenter.ExceptionHierarchyToString(_exception));
-//				_exceptionString.AppendLine();
-//				AppendDottedLine(_exceptionString);
-//				_exceptionString.AppendLine();
-//			}
-//
-//			if (showAssemblies)
-//			{
-//				_exceptionString.AppendLine("Assemblies");
-//				_exceptionString.AppendLine();
-//				_exceptionString.AppendLine(_presenter.ReferencedAssembliesToString(_assembly));
-//				AppendDottedLine(_exceptionString);
-//				_exceptionString.AppendLine();
-//			}
-//
-//			if (showSettings)
-//			{
-////					TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
-//				AppendDottedLine(_exceptionString);
-//				_exceptionString.AppendLine();
-//			}
-//
-//			if (showEnvironment)
-//			{
-////					TreeToString(tvwEnvironment, stringBuilder);
-//				AppendDottedLine(_exceptionString);
-//				_exceptionString.AppendLine();
-//			}
-//
-//			if (showContact)
-//			{
-//				_exceptionString.AppendLine("Contact");
-//				_exceptionString.AppendLine();
-//				_exceptionString.AppendLine("E-Mail: " + lnkEmail.Text);
-//				_exceptionString.AppendLine("Web:    " + lnkWeb.Text);
-//				_exceptionString.AppendLine("Phone:  " + txtPhone.Text);
-//				_exceptionString.AppendLine("Fax:    " + txtFax.Text);
-//				_exceptionString.AppendLine("-----------------------------");
-//				_exceptionString.AppendLine();
-//			}
-//
-//			return _exceptionString.ToString();
-//		}
-
-		private static void TreeToString(TreeView treeView, TextWriter treeWriter)	//TODO this will need to be reinstated shortly
-		{
-			TreeNodeToString(treeView.Nodes[0], treeWriter, 0);
-			return;
-		}
-
-		private static void TreeNodeToString(TreeNode tnNode, TextWriter swWriter, int level)
-		{
-			string space = string.Empty;
-
-			for (int intCount = 0; intCount < (level*4); intCount++)
-				space += " ";
-
-			if (level <= 2)
-				swWriter.WriteLine(string.Empty);
-
-			swWriter.WriteLine(space + tnNode.Text);
-			foreach (TreeNode tnChild in tnNode.Nodes)
-			{
-				TreeNodeToString(tnChild, swWriter, level + 1);
-			}
-		}
-
 		//TODO put on a background thread
 		protected override void OnActivated(EventArgs e)
 		{
-			base.OnActivated(e);	
+			base.OnActivated(e);
 
+			PopulateAll();
+		}
+
+		private void PopulateAll()
+		{
 			try
 			{
 				if (!_refreshData)	// only refresh when we need to
@@ -341,14 +223,14 @@ namespace ExceptionReporting.Views
 				Cursor = Cursors.WaitCursor;
 				lblProgress.Visible = true;
 				progressBar.Visible = true;
-				progressBar.Maximum = 14;
 				progressBar.Value = 0;
+				progressBar.Maximum = 13;
 
-				PopulateGeneralTab();
-				PopulateEnvironmentTree();
-				PopulateSettingsTab();
-				PopulateExceptionHierarchyTree(_presenter.TheException);
-				PopulateAssemblyInfo();
+				PopulateGeneralTab(); progressBar.Value++;
+				PopulateEnvironmentTree(); progressBar.Value++;
+				PopulateSettingsTab(); progressBar.Value++;
+				PopulateExceptionHierarchyTree(_presenter.TheException); progressBar.Value++;
+				PopulateAssemblyInfo(); progressBar.Value++;
 
 				SetTabs();
 			}
@@ -380,118 +262,45 @@ namespace ExceptionReporting.Views
 		private void PopulateSettingsTab()
 		{
 			var settingsRoot = new TreeNode("Application Settings");
-			IEnumerator ienum = ConfigurationManager.AppSettings.GetEnumerator();
+			IEnumerator configEnum = ConfigurationManager.AppSettings.GetEnumerator();
 
-			while (ienum.MoveNext())
+			while (configEnum.MoveNext())
 			{
 				settingsRoot.Nodes.Add(
-					new TreeNode(ienum.Current + " : " + ConfigurationManager.AppSettings.Get(ienum.Current.ToString())));
+					new TreeNode(configEnum.Current + " : " + ConfigurationManager.AppSettings.Get(configEnum.Current.ToString())));
 			}
 
-			tvwSettings.Nodes.Add(settingsRoot);
+			treeSettings.Nodes.Add(settingsRoot);
 			settingsRoot.Expand();
-			progressBar.Value++;
-			Application.DoEvents();
 		}
 
 		private void PopulateEnvironmentTree()
 		{
 			var root = new TreeNode("Environment");
 
-			try
-			{
-				AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, "");
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value++;
-				Application.DoEvents();
-			}
-			try
-			{
-				AddEnvironmentNode("CPU", "Win32_Processor", root, true, "");
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value++;
-				Application.DoEvents();
-			}
-			try
-			{
-				AddEnvironmentNode("Memory", "Win32_PhysicalMemory", root, true, "");
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value++;
-				Application.DoEvents();
-			}
+			_presenter.AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, string.Empty);
+			_presenter.AddEnvironmentNode("CPU", "Win32_Processor", root, true, string.Empty);
+			_presenter.AddEnvironmentNode("Memory", "Win32_PhysicalMemory", root, true, string.Empty);
+			_presenter.AddEnvironmentNode("Drives", "Win32_DiskDrive", root, true, string.Empty);
+			_presenter.AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, string.Empty);
+			_presenter.AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, string.Empty);
 
-			try
-			{
-				AddEnvironmentNode("Drives", "Win32_DiskDrive", root, true, "");
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value++;
-				Application.DoEvents();
-			}
+			if (EnumeratePrinters)
+				_presenter.AddEnvironmentNode("Printers", "Win32_Printer", root, true, string.Empty);
 
-			try
-			{
-				AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, "");
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value++;
-				Application.DoEvents();
-			}
-
-			try
-			{
-				if (EnumeratePrinters)
-				{
-					AddEnvironmentNode("Printers", "Win32_Printer", root, true, "");
-				}
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value ++;
-				Application.DoEvents();
-			}
-
-			try
-			{
-				AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, "");
-			}
-			catch { /* do nothing */ }
-			finally
-			{
-				progressBar.Value++;
-				Application.DoEvents();
-			}
-
-			tvwEnvironment.Nodes.Add(root);
+			treeEnvironment.Nodes.Add(root);
 			root.Expand();
-
-			return;
 		}
 
 		private void PopulateGeneralTab()
 		{
-			txtDate.Text = DateTime.Now.ToShortDateString();
-			txtTime.Text = DateTime.Now.ToLongTimeString();
-			txtUserName.Text = Environment.UserName;
-			txtMachine.Text = Environment.MachineName;
-
-			txtRegion.Text = Application.CurrentCulture.DisplayName;
-			txtApplication.Text = Application.ProductName;
-			txtVersion.Text = Application.ProductVersion;
+			txtDate.Text = _presenter.Info.ExceptionDate.ToShortDateString();
+			txtTime.Text = _presenter.Info.ExceptionDate.ToShortTimeString();
+			txtUserName.Text = _presenter.Info.UserName;
+			txtMachine.Text = _presenter.Info.MachineName;
+			txtRegion.Text = _presenter.Info.RegionInfo;
+			txtApplication.Text = _presenter.Info.AppName;
+			txtVersion.Text = _presenter.Info.AppVersion;
 		}
 
 		public void ShowExceptionReporter()
@@ -540,25 +349,6 @@ namespace ExceptionReporting.Views
 			txtMessage.Text = e.Message;
 		}
 
-		private static void AddEnvironmentNode(string caption, string className, TreeNode parentNode, bool useName, string where)
-		{
-			string strDisplayField = useName ? "Name" : "Caption";
-			var treeNode1 = new TreeNode(caption);
-			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0} {1}", className, where));
-
-			foreach (ManagementObject managementObject in objectSearcher.Get())
-			{
-				var treeNode2 = new TreeNode(managementObject.GetPropertyValue(strDisplayField).ToString().Trim());
-				treeNode1.Nodes.Add(treeNode2);
-				foreach (PropertyData propertyData in managementObject.Properties)
-				{
-					var propertyNode = new TreeNode(propertyData.Name + ':' + Convert.ToString(propertyData.Value));
-					treeNode2.Nodes.Add(propertyNode);
-				}
-			}
-			parentNode.Nodes.Add(treeNode1);
-		}
-
 		private void cmdPrint_Click(object sender, EventArgs e)
 		{
 			_presenter.PrintException();
@@ -595,27 +385,16 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void cmdEmail_Click(object sender, EventArgs e)
+		private void Email_Click(object sender, EventArgs e)
 		{
-			if (SendEmailAddress == null)
-				SendEmailAddress = lnkEmail.Text;
-
 			if (_sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
 				sendMAPIEmail();
 			
-			if (_sendMailType != ExceptionReporter.slsMailType.SMTP) return;
-
-			if (SendEmailAddress != null)
+			if (_sendMailType == ExceptionReporter.slsMailType.SMTP)
 				sendSMTPEmail();
-			else
-			{
-				MessageBox.Show(
-					"It is not possible to send e-mail as a recipient address has not been configured by the application.",
-					"To Address Missing");
-			}
 		}
 
-		private void cmdSave_Click(object sender, EventArgs e)
+		private void Save_Click(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
 			              	{
@@ -652,7 +431,7 @@ namespace ExceptionReporting.Views
 			txtMessage.Text = displayException.Message;
 		}
 
-		private void LnkWebLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			try
 			{
@@ -667,7 +446,7 @@ namespace ExceptionReporting.Views
 
 		private static void ShowError(string strMessage, Exception ex)
 		{
-			var simpleExceptionView = new SimpleExceptionView();
+			var simpleExceptionView = new InternalExceptionView();
 			simpleExceptionView.ShowException(strMessage, ex);
 		}
 	}

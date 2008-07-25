@@ -67,7 +67,7 @@
     <Compile Include="Views\PrintSelectionView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\SimpleExceptionView.cs">
+    <Compile Include="Views\InternalExceptionView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,8 +82,8 @@
     <EmbeddedResource Include="Views\PrintSelectionView.resx">
       <DependentUpon>PrintSelectionView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SimpleExceptionView.resx">
-      <DependentUpon>SimpleExceptionView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\InternalExceptionView.resx">
+      <DependentUpon>InternalExceptionView.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

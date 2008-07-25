@@ -119,13 +119,9 @@ namespace ExceptionReporting
 			while (currentException != null)
 			{
 				if (count++ == 0)
-				{
 					stringBuilder.AppendLine("Top-level Exception");
-				}
 				else
-				{
 					stringBuilder.AppendLine("Inner Exception " + count);
-				}
 
 				stringBuilder.AppendLine("Type:        " + currentException.GetType())
 						     .AppendLine("Message:     " + currentException.Message)
@@ -135,7 +131,6 @@ namespace ExceptionReporting
 					stringBuilder.AppendLine("Stack Trace: " + currentException.StackTrace.Trim());
 
 				stringBuilder.AppendLine();
-
 				currentException = currentException.InnerException;
 			}
 

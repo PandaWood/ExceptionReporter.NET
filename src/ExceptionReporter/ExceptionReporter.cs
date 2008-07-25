@@ -149,7 +149,7 @@ namespace ExceptionReporting
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem loading Exception Reporter properties from the config file.", ex);
+				ShowInternalException("There has been a problem loading Exception Reporter properties from the config file.", ex);
 			}
 		}
 
@@ -214,11 +214,11 @@ namespace ExceptionReporting
 				                   		ShowContactTab = ShowContactTab,
 				                   		ShowExceptionsTab = ShowExceptionsTab,
 				                   		MailType = MailType,
-				                   		SMTPServer = SMTPServer,
-				                   		SMTPUsername = SMTPUsername,
-				                   		SMTPPassword = SMTPPassword,
-				                   		SMTPFromAddress = SMTPFromAddress,
-				                   		SendEmailAddress = SendEmailAddress,
+//				                   		SMTPServer = SMTPServer,	//TODO
+//				                   		SMTPUsername = SMTPUsername,
+//				                   		SMTPPassword = SMTPPassword,
+//				                   		SMTPFromAddress = SMTPFromAddress,
+//				                   		SendEmailAddress = SendEmailAddress,
 				                   		GeneralMessage = GeneralMessage,
 				                   		ExplanationMessage = ExplanationMessage,
 				                   		ContactMessageBottom = ContactMessageBottom,
@@ -230,7 +230,7 @@ namespace ExceptionReporting
 			}
 			catch (Exception ourException)
 			{
-				handleError("There has been a problem displaying the Exception Reporter", ourException);
+				ShowInternalException("There has been a problem displaying the Exception Reporter", ourException);
 			}
 		}
 
@@ -239,9 +239,9 @@ namespace ExceptionReporting
 		/// The form contains 2 tabs, one for simple information and the other for a more detailed
 		/// exception message
 		/// </summary>
-		private static void handleError(string strMessage, Exception ex)
+		private static void ShowInternalException(string strMessage, Exception ex)
 		{
-			var exceptionView = new SimpleExceptionView();
+			var exceptionView = new InternalExceptionView();
 			exceptionView.ShowException(strMessage, ex);
 		}
 	}

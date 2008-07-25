@@ -5,6 +5,8 @@ namespace ExceptionReporting
 {
 	public class ExceptionReportInfo
 	{
+		public string SmtpFromAddress { get; set; }
+		public string SmtpServer { get; set; }
 		public Exception Exception { get; set; }
 		public bool isForPrinting { get; set; }
 		public string Email { get; set; }
