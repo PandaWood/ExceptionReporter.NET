@@ -2,14 +2,12 @@
 using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
-using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Management;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using Win32Mapi;
 
 namespace ExceptionReporting.Views
 {
@@ -17,19 +15,10 @@ namespace ExceptionReporting.Views
 	{
 		private Exception _exception;
 		private StringBuilder _exceptionString;
-		private StringBuilder _printString;
-		private StringReader _stringReader;
-		private int _charactersPerLine;
-		private int _linesPerPage;
-		private Font _printFont;
-		private Font _boldFont;
-		private int _drawWidth;
-		private int _drawHeight;
-		private int _pageCount;
 		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
 		private Assembly _assembly;
 		private bool _refreshData;
-		private String _email;
+		private string _email;
 
 		private bool _showGeneralTab = true;
 		private bool _showEnvironmentTab = true;
@@ -68,29 +57,7 @@ namespace ExceptionReporting.Views
 
 		public void sendMAPIEmail()
 		{
-			try
-			{
-				var ma = new Mapi();
-				ma.Logon(Handle);
-
-				ma.Reset();
-				if (_email != null)
-				{
-					if (_email.Length > 0)
-					{
-						ma.AddRecip(_email, null, false);
-					}
-				}
-
-				ma.Send("An Exception has occured", _exceptionString.ToString(), true);
-				ma.Logoff();
-			}
-			catch (Exception ex)
-			{
-				handleError(
-					"There has been a problem sending e-mail through Simple MAPI. A suitable mail client or required protocols may not be configured on the machine. Instead, you can use the copy button to place details of the error onto the clipboard, you can then paste this information directly into your mail client",
-					ex);
-			}
+			_presenter.SendMapiEmail(_email, _exceptionString, Handle);
 		}
 
 		public void sendSMTPEmail()
@@ -134,7 +101,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem configuring tab page display within the Exception Reporter", ex);
+				ShowError("There has been a problem configuring tab page display within the Exception Reporter", ex);
 			}
 			return;
 		}
@@ -172,7 +139,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem configuring command button display within the Exception Reporter", ex);
+				ShowError("There has been a problem configuring command button display within the Exception Reporter", ex);
 			}
 			return;
 		}
@@ -224,10 +191,10 @@ namespace ExceptionReporting.Views
 			set { btnEmail.Enabled = value; }
 		}
 
-		public String SMTPServer { get; set; }
+		public string SMTPServer { get; set; }
 		public string SMTPUsername { get; set; }
-		public String SMTPPassword { get; set; }
-		public String SMTPFromAddress { get; set; }
+		public string SMTPPassword { get; set; }
+		public string SMTPFromAddress { get; set; }
 
 		public string EmailToSendTo
 		{
@@ -252,7 +219,7 @@ namespace ExceptionReporting.Views
 //			btnEmail.Enabled = true;
 		}
 
-		public String SendEmailAddress
+		public string SendEmailAddress
 		{
 			get { return _email; }
 			set { _email = value; }
@@ -288,43 +255,43 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public String ContactEmail
+		public string ContactEmail
 		{
 			get { return lnkEmail.Text; }
 			set { lnkEmail.Text = value; }
 		}
 
-		public String ContactWeb
+		public string ContactWeb
 		{
 			get { return lnkWeb.Text; }
 			set { lnkWeb.Text = value; }
 		}
 
-		public String ContactPhone
+		public string ContactPhone
 		{
 			get { return txtPhone.Text; }
 			set { txtPhone.Text = value; }
 		}
 
-		public String ContactFax
+		public string ContactFax
 		{
 			get { return txtFax.Text; }
 			set { txtFax.Text = value; }
 		}
 
-		public String ContactMessageTop
+		public string ContactMessageTop
 		{
 			get { return lblContactMessageTop.Text; }
 			set { lblContactMessageTop.Text = value; }
 		}
 
-		public String ContactMessageBottom
+		public string ContactMessageBottom
 		{
 			get { return lblContactMessageBottom.Text; }
 			set { lblContactMessageBottom.Text = value; }
 		}
 
-		public String GeneralMessage
+		public string GeneralMessage
 		{
 			get { return lblGeneral.Text; }
 			set { lblGeneral.Text = value; }
@@ -336,19 +303,19 @@ namespace ExceptionReporting.Views
 			set { _sendMailType = value; }
 		}
 
-		public String ExplanationMessage
+		public string ExplanationMessage
 		{
 			get { return lblExplanation.Text; }
 			set { lblExplanation.Text = value; }
 		}
 
-		private void buildExceptionString()
+		private void BuildExceptionString()
 		{
-			buildExceptionString(true, true, true, true, true, true, false);
+			BuildExceptionString(true, true, true, true, true, true, false);
 			return;
 		}
 
-		private void buildExceptionString(bool blnGeneral, bool blnExceptions, bool blnAssemblies, bool blnSettings,
+		private void BuildExceptionString(bool blnGeneral, bool blnExceptions, bool blnAssemblies, bool blnSettings,
 		                                  bool blnEnvironment, bool blnContact, bool blnForPrint)
 		{
 			try
@@ -434,7 +401,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
+				ShowError("There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
 			}
 		}
 
@@ -443,7 +410,7 @@ namespace ExceptionReporting.Views
 			stringBuilder.AppendLine("-----------------------------");
 		}
 
-		private static void TreeToString(TreeView treeView, TextWriter treeWriter)
+		private static void TreeToString(TreeView treeView, TextWriter treeWriter)	//TODO this will need to be reinstated shortly
 		{
 			TreeNodeToString(treeView.Nodes[0], treeWriter, 0);
 			return;
@@ -470,47 +437,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private static void WrapText(TextReader sr, TextWriter sw, int intMaxLineChars)
-		{
-			String strSubLine;
-
-			string strLine = sr.ReadLine();
-			while (strLine != null)
-			{
-				// handle blank lines
-				if (strLine.Length == 0)
-				{
-					sw.WriteLine(strLine);
-				}
-
-				// handle long lines
-				while (strLine.Length > intMaxLineChars)
-				{
-					strSubLine = strLine.Substring(0, intMaxLineChars);
-					int intPos = strSubLine.LastIndexOf(" ");
-					if (intPos > intMaxLineChars - 7)
-					{
-						// ie if space occurs within last set of characters
-						// then wrap at the space (not in the middle of a word)
-						strSubLine = strSubLine.Substring(0, intPos);
-					}
-					sw.WriteLine(strSubLine);
-					strLine = strLine.Substring(strSubLine.Length);
-				}
-
-				// now just add remaining chars if there are any
-				if (strLine.Length > 0)
-				{
-					sw.WriteLine(strLine);
-				}
-
-				// get the next line
-				strLine = sr.ReadLine();
-			}
-			// bubble error back
-			return;
-		}
-
+		//TODO 'extract method' on this
 		protected override void OnActivated(EventArgs e)
 		{
 			base.OnActivated(e);
@@ -551,7 +478,7 @@ namespace ExceptionReporting.Views
 
 				try
 				{
-					addEnvironmentNode2("Operating System", "Win32_OperatingSystem", root, false, "");
+					AddEnvironmentNode2("Operating System", "Win32_OperatingSystem", root, false, "");
 				}
 				catch
 				{
@@ -564,7 +491,7 @@ namespace ExceptionReporting.Views
 				}
 				try
 				{
-					addEnvironmentNode2("CPU", "Win32_Processor", root, true, "");
+					AddEnvironmentNode2("CPU", "Win32_Processor", root, true, "");
 				}
 				catch
 				{
@@ -577,21 +504,7 @@ namespace ExceptionReporting.Views
 				}
 				try
 				{
-					addEnvironmentNode2("Memory", "Win32_PhysicalMemory", root, true, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-
-				try
-				{
-					addEnvironmentNode2("Drives", "Win32_DiskDrive", root, true, "");
+					AddEnvironmentNode2("Memory", "Win32_PhysicalMemory", root, true, "");
 				}
 				catch
 				{
@@ -605,7 +518,21 @@ namespace ExceptionReporting.Views
 
 				try
 				{
-					addEnvironmentNode2("Environment Variables", "Win32_Environment", root, true, "");
+					AddEnvironmentNode2("Drives", "Win32_DiskDrive", root, true, "");
+				}
+				catch
+				{
+					// do nothing, some environment nodes aren't available on all machines
+				}
+				finally
+				{
+					progressBar.Value = progressBar.Value + 1;
+					Application.DoEvents();
+				}
+
+				try
+				{
+					AddEnvironmentNode2("Environment Variables", "Win32_Environment", root, true, "");
 				}
 				catch
 				{
@@ -621,7 +548,7 @@ namespace ExceptionReporting.Views
 				{
 					if (EnumeratePrinters)
 					{
-						addEnvironmentNode2("Printers", "Win32_Printer", root, true, "");
+						AddEnvironmentNode2("Printers", "Win32_Printer", root, true, "");
 					}
 				}
 				catch
@@ -636,7 +563,7 @@ namespace ExceptionReporting.Views
 
 				try
 				{
-					addEnvironmentNode2("System", "Win32_ComputerSystem", root, true, "");
+					AddEnvironmentNode2("System", "Win32_ComputerSystem", root, true, "");
 				}
 				catch
 				{
@@ -696,19 +623,17 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem setting up the Exception Reporter display", ex);
+				ShowError("There has been a problem setting up the Exception Reporter display", ex);
 			}
 		}
 
-		public bool displayException(Exception ex, Assembly callingAssembly)
+		public void DisplayException(Exception ex, Assembly callingAssembly)
 		{
 			_assembly = callingAssembly;
 			_exception = ex;
 			_refreshData = true;
 
 			ShowDialog();
-
-			return true;
 		}
 
 		private void buildExceptionHeirarchy(Exception e)
@@ -750,16 +675,16 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem building the Exception Heirarchy list", ex);
+				ShowError("There has been a problem building the Exception Heirarchy list", ex);
 			}
 		}
 
 
-		private static void addEnvironmentNode2(String strCaption, String strClass, TreeNode parentNode, Boolean blnUseName, String strWhere)
+		private static void AddEnvironmentNode2(string strCaption, string strClass, TreeNode parentNode, Boolean blnUseName, string strWhere)
 		{
 			try
 			{
-				String strDisplayField = blnUseName ? "Name" : "Caption";
+				string strDisplayField = blnUseName ? "Name" : "Caption";
 
 				var tn = new TreeNode(strCaption);
 
@@ -779,69 +704,21 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem adding an Environment node.", ex);
+				ShowError("There has been a problem adding an Environment node.", ex);
 				return;
 			}
 		}
 
 		private void cmdPrint_Click(object sender, EventArgs e)
 		{
-			var printSelectView = new PrintSelectionView();
-			bool showGeneral = false;
-			bool showExceptions = false;
-			bool showAssemblies = false;
-			bool showSettings = false;
-			bool showEnvironment = false;
-			bool showContact = false;
-
-			try
-			{
-				if (
-					!printSelectView.selectPrintDetails(ref showGeneral, ref showExceptions, ref showAssemblies, ref showSettings, ref showEnvironment,
-					                          ref showContact))
-				{
-					//user has cancelled print
-					return;
-				}
-
-				if (showGeneral == false && showExceptions == false && showAssemblies == false && showSettings == false &&
-				    showEnvironment == false && showContact == false)
-				{
-					MessageBox.Show("No items have been selected for print. Printing has been cancelled.", "Printing Cancelled");
-					return;
-				}
-
-				buildExceptionString(showGeneral, showExceptions, showAssemblies, showSettings, showEnvironment, showContact, true);
-
-				PrintEventHandler peHandler = printDocument1_BeginPrint;
-				printDocument1.BeginPrint += peHandler;
-			}
-			catch (Exception ex)
-			{
-				handleError("There has been a problem preparing to Print", ex);
-			}
-
-
-			printDialog1.Document = printDocument1;
-			DialogResult dr = printDialog1.ShowDialog(this);
-			if (dr == DialogResult.OK)
-			{
-				try
-				{
-					printDocument1.Print();
-				}
-				catch (Exception ex)
-				{
-					handleError("There has been a problem printing", ex);
-				}
-			}
+			_presenter.PrintException();
 		}
 
 		private void lnkEmail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			try
 			{
-				String strLink = lnkEmail.Text;
+				string strLink = lnkEmail.Text;
 
 				if (!strLink.Substring(0, 7).ToUpper().Equals("MAILTO:"))
 				{
@@ -852,7 +729,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem handling the e-mail link", ex);
+				ShowError("There has been a problem handling the e-mail link", ex);
 			}
 		}
 
@@ -861,18 +738,18 @@ namespace ExceptionReporting.Views
 		{
 			try
 			{
-				buildExceptionString();
+				BuildExceptionString();
 				Clipboard.SetDataObject(_exceptionString.ToString(), true);
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem copying to clipboard", ex);
+				ShowError("There has been a problem copying to clipboard", ex);
 			}
 		}
 
 		private void cmdEmail_Click(object sender, EventArgs e)
 		{
-			buildExceptionString();
+			BuildExceptionString();
 			try
 			{
 				if (_email == null)
@@ -900,117 +777,9 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem sending e-mail", ex);
+				ShowError("There has been a problem sending e-mail", ex);
 			}
 		}
-
-		private void printDocument1_BeginPrint(object sender, PrintEventArgs e)
-		{
-			_pageCount = 0;
-		}
-
-		private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-		{
-			int leftMargin = e.MarginBounds.Left;
-			int rightMargin = e.MarginBounds.Right;
-			int topMargin = e.MarginBounds.Top;
-			int intCount = 0;
-
-			_pageCount ++;
-			if (_pageCount == 1)
-			{
-				_printFont = new Font("Courier New", 12);
-				_boldFont = new Font("Courier New", 12, FontStyle.Bold);
-			}
-
-			SizeF fSize = e.Graphics.MeasureString("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", _printFont);
-			float fltFontWidth = fSize.Width/30;
-
-			if (_pageCount == 1)
-			{
-				// setup for first page
-				_drawWidth = e.MarginBounds.Size.Width; //- (e.MarginBounds.Left + e.MarginBounds.Right);
-				_drawHeight = e.MarginBounds.Size.Height; //- (e.MarginBounds.Top+ e.MarginBounds.Bottom);
-
-				_charactersPerLine = (int) (_drawWidth/fltFontWidth); //fSize.ToSize().Width;
-				_linesPerPage = (int) (_drawHeight/_printFont.GetHeight());
-
-
-				_printString = new StringBuilder();
-				var swPrint = new StringWriter(_printString);
-				var srException = new StringReader(_exceptionString.ToString());
-				WrapText(srException, swPrint, _charactersPerLine);
-				_stringReader = new StringReader(_printString.ToString());
-			}
-			// draw the border
-			var rect = new Rectangle(leftMargin, topMargin, _drawWidth, _drawHeight);
-			e.Graphics.DrawRectangle(Pens.Black, rect);
-
-			//draw the header
-			string strLine = "Error Report: " + txtApplication.Text;
-			e.Graphics.DrawString(strLine, _boldFont, Brushes.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()));
-			intCount++;
-			strLine = "Date/Time:    " + txtDate.Text + " " + txtTime.Text;
-			e.Graphics.DrawString(strLine, _boldFont, Brushes.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()));
-			intCount++;
-			e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()), rightMargin,
-			                    topMargin + ((intCount)*_printFont.GetHeight()));
-			intCount++; // leave a space from header
-
-
-			// draw the footer
-			strLine = "Page: " + _pageCount;
-			e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((_linesPerPage - 2)*_printFont.GetHeight()), rightMargin,
-			                    topMargin + ((_linesPerPage - 2)*_printFont.GetHeight()));
-			e.Graphics.DrawString(strLine, _boldFont, Brushes.Black, leftMargin,
-			                      topMargin + ((_linesPerPage - 1)*_printFont.GetHeight()));
-
-
-			//loop for the number of lines a page
-			while (intCount <= (_linesPerPage - 3)) // - 1 because of footer
-			{
-				Font currentFont = _printFont;
-				bool blnSkip = false;
-				// read the line
-				strLine = _stringReader.ReadLine();
-				if (strLine == null)
-				{
-					intCount = _linesPerPage + 1; //exit the loop
-				}
-				else
-				{
-					if (strLine.Length >= 5)
-					{
-						if (strLine.Substring(1, 4).Equals("----"))
-						{
-							//draw a seperator line
-							e.Graphics.DrawLine(Pens.Black, leftMargin, topMargin + ((intCount)*_printFont.GetHeight()), rightMargin,
-							                    topMargin + ((intCount)*_printFont.GetHeight()));
-							blnSkip = true;
-						}
-					}
-					if (!blnSkip)
-					{
-						// check if the line should be bold
-						if (strLine.Equals("General") || strLine.Equals("Exceptions") || strLine.Equals("Explanation") ||
-						    strLine.Equals("Assemblies") || strLine.Equals("Application Settings") || strLine.Equals("Environment") ||
-						    strLine.Equals("Contact"))
-						{
-							currentFont = _boldFont;
-						}
-
-						// output the text line
-						e.Graphics.DrawString(strLine, currentFont, Brushes.Black, leftMargin,
-						                      topMargin + ((intCount)*_printFont.GetHeight()));
-					}
-				}
-				intCount++;
-			}
-
-			e.HasMorePages = _stringReader.Peek() != -1;
-			// let error bubble back
-		}
-
 
 		~ExceptionReportView()
 		{
@@ -1019,33 +788,18 @@ namespace ExceptionReporting.Views
 
 		private void cmdSave_Click(object sender, EventArgs e)
 		{
-			try
+			BuildExceptionString();
+
+			var saveDialog = new SaveFileDialog
+			              	{
+			              		Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
+			              		FilterIndex = 1,
+			              		RestoreDirectory = true
+			              	};
+
+			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
-				buildExceptionString();
-
-				Stream strStream;
-				var dlgSave = new SaveFileDialog
-				              	{
-				              		Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
-				              		FilterIndex = 1,
-				              		RestoreDirectory = true
-				              	};
-
-				if (dlgSave.ShowDialog() == DialogResult.OK)
-				{
-					if ((strStream = dlgSave.OpenFile()) != null)
-					{
-						var strWriter = new StreamWriter(strStream);
-
-						strWriter.Write(_exceptionString.ToString());
-
-						strStream.Close();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				handleError("There has been a problem saving error details to file", ex);
+				_presenter.Save(_exceptionString.ToString(), saveDialog.FileName);
 			}
 		}
 
@@ -1076,7 +830,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem handling the change of selected exception", ex);
+				ShowError("There has been a problem handling the change of selected exception", ex);
 			}
 		}
 
@@ -1084,16 +838,16 @@ namespace ExceptionReporting.Views
 		{
 			try
 			{
-				String strLink = lnkWeb.Text;
-				Process.Start(strLink);
+				var psi = new ProcessStartInfo(lnkWeb.Text) { UseShellExecute = true };
+				Process.Start(psi);
 			}
 			catch (Exception ex)
 			{
-				handleError("There has been a problem handling the web link click", ex);
+				ShowError("There has been a problem handling the web link click", ex);
 			}
 		}
 
-		private static void handleError(string strMessage, Exception ex)
+		private static void ShowError(string strMessage, Exception ex)
 		{
 			var simpleExceptionView = new SimpleExceptionView();
 			simpleExceptionView.ShowException(strMessage, ex);

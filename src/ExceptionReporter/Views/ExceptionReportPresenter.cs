@@ -1,9 +1,12 @@
 using System;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
+using Win32Mapi;
 
 namespace ExceptionReporting.Views
 {
@@ -27,15 +30,7 @@ namespace ExceptionReporting.Views
 	{
 		private Exception _exception;
 		private StringBuilder _exceptionString;
-		private StringBuilder _printString;
-		private StringReader _stringReader;
-		private int _charactersPerLine;
-		private int _linesPerPage;
-		private Font _printFont;
-		private Font _boldFont;
-		private int _drawWidth;
-		private int _drawHeight;
-		private int _pageCount;
+	
 		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
 		private Assembly _assembly;
 		private bool _refreshData;
@@ -221,6 +216,43 @@ namespace ExceptionReporting.Views
 		public string ExceptionHierarchyToString(Exception exception)
 		{
 			return ExceptionUtils.ExceptionHierarchyToString(exception);
+		}
+
+		public void SendMapiEmail(string email, StringBuilder exceptionString, IntPtr windowHandle)
+		{
+			try
+			{
+				var ma = new Mapi();
+				ma.Logon(windowHandle);
+
+				ma.Reset();
+				if (_email != null)
+				{
+					if (_email.Length > 0)
+					{
+						ma.AddRecip(_email, null, false);
+					}
+				}
+
+				ma.Send("An Exception has occured", _exceptionString.ToString(), true);
+				ma.Logoff();
+			}
+			catch (Exception ex)
+			{
+				_view.HandleError(
+					"There has been a problem sending e-mail. " +
+					"The machine may not be configured to be able to send mail in the way required (SimpleMAPI). " +
+					"Instead, use the copy button to place details of the error onto the clipboard, " +
+					"and then paste directly into an email",
+					ex);
+				//TODO why don't copy the detail onto the clipboard for them - or too intrusive?
+			}
+		}
+
+		public void PrintException()
+		{
+			ExceptionPrinter printer = new ExceptionPrinter();
+			printer.PrintException();
 		}
 	}
 }

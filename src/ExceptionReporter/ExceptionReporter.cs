@@ -243,7 +243,7 @@ namespace ExceptionReporting
 				                   		ContactMessageTop = ContactMessageTop
 				                   	};
 
-				exceptionReportView.displayException(ex, Assembly.GetCallingAssembly());
+				exceptionReportView.DisplayException(ex, Assembly.GetCallingAssembly());
 			}
 			catch (Exception exc)
 			{
