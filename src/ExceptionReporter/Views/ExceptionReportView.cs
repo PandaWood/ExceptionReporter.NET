@@ -13,19 +13,9 @@ namespace ExceptionReporting.Views
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	{
 		private Exception _exception;
-		private StringBuilder _exceptionString;
 		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
 		private Assembly _assembly;
 		private bool _refreshData;
-		private string _email;
-
-		private bool _showGeneralTab = true;
-		private bool _showEnvironmentTab = true;
-		private bool _showSettingsTab = true;
-		private bool _showContactTab = true;
-		private bool _showExceptionsTab = true;
-		private bool _showAssembliesTab = true;
-		private bool _showEnumeratePrinters = true;
 
 		private readonly ExceptionReportPresenter _presenter;
 
@@ -33,8 +23,25 @@ namespace ExceptionReporting.Views
 		{
 			InitializeComponent();
 
+			SetDefaults();
 			WireUpEvents();
 			_presenter = new ExceptionReportPresenter(this);
+		}
+
+		private void SetDefaults()
+		{
+			ShowAssembliesTab = true;
+			ShowEnvironmentTab = true;
+			EnumeratePrinters = true;
+			ShowGeneralTab = true;
+			ShowSettingsTab = true;
+			ShowContactTab = true;
+			ShowExceptionsTab = true;
+		}
+
+		~ExceptionReportView()
+		{
+			Dispose();
 		}
 
 		private void WireUpEvents()
@@ -49,136 +56,18 @@ namespace ExceptionReporting.Views
 			lnkWeb.LinkClicked += LnkWebLinkClicked;
 		}
 
-		private void lblApplication_Click(object sender, EventArgs e)
-		{
-			//TODO 
-		}
-
-		public void sendMAPIEmail()
-		{
-			_presenter.SendMapiEmail(_email, _exceptionString, Handle);
-		}
-
-		public void sendSMTPEmail()
-		{
-			_presenter.SendSmtpMail(_exceptionString.ToString());
-		}
-
-		private void setTabs()
-		{
-			try
-			{
-				// remove all the tabs to start with
-				tcTabs.TabPages.Clear();
-
-				// add back the tabs one by one that have the appropriate
-				// property set
-				if (_showGeneralTab)
-				{
-					tcTabs.TabPages.Add(tpGeneral);
-				}
-				if (_showExceptionsTab)
-				{
-					tcTabs.TabPages.Add(tpExceptions);
-				}
-				if (_showAssembliesTab)
-				{
-					tcTabs.TabPages.Add(tpAssemblies);
-				}
-				if (_showSettingsTab)
-				{
-					tcTabs.TabPages.Add(tpSettings);
-				}
-				if (_showEnvironmentTab)
-				{
-					tcTabs.TabPages.Add(tpEnvironment);
-				}
-				if (_showContactTab)
-				{
-					tcTabs.TabPages.Add(tpContact);
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem configuring tab page display within the Exception Reporter", ex);
-			}
-			return;
-		}
-
-		private void setButtons()
-		{
-			const int intXSpacer = 10;
-
-			try
-			{
-				int intX2Pos = Width - 30;
-
-				if (btnEmail.Visible)
-				{
-					btnEmail.Left = intX2Pos - btnEmail.Width;
-					intX2Pos -= btnEmail.Width;
-					intX2Pos -= intXSpacer;
-				}
-				if (btnSave.Visible)
-				{
-					btnSave.Left = intX2Pos - btnSave.Width;
-					intX2Pos -= btnSave.Width;
-					intX2Pos -= intXSpacer;
-				}
-				if (btnCopy.Visible)
-				{
-					btnCopy.Left = intX2Pos - btnCopy.Width;
-					intX2Pos -= btnCopy.Width;
-					intX2Pos -= intXSpacer;
-				}
-				if (btnPrint.Visible)
-				{
-					btnPrint.Left = intX2Pos - btnPrint.Width;
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem configuring command button display within the Exception Reporter", ex);
-			}
-			return;
-		}
-
-		// public property used to set/get visibility of Tab
-		public bool ShowGeneralTab
-		{
-			get { return _showGeneralTab; }
-			set
-			{
-				_showGeneralTab = value;
-				setTabs();
-			}
-		}
-
-		public bool EnumeratePrinters
-		{
-			get { return _showEnumeratePrinters; }
-			set { _showEnumeratePrinters = value; }
-		}
-
-		public bool ShowEnvironmentTab
-		{
-			get { return _showEnvironmentTab; }
-			set
-			{
-				_showEnvironmentTab = value;
-				setTabs();
-			}
-		}
-
-		public bool ShowAssembliesTab
-		{
-			get { return _showAssembliesTab; }
-			set
-			{
-				_showAssembliesTab = value;
-				setTabs();
-			}
-		}
+		public bool ShowGeneralTab { get; set; }
+		public bool EnumeratePrinters { get; set; }
+		public bool ShowSettingsTab { get; set; }
+		public bool ShowContactTab { get; set; }
+		public bool ShowExceptionsTab { get; set; }
+		public bool ShowEnvironmentTab { get; set; }
+		public bool ShowAssembliesTab { get; set; }
+		public string SMTPServer { get; set; }
+		public string SMTPUsername { get; set; }
+		public string SMTPPassword { get; set; }
+		public string SMTPFromAddress { get; set; }
+		public string SendEmailAddress { get; set; }
 
 		public string ProgressMessage
 		{
@@ -190,11 +79,6 @@ namespace ExceptionReporting.Views
 			set { btnEmail.Enabled = value; }
 		}
 
-		public string SMTPServer { get; set; }
-		public string SMTPUsername { get; set; }
-		public string SMTPPassword { get; set; }
-		public string SMTPFromAddress { get; set; }
-
 		public string EmailToSendTo
 		{
 			get { throw new NotImplementedException(); }
@@ -203,55 +87,6 @@ namespace ExceptionReporting.Views
 		public bool ShowProgressBar
 		{
 			set { throw new NotImplementedException(); }
-		}
-
-		public void HandleError(string message, Exception ex)
-		{
-			var simpleExceptionView = new SimpleExceptionView();
-			simpleExceptionView.ShowException(message, ex);
-		}
-
-		public void SetSendCompleteState()
-		{
-//			lblProgressMessage.Text = "Email sent.";		//TODO add these ui elements
-			progressBar.Visible = false;
-//			btnEmail.Enabled = true;
-		}
-
-		public string SendEmailAddress
-		{
-			get { return _email; }
-			set { _email = value; }
-		}
-
-		public bool ShowSettingsTab
-		{
-			get { return _showSettingsTab; }
-			set
-			{
-				_showSettingsTab = value;
-				setTabs();
-			}
-		}
-
-		public bool ShowContactTab
-		{
-			get { return _showContactTab; }
-			set
-			{
-				_showContactTab = value;
-				setTabs();
-			}
-		}
-
-		public bool ShowExceptionsTab
-		{
-			get { return _showExceptionsTab; }
-			set
-			{
-				_showExceptionsTab = value;
-				setTabs();
-			}
 		}
 
 		public string ContactEmail
@@ -308,101 +143,169 @@ namespace ExceptionReporting.Views
 			set { lblExplanation.Text = value; }
 		}
 
-		private void BuildExceptionString()
+		public void SetSendCompleteState()
 		{
-			BuildExceptionString(true, true, true, true, true, true, false);
-			return;
+//			lblProgressMessage.Text = "Email sent.";		//TODO add these ui elements
+			progressBar.Visible = false;
+//			btnEmail.Enabled = true;
 		}
 
-		//TODO this is being moved to the ExceptionStringBuilder class
-		private void BuildExceptionString(bool blnGeneral, bool blnExceptions, bool blnAssemblies, bool blnSettings,
-		                                  bool blnEnvironment, bool blnContact, bool blnForPrint)
+		private void lblApplication_Click(object sender, EventArgs e)
+		{
+			//TODO 
+		}
+
+		public void sendMAPIEmail()
+		{
+			_presenter.SendMapiEmail(SendEmailAddress, BuildExceptionString(), Handle);
+		}
+
+		public void sendSMTPEmail()
+		{
+			_presenter.SendSmtpMail(BuildExceptionString());
+		}
+
+		public void SetTabs()
 		{
 			try
 			{
-				_exceptionString = new StringBuilder();
+				// remove all the tabs to start with
+				tcTabs.TabPages.Clear();			//TODO should optimise this out
 
-				if (blnGeneral)
+				// add back the tabs one by one that are configured to be shown
+				if (ShowGeneralTab)
 				{
-					if (!blnForPrint)
-					{
-						_exceptionString.AppendLine(lblGeneral.Text);
-						_exceptionString.AppendLine();
-						AppendDottedLine(_exceptionString);
-						_exceptionString.AppendLine();
-					}
-					_exceptionString.AppendLine("General");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine("Application: " + txtApplication.Text);
-					_exceptionString.AppendLine("Version:     " + txtVersion.Text);
-					_exceptionString.AppendLine("Region:      " + txtRegion.Text);
-					_exceptionString.AppendLine("Machine:     " + " " + txtMachine.Text);
-					_exceptionString.AppendLine("User:        " + txtUserName.Text);
-					AppendDottedLine(_exceptionString);
-					if (!blnForPrint)
-					{
-						_exceptionString.AppendLine();
-						_exceptionString.AppendLine("Date: " + txtDate.Text);
-						_exceptionString.AppendLine("Time: " + txtTime.Text);
-						AppendDottedLine(_exceptionString);
-					}
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine("Explanation");
-					_exceptionString.AppendLine(txtExplanation.Text.Trim());
-					_exceptionString.AppendLine();
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
+					tcTabs.TabPages.Add(tpGeneral);
 				}
-
-				if (blnExceptions)
+				if (ShowExceptionsTab)
 				{
-					_exceptionString.AppendLine("Exceptions");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine(_presenter.ExceptionHierarchyToString(_exception));
-					_exceptionString.AppendLine();
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
+					tcTabs.TabPages.Add(tpExceptions);
 				}
-
-				if (blnAssemblies)
+				if (ShowAssembliesTab)
 				{
-					_exceptionString.AppendLine("Assemblies");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine(_presenter.ReferencedAssembliesToString(_assembly));
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
+					tcTabs.TabPages.Add(tpAssemblies);
 				}
-
-				if (blnSettings)
+				if (ShowSettingsTab)
 				{
-//					TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
+					tcTabs.TabPages.Add(tpSettings);
 				}
-
-				if (blnEnvironment)
+				if (ShowEnvironmentTab)
 				{
-//					TreeToString(tvwEnvironment, stringBuilder);
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
+					tcTabs.TabPages.Add(tpEnvironment);
 				}
-
-				if (blnContact)
+				if (ShowContactTab)
 				{
-					_exceptionString.AppendLine("Contact");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine("E-Mail: " + lnkEmail.Text);
-					_exceptionString.AppendLine("Web:    " + lnkWeb.Text);
-					_exceptionString.AppendLine("Phone:  " + txtPhone.Text);
-					_exceptionString.AppendLine("Fax:    " + txtFax.Text);
-					_exceptionString.AppendLine("-----------------------------");
-					_exceptionString.AppendLine();
+					tcTabs.TabPages.Add(tpContact);
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowError("There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
+				ShowError("There has been a problem configuring tab page display within the Exception Reporter", ex);
 			}
+			return;
+		}
+
+		public void HandleError(string message, Exception ex)
+		{
+			var simpleExceptionView = new SimpleExceptionView();
+			simpleExceptionView.ShowException(message, ex);
+		}
+
+		private string BuildExceptionString()
+		{
+			return BuildExceptionString(true, true, true, true, true, true, false);
+		}
+
+		//TODO this is being moved to the ExceptionStringBuilder class
+		private string BuildExceptionString(bool showGeneral, bool showExceptionHierarchy, bool showAssemblies, bool showSettings,
+		                                    bool showEnvironment, bool showContact, bool isForPrinting)
+		{
+			return _presenter.BuildExceptionString(showGeneral, showExceptionHierarchy, showAssemblies, showSettings, showEnvironment,
+			                                showContact, isForPrinting);
+
+//			_exceptionString = new StringBuilder();
+//
+//			if (showGeneral)
+//			{
+//				if (!isForPrinting)
+//				{
+//					_exceptionString.AppendLine(lblGeneral.Text);
+//					_exceptionString.AppendLine();
+//					AppendDottedLine(_exceptionString);
+//					_exceptionString.AppendLine();
+//				}
+//
+//				_exceptionString.AppendLine("General");
+//				_exceptionString.AppendLine();
+//				_exceptionString.AppendLine("Application: " + txtApplication.Text);
+//				_exceptionString.AppendLine("Version:     " + txtVersion.Text);
+//				_exceptionString.AppendLine("Region:      " + txtRegion.Text);
+//				_exceptionString.AppendLine("Machine:     " + " " + txtMachine.Text);
+//				_exceptionString.AppendLine("User:        " + txtUserName.Text);
+//				AppendDottedLine(_exceptionString);
+//
+//				if (!isForPrinting)
+//				{
+//					_exceptionString.AppendLine();
+//					_exceptionString.AppendLine("Date: " + txtDate.Text);
+//					_exceptionString.AppendLine("Time: " + txtTime.Text);
+//					AppendDottedLine(_exceptionString);
+//				}
+//
+//				_exceptionString.AppendLine();
+//				_exceptionString.AppendLine("Explanation");
+//				_exceptionString.AppendLine(txtExplanation.Text.Trim());
+//				_exceptionString.AppendLine();
+//				AppendDottedLine(_exceptionString);
+//				_exceptionString.AppendLine();
+//			}
+//
+//			if (showExceptionHierarchy)
+//			{
+//				_exceptionString.AppendLine("Exceptions");
+//				_exceptionString.AppendLine();
+//				_exceptionString.AppendLine(_presenter.ExceptionHierarchyToString(_exception));
+//				_exceptionString.AppendLine();
+//				AppendDottedLine(_exceptionString);
+//				_exceptionString.AppendLine();
+//			}
+//
+//			if (showAssemblies)
+//			{
+//				_exceptionString.AppendLine("Assemblies");
+//				_exceptionString.AppendLine();
+//				_exceptionString.AppendLine(_presenter.ReferencedAssembliesToString(_assembly));
+//				AppendDottedLine(_exceptionString);
+//				_exceptionString.AppendLine();
+//			}
+//
+//			if (showSettings)
+//			{
+////					TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
+//				AppendDottedLine(_exceptionString);
+//				_exceptionString.AppendLine();
+//			}
+//
+//			if (showEnvironment)
+//			{
+////					TreeToString(tvwEnvironment, stringBuilder);
+//				AppendDottedLine(_exceptionString);
+//				_exceptionString.AppendLine();
+//			}
+//
+//			if (showContact)
+//			{
+//				_exceptionString.AppendLine("Contact");
+//				_exceptionString.AppendLine();
+//				_exceptionString.AppendLine("E-Mail: " + lnkEmail.Text);
+//				_exceptionString.AppendLine("Web:    " + lnkWeb.Text);
+//				_exceptionString.AppendLine("Phone:  " + txtPhone.Text);
+//				_exceptionString.AppendLine("Fax:    " + txtFax.Text);
+//				_exceptionString.AppendLine("-----------------------------");
+//				_exceptionString.AppendLine();
+//			}
+//
+//			return _exceptionString.ToString();
 		}
 
 		private static void AppendDottedLine(StringBuilder stringBuilder)
@@ -451,7 +354,6 @@ namespace ExceptionReporting.Views
 				// next time we won't refresh unless this flag is set back to true
 				_refreshData = false;
 
-				setButtons();
 				Cursor = Cursors.WaitCursor;
 				Application.DoEvents();
 
@@ -594,7 +496,7 @@ namespace ExceptionReporting.Views
 				progressBar.Value = progressBar.Value + 1;
 				Application.DoEvents();
 
-				buildExceptionHeirarchy(_exception);
+				BuildExceptionHeirarchy(_exception);
 				progressBar.Value = progressBar.Value + 1;
 				Application.DoEvents();
 
@@ -617,7 +519,7 @@ namespace ExceptionReporting.Views
 				lblProgress.Visible = false;
 				progressBar.Visible = false;
 
-				setTabs();
+				SetTabs();
 
 				Cursor = Cursors.Default;
 			}
@@ -636,7 +538,7 @@ namespace ExceptionReporting.Views
 			ShowDialog();
 		}
 
-		private void buildExceptionHeirarchy(Exception e)
+		private void BuildExceptionHeirarchy(Exception e)
 		{
 			try
 			{
@@ -736,8 +638,7 @@ namespace ExceptionReporting.Views
 		{
 			try
 			{
-				BuildExceptionString();
-				Clipboard.SetDataObject(_exceptionString.ToString(), true);
+				Clipboard.SetDataObject(BuildExceptionString(), true);
 			}
 			catch (Exception ex)
 			{
@@ -747,12 +648,11 @@ namespace ExceptionReporting.Views
 
 		private void cmdEmail_Click(object sender, EventArgs e)
 		{
-			BuildExceptionString();
 			try
 			{
-				if (_email == null)
+				if (SendEmailAddress == null)
 				{
-					_email = lnkEmail.Text;
+					SendEmailAddress = lnkEmail.Text;
 				}
 
 				if (_sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
@@ -761,7 +661,7 @@ namespace ExceptionReporting.Views
 				}
 				if (_sendMailType == ExceptionReporter.slsMailType.SMTP)
 				{
-					if (_email != null)
+					if (SendEmailAddress != null)
 					{
 						sendSMTPEmail();
 					}
@@ -779,15 +679,8 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		~ExceptionReportView()
-		{
-			Dispose();
-		}
-
 		private void cmdSave_Click(object sender, EventArgs e)
 		{
-			BuildExceptionString();
-
 			var saveDialog = new SaveFileDialog
 			              	{
 			              		Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
@@ -797,7 +690,7 @@ namespace ExceptionReporting.Views
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_presenter.Save(_exceptionString.ToString(), saveDialog.FileName);
+				_presenter.Save(BuildExceptionString(), saveDialog.FileName);
 			}
 		}
 

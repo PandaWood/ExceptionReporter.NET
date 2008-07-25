@@ -57,7 +57,9 @@
     <Compile Include="ExceptionReporter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ExceptionReportInfo.cs" />
     <Compile Include="ExceptionStringBuilder.cs" />
+    <Compile Include="ExceptionExtensions.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Views\ExceptionReportView.cs">
       <SubType>Form</SubType>
@@ -79,6 +81,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ExceptionReportView.resx">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PrintSelectionView.resx">
+      <DependentUpon>PrintSelectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SimpleExceptionView.resx">
+      <DependentUpon>SimpleExceptionView.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

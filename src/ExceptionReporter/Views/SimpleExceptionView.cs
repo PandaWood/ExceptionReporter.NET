@@ -47,147 +47,147 @@ namespace ExceptionReporting.Views
 		
 		private void InitializeComponent()
 		{
-			pictureBox = new PictureBox();
-			txtExceptionType = new TextBox();
-			txtExceptionDetails = new TextBox();
-			lblExceptionType = new Label();
-			tpException = new TabPage();
-			tpGeneral = new TabPage();
-			lblGeneralMessage = new Label();
-			lblExceptionMessage = new Label();
-			tabControl = new TabControl();
-			txtExceptionMessage = new TextBox();
-			cmdOK = new Button();
-			tpException.SuspendLayout();
-			tpGeneral.SuspendLayout();
-			tabControl.SuspendLayout();
-			SuspendLayout();
+			this.pictureBox = new System.Windows.Forms.PictureBox();
+			this.txtExceptionType = new System.Windows.Forms.TextBox();
+			this.txtExceptionDetails = new System.Windows.Forms.TextBox();
+			this.lblExceptionType = new System.Windows.Forms.Label();
+			this.tpException = new System.Windows.Forms.TabPage();
+			this.tpGeneral = new System.Windows.Forms.TabPage();
+			this.txtExceptionMessage = new System.Windows.Forms.TextBox();
+			this.lblExceptionMessage = new System.Windows.Forms.Label();
+			this.lblGeneralMessage = new System.Windows.Forms.Label();
+			this.tabControl = new System.Windows.Forms.TabControl();
+			this.cmdOK = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+			this.tpException.SuspendLayout();
+			this.tpGeneral.SuspendLayout();
+			this.tabControl.SuspendLayout();
+			this.SuspendLayout();
 			// 
 			// pictureBox
 			// 
-			pictureBox.Location = new Point(8, 8);
-			pictureBox.Name = "pictureBox";
-			pictureBox.Size = new Size(48, 64);
-			pictureBox.TabIndex = 5;
-			pictureBox.TabStop = false;
+			this.pictureBox.Location = new System.Drawing.Point(0, 0);
+			this.pictureBox.Name = "pictureBox";
+			this.pictureBox.Size = new System.Drawing.Size(58, 46);
+			this.pictureBox.TabIndex = 0;
+			this.pictureBox.TabStop = false;
 			// 
 			// txtExceptionType
 			// 
-			txtExceptionType.Location = new Point(56, 80);
-			txtExceptionType.Name = "txtExceptionType";
-			txtExceptionType.ReadOnly = true;
-			txtExceptionType.Size = new Size(304, 21);
-			txtExceptionType.TabIndex = 3;
-			txtExceptionType.Text = "";
+			this.txtExceptionType.Location = new System.Drawing.Point(56, 74);
+			this.txtExceptionType.Name = "txtExceptionType";
+			this.txtExceptionType.ReadOnly = true;
+			this.txtExceptionType.Size = new System.Drawing.Size(304, 20);
+			this.txtExceptionType.TabIndex = 3;
 			// 
 			// txtExceptionDetails
 			// 
-			txtExceptionDetails.Location = new Point(8, 8);
-			txtExceptionDetails.Multiline = true;
-			txtExceptionDetails.Name = "txtExceptionDetails";
-			txtExceptionDetails.ReadOnly = true;
-			txtExceptionDetails.Size = new Size(352, 176);
-			txtExceptionDetails.TabIndex = 6;
-			txtExceptionDetails.Text = "";
+			this.txtExceptionDetails.Location = new System.Drawing.Point(8, 7);
+			this.txtExceptionDetails.Multiline = true;
+			this.txtExceptionDetails.Name = "txtExceptionDetails";
+			this.txtExceptionDetails.ReadOnly = true;
+			this.txtExceptionDetails.Size = new System.Drawing.Size(352, 164);
+			this.txtExceptionDetails.TabIndex = 6;
 			// 
 			// lblExceptionType
 			// 
-			lblExceptionType.Location = new Point(8, 80);
-			lblExceptionType.Name = "lblExceptionType";
-			lblExceptionType.Size = new Size(40, 16);
-			lblExceptionType.TabIndex = 2;
-			lblExceptionType.Text = "Type:";
+			this.lblExceptionType.Location = new System.Drawing.Point(8, 74);
+			this.lblExceptionType.Name = "lblExceptionType";
+			this.lblExceptionType.Size = new System.Drawing.Size(40, 15);
+			this.lblExceptionType.TabIndex = 2;
+			this.lblExceptionType.Text = "Type:";
 			// 
 			// tpException
 			// 
-			tpException.Controls.Add(txtExceptionDetails);
-			tpException.Location = new Point(4, 22);
-			tpException.Name = "tpException";
-			tpException.Size = new Size(368, 190);
-			tpException.TabIndex = 1;
-			tpException.Text = "Exception";
-			tpException.ToolTipText = "Displays detailed information about the error that occurred";
+			this.tpException.Controls.Add(this.txtExceptionDetails);
+			this.tpException.Location = new System.Drawing.Point(4, 22);
+			this.tpException.Name = "tpException";
+			this.tpException.Size = new System.Drawing.Size(368, 175);
+			this.tpException.TabIndex = 1;
+			this.tpException.Text = "Exception";
+			this.tpException.ToolTipText = "Displays detailed information about the error that occurred";
 			// 
 			// tpGeneral
 			// 
-			tpGeneral.Controls.Add(pictureBox);
-			tpGeneral.Controls.Add(txtExceptionMessage);
-			tpGeneral.Controls.Add(txtExceptionType);
-			tpGeneral.Controls.Add(lblExceptionType);
-			tpGeneral.Controls.Add(lblExceptionMessage);
-			tpGeneral.Controls.Add(lblGeneralMessage);
-			tpGeneral.Location = new Point(4, 22);
-			tpGeneral.Name = "tpGeneral";
-			tpGeneral.Size = new Size(368, 190);
-			tpGeneral.TabIndex = 0;
-			tpGeneral.Text = "General";
-			tpGeneral.ToolTipText = "Displays general information about the error that occurred";
-			// 
-			// lblGeneralMessage
-			// 
-			lblGeneralMessage.Location = new Point(64, 8);
-			lblGeneralMessage.Name = "lblGeneralMessage";
-			lblGeneralMessage.Size = new Size(296, 64);
-			lblGeneralMessage.TabIndex = 1;
-			lblGeneralMessage.Text = "An error has occurred within the Exception Reporter";
-			// 
-			// lblExceptionMessage
-			// 
-			lblExceptionMessage.Location = new Point(8, 104);
-			lblExceptionMessage.Name = "lblExceptionMessage";
-			lblExceptionMessage.Size = new Size(56, 16);
-			lblExceptionMessage.TabIndex = 4;
-			lblExceptionMessage.Text = "Message:";
-			// 
-			// tabControl
-			// 
-			tabControl.Controls.Add(tpGeneral);
-			tabControl.Controls.Add(tpException);
-			tabControl.HotTrack = true;
-			tabControl.Location = new Point(8, 8);
-			tabControl.Name = "tabControl";
-			tabControl.SelectedIndex = 0;
-			tabControl.ShowToolTips = true;
-			tabControl.Size = new Size(376, 216);
-			tabControl.TabIndex = 0;
+			this.tpGeneral.Controls.Add(this.pictureBox);
+			this.tpGeneral.Controls.Add(this.txtExceptionMessage);
+			this.tpGeneral.Controls.Add(this.txtExceptionType);
+			this.tpGeneral.Controls.Add(this.lblExceptionType);
+			this.tpGeneral.Controls.Add(this.lblExceptionMessage);
+			this.tpGeneral.Controls.Add(this.lblGeneralMessage);
+			this.tpGeneral.Location = new System.Drawing.Point(4, 22);
+			this.tpGeneral.Name = "tpGeneral";
+			this.tpGeneral.Size = new System.Drawing.Size(368, 175);
+			this.tpGeneral.TabIndex = 0;
+			this.tpGeneral.Text = "General";
+			this.tpGeneral.ToolTipText = "Displays general information about the error that occurred";
 			// 
 			// txtExceptionMessage
 			// 
-			txtExceptionMessage.Location = new Point(56, 104);
-			txtExceptionMessage.Multiline = true;
-			txtExceptionMessage.Name = "txtExceptionMessage";
-			txtExceptionMessage.ReadOnly = true;
-			txtExceptionMessage.Size = new Size(304, 80);
-			txtExceptionMessage.TabIndex = 5;
-			txtExceptionMessage.Text = "";
+			this.txtExceptionMessage.Location = new System.Drawing.Point(56, 97);
+			this.txtExceptionMessage.Multiline = true;
+			this.txtExceptionMessage.Name = "txtExceptionMessage";
+			this.txtExceptionMessage.ReadOnly = true;
+			this.txtExceptionMessage.Size = new System.Drawing.Size(304, 74);
+			this.txtExceptionMessage.TabIndex = 5;
+			// 
+			// lblExceptionMessage
+			// 
+			this.lblExceptionMessage.Location = new System.Drawing.Point(8, 97);
+			this.lblExceptionMessage.Name = "lblExceptionMessage";
+			this.lblExceptionMessage.Size = new System.Drawing.Size(56, 14);
+			this.lblExceptionMessage.TabIndex = 4;
+			this.lblExceptionMessage.Text = "Message:";
+			// 
+			// lblGeneralMessage
+			// 
+			this.lblGeneralMessage.Location = new System.Drawing.Point(64, 7);
+			this.lblGeneralMessage.Name = "lblGeneralMessage";
+			this.lblGeneralMessage.Size = new System.Drawing.Size(296, 60);
+			this.lblGeneralMessage.TabIndex = 1;
+			this.lblGeneralMessage.Text = "An error has occurred within the Exception Reporter";
+			// 
+			// tabControl
+			// 
+			this.tabControl.Controls.Add(this.tpGeneral);
+			this.tabControl.Controls.Add(this.tpException);
+			this.tabControl.HotTrack = true;
+			this.tabControl.Location = new System.Drawing.Point(8, 7);
+			this.tabControl.Name = "tabControl";
+			this.tabControl.SelectedIndex = 0;
+			this.tabControl.ShowToolTips = true;
+			this.tabControl.Size = new System.Drawing.Size(376, 201);
+			this.tabControl.TabIndex = 0;
 			// 
 			// cmdOK
 			// 
-			cmdOK.ImageAlign = ContentAlignment.MiddleLeft;
-			cmdOK.Location = new Point(296, 232);
-			cmdOK.Name = "cmdOK";
-			cmdOK.Size = new Size(72, 24);
-			cmdOK.TabIndex = 7;
-			cmdOK.Text = "&OK";
-			cmdOK.Click += cmdOK_Click;
+			this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.cmdOK.Location = new System.Drawing.Point(308, 214);
+			this.cmdOK.Name = "cmdOK";
+			this.cmdOK.Size = new System.Drawing.Size(72, 23);
+			this.cmdOK.TabIndex = 7;
+			this.cmdOK.Text = "OK";
 			// 
 			// SimpleExceptionView
 			// 
-			AutoScaleBaseSize = new Size(5, 14);
-			ClientSize = new Size(386, 262);
-			Controls.Add(tabControl);
-			Controls.Add(cmdOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
-			Name = "SimpleExceptionView";
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
-			Text = "Exception Reporter: Problem Occurred";
-			tpException.ResumeLayout(false);
-			tpGeneral.ResumeLayout(false);
-			tabControl.ResumeLayout(false);
-			ResumeLayout(false);
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(386, 241);
+			this.Controls.Add(this.tabControl);
+			this.Controls.Add(this.cmdOK);
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "SimpleExceptionView";
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Exception Reporter: Problem Occurred";
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+			this.tpException.ResumeLayout(false);
+			this.tpException.PerformLayout();
+			this.tpGeneral.ResumeLayout(false);
+			this.tpGeneral.PerformLayout();
+			this.tabControl.ResumeLayout(false);
+			this.ResumeLayout(false);
+
 		}
 
 		public void ShowException(string message, Exception ex)

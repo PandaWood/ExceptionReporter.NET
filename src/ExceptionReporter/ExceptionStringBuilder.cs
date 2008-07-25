@@ -6,113 +6,111 @@ namespace ExceptionReporting
 {
 	public class ExceptionStringBuilder
 	{
-		private string _email;
-		private string _general;
-		private string _applicationName;
-		private string _appVersion;
-		private string _region;
-		private string _machineName;
-		private string _userName;
-		private DateTime _exceptionDate;
-		private string _explanation;
-		private Exception _exception;
-		private Assembly _assembly;
-		private string _url;
-		private string _phone;
-		private string _fax;
+		public ExceptionReportInfo _info;
+		private StringBuilder _stringBuilder;
 
-		private void Build(bool blnGeneral, bool blnExceptions, bool blnAssemblies, 
-			bool blnSettings, bool blnEnvironment, bool blnContact, bool blnForPrint)
+		/// <summary>
+		/// only constructor
+		/// </summary>
+		/// <param name="info">ExceptionReportInfo </param>
+		public ExceptionStringBuilder(ExceptionReportInfo info)
 		{
-			try
-			{
-				var _exceptionString = new StringBuilder();
-
-				if (blnGeneral)
-				{
-					if (!blnForPrint)
-					{
-						_exceptionString.AppendLine(_general);
-						_exceptionString.AppendLine();
-						AppendDottedLine(_exceptionString);
-						_exceptionString.AppendLine();
-					}
-					_exceptionString.AppendLine("General");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine("Application: " + _applicationName);
-					_exceptionString.AppendLine("Version:     " + _appVersion);
-					_exceptionString.AppendLine("Region:      " + _region);
-					_exceptionString.AppendLine("Machine:     " + " " + _machineName);
-					_exceptionString.AppendLine("User:        " + _userName);
-					AppendDottedLine(_exceptionString);
-					if (!blnForPrint)
-					{
-						_exceptionString.AppendLine();
-						_exceptionString.AppendLine("Date: " + _exceptionDate.ToShortDateString());
-						_exceptionString.AppendLine("Time: " + _exceptionDate.ToShortTimeString());
-						AppendDottedLine(_exceptionString);
-					}
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine("Explanation");
-					_exceptionString.AppendLine(_explanation);
-					_exceptionString.AppendLine();
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
-				}
-
-				if (blnExceptions)
-				{
-					_exceptionString.AppendLine("Exceptions");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine(ExceptionHierarchy(_exception));
-					_exceptionString.AppendLine();
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
-				}
-
-				if (blnAssemblies)
-				{
-					_exceptionString.AppendLine("Assemblies");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine(ReferencedAssemblies(_assembly));
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
-				}
-
-				if (blnSettings)
-				{
-					//					TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
-				}
-
-				if (blnEnvironment)
-				{
-					//					TreeToString(tvwEnvironment, stringBuilder);
-					AppendDottedLine(_exceptionString);
-					_exceptionString.AppendLine();
-				}
-
-				if (blnContact)
-				{
-					_exceptionString.AppendLine("Contact");
-					_exceptionString.AppendLine();
-					_exceptionString.AppendLine("E-Mail: " + _email);
-					_exceptionString.AppendLine("Web:    " + _url);
-					_exceptionString.AppendLine("Phone:  " + _phone);
-					_exceptionString.AppendLine("Fax:    " + _fax);
-					_exceptionString.AppendLine("-----------------------------");
-					_exceptionString.AppendLine();
-				}
-			}
-			catch (Exception ex)
-			{
-//				ShowError(
-//					"There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
-			}
+			_info = info;
 		}
 
-		public string ExceptionHierarchy(Exception exception)
+		/// <summary>
+		/// Build the exception string
+		/// </summary>
+		public string Build()
+		{
+			_stringBuilder = new StringBuilder();
+
+			if (_info.ShowGeneralTab)
+				BuildGeneralInfo();
+
+			if (_info.ShowExceptionsTab)
+				BuildExceptionInfo();
+
+			if (_info.ShowAssembliesTab)
+				BuildAssemblyInfo();
+
+			if (_info.ShowSettingsTab)
+				// TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
+				_stringBuilder.AppendDottedLine().AppendLine();
+
+			if (_info.ShowEnvironmentTab)
+				// TreeToString(tvwEnvironment, stringBuilder);
+				_stringBuilder.AppendDottedLine().AppendLine();
+
+			if (_info.ShowContactTab)
+				BuildContactInfo();
+
+			return _stringBuilder.ToString();
+		}
+
+		private void BuildContactInfo()
+		{
+			_stringBuilder.AppendLine("Contact")
+						  .AppendLine()
+						  .AppendLine("E-Mail: " + _info.Email)
+						  .AppendLine("Web:    " + _info.Url)
+						  .AppendLine("Phone:  " + _info.Phone)
+						  .AppendLine("Fax:    " + _info.Fax)
+						  .AppendDottedLine().AppendLine();
+		}
+
+		private void BuildAssemblyInfo()
+		{
+			_stringBuilder.AppendLine("Assemblies")
+						  .AppendLine()
+						  .AppendLine(GetReferencedAssemblies(_info.AppAssembly))
+						  .AppendDottedLine()
+						  .AppendLine();
+		}
+
+		private void BuildExceptionInfo()
+		{
+			_stringBuilder.AppendLine("Exceptions")
+						  .AppendLine()
+						  .AppendLine(GetExceptionHierarchy(_info.RootException))
+						  .AppendLine().AppendDottedLine()
+						  .AppendLine();
+		}
+
+		private void BuildGeneralInfo()
+		{
+			if (!_info.isForPrinting)
+			{
+				_stringBuilder.AppendLine(_info.GeneralInfo)
+							  .AppendLine().AppendDottedLine()
+							  .AppendLine();
+			}
+
+			_stringBuilder.AppendLine("General")
+						  .AppendLine()
+						  .AppendLine("Application: " + _info.AppName)
+						  .AppendLine("Version:     " + _info.AppVersion)
+						  .AppendLine("Region:      " + _info.RegionInfo)
+						  .AppendLine("Machine:     " + " " + _info.MachineName)
+						  .AppendLine("User:        " + _info.UserName)
+						  .AppendDottedLine();
+
+			if (!_info.isForPrinting)
+			{
+				_stringBuilder.AppendLine()
+							  .AppendLine("Date: " + _info.ExceptionDate.ToShortDateString())
+							  .AppendLine("Time: " + _info.ExceptionDate.ToShortTimeString())
+							  .AppendDottedLine();
+			}
+
+			_stringBuilder.AppendLine()
+						  .AppendLine("Explanation")
+						  .AppendLine(_info.UserExplanation)
+						  .AppendLine().AppendDottedLine()
+						  .AppendLine();
+		}
+
+		public string GetExceptionHierarchy(Exception exception)
 		{
 			int count = 0;
 			Exception current = exception;
@@ -142,24 +140,19 @@ namespace ExceptionReporting
 			return stringBuilder.ToString();
 		}
 
-		public string ReferencedAssemblies(Assembly assembly)
+		public string GetReferencedAssemblies(Assembly assembly)
 		{
-			var writer = new StringBuilder();
+			var stringBuilder = new StringBuilder();
 			if (assembly != null)
 			{
 				foreach (AssemblyName assemblyName in assembly.GetReferencedAssemblies())
 				{
-					writer.AppendLine(assemblyName.FullName);
-					writer.AppendLine();
+					stringBuilder.AppendLine(assemblyName.FullName);
+					stringBuilder.AppendLine();
 				}
 			}
 
-			return writer.ToString();
-		}
-
-		private static void AppendDottedLine(StringBuilder stringBuilder)
-		{
-			stringBuilder.AppendLine("-----------------------------");
+			return stringBuilder.ToString();
 		}
 	}
 }

@@ -171,7 +171,7 @@ namespace ExceptionReporting
 			_pageCount = 0;
 		}
 
-		public void PrintException()
+		public void Print()
 		{
 			var printSelectView = new PrintSelectionView();
 			bool showGeneral = false;

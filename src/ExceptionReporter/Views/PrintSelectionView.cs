@@ -46,146 +46,143 @@ namespace ExceptionReporting.Views
 	
 		private void InitializeComponent()
 		{
-			var resources = new ResourceManager(typeof (ExceptionReportView));
-			chkPrintAssemblies = new CheckBox();
-			lblPrintSelect = new Label();
-			chkPrintExceptions = new CheckBox();
-			cmdCancel = new Button();
-			grbLine = new GroupBox();
-			chkPrintSettings = new CheckBox();
-			lblPrintSelect2 = new Label();
-			chkPrintGeneral = new CheckBox();
-			chkPrintEnvironment = new CheckBox();
-			chkPrintContact = new CheckBox();
-			cmdOK = new Button();
-			grbLine.SuspendLayout();
-			SuspendLayout();
+			this.chkPrintAssemblies = new System.Windows.Forms.CheckBox();
+			this.lblPrintSelect = new System.Windows.Forms.Label();
+			this.chkPrintExceptions = new System.Windows.Forms.CheckBox();
+			this.cmdCancel = new System.Windows.Forms.Button();
+			this.grbLine = new System.Windows.Forms.GroupBox();
+			this.chkPrintContact = new System.Windows.Forms.CheckBox();
+			this.chkPrintEnvironment = new System.Windows.Forms.CheckBox();
+			this.chkPrintSettings = new System.Windows.Forms.CheckBox();
+			this.chkPrintGeneral = new System.Windows.Forms.CheckBox();
+			this.lblPrintSelect2 = new System.Windows.Forms.Label();
+			this.cmdOK = new System.Windows.Forms.Button();
+			this.grbLine.SuspendLayout();
+			this.SuspendLayout();
 			// 
 			// chkPrintAssemblies
 			// 
-			chkPrintAssemblies.Checked = true;
-			chkPrintAssemblies.CheckState = CheckState.Checked;
-			chkPrintAssemblies.Location = new Point(248, 48);
-			chkPrintAssemblies.Name = "chkPrintAssemblies";
-			chkPrintAssemblies.Size = new Size(88, 24);
-			chkPrintAssemblies.TabIndex = 9;
-			chkPrintAssemblies.Text = "&Assemblies";
+			this.chkPrintAssemblies.Checked = true;
+			this.chkPrintAssemblies.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkPrintAssemblies.Location = new System.Drawing.Point(248, 45);
+			this.chkPrintAssemblies.Name = "chkPrintAssemblies";
+			this.chkPrintAssemblies.Size = new System.Drawing.Size(88, 22);
+			this.chkPrintAssemblies.TabIndex = 9;
+			this.chkPrintAssemblies.Text = "&Assemblies";
 			// 
 			// lblPrintSelect
 			// 
-			lblPrintSelect.Location = new Point(8, 24);
-			lblPrintSelect.Name = "lblPrintSelect";
-			lblPrintSelect.Size = new Size(256, 16);
-			lblPrintSelect.TabIndex = 13;
-			lblPrintSelect.Text = "Please select the details you would like to Print:";
+			this.lblPrintSelect.Location = new System.Drawing.Point(8, 22);
+			this.lblPrintSelect.Name = "lblPrintSelect";
+			this.lblPrintSelect.Size = new System.Drawing.Size(256, 15);
+			this.lblPrintSelect.TabIndex = 13;
+			this.lblPrintSelect.Text = "Please select the details you would like to Print:";
 			// 
 			// chkPrintExceptions
 			// 
-			chkPrintExceptions.Checked = true;
-			chkPrintExceptions.CheckState = CheckState.Checked;
-			chkPrintExceptions.Location = new Point(136, 48);
-			chkPrintExceptions.Name = "chkPrintExceptions";
-			chkPrintExceptions.Size = new Size(96, 24);
-			chkPrintExceptions.TabIndex = 8;
-			chkPrintExceptions.Text = "&Exceptions";
+			this.chkPrintExceptions.Checked = true;
+			this.chkPrintExceptions.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkPrintExceptions.Location = new System.Drawing.Point(136, 45);
+			this.chkPrintExceptions.Name = "chkPrintExceptions";
+			this.chkPrintExceptions.Size = new System.Drawing.Size(96, 22);
+			this.chkPrintExceptions.TabIndex = 8;
+			this.chkPrintExceptions.Text = "&Exceptions";
 			// 
 			// cmdCancel
 			// 
-			cmdCancel.CausesValidation = false;
-			cmdCancel.Location = new Point(264, 176);
-			cmdCancel.Name = "cmdCancel";
-			cmdCancel.Size = new Size(88, 24);
-			cmdCancel.TabIndex = 10;
-			cmdCancel.Text = "Cance&l";
-			cmdCancel.Click += CmdCancelClick;
+			this.cmdCancel.CausesValidation = false;
+			this.cmdCancel.Location = new System.Drawing.Point(264, 163);
+			this.cmdCancel.Name = "cmdCancel";
+			this.cmdCancel.Size = new System.Drawing.Size(88, 23);
+			this.cmdCancel.TabIndex = 10;
+			this.cmdCancel.Text = "Cance&l";
 			// 
 			// grbLine
 			// 
-			grbLine.Controls.Add(lblPrintSelect);
-			grbLine.Controls.Add(chkPrintContact);
-			grbLine.Controls.Add(chkPrintEnvironment);
-			grbLine.Controls.Add(chkPrintSettings);
-			grbLine.Controls.Add(chkPrintAssemblies);
-			grbLine.Controls.Add(chkPrintExceptions);
-			grbLine.Controls.Add(chkPrintGeneral);
-			grbLine.Controls.Add(lblPrintSelect2);
-			grbLine.Location = new Point(8, 8);
-			grbLine.Name = "grbLine";
-			grbLine.Size = new Size(352, 160);
-			grbLine.TabIndex = 8;
-			grbLine.TabStop = false;
-			// 
-			// chkPrintSettings
-			// 
-			chkPrintSettings.Checked = true;
-			chkPrintSettings.CheckState = CheckState.Checked;
-			chkPrintSettings.Location = new Point(32, 80);
-			chkPrintSettings.Name = "chkPrintSettings";
-			chkPrintSettings.Size = new Size(88, 24);
-			chkPrintSettings.TabIndex = 10;
-			chkPrintSettings.Text = "&Settings";
-			// 
-			// lblPrintSelect2
-			// 
-			lblPrintSelect2.Location = new Point(8, 120);
-			lblPrintSelect2.Name = "lblPrintSelect2";
-			lblPrintSelect2.Size = new Size(336, 32);
-			lblPrintSelect2.TabIndex = 7;
-			lblPrintSelect2.Text = "Note: Including Environment details will add a number of pages to the print.";
-			// 
-			// chkPrintGeneral
-			// 
-			chkPrintGeneral.Checked = true;
-			chkPrintGeneral.CheckState = CheckState.Checked;
-			chkPrintGeneral.Location = new Point(32, 48);
-			chkPrintGeneral.Name = "chkPrintGeneral";
-			chkPrintGeneral.Size = new Size(72, 24);
-			chkPrintGeneral.TabIndex = 7;
-			chkPrintGeneral.Text = "&General";
-			// 
-			// chkPrintEnvironment
-			// 
-			chkPrintEnvironment.Location = new Point(136, 80);
-			chkPrintEnvironment.Name = "chkPrintEnvironment";
-			chkPrintEnvironment.TabIndex = 11;
-			chkPrintEnvironment.Text = "E&nvironment";
+			this.grbLine.Controls.Add(this.lblPrintSelect);
+			this.grbLine.Controls.Add(this.chkPrintContact);
+			this.grbLine.Controls.Add(this.chkPrintEnvironment);
+			this.grbLine.Controls.Add(this.chkPrintSettings);
+			this.grbLine.Controls.Add(this.chkPrintAssemblies);
+			this.grbLine.Controls.Add(this.chkPrintExceptions);
+			this.grbLine.Controls.Add(this.chkPrintGeneral);
+			this.grbLine.Controls.Add(this.lblPrintSelect2);
+			this.grbLine.Location = new System.Drawing.Point(8, 7);
+			this.grbLine.Name = "grbLine";
+			this.grbLine.Size = new System.Drawing.Size(352, 149);
+			this.grbLine.TabIndex = 8;
+			this.grbLine.TabStop = false;
 			// 
 			// chkPrintContact
 			// 
-			chkPrintContact.Checked = true;
-			chkPrintContact.CheckState = CheckState.Checked;
-			chkPrintContact.Location = new Point(248, 80);
-			chkPrintContact.Name = "chkPrintContact";
-			chkPrintContact.Size = new Size(72, 24);
-			chkPrintContact.TabIndex = 12;
-			chkPrintContact.Text = "&Contact";
+			this.chkPrintContact.Checked = true;
+			this.chkPrintContact.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkPrintContact.Location = new System.Drawing.Point(248, 74);
+			this.chkPrintContact.Name = "chkPrintContact";
+			this.chkPrintContact.Size = new System.Drawing.Size(72, 23);
+			this.chkPrintContact.TabIndex = 12;
+			this.chkPrintContact.Text = "&Contact";
+			// 
+			// chkPrintEnvironment
+			// 
+			this.chkPrintEnvironment.Location = new System.Drawing.Point(136, 74);
+			this.chkPrintEnvironment.Name = "chkPrintEnvironment";
+			this.chkPrintEnvironment.Size = new System.Drawing.Size(104, 23);
+			this.chkPrintEnvironment.TabIndex = 11;
+			this.chkPrintEnvironment.Text = "E&nvironment";
+			// 
+			// chkPrintSettings
+			// 
+			this.chkPrintSettings.Checked = true;
+			this.chkPrintSettings.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkPrintSettings.Location = new System.Drawing.Point(32, 74);
+			this.chkPrintSettings.Name = "chkPrintSettings";
+			this.chkPrintSettings.Size = new System.Drawing.Size(88, 23);
+			this.chkPrintSettings.TabIndex = 10;
+			this.chkPrintSettings.Text = "&Settings";
+			// 
+			// chkPrintGeneral
+			// 
+			this.chkPrintGeneral.Checked = true;
+			this.chkPrintGeneral.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkPrintGeneral.Location = new System.Drawing.Point(32, 45);
+			this.chkPrintGeneral.Name = "chkPrintGeneral";
+			this.chkPrintGeneral.Size = new System.Drawing.Size(72, 22);
+			this.chkPrintGeneral.TabIndex = 7;
+			this.chkPrintGeneral.Text = "&General";
+			// 
+			// lblPrintSelect2
+			// 
+			this.lblPrintSelect2.Location = new System.Drawing.Point(8, 111);
+			this.lblPrintSelect2.Name = "lblPrintSelect2";
+			this.lblPrintSelect2.Size = new System.Drawing.Size(336, 30);
+			this.lblPrintSelect2.TabIndex = 7;
+			this.lblPrintSelect2.Text = "Note: Including Environment details will add a number of pages to the print.";
 			// 
 			// cmdOK
 			// 
-			cmdOK.Location = new Point(168, 176);
-			cmdOK.Name = "cmdOK";
-			cmdOK.Size = new Size(88, 24);
-			cmdOK.TabIndex = 9;
-			cmdOK.Text = "&OK";
-			cmdOK.Click += CmdOKClick;
+			this.cmdOK.Location = new System.Drawing.Point(168, 163);
+			this.cmdOK.Name = "cmdOK";
+			this.cmdOK.Size = new System.Drawing.Size(88, 23);
+			this.cmdOK.TabIndex = 9;
+			this.cmdOK.Text = "OK";
 			// 
-			// OldExceptionReportView
+			// PrintSelectionView
 			// 
-			AutoScaleBaseSize = new Size(5, 14);
-			ClientSize = new Size(370, 208);
-			Controls.Add(grbLine);
-			Controls.Add(cmdCancel);
-			Controls.Add(cmdOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			Icon = ((Icon) (resources.GetObject("$this.Icon")));
-			MaximizeBox = false;
-			MinimizeBox = false;
-			Name = "OldExceptionReportView";
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
-			Text = "Details for Print";
-			grbLine.ResumeLayout(false);
-			ResumeLayout(false);
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(370, 208);
+			this.Controls.Add(this.grbLine);
+			this.Controls.Add(this.cmdCancel);
+			this.Controls.Add(this.cmdOK);
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "PrintSelectionView";
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Details for Print";
+			this.grbLine.ResumeLayout(false);
+			this.ResumeLayout(false);
+
 		}
 
 		private void CmdOKClick(object sender, EventArgs e)

@@ -1,18 +1,16 @@
 using System;
-using System.Drawing;
-using System.Drawing.Printing;
 using System.IO;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
 using Win32Mapi;
 
 namespace ExceptionReporting.Views
 {
 	/// <summary>
 	/// The IExceptionReportView and ExceptionReportPresenter is the beginning of my attempt to move this code
-	/// to Model/View/Presenter pattern - anything to reduce ExceptionReportView down from 2000 lines in one file
+	/// to Model/View/Presenter pattern - mainly to reduce ExceptionReportView down from 2000 lines in one file
+	/// and to separate out logic for testing and maintainability
 	/// </summary>
 	public interface IExceptionReportView
 	{
@@ -111,22 +109,23 @@ namespace ExceptionReporting.Views
 
 		public string BuildExceptionString(bool b, bool b1, bool b2, bool b3, bool b4, bool b5, bool b6)
 		{
-			throw new NotImplementedException();
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());	//TODO get real ERI
+			return stringBuilder.Build();
 		}
 
 		public string ReferencedAssembliesToString(Assembly assembly)
 		{
-			var stringBuilder = new ExceptionStringBuilder();
-			return stringBuilder.ReferencedAssemblies(assembly);
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());	//TODO get real ERI
+			return stringBuilder.GetReferencedAssemblies(assembly);
 		}
 
 		public string ExceptionHierarchyToString(Exception exception)
 		{
-			var stringBuilder = new ExceptionStringBuilder();
-			return stringBuilder.ExceptionHierarchy(exception);
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());  //TODO get real ERI
+			return stringBuilder.GetExceptionHierarchy(exception);
 		}
 
-		public void SendMapiEmail(string email, StringBuilder exceptionString, IntPtr windowHandle)
+		public void SendMapiEmail(string email, string exceptionString, IntPtr windowHandle)
 		{
 			try
 			{
@@ -142,7 +141,7 @@ namespace ExceptionReporting.Views
 					}
 				}
 
-				ma.Send("An Exception has occured", _exceptionString.ToString(), true);
+				ma.Send("An Exception has occured", exceptionString, true);
 				ma.Logoff();
 			}
 			catch (Exception ex)
@@ -160,7 +159,7 @@ namespace ExceptionReporting.Views
 		public void PrintException()
 		{
 			var printer = new ExceptionPrinter();
-			printer.PrintException();
+			printer.Print();
 		}
 	}
 }
