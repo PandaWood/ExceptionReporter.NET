@@ -108,100 +108,6 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-//		private void buildExceptionString(bool blnGeneral, bool blnExceptions, bool blnAssemblies, bool blnSettings,
-//										  bool blnEnvironment, bool blnContact, bool blnForPrint)
-//		{
-//			try
-//			{
-//				var _exceptionString = new StringBuilder();
-//				var swWriter = new StringWriter(_exceptionString);
-//
-//
-//				if (blnGeneral)
-//				{
-//					if (!blnForPrint)
-//					{
-//						swWriter.WriteLine(lblGeneral.Text);
-//						swWriter.WriteLine((String)null);
-//						swWriter.WriteLine("-----------------------------");
-//						swWriter.WriteLine((String)null);
-//					}
-//					swWriter.WriteLine("General");
-//					swWriter.WriteLine((String)null);
-//					swWriter.WriteLine("Application: " + txtApplication.Text);
-//					swWriter.WriteLine("Version:     " + txtVersion.Text);
-//					swWriter.WriteLine("Region:      " + txtRegion.Text);
-//					swWriter.WriteLine("Machine:     " + " " + txtMachine.Text);
-//					swWriter.WriteLine("User:        " + txtUserName.Text);
-//					swWriter.WriteLine("-----------------------------");
-//					if (!blnForPrint)
-//					{
-//						swWriter.WriteLine((String)null);
-//						swWriter.WriteLine("Date: " + txtDate.Text);
-//						swWriter.WriteLine("Time: " + txtTime.Text);
-//						swWriter.WriteLine("-----------------------------");
-//					}
-//					swWriter.WriteLine((String)null);
-//					swWriter.WriteLine("Explanation");
-//					swWriter.WriteLine(txtExplanation.Text.Trim());
-//					swWriter.WriteLine((String)null);
-//					swWriter.WriteLine("-----------------------------");
-//					swWriter.WriteLine((String)null);
-//				}
-//
-//				if (blnExceptions)
-//				{
-//					swWriter.WriteLine("Exceptions");
-//					swWriter.WriteLine((String)null);
-//					exceptionHeirarchyToString(swWriter);
-//					swWriter.WriteLine((String)null);
-//					swWriter.WriteLine("-----------------------------");
-//					swWriter.WriteLine((String)null);
-//				}
-//
-//				if (blnAssemblies)
-//				{
-//					swWriter.WriteLine("Assemblies");
-//					swWriter.WriteLine((String)null);
-//					referencedAssembliesToString(swWriter);
-//					swWriter.WriteLine("-----------------------------");
-//					swWriter.WriteLine((String)null);
-//				}
-//
-//				if (blnSettings)
-//				{
-//					treeToString(tvwSettings, swWriter);
-//					swWriter.WriteLine("-----------------------------");
-//					swWriter.WriteLine((String)null);
-//				}
-//
-//				if (blnEnvironment)
-//				{
-//					treeToString(tvwEnvironment, swWriter);
-//					swWriter.WriteLine("-----------------------------");
-//					swWriter.WriteLine((String)null);
-//				}
-//
-//				if (blnContact)
-//				{
-//					swWriter.WriteLine("Contact");
-//					swWriter.WriteLine((String)null);
-//					swWriter.WriteLine("E-Mail: " + lnkEmail.Text);
-//					swWriter.WriteLine("Web:    " + lnkWeb.Text);
-//					swWriter.WriteLine("Phone:  " + txtPhone.Text);
-//					swWriter.WriteLine("Fax:    " + txtFax.Text);
-//					swWriter.WriteLine("-----------------------------");
-//					swWriter.WriteLine((String)null);
-//				}
-//			}
-//			catch (Exception ex)
-//			{
-//				handleError(
-//					"There has been a problem building exception details into a string for printing, copying, saving or e-mailing", ex);
-//			}
-//
-//			return;
-//		}
 
 		public string BuildExceptionString(bool b, bool b1, bool b2, bool b3, bool b4, bool b5, bool b6)
 		{
@@ -210,12 +116,12 @@ namespace ExceptionReporting.Views
 
 		public string ReferencedAssembliesToString(Assembly assembly)
 		{
-			return ExceptionUtils.ReferencedAssembliesToString(assembly);
+			return ExceptionStringBuilder.ReferencedAssembliesToString(assembly);
 		}
 
 		public string ExceptionHierarchyToString(Exception exception)
 		{
-			return ExceptionUtils.ExceptionHierarchyToString(exception);
+			return ExceptionStringBuilder.ExceptionHierarchyToString(exception);
 		}
 
 		public void SendMapiEmail(string email, StringBuilder exceptionString, IntPtr windowHandle)
@@ -251,7 +157,7 @@ namespace ExceptionReporting.Views
 
 		public void PrintException()
 		{
-			ExceptionPrinter printer = new ExceptionPrinter();
+			var printer = new ExceptionPrinter();
 			printer.PrintException();
 		}
 	}

@@ -57,7 +57,7 @@
     <Compile Include="ExceptionReporter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ExceptionUtils.cs" />
+    <Compile Include="ExceptionStringBuilder.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Views\ExceptionReportView.cs">
       <SubType>Form</SubType>
