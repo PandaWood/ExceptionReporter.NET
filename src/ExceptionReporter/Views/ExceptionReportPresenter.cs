@@ -116,12 +116,14 @@ namespace ExceptionReporting.Views
 
 		public string ReferencedAssembliesToString(Assembly assembly)
 		{
-			return ExceptionStringBuilder.ReferencedAssembliesToString(assembly);
+			var stringBuilder = new ExceptionStringBuilder();
+			return stringBuilder.ReferencedAssemblies(assembly);
 		}
 
 		public string ExceptionHierarchyToString(Exception exception)
 		{
-			return ExceptionStringBuilder.ExceptionHierarchyToString(exception);
+			var stringBuilder = new ExceptionStringBuilder();
+			return stringBuilder.ExceptionHierarchy(exception);
 		}
 
 		public void SendMapiEmail(string email, StringBuilder exceptionString, IntPtr windowHandle)

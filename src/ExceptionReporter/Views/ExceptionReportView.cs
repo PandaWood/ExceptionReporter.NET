@@ -314,6 +314,7 @@ namespace ExceptionReporting.Views
 			return;
 		}
 
+		//TODO this is being moved to the ExceptionStringBuilder class
 		private void BuildExceptionString(bool blnGeneral, bool blnExceptions, bool blnAssemblies, bool blnSettings,
 		                                  bool blnEnvironment, bool blnContact, bool blnForPrint)
 		{
@@ -684,9 +685,7 @@ namespace ExceptionReporting.Views
 			try
 			{
 				string strDisplayField = blnUseName ? "Name" : "Caption";
-
 				var tn = new TreeNode(strCaption);
-
 				var searcher = new ManagementObjectSearcher("SELECT * FROM " + strClass + " " + strWhere);
 
 				foreach (ManagementObject mo in searcher.Get())

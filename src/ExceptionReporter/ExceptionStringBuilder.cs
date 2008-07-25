@@ -64,7 +64,7 @@ namespace ExceptionReporting
 				{
 					_exceptionString.AppendLine("Exceptions");
 					_exceptionString.AppendLine();
-					_exceptionString.AppendLine(ExceptionHierarchyToString(_exception));
+					_exceptionString.AppendLine(ExceptionHierarchy(_exception));
 					_exceptionString.AppendLine();
 					AppendDottedLine(_exceptionString);
 					_exceptionString.AppendLine();
@@ -74,7 +74,7 @@ namespace ExceptionReporting
 				{
 					_exceptionString.AppendLine("Assemblies");
 					_exceptionString.AppendLine();
-					_exceptionString.AppendLine(ReferencedAssembliesToString(_assembly));
+					_exceptionString.AppendLine(ReferencedAssemblies(_assembly));
 					AppendDottedLine(_exceptionString);
 					_exceptionString.AppendLine();
 				}
@@ -112,7 +112,7 @@ namespace ExceptionReporting
 			}
 		}
 
-		public static string ExceptionHierarchyToString(Exception exception)
+		public string ExceptionHierarchy(Exception exception)
 		{
 			int count = 0;
 			Exception current = exception;
@@ -142,7 +142,7 @@ namespace ExceptionReporting
 			return stringBuilder.ToString();
 		}
 
-		public static string ReferencedAssembliesToString(Assembly assembly)
+		public string ReferencedAssemblies(Assembly assembly)
 		{
 			var writer = new StringBuilder();
 			if (assembly != null)
