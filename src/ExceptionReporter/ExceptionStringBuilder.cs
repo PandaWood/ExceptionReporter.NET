@@ -112,13 +112,13 @@ namespace ExceptionReporting
 
 		public string GetExceptionHierarchy(Exception exception)
 		{
-			int count = 0;
-			Exception current = exception;
+			Exception currentException = exception;
 			var stringBuilder = new StringBuilder();
+			int count = 0;
 
-			while (current != null)
+			while (currentException != null)
 			{
-				if (count == 0)
+				if (count++ == 0)
 				{
 					stringBuilder.AppendLine("Top-level Exception");
 				}
@@ -126,15 +126,17 @@ namespace ExceptionReporting
 				{
 					stringBuilder.AppendLine("Inner Exception " + count);
 				}
-				stringBuilder.AppendLine("Type:        " + current.GetType());
-				stringBuilder.AppendLine("Message:     " + current.Message);
-				stringBuilder.AppendLine("Source:      " + current.Source);
-				if (current.StackTrace != null)
-					stringBuilder.AppendLine("Stack Trace: " + current.StackTrace.Trim());
+
+				stringBuilder.AppendLine("Type:        " + currentException.GetType())
+						     .AppendLine("Message:     " + currentException.Message)
+							 .AppendLine("Source:      " + currentException.Source);
+
+				if (currentException.StackTrace != null)
+					stringBuilder.AppendLine("Stack Trace: " + currentException.StackTrace.Trim());
+
 				stringBuilder.AppendLine();
 
-				current = current.InnerException;
-				count++;
+				currentException = currentException.InnerException;
 			}
 
 			return stringBuilder.ToString();
@@ -143,15 +145,14 @@ namespace ExceptionReporting
 		public string GetReferencedAssemblies(Assembly assembly)
 		{
 			var stringBuilder = new StringBuilder();
+
 			if (assembly != null)
 			{
 				foreach (AssemblyName assemblyName in assembly.GetReferencedAssemblies())
 				{
-					stringBuilder.AppendLine(assemblyName.FullName);
-					stringBuilder.AppendLine();
+					stringBuilder.AppendLine(assemblyName.FullName).AppendLine();
 				}
 			}
-
 			return stringBuilder.ToString();
 		}
 	}

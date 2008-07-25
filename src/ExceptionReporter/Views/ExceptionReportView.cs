@@ -5,18 +5,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Management;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ExceptionReporting.Views
 {
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	{
-		private Exception _exception;
 		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
-		private Assembly _assembly;
 		private bool _refreshData;
-
 		private readonly ExceptionReportPresenter _presenter;
 
 		public ExceptionReportView()
@@ -48,7 +44,7 @@ namespace ExceptionReporting.Views
 		{
 			btnEmail.Click += cmdEmail_Click;
 			btnPrint.Click += cmdPrint_Click;
-			lstExceptions.SelectedIndexChanged += LstExceptionsSelectedIndexChanged;
+			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			lblApplication.Click += lblApplication_Click;
 			btnCopy.Click += cmdCopy_Click;
 			lnkEmail.LinkClicked += lnkEmail_LinkClicked;
@@ -150,6 +146,8 @@ namespace ExceptionReporting.Views
 //			btnEmail.Enabled = true;
 		}
 
+		
+
 		private void lblApplication_Click(object sender, EventArgs e)
 		{
 			//TODO 
@@ -157,12 +155,12 @@ namespace ExceptionReporting.Views
 
 		public void sendMAPIEmail()
 		{
-			_presenter.SendMapiEmail(SendEmailAddress, BuildExceptionString(), Handle);
+			_presenter.SendMapiEmail(SendEmailAddress, Handle);
 		}
 
 		public void sendSMTPEmail()
 		{
-			_presenter.SendSmtpMail(BuildExceptionString());
+			_presenter.SendSmtpMail();
 		}
 
 		public void SetTabs()
@@ -213,15 +211,13 @@ namespace ExceptionReporting.Views
 
 		private string BuildExceptionString()
 		{
-			return BuildExceptionString(true, true, true, true, true, true, false);
+			return _presenter.BuildExceptionString();
 		}
 
-		//TODO this is being moved to the ExceptionStringBuilder class
-		private string BuildExceptionString(bool showGeneral, bool showExceptionHierarchy, bool showAssemblies, bool showSettings,
-		                                    bool showEnvironment, bool showContact, bool isForPrinting)
-		{
-			return _presenter.BuildExceptionString(showGeneral, showExceptionHierarchy, showAssemblies, showSettings, showEnvironment,
-			                                showContact, isForPrinting);
+//		//TODO this is being moved to the ExceptionStringBuilder class
+//		private string BuildExceptionString(bool showGeneral, bool showExceptionHierarchy, bool showAssemblies, bool showSettings,
+//		                                    bool showEnvironment, bool showContact, bool isForPrinting)
+//		{
 
 //			_exceptionString = new StringBuilder();
 //
@@ -306,12 +302,7 @@ namespace ExceptionReporting.Views
 //			}
 //
 //			return _exceptionString.ToString();
-		}
-
-		private static void AppendDottedLine(StringBuilder stringBuilder)
-		{
-			stringBuilder.AppendLine("-----------------------------");
-		}
+//		}
 
 		private static void TreeToString(TreeView treeView, TextWriter treeWriter)	//TODO this will need to be reinstated shortly
 		{
@@ -321,17 +312,13 @@ namespace ExceptionReporting.Views
 
 		private static void TreeNodeToString(TreeNode tnNode, TextWriter swWriter, int level)
 		{
-			string space = "";
+			string space = string.Empty;
 
 			for (int intCount = 0; intCount < (level*4); intCount++)
-			{
-				space = space + " ";
-			}
+				space += " ";
 
 			if (level <= 2)
-			{
 				swWriter.WriteLine(string.Empty);
-			}
 
 			swWriter.WriteLine(space + tnNode.Text);
 			foreach (TreeNode tnChild in tnNode.Nodes)
@@ -340,273 +327,236 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		//TODO 'extract method' on this
+		//TODO put on a background thread
 		protected override void OnActivated(EventArgs e)
 		{
-			base.OnActivated(e);
+			base.OnActivated(e);	
+
 			try
 			{
-				// only refresh when we need to
-				if (!_refreshData)
-				{
+				if (!_refreshData)	// only refresh when we need to
 					return;
-				}
-				// next time we won't refresh unless this flag is set back to true
-				_refreshData = false;
 
+				_refreshData = false;	// next time we won't refresh unless this flag is set back to true
 				Cursor = Cursors.WaitCursor;
-				Application.DoEvents();
-
 				lblProgress.Visible = true;
 				progressBar.Visible = true;
 				progressBar.Maximum = 14;
-
 				progressBar.Value = 0;
 
-				// general tab
-				txtDate.Text = DateTime.Now.ToShortDateString();
-				txtTime.Text = DateTime.Now.ToLongTimeString();
-				txtUserName.Text = Environment.UserName;
-				txtMachine.Text = Environment.MachineName;
-
-				txtRegion.Text = Application.CurrentCulture.DisplayName;
-				txtApplication.Text = Application.ProductName;
-				txtVersion.Text = Application.ProductVersion;
-
-				progressBar.Value = progressBar.Value + 1;
-				Application.DoEvents();
-
-				var root = new TreeNode("Environment");
-
-				try
-				{
-					AddEnvironmentNode2("Operating System", "Win32_OperatingSystem", root, false, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value++;
-					Application.DoEvents();
-				}
-				try
-				{
-					AddEnvironmentNode2("CPU", "Win32_Processor", root, true, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-				try
-				{
-					AddEnvironmentNode2("Memory", "Win32_PhysicalMemory", root, true, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-
-				try
-				{
-					AddEnvironmentNode2("Drives", "Win32_DiskDrive", root, true, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-
-				try
-				{
-					AddEnvironmentNode2("Environment Variables", "Win32_Environment", root, true, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-
-				try
-				{
-					if (EnumeratePrinters)
-					{
-						AddEnvironmentNode2("Printers", "Win32_Printer", root, true, "");
-					}
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-
-				try
-				{
-					AddEnvironmentNode2("System", "Win32_ComputerSystem", root, true, "");
-				}
-				catch
-				{
-					// do nothing, some environment nodes aren't available on all machines
-				}
-				finally
-				{
-					progressBar.Value = progressBar.Value + 1;
-					Application.DoEvents();
-				}
-
-				tvwEnvironment.Nodes.Add(root);
-				root.Expand();
-
-				// fill the settings tab
-				var settingsRoot = new TreeNode("Application Settings");
-
-				IEnumerator ienum = ConfigurationManager.AppSettings.GetEnumerator();
-
-				while (ienum.MoveNext())
-				{
-					settingsRoot.Nodes.Add(
-						new TreeNode(ienum.Current + " : " + ConfigurationManager.AppSettings.Get(ienum.Current.ToString())));
-				}
-
-				tvwSettings.Nodes.Add(settingsRoot);
-				settingsRoot.Expand();
-				progressBar.Value = progressBar.Value + 1;
-				Application.DoEvents();
-
-				BuildExceptionHeirarchy(_exception);
-				progressBar.Value = progressBar.Value + 1;
-				Application.DoEvents();
-
-				lstAssemblies.Clear();
-				lstAssemblies.Columns.Add("Name", 100, HorizontalAlignment.Left);
-				lstAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
-				lstAssemblies.Columns.Add("Culture", 150, HorizontalAlignment.Left);
-
-				foreach (AssemblyName assemblyName in _assembly.GetReferencedAssemblies())
-				{
-					var listViewItem = new ListViewItem {Text = assemblyName.Name};
-					listViewItem.SubItems.Add(assemblyName.Version.ToString());
-					listViewItem.SubItems.Add(assemblyName.CultureInfo.EnglishName);
-					lstAssemblies.Items.Add(listViewItem);
-				}
-
-				progressBar.Value = progressBar.Maximum;
-				Application.DoEvents();
-
-				lblProgress.Visible = false;
-				progressBar.Visible = false;
+				PopulateGeneralTab();
+				PopulateEnvironmentTree();
+				PopulateSettingsTab();
+				PopulateExceptionHierarchyTree(_presenter.TheException);
+				PopulateAssemblyInfo();
 
 				SetTabs();
-
-				Cursor = Cursors.Default;
 			}
-			catch (Exception ex)
+			finally
 			{
-				ShowError("There has been a problem setting up the Exception Reporter display", ex);
+				Cursor = Cursors.Default;
+				progressBar.Value = progressBar.Maximum;
+				lblProgress.Visible = false;
+				progressBar.Visible = false;
 			}
+		}
+
+		private void PopulateAssemblyInfo()
+		{
+			lstAssemblies.Clear();
+			lstAssemblies.Columns.Add("Name", 100, HorizontalAlignment.Left);
+			lstAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
+			lstAssemblies.Columns.Add("Culture", 150, HorizontalAlignment.Left);
+
+			foreach (AssemblyName assemblyName in _presenter.TheAssembly.GetReferencedAssemblies())
+			{
+				var listViewItem = new ListViewItem {Text = assemblyName.Name};
+				listViewItem.SubItems.Add(assemblyName.Version.ToString());
+				listViewItem.SubItems.Add(assemblyName.CultureInfo.EnglishName);
+				lstAssemblies.Items.Add(listViewItem);
+			}
+		}
+
+		private void PopulateSettingsTab()
+		{
+			var settingsRoot = new TreeNode("Application Settings");
+			IEnumerator ienum = ConfigurationManager.AppSettings.GetEnumerator();
+
+			while (ienum.MoveNext())
+			{
+				settingsRoot.Nodes.Add(
+					new TreeNode(ienum.Current + " : " + ConfigurationManager.AppSettings.Get(ienum.Current.ToString())));
+			}
+
+			tvwSettings.Nodes.Add(settingsRoot);
+			settingsRoot.Expand();
+			progressBar.Value++;
+			Application.DoEvents();
+		}
+
+		private void PopulateEnvironmentTree()
+		{
+			var root = new TreeNode("Environment");
+
+			try
+			{
+				AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, "");
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value++;
+				Application.DoEvents();
+			}
+			try
+			{
+				AddEnvironmentNode("CPU", "Win32_Processor", root, true, "");
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value++;
+				Application.DoEvents();
+			}
+			try
+			{
+				AddEnvironmentNode("Memory", "Win32_PhysicalMemory", root, true, "");
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value++;
+				Application.DoEvents();
+			}
+
+			try
+			{
+				AddEnvironmentNode("Drives", "Win32_DiskDrive", root, true, "");
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value++;
+				Application.DoEvents();
+			}
+
+			try
+			{
+				AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, "");
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value++;
+				Application.DoEvents();
+			}
+
+			try
+			{
+				if (EnumeratePrinters)
+				{
+					AddEnvironmentNode("Printers", "Win32_Printer", root, true, "");
+				}
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value ++;
+				Application.DoEvents();
+			}
+
+			try
+			{
+				AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, "");
+			}
+			catch { /* do nothing */ }
+			finally
+			{
+				progressBar.Value++;
+				Application.DoEvents();
+			}
+
+			tvwEnvironment.Nodes.Add(root);
+			root.Expand();
+
+			return;
+		}
+
+		private void PopulateGeneralTab()
+		{
+			txtDate.Text = DateTime.Now.ToShortDateString();
+			txtTime.Text = DateTime.Now.ToLongTimeString();
+			txtUserName.Text = Environment.UserName;
+			txtMachine.Text = Environment.MachineName;
+
+			txtRegion.Text = Application.CurrentCulture.DisplayName;
+			txtApplication.Text = Application.ProductName;
+			txtVersion.Text = Application.ProductVersion;
+		}
+
+		public void ShowExceptionReporter()
+		{
+			ShowDialog();
 		}
 
 		public void DisplayException(Exception ex, Assembly callingAssembly)
 		{
-			_assembly = callingAssembly;
-			_exception = ex;
 			_refreshData = true;
-
-			ShowDialog();
+			_presenter.DisplayException(ex, callingAssembly);
 		}
 
-		private void BuildExceptionHeirarchy(Exception e)
+		private void PopulateExceptionHierarchyTree(Exception e)
 		{
-			try
+			listviewExceptions.Clear();
+			listviewExceptions.Columns.Add("Level", 100, HorizontalAlignment.Left);
+			listviewExceptions.Columns.Add("Exception Type", 150, HorizontalAlignment.Left);
+			listviewExceptions.Columns.Add("Target Site / Method", 150, HorizontalAlignment.Left);
+
+			var listViewItem = new ListViewItem {Text = "Top Level"};
+			listViewItem.SubItems.Add(e.GetType().ToString());
+			listViewItem.SubItems.Add(e.TargetSite.ToString());
+			listViewItem.Tag = "0";
+			listviewExceptions.Items.Add(listViewItem);
+			listViewItem.Selected = true;
+
+			int index = 0;
+			Exception exCurrent = e;
+			bool blnContinue = (exCurrent.InnerException != null);
+
+			while (blnContinue)
 			{
-				lstExceptions.Clear();
+				index++;
+				exCurrent = exCurrent.InnerException;
+				listViewItem = new ListViewItem {Text = ("Inner Exception " + index)};
+				listViewItem.SubItems.Add(exCurrent.GetType().ToString());
+				listViewItem.SubItems.Add(exCurrent.TargetSite.ToString());
+				listViewItem.Tag = index.ToString();
+				listviewExceptions.Items.Add(listViewItem);
 
-				lstExceptions.Columns.Add("Level", 100, HorizontalAlignment.Left);
-				lstExceptions.Columns.Add("Exception Type", 150, HorizontalAlignment.Left);
-				lstExceptions.Columns.Add("Target Site / Method", 150, HorizontalAlignment.Left);
-
-
-				var listViewItem = new ListViewItem {Text = "Top Level"};
-				listViewItem.SubItems.Add(e.GetType().ToString());
-				listViewItem.SubItems.Add(e.TargetSite.ToString());
-				listViewItem.Tag = "0";
-				lstExceptions.Items.Add(listViewItem);
-				listViewItem.Selected = true;
-
-				int intIndex = 0;
-
-				Exception exCurrent = e;
-				bool blnContinue = (exCurrent.InnerException != null);
-				while (blnContinue)
-				{
-					intIndex++;
-					exCurrent = exCurrent.InnerException;
-					listViewItem = new ListViewItem {Text = ("Inner Exception " + intIndex)};
-					listViewItem.SubItems.Add(exCurrent.GetType().ToString());
-					listViewItem.SubItems.Add(exCurrent.TargetSite.ToString());
-					listViewItem.Tag = intIndex.ToString();
-					lstExceptions.Items.Add(listViewItem);
-
-					blnContinue = (exCurrent.InnerException != null);
-				}
-				txtStackTrace.Text = e.StackTrace;
-				txtMessage.Text = e.Message;
+				blnContinue = (exCurrent.InnerException != null);
 			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem building the Exception Heirarchy list", ex);
-			}
+
+			txtStackTrace.Text = e.StackTrace;
+			txtMessage.Text = e.Message;
 		}
 
-
-		private static void AddEnvironmentNode2(string strCaption, string strClass, TreeNode parentNode, Boolean blnUseName, string strWhere)
+		private static void AddEnvironmentNode(string caption, string className, TreeNode parentNode, bool useName, string where)
 		{
-			try
-			{
-				string strDisplayField = blnUseName ? "Name" : "Caption";
-				var tn = new TreeNode(strCaption);
-				var searcher = new ManagementObjectSearcher("SELECT * FROM " + strClass + " " + strWhere);
+			string strDisplayField = useName ? "Name" : "Caption";
+			var treeNode1 = new TreeNode(caption);
+			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0} {1}", className, where));
 
-				foreach (ManagementObject mo in searcher.Get())
-				{
-					var tn2 = new TreeNode(mo.GetPropertyValue(strDisplayField).ToString().Trim());
-					tn.Nodes.Add(tn2);
-					foreach (PropertyData iPropData in mo.Properties)
-					{
-						var propertyNode = new TreeNode(iPropData.Name + ':' + Convert.ToString(iPropData.Value));
-						tn2.Nodes.Add(propertyNode);
-					}
-				}
-				parentNode.Nodes.Add(tn);
-			}
-			catch (Exception ex)
+			foreach (ManagementObject managementObject in objectSearcher.Get())
 			{
-				ShowError("There has been a problem adding an Environment node.", ex);
-				return;
+				var treeNode2 = new TreeNode(managementObject.GetPropertyValue(strDisplayField).ToString().Trim());
+				treeNode1.Nodes.Add(treeNode2);
+				foreach (PropertyData propertyData in managementObject.Properties)
+				{
+					var propertyNode = new TreeNode(propertyData.Name + ':' + Convert.ToString(propertyData.Value));
+					treeNode2.Nodes.Add(propertyNode);
+				}
 			}
+			parentNode.Nodes.Add(treeNode1);
 		}
 
 		private void cmdPrint_Click(object sender, EventArgs e)
@@ -633,7 +583,6 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-
 		private void cmdCopy_Click(object sender, EventArgs e)
 		{
 			try
@@ -648,34 +597,21 @@ namespace ExceptionReporting.Views
 
 		private void cmdEmail_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				if (SendEmailAddress == null)
-				{
-					SendEmailAddress = lnkEmail.Text;
-				}
+			if (SendEmailAddress == null)
+				SendEmailAddress = lnkEmail.Text;
 
-				if (_sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
-				{
-					sendMAPIEmail();
-				}
-				if (_sendMailType == ExceptionReporter.slsMailType.SMTP)
-				{
-					if (SendEmailAddress != null)
-					{
-						sendSMTPEmail();
-					}
-					else
-					{
-						MessageBox.Show(
-							"It is not possible to send e-mail as a recipient address has not been configured by the application.",
-							"To Address Missing");
-					}
-				}
-			}
-			catch (Exception ex)
+			if (_sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
+				sendMAPIEmail();
+			
+			if (_sendMailType != ExceptionReporter.slsMailType.SMTP) return;
+
+			if (SendEmailAddress != null)
+				sendSMTPEmail();
+			else
 			{
-				ShowError("There has been a problem sending e-mail", ex);
+				MessageBox.Show(
+					"It is not possible to send e-mail as a recipient address has not been configured by the application.",
+					"To Address Missing");
 			}
 		}
 
@@ -690,39 +626,30 @@ namespace ExceptionReporting.Views
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_presenter.Save(BuildExceptionString(), saveDialog.FileName);
+				_presenter.SaveToFile(saveDialog.FileName);
 			}
 		}
 
-
-		private void LstExceptionsSelectedIndexChanged(object sender, EventArgs e)
+		private void ExceptionsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			Exception displayException = _exception;
-			try
+			Exception displayException = _presenter.TheException;
+			foreach (ListViewItem listViewItem in listviewExceptions.Items)
 			{
-				foreach (ListViewItem lvi in lstExceptions.Items)
+				if (!listViewItem.Selected) continue;
+				for (int count = 0; count < int.Parse(listViewItem.Tag.ToString()); count++)
 				{
-					if (!lvi.Selected) continue;
-					// work out which exception to display
-					for (Int32 intCount = 0; intCount < Int32.Parse(lvi.Tag.ToString()); intCount++)
-					{
-						displayException = displayException.InnerException;
-					}
+					displayException = displayException.InnerException;
 				}
+			}
 
-				txtStackTrace.Text = "";
-				txtMessage.Text = "";
-				if (displayException == null) displayException = _exception;
-				if (!(displayException == null))
-				{
-					txtStackTrace.Text = displayException.StackTrace;
-					txtMessage.Text = displayException.Message;
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem handling the change of selected exception", ex);
-			}
+			txtStackTrace.Text = string.Empty;
+			txtMessage.Text = string.Empty;
+
+			if (displayException == null) displayException = _presenter.TheException;
+			if ((displayException == null)) return;
+
+			txtStackTrace.Text = displayException.StackTrace;
+			txtMessage.Text = displayException.Message;
 		}
 
 		private void LnkWebLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

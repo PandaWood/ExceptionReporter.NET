@@ -49,7 +49,7 @@
 			this.lblVersion = new System.Windows.Forms.Label();
 			this.txtVersion = new System.Windows.Forms.TextBox();
 			this.tpExceptions = new System.Windows.Forms.TabPage();
-			this.lstExceptions = new System.Windows.Forms.ListView();
+			this.listviewExceptions = new System.Windows.Forms.ListView();
 			this.grbMessage = new System.Windows.Forms.GroupBox();
 			this.txtMessage = new System.Windows.Forms.TextBox();
 			this.grbStackTrace = new System.Windows.Forms.GroupBox();
@@ -283,7 +283,7 @@
 			// 
 			// tpExceptions
 			// 
-			this.tpExceptions.Controls.Add(this.lstExceptions);
+			this.tpExceptions.Controls.Add(this.listviewExceptions);
 			this.tpExceptions.Controls.Add(this.grbMessage);
 			this.tpExceptions.Controls.Add(this.grbStackTrace);
 			this.tpExceptions.Location = new System.Drawing.Point(4, 22);
@@ -295,13 +295,13 @@
 			// 
 			// lstExceptions
 			// 
-			this.lstExceptions.FullRowSelect = true;
-			this.lstExceptions.Location = new System.Drawing.Point(8, 8);
-			this.lstExceptions.Name = "lstExceptions";
-			this.lstExceptions.Size = new System.Drawing.Size(472, 120);
-			this.lstExceptions.TabIndex = 22;
-			this.lstExceptions.UseCompatibleStateImageBehavior = false;
-			this.lstExceptions.View = System.Windows.Forms.View.Details;
+			this.listviewExceptions.FullRowSelect = true;
+			this.listviewExceptions.Location = new System.Drawing.Point(8, 8);
+			this.listviewExceptions.Name = "listviewExceptions";
+			this.listviewExceptions.Size = new System.Drawing.Size(472, 120);
+			this.listviewExceptions.TabIndex = 22;
+			this.listviewExceptions.UseCompatibleStateImageBehavior = false;
+			this.listviewExceptions.View = System.Windows.Forms.View.Details;
 			// 
 			// grbMessage
 			// 
@@ -637,7 +637,7 @@
 		private System.Windows.Forms.Label lblVersion;
 		private System.Windows.Forms.TextBox txtVersion;
 		private System.Windows.Forms.TabPage tpExceptions;
-		private System.Windows.Forms.ListView lstExceptions;
+		private System.Windows.Forms.ListView listviewExceptions;
 		private System.Windows.Forms.GroupBox grbMessage;
 		private System.Windows.Forms.TextBox txtMessage;
 		private System.Windows.Forms.GroupBox grbStackTrace;

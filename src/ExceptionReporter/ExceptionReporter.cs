@@ -189,9 +189,9 @@ namespace ExceptionReporting
 			return boolCurrent;
 		}
 
-		public void DisplayException(Exception ex)
+		public void DisplayException(Exception exception)
 		{
-			if (ex == null)
+			if (exception == null)
 			{
 				MessageBox.Show("The Exception Reporter was called, but no Exception was provided!",
 				                "Exception Reporter called without an Exception");
@@ -226,11 +226,11 @@ namespace ExceptionReporting
 				                   	};
 
 				exceptionReportView.SetTabs();
-				exceptionReportView.DisplayException(ex, Assembly.GetCallingAssembly());
+				exceptionReportView.DisplayException(exception, Assembly.GetCallingAssembly());
 			}
-			catch (Exception exc)
+			catch (Exception ourException)
 			{
-				handleError("There has been a problem displaying the Exception Reporter", exc);
+				handleError("There has been a problem displaying the Exception Reporter", ourException);
 			}
 		}
 

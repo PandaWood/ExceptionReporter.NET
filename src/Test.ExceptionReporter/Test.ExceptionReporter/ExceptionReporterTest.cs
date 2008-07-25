@@ -36,7 +36,7 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		public void CanCreate_Exception_Hierarchy_String()
+		public void CanCreate_Hierarchy_String_With_Root_And_Inner_Exception()
 		{
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
 			string hierarchyString = stringBuilder.GetExceptionHierarchy(

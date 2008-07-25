@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 using Win32Mapi;
 
 namespace ExceptionReporting.Views
@@ -22,13 +24,11 @@ namespace ExceptionReporting.Views
 		bool ShowProgressBar { set; }
 		void HandleError(string message, Exception ex);
 		void SetSendCompleteState();
+		void ShowExceptionReporter();
 	}
 
 	public class ExceptionReportPresenter
 	{
-		private Exception _exception;
-		private StringBuilder _exceptionString;
-	
 		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
 		private Assembly _assembly;
 		private bool _refreshData;
@@ -41,26 +41,48 @@ namespace ExceptionReporting.Views
 		private bool _showExceptionsTab = true;
 		private bool _showAssembliesTab = true;
 		private bool _showEnumeratePrinters = true;
-		
+
+		private readonly ExceptionReportInfo _exceptionReportInfo;
 		private readonly IExceptionReportView _view;
 
 		public ExceptionReportPresenter(IExceptionReportView view)
 		{
 			_view = view;
+			_exceptionReportInfo = new ExceptionReportInfo
+			                       	{
+			                       		ExceptionDate = DateTime.Now,
+			                       		UserName = Environment.UserName,
+			                       		MachineName = Environment.MachineName,
+			                       		AppName = Application.ProductName,
+										RegionInfo = Application.CurrentCulture.DisplayName,
+										AppVersion = Application.ProductVersion
+			                       	};
 		}
 
-		public void SendSmtpMail(string exceptionString)
+		public Exception TheException
+		{
+			get { return _exceptionReportInfo.Exception; }
+		}
+
+		public Assembly TheAssembly
+		{
+			get { return _exceptionReportInfo.AppAssembly; }
+		}
+
+		public void SendSmtpMail()
 		{
 			_view.ProgressMessage = "Sending email...";
 			_view.EnableEmailButton = false;
 			_view.ShowProgressBar = true;
+
+			string exceptionString = BuildExceptionString();
 
 			try
 			{
 				var smtpClient = new SmtpClient(_view.SMTPServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
 				MailMessage mailMessage = GetMailMessage(exceptionString);
 
-				smtpClient.SendCompleted += delegate { _view.SetSendCompleteState();	};
+				smtpClient.SendCompleted += ((sender, e) => _view.SetSendCompleteState());
 				smtpClient.SendAsync(mailMessage, null);
 			}
 			catch (Exception ex)
@@ -86,10 +108,12 @@ namespace ExceptionReporting.Views
 			return mailMessage;
 		}
 
-		public void Save(string exceptionString, string fileName)
+		public void SaveToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName))
 				return;
+
+			string exceptionString = BuildExceptionString();
 
 			try
 			{
@@ -106,27 +130,16 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-
-		public string BuildExceptionString(bool b, bool b1, bool b2, bool b3, bool b4, bool b5, bool b6)
+		public string BuildExceptionString()
 		{
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());	//TODO get real ERI
+			//TODO populate ExceptionReportInfo properly
+			var stringBuilder = new ExceptionStringBuilder(_exceptionReportInfo);
 			return stringBuilder.Build();
 		}
 
-		public string ReferencedAssembliesToString(Assembly assembly)
+		public void SendMapiEmail(string email, IntPtr windowHandle)
 		{
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());	//TODO get real ERI
-			return stringBuilder.GetReferencedAssemblies(assembly);
-		}
-
-		public string ExceptionHierarchyToString(Exception exception)
-		{
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());  //TODO get real ERI
-			return stringBuilder.GetExceptionHierarchy(exception);
-		}
-
-		public void SendMapiEmail(string email, string exceptionString, IntPtr windowHandle)
-		{
+			string exceptionString = BuildExceptionString();
 			try
 			{
 				var ma = new Mapi();
@@ -160,6 +173,13 @@ namespace ExceptionReporting.Views
 		{
 			var printer = new ExceptionPrinter();
 			printer.Print();
+		}
+
+		public void DisplayException(Exception exception, Assembly assembly)
+		{
+			_exceptionReportInfo.Exception = exception;
+			_exceptionReportInfo.AppAssembly = assembly;
+			_view.ShowExceptionReporter();
 		}
 	}
 }
