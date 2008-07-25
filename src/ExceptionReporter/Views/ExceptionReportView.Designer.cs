@@ -96,7 +96,10 @@
 			// 
 			// lstAssemblies
 			// 
+			this.lstAssemblies.Activation = System.Windows.Forms.ItemActivation.OneClick;
 			this.lstAssemblies.FullRowSelect = true;
+			this.lstAssemblies.HotTracking = true;
+			this.lstAssemblies.HoverSelection = true;
 			this.lstAssemblies.Location = new System.Drawing.Point(8, 8);
 			this.lstAssemblies.Name = "lstAssemblies";
 			this.lstAssemblies.Size = new System.Drawing.Size(472, 320);
@@ -292,7 +295,10 @@
 			// 
 			// listviewExceptions
 			// 
+			this.listviewExceptions.Activation = System.Windows.Forms.ItemActivation.OneClick;
 			this.listviewExceptions.FullRowSelect = true;
+			this.listviewExceptions.HotTracking = true;
+			this.listviewExceptions.HoverSelection = true;
 			this.listviewExceptions.Location = new System.Drawing.Point(8, 8);
 			this.listviewExceptions.Name = "listviewExceptions";
 			this.listviewExceptions.Size = new System.Drawing.Size(472, 120);
@@ -312,13 +318,13 @@
 			// 
 			// txtMessage
 			// 
-			this.txtMessage.BackColor = System.Drawing.SystemColors.Control;
-			this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtMessage.Location = new System.Drawing.Point(8, 16);
+			this.txtMessage.BackColor = System.Drawing.SystemColors.Window;
+			this.txtMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtMessage.Location = new System.Drawing.Point(3, 16);
 			this.txtMessage.Multiline = true;
 			this.txtMessage.Name = "txtMessage";
 			this.txtMessage.ReadOnly = true;
-			this.txtMessage.Size = new System.Drawing.Size(456, 64);
+			this.txtMessage.Size = new System.Drawing.Size(466, 69);
 			this.txtMessage.TabIndex = 24;
 			// 
 			// grbStackTrace
@@ -333,13 +339,13 @@
 			// 
 			// txtStackTrace
 			// 
-			this.txtStackTrace.BackColor = System.Drawing.SystemColors.Control;
-			this.txtStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtStackTrace.Location = new System.Drawing.Point(4, 12);
+			this.txtStackTrace.BackColor = System.Drawing.SystemColors.Window;
+			this.txtStackTrace.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtStackTrace.Location = new System.Drawing.Point(3, 16);
 			this.txtStackTrace.Multiline = true;
 			this.txtStackTrace.Name = "txtStackTrace";
 			this.txtStackTrace.ReadOnly = true;
-			this.txtStackTrace.Size = new System.Drawing.Size(460, 84);
+			this.txtStackTrace.Size = new System.Drawing.Size(466, 85);
 			this.txtStackTrace.TabIndex = 26;
 			// 
 			// tabAssemblies
@@ -364,6 +370,7 @@
 			// 
 			// treeSettings
 			// 
+			this.treeSettings.HotTracking = true;
 			this.treeSettings.Location = new System.Drawing.Point(8, 8);
 			this.treeSettings.Name = "treeSettings";
 			this.treeSettings.Size = new System.Drawing.Size(472, 320);
@@ -385,40 +392,47 @@
 			// 
 			// lblMachine
 			// 
-			this.lblMachine.Location = new System.Drawing.Point(16, 15);
+			this.lblMachine.AutoSize = true;
+			this.lblMachine.Location = new System.Drawing.Point(5, 15);
 			this.lblMachine.Name = "lblMachine";
-			this.lblMachine.Size = new System.Drawing.Size(56, 16);
+			this.lblMachine.Size = new System.Drawing.Size(48, 13);
 			this.lblMachine.TabIndex = 16;
-			this.lblMachine.Text = "&Machine:";
+			this.lblMachine.Text = "Machine";
 			// 
 			// txtMachine
 			// 
 			this.txtMachine.BackColor = System.Drawing.SystemColors.Control;
-			this.txtMachine.Location = new System.Drawing.Point(80, 12);
+			this.txtMachine.Location = new System.Drawing.Point(59, 12);
 			this.txtMachine.Name = "txtMachine";
 			this.txtMachine.ReadOnly = true;
-			this.txtMachine.Size = new System.Drawing.Size(144, 20);
+			this.txtMachine.Size = new System.Drawing.Size(169, 20);
 			this.txtMachine.TabIndex = 17;
 			// 
 			// lblUsername
 			// 
-			this.lblUsername.Location = new System.Drawing.Point(256, 15);
+			this.lblUsername.AutoSize = true;
+			this.lblUsername.Location = new System.Drawing.Point(250, 15);
 			this.lblUsername.Name = "lblUsername";
-			this.lblUsername.Size = new System.Drawing.Size(64, 16);
+			this.lblUsername.Size = new System.Drawing.Size(55, 13);
 			this.lblUsername.TabIndex = 18;
-			this.lblUsername.Text = "&Username:";
+			this.lblUsername.Text = "Username";
 			// 
 			// txtUserName
 			// 
+			this.txtUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUserName.BackColor = System.Drawing.SystemColors.Control;
-			this.txtUserName.Location = new System.Drawing.Point(328, 12);
+			this.txtUserName.Location = new System.Drawing.Point(311, 12);
 			this.txtUserName.Name = "txtUserName";
 			this.txtUserName.ReadOnly = true;
-			this.txtUserName.Size = new System.Drawing.Size(152, 20);
+			this.txtUserName.Size = new System.Drawing.Size(169, 20);
 			this.txtUserName.TabIndex = 19;
 			// 
 			// treeEnvironment
 			// 
+			this.treeEnvironment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.treeEnvironment.HotTracking = true;
 			this.treeEnvironment.Location = new System.Drawing.Point(8, 40);
 			this.treeEnvironment.Name = "treeEnvironment";
 			this.treeEnvironment.Size = new System.Drawing.Size(472, 288);
@@ -454,72 +468,77 @@
 			// txtFax
 			// 
 			this.txtFax.BackColor = System.Drawing.SystemColors.Control;
-			this.txtFax.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtFax.Location = new System.Drawing.Point(72, 168);
 			this.txtFax.Name = "txtFax";
-			this.txtFax.Size = new System.Drawing.Size(240, 13);
+			this.txtFax.Size = new System.Drawing.Size(240, 20);
 			this.txtFax.TabIndex = 35;
 			// 
 			// lblFax
 			// 
-			this.lblFax.Location = new System.Drawing.Point(16, 168);
+			this.lblFax.AutoSize = true;
+			this.lblFax.Location = new System.Drawing.Point(18, 168);
 			this.lblFax.Name = "lblFax";
-			this.lblFax.Size = new System.Drawing.Size(48, 24);
+			this.lblFax.Size = new System.Drawing.Size(24, 13);
 			this.lblFax.TabIndex = 34;
-			this.lblFax.Text = "Fax:";
+			this.lblFax.Text = "Fax";
 			// 
 			// txtPhone
 			// 
 			this.txtPhone.BackColor = System.Drawing.SystemColors.Control;
-			this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtPhone.Location = new System.Drawing.Point(72, 144);
+			this.txtPhone.Location = new System.Drawing.Point(72, 142);
 			this.txtPhone.Name = "txtPhone";
-			this.txtPhone.Size = new System.Drawing.Size(240, 13);
+			this.txtPhone.Size = new System.Drawing.Size(240, 20);
 			this.txtPhone.TabIndex = 33;
 			// 
 			// lblPhone
 			// 
+			this.lblPhone.AutoSize = true;
 			this.lblPhone.Location = new System.Drawing.Point(16, 144);
 			this.lblPhone.Name = "lblPhone";
-			this.lblPhone.Size = new System.Drawing.Size(48, 24);
+			this.lblPhone.Size = new System.Drawing.Size(38, 13);
 			this.lblPhone.TabIndex = 32;
-			this.lblPhone.Text = "Phone:";
+			this.lblPhone.Text = "Phone";
 			// 
 			// lblWebSite
 			// 
+			this.lblWebSite.AutoSize = true;
 			this.lblWebSite.Location = new System.Drawing.Point(16, 80);
 			this.lblWebSite.Name = "lblWebSite";
-			this.lblWebSite.Size = new System.Drawing.Size(40, 24);
+			this.lblWebSite.Size = new System.Drawing.Size(30, 13);
 			this.lblWebSite.TabIndex = 30;
-			this.lblWebSite.Text = "Web:";
+			this.lblWebSite.Text = "Web";
 			// 
 			// lnkWeb
 			// 
-			this.lnkWeb.Location = new System.Drawing.Point(72, 80);
+			this.lnkWeb.Location = new System.Drawing.Point(69, 80);
 			this.lnkWeb.Name = "lnkWeb";
-			this.lnkWeb.Size = new System.Drawing.Size(400, 56);
+			this.lnkWeb.Size = new System.Drawing.Size(400, 59);
 			this.lnkWeb.TabIndex = 31;
 			// 
 			// lblEmail
 			// 
+			this.lblEmail.AutoSize = true;
 			this.lblEmail.Location = new System.Drawing.Point(16, 56);
 			this.lblEmail.Name = "lblEmail";
-			this.lblEmail.Size = new System.Drawing.Size(40, 24);
+			this.lblEmail.Size = new System.Drawing.Size(32, 13);
 			this.lblEmail.TabIndex = 28;
-			this.lblEmail.Text = "E-Mail:";
+			this.lblEmail.Text = "Email";
 			// 
 			// lnkEmail
 			// 
-			this.lnkEmail.Location = new System.Drawing.Point(72, 56);
+			this.lnkEmail.Location = new System.Drawing.Point(69, 56);
 			this.lnkEmail.Name = "lnkEmail";
 			this.lnkEmail.Size = new System.Drawing.Size(400, 16);
 			this.lnkEmail.TabIndex = 29;
 			// 
 			// lblContactMessageBottom
 			// 
-			this.lblContactMessageBottom.Location = new System.Drawing.Point(8, 200);
+			this.lblContactMessageBottom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblContactMessageBottom.Location = new System.Drawing.Point(11, 238);
 			this.lblContactMessageBottom.Name = "lblContactMessageBottom";
-			this.lblContactMessageBottom.Size = new System.Drawing.Size(472, 96);
+			this.lblContactMessageBottom.Size = new System.Drawing.Size(458, 96);
 			this.lblContactMessageBottom.TabIndex = 36;
 			this.lblContactMessageBottom.Text = "The information on this form describing the error and envrionment settings will b" +
 				"e of use when contacting support.";

@@ -28,10 +28,10 @@ namespace ExceptionReporting
 		{
 			InitializeComponent();
 
-			ExplanationMessage = "Please enter a brief explanation detailing the actions and events leading up to the occurrence of this error.";
-			GeneralMessage = "An error has occured in this application.";
-			ContactMessageBottom = "The information shown on this form describing the error and envrionment may be relevant when contacting support.";
-			ContactMessageTop = "The following details can be used to obtain support for this application..";
+			ExplanationMessage = "Please enter a brief explanation of events leading up to this exception";
+			GeneralMessage = "An exception has occured in this application";
+			ContactMessageBottom = "The information shown on this form describing the error and envrionment may be relevant when contacting support";
+			ContactMessageTop = "The following details can be used to obtain support for this application";
 
 			ShowPrintButton = true;
 			ShowSaveButton = true;
