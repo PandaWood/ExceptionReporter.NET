@@ -5,6 +5,7 @@ namespace ExceptionReporting
 {
 	public class ExceptionReportInfo
 	{
+		public bool EnumeratePrinters { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
 		public Exception Exception { get; set; }

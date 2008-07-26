@@ -38,13 +38,12 @@ namespace ExceptionReporting.Views
 		private bool _showAssembliesTab = true;
 		private bool _showEnumeratePrinters = true;
 
-		private readonly ExceptionReportInfo _info;
 		private readonly IExceptionReportView _view;
 
-		public ExceptionReportPresenter(IExceptionReportView view)
+		public ExceptionReportPresenter(ExceptionReportInfo info, IExceptionReportView view)
 		{
 			_view = view;
-			_info = new ExceptionReportInfo
+			Info = new ExceptionReportInfo
 			                       	{
 			                       		ExceptionDate = DateTime.Now,
 			                       		UserName = Environment.UserName,
@@ -53,6 +52,7 @@ namespace ExceptionReporting.Views
 										RegionInfo = Application.CurrentCulture.DisplayName,
 										AppVersion = Application.ProductVersion
 			                       	};
+			SetConfigInfo(info);
 		}
 
 		public Exception TheException
@@ -65,10 +65,7 @@ namespace ExceptionReporting.Views
 			get { return Info.AppAssembly; }
 		}
 
-		public ExceptionReportInfo Info
-		{
-			get { return _info; }
-		}
+		public ExceptionReportInfo Info { get; private set; }
 
 		public void SendSmtpMail()
 		{
@@ -201,6 +198,24 @@ namespace ExceptionReporting.Views
 			{
 				_view.ProgressValue++;
 			}
+		}
+
+		private void SetConfigInfo(ExceptionReportInfo info)
+		{
+			//TODO distinguish the 'env' from 'config' variables in ExceptionReportInfo by nesting in another class
+			Info.Email = info.Email;
+			Info.Fax = info.Fax;
+			Info.Phone = info.Phone;
+
+			Info.ShowAssembliesTab = info.ShowAssembliesTab;
+			Info.ShowContactTab = info.ShowContactTab;
+			Info.ShowEnvironmentTab = info.ShowEnvironmentTab;
+			Info.ShowExceptionsTab = info.ShowExceptionsTab;
+			Info.ShowGeneralTab = info.ShowGeneralTab;
+			Info.ShowSettingsTab = info.ShowSettingsTab;
+
+			Info.SmtpFromAddress = info.SmtpFromAddress;
+			Info.SmtpServer = info.SmtpServer;
 		}
 	}
 }

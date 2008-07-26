@@ -22,7 +22,7 @@ namespace ExceptionReporting.DemoApp
 			catch (Exception ex)
 			{
 				var exceptionReporter = new ExceptionReporter();
-				exceptionReporter.LoadPropertiesFromConfig();
+				exceptionReporter.ReadConfig();
 				exceptionReporter.DisplayException(ex);
 			}
 		}

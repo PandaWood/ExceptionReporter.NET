@@ -13,24 +13,14 @@ namespace ExceptionReporting.Views
 		private bool _refreshData;
 		private readonly ExceptionReportPresenter _presenter;
 
-		public ExceptionReportView()
+		public ExceptionReportView(ExceptionReportInfo info)
 		{
 			InitializeComponent();
 
-			SetDefaults();
+			_presenter = new ExceptionReportPresenter(info, this);
 			WireUpEvents();
-			_presenter = new ExceptionReportPresenter(this);
-		}
 
-		private void SetDefaults()
-		{
-			ShowAssembliesTab = true;
-			ShowEnvironmentTab = true;
-			EnumeratePrinters = true;
-			ShowGeneralTab = true;
-			ShowSettingsTab = true;
-			ShowContactTab = true;
-			ShowExceptionsTab = true;
+			SetTabs();
 		}
 
 		~ExceptionReportView()
@@ -50,14 +40,6 @@ namespace ExceptionReporting.Views
 			lnkWeb.LinkClicked += UrlClicked;
 		}
 
-		public bool ShowGeneralTab { get; set; }
-		public bool EnumeratePrinters { get; set; }
-		public bool ShowSettingsTab { get; set; }
-		public bool ShowContactTab { get; set; }
-		public bool ShowExceptionsTab { get; set; }
-		public bool ShowEnvironmentTab { get; set; }
-		public bool ShowAssembliesTab { get; set; }
-
 		public string ProgressMessage
 		{
 			set { throw new NotImplementedException(); }		//TODO add a progress message label
@@ -66,11 +48,6 @@ namespace ExceptionReporting.Views
 		public bool EnableEmailButton
 		{
 			set { btnEmail.Enabled = value; }
-		}
-
-		public string EmailToSendTo
-		{
-			get { throw new NotImplementedException(); }
 		}
 
 		public bool ShowProgressBar
@@ -86,55 +63,46 @@ namespace ExceptionReporting.Views
 
 		public string ContactEmail
 		{
-			get { return lnkEmail.Text; }
 			set { lnkEmail.Text = value; }
 		}
 
 		public string ContactWeb
 		{
-			get { return lnkWeb.Text; }
 			set { lnkWeb.Text = value; }
 		}
 
 		public string ContactPhone
 		{
-			get { return txtPhone.Text; }
 			set { txtPhone.Text = value; }
 		}
 
 		public string ContactFax
 		{
-			get { return txtFax.Text; }
 			set { txtFax.Text = value; }
 		}
 
 		public string ContactMessageTop
 		{
-			get { return lblContactMessageTop.Text; }
 			set { lblContactMessageTop.Text = value; }
 		}
 
 		public string ContactMessageBottom
 		{
-			get { return lblContactMessageBottom.Text; }
 			set { lblContactMessageBottom.Text = value; }
 		}
 
 		public string GeneralMessage
 		{
-			get { return lblGeneral.Text; }
 			set { lblGeneral.Text = value; }
 		}
 
 		public ExceptionReporter.slsMailType MailType
 		{
-			get { return _sendMailType; }
 			set { _sendMailType = value; }
 		}
 
 		public string ExplanationMessage
 		{
-			get { return lblExplanation.Text; }
 			set { lblExplanation.Text = value; }
 		}
 
@@ -144,8 +112,6 @@ namespace ExceptionReporting.Views
 			progressBar.Visible = false;
 //			btnEmail.Enabled = true;
 		}
-
-		
 
 		private void lblApplication_Click(object sender, EventArgs e)
 		{
@@ -167,27 +133,27 @@ namespace ExceptionReporting.Views
 			tabControl.TabPages.Clear(); 
 
 			// add back the tabs one by one that are configured to be shown
-			if (ShowGeneralTab)
+			if (_presenter.Info.ShowGeneralTab)
 			{
 				tabControl.TabPages.Add(tabGeneral);
 			}
-			if (ShowExceptionsTab)
+			if (_presenter.Info.ShowExceptionsTab)
 			{
 				tabControl.TabPages.Add(tabExceptions);
 			}
-			if (ShowAssembliesTab)
+			if (_presenter.Info.ShowAssembliesTab)
 			{
 				tabControl.TabPages.Add(tabAssemblies);
 			}
-			if (ShowSettingsTab)
+			if (_presenter.Info.ShowSettingsTab)
 			{
 				tabControl.TabPages.Add(tabSettings);
 			}
-			if (ShowEnvironmentTab)
+			if (_presenter.Info.ShowEnvironmentTab)
 			{
 				tabControl.TabPages.Add(tabEnvironment);
 			}
-			if (ShowContactTab)
+			if (_presenter.Info.ShowContactTab)
 			{
 				tabControl.TabPages.Add(tabContact);
 			}
@@ -285,7 +251,7 @@ namespace ExceptionReporting.Views
 			_presenter.AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, string.Empty);
 			_presenter.AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, string.Empty);
 
-			if (EnumeratePrinters)
+			if (_presenter.Info.EnumeratePrinters)
 				_presenter.AddEnvironmentNode("Printers", "Win32_Printer", root, true, string.Empty);
 
 			treeEnvironment.Nodes.Add(root);
@@ -360,7 +326,8 @@ namespace ExceptionReporting.Views
 			{
 				string strLink = lnkEmail.Text;
 
-				if (!strLink.Substring(0, 7).ToUpper().Equals("MAILTO:"))
+				const string MAILTO = "MAILTO:";
+				if (!strLink.Substring(0, MAILTO.Length).ToUpper().Equals(MAILTO))
 				{
 					strLink = "MailTo:" + strLink;
 				}
@@ -433,9 +400,10 @@ namespace ExceptionReporting.Views
 
 		private void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
+			//TODO make this resuable and test it
 			try
 			{
-				var psi = new ProcessStartInfo(lnkWeb.Text) { UseShellExecute = true };
+				var psi = new ProcessStartInfo(e.Link.Name) { UseShellExecute = true };
 				Process.Start(psi);
 			}
 			catch (Exception ex)
