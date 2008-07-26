@@ -15,7 +15,7 @@ namespace Test.ExceptionReporter
 			Assembly dataAssembly = Assembly.GetExecutingAssembly();
 
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
-			string assemblyNames = stringBuilder.GetReferencedAssemblies(dataAssembly);
+			string assemblyNames = stringBuilder.ReferencedAssembliesToString(dataAssembly);
 
 			Assert.That(assemblyNames, Is.Not.Null);
 			Assert.That(assemblyNames.Length, Is.GreaterThan(0));
@@ -29,7 +29,7 @@ namespace Test.ExceptionReporter
 		public void CanReturn_Nothing_If_Assembly_IsNull()
 		{
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
-			string assemblyNames = stringBuilder.GetReferencedAssemblies(null);
+			string assemblyNames = stringBuilder.ReferencedAssembliesToString(null);
 
 			Assert.That(assemblyNames, Is.Not.Null);
 			Assert.That(assemblyNames.Length, Is.EqualTo(0));
@@ -39,7 +39,7 @@ namespace Test.ExceptionReporter
 		public void CanCreate_Hierarchy_String_With_Root_And_Inner_Exception()
 		{
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
-			string hierarchyString = stringBuilder.GetExceptionHierarchy(
+			string hierarchyString = stringBuilder.ExceptionHierarchyToString(
 				new ArgumentOutOfRangeException("OuterException", new ArgumentNullException("InnerException")));
 
 			Assert.That(hierarchyString, Is.Not.Null);

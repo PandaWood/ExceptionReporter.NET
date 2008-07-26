@@ -16,3 +16,10 @@ phillippettit
 PandaWood (spurrymoses@gmail.com)
 
 
+** Changes **
+The config items which specificed whether or not buttons were displayed (eg Save/Print/Email/Copy) have been removed, the buttons are always shown.
+"SLS_ER_PRINT_BUTTON"
+"SLS_ER_SAVE_BUTTON"
+"SLS_ER_COPY_BUTTON"
+"SLS_ER_EMAIL_BUTTON"
+

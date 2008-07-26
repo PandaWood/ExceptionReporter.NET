@@ -10,7 +10,7 @@ namespace ExceptionReporting
 		private StringBuilder _stringBuilder;
 
 		/// <summary>
-		/// only constructor
+		/// the (only) constructor
 		/// </summary>
 		/// <param name="info">ExceptionReportInfo </param>
 		public ExceptionStringBuilder(ExceptionReportInfo info)
@@ -52,7 +52,7 @@ namespace ExceptionReporting
 		{
 			_stringBuilder.AppendLine("Contact")
 						  .AppendLine()
-						  .AppendLine("E-Mail: " + _info.Email)
+						  .AppendLine("E-Mail: " + _info.ContactEmail)
 						  .AppendLine("Web:    " + _info.Url)
 						  .AppendLine("Phone:  " + _info.Phone)
 						  .AppendLine("Fax:    " + _info.Fax)
@@ -63,18 +63,16 @@ namespace ExceptionReporting
 		{
 			_stringBuilder.AppendLine("Assemblies")
 						  .AppendLine()
-						  .AppendLine(GetReferencedAssemblies(_info.AppAssembly))
-						  .AppendDottedLine()
-						  .AppendLine();
+						  .AppendLine(ReferencedAssembliesToString(_info.AppAssembly))
+						  .AppendDottedLine().AppendLine();
 		}
 
 		private void BuildExceptionInfo()
 		{
 			_stringBuilder.AppendLine("Exceptions")
 						  .AppendLine()
-						  .AppendLine(GetExceptionHierarchy(_info.RootException))
-						  .AppendLine().AppendDottedLine()
-						  .AppendLine();
+						  .AppendLine(ExceptionHierarchyToString(_info.RootException))
+						  .AppendLine().AppendDottedLine().AppendLine();
 		}
 
 		private void BuildGeneralInfo()
@@ -82,8 +80,7 @@ namespace ExceptionReporting
 			if (!_info.isForPrinting)
 			{
 				_stringBuilder.AppendLine(_info.GeneralInfo)
-							  .AppendLine().AppendDottedLine()
-							  .AppendLine();
+							  .AppendLine().AppendDottedLine().AppendLine();
 			}
 
 			_stringBuilder.AppendLine("General")
@@ -91,7 +88,7 @@ namespace ExceptionReporting
 						  .AppendLine("Application: " + _info.AppName)
 						  .AppendLine("Version:     " + _info.AppVersion)
 						  .AppendLine("Region:      " + _info.RegionInfo)
-						  .AppendLine("Machine:     " + " " + _info.MachineName)
+						  .AppendLine("Machine:     " + _info.MachineName)
 						  .AppendLine("User:        " + _info.UserName)
 						  .AppendDottedLine();
 
@@ -106,11 +103,10 @@ namespace ExceptionReporting
 			_stringBuilder.AppendLine()
 						  .AppendLine("Explanation")
 						  .AppendLine(_info.UserExplanation)
-						  .AppendLine().AppendDottedLine()
-						  .AppendLine();
+						  .AppendLine().AppendDottedLine().AppendLine();
 		}
 
-		public string GetExceptionHierarchy(Exception exception)
+		public string ExceptionHierarchyToString(Exception exception)
 		{
 			Exception currentException = exception;
 			var stringBuilder = new StringBuilder();
@@ -137,7 +133,7 @@ namespace ExceptionReporting
 			return stringBuilder.ToString();
 		}
 
-		public string GetReferencedAssemblies(Assembly assembly)
+		public string ReferencedAssembliesToString(Assembly assembly)
 		{
 			var stringBuilder = new StringBuilder();
 

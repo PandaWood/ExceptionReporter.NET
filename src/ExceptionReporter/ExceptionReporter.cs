@@ -11,14 +11,7 @@ namespace ExceptionReporting
 	[ToolboxBitmap(typeof (ExceptionReporter), "ExceptionReporter.ico")]
 	public class ExceptionReporter : Component
 	{
-		/// <summary>
-		/// Enumerated type used to represent supported e-mail mechanisms 
-		/// </summary>
-		public enum slsMailType
-		{
-			SimpleMAPI,
-			SMTP
-		} ;
+		private readonly ExceptionReportInfo _info = new ExceptionReportInfo();
 
 		public ExceptionReporter(IContainer container) : this()
 		{
@@ -29,67 +22,44 @@ namespace ExceptionReporting
 		{
 			InitializeComponent();
 
-			//TODO not all of these are used
-			ExplanationMessage = "Please enter a brief explanation of events leading up to this exception";
-			GeneralMessage = "An exception has occured in this application";
-			ContactMessageBottom = "The information shown on this form describing the error and envrionment may be relevant when contacting support";
-			ContactMessageTop = "The following details can be used to obtain support for this application";
+			_info.UserExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
+			_info.ExceptionOccurredMessage = "An exception has occured in this application";
+			_info.ContactMessageBottom = "The information shown on this form describing the error and envrionment may be relevant when contacting support";
+			_info.ContactMessageTop = "The following details can be used to obtain support for this application";
 
-			ShowPrintButton = true;
-			ShowSaveButton = true;
-			ShowEmailButton = true;
-			ShowCopyButton = true;
-			ShowExceptionsTab = true;
-			ShowContactTab = true;
-			ShowSettingsTab = true;
-			ShowAssembliesTab = true;
-			EnumeratePrinters = true;
-			ShowEnvironmentTab = true;
-			ShowGeneralTab = true;
+			_info.ShowExceptionsTab = true;
+			_info.ShowContactTab = true;
+			_info.ShowSettingsTab = true;
+			_info.ShowAssembliesTab = true;
+			_info.EnumeratePrinters = true;
+			_info.ShowEnvironmentTab = true;
+			_info.ShowGeneralTab = true;
 		}
+	
+		/// <summary>
+		/// Show the ExceptionReporter dialog
+		/// </summary>
+		/// <remarks>The ExceptionReporter will analyze the exception (and app.config) to determine the 
+		/// contents of the report</remarks>
+		/// <param name="exception">the exception to show</param>
+		public void Show(Exception exception)
+		{
+			if (exception == null) return;
 
-		public bool ShowGeneralTab { get; set; }
-		public bool ShowEnvironmentTab { get; set; }
-		public bool EnumeratePrinters { get; set; }
-		public bool ShowAssembliesTab { get; set; }
-		public string SMTPServer { get; set; }
-		public string SMTPUsername { get; set; }
-		public string SMTPPassword { get; set; }
-		public string SMTPFromAddress { get; set; }
-		public string SendEmailAddress { get; set; }
-		public bool ShowSettingsTab { get; set; }
-		public bool ShowContactTab { get; set; }
-		public bool ShowExceptionsTab { get; set; }
-		public bool ShowCopyButton { get; set; }
-		public bool ShowEmailButton { get; set; }
-		public bool ShowSaveButton { get; set; }
-		public bool ShowPrintButton { get; set; }
-		public string ContactEmail { get; set; }
-		public string ContactWeb { get; set; }
-		public string ContactPhone { get; set; }
-		public string ContactFax { get; set; }
-		public string ContactMessageTop { get; set; }
-		public string ContactMessageBottom { get; set; }
-		public string GeneralMessage { get; set; }
-		public slsMailType MailType { get; set; }
-		public string ExplanationMessage { get; set; }
-
-		#region Component Designer generated code
+			try
+			{
+				var reportView = new ExceptionReportView(_info);
+				reportView.ShowException(exception, Assembly.GetCallingAssembly());
+			}
+			catch (Exception internalException)
+			{
+				ShowInternalException("Internal Exception occurred while trying to show the Exception Report", internalException);
+			}
+		}
 
 		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			new System.ComponentModel.Container();
-		}
-
-		#endregion
-
-		/// </summary>
-		/// <example>An example set of entries in the config file (ie appname.exe.config) may look like:
-		/// <?xml version="1.0" encoding="utf-8" ?>
+		/// Read settings from the app.config file
+		/// <example>
 		/// <configuration>
 		/// \<appSettings>
 		/// \<add key="SLS_ER_CONTACT_EMAIL" value="TheAddress@theserver.com"/> 
@@ -97,9 +67,8 @@ namespace ExceptionReporting
 		/// \</appSettings>
 		/// \</configuration>
 		/// </example>
-		/// <remarks>This method provides a flexible way of changing the Exception Reporters behaviour without having 
-		/// to change properties on a form at design time and recompile.
-		/// Important: This method must be explicitly called within your code, properties are not automatically read from the config file</remarks>
+		/// <remarks> This method must be explicitly called - properties are not automatically read from the config file </remarks>
+		/// </summary>
 		public void ReadConfig()
 		{
 			try
@@ -116,21 +85,17 @@ namespace ExceptionReporting
 
 		private void ReadGeneralConfig()
 		{
-			ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_EMAIL"), ContactEmail);
-			ContactWeb = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_WEB"), ContactWeb);
-			ContactPhone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_PHONE"), ContactPhone);
-			ContactFax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_FAX"), ContactFax);
-			ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_GENERAL"), ShowAssembliesTab);
-			ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_EXCEPTIONS"), ShowExceptionsTab);
-			ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ASSEMBLIES"), ShowAssembliesTab);
-			ShowSettingsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), ShowSettingsTab);
-			ShowEnvironmentTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), ShowEnvironmentTab);
-			ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_CONTACT"), ShowContactTab);
-			ShowPrintButton = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_PRINT_BUTTON"), ShowPrintButton);
-			ShowSaveButton = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SAVE_BUTTON"), ShowSaveButton);
-			ShowCopyButton = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_COPY_BUTTON"), ShowCopyButton);
-			ShowEmailButton = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_EMAIL_BUTTON"), ShowEmailButton);
-			EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), EnumeratePrinters);
+			_info.ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_EMAIL"), _info.ContactEmail);
+			_info.Url = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_WEB"), _info.Url);
+			_info.Phone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_PHONE"), _info.Phone);
+			_info.Fax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_FAX"), _info.Fax);
+			_info.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_GENERAL"), _info.ShowAssembliesTab);
+			_info.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_EXCEPTIONS"), _info.ShowExceptionsTab);
+			_info.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ASSEMBLIES"), _info.ShowAssembliesTab);
+			_info.ShowSettingsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), _info.ShowSettingsTab);
+			_info.ShowEnvironmentTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), _info.ShowEnvironmentTab);
+			_info.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_CONTACT"), _info.ShowContactTab);
+			_info.EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), _info.EnumeratePrinters);
 		}
 
 		private void ReadMailConfig()
@@ -141,39 +106,37 @@ namespace ExceptionReporting
 
 		private void ReadMailValues()
 		{
-			SMTPServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_SERVER"), SMTPServer);
-			SMTPUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_USERNAME"), SMTPUsername);
-			SMTPPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_PASSWORD"), SMTPPassword);
-			SMTPFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_FROM"), SMTPFromAddress);
-			SendEmailAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), SendEmailAddress);
+			_info.SmtpServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_SERVER"), _info.SmtpServer);
+			_info.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_USERNAME"), _info.SmtpUsername);
+			_info.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_PASSWORD"), _info.SmtpPassword);
+			_info.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_FROM"), _info.SmtpFromAddress);
+			_info.Email = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), _info.Email);
 		}
 
 		private void ReadMailType()
 		{
-			// determine the Mail Type (SMTP or Simple MAPI)
 			string strCompare = "SMTP";
 			const string strCompare2 = "SIMPLEMAPI";
-			if (!(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE") == null))
+			if ((ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE") == null)) return;
+
+			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
 			{
-				if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
-				{
-					MailType = slsMailType.SMTP;
-				}
-				strCompare = "MAPI";
-				if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE"))
-				    || strCompare2.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
-				{
-					MailType = slsMailType.SimpleMAPI;
-				}
+				_info.MailType = ExceptionReportInfo.slsMailType.SMTP;
+			}
+			strCompare = "MAPI";
+			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE"))
+			    || strCompare2.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
+			{
+				_info.MailType = ExceptionReportInfo.slsMailType.SimpleMAPI;
 			}
 		}
 
 		private void ReadInterfaceMessageConfig()
 		{
-			GeneralMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_GENERAL_MESSAGE"), GeneralMessage);
-			ExplanationMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_EXPLANATION_MESSAGE"), ExplanationMessage);
-			ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_1"), ContactMessageTop);
-			ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_2"), ContactMessageBottom);
+			_info.ExceptionOccurredMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_GENERAL_MESSAGE"), _info.ExceptionOccurredMessage);
+			_info.UserExplanationLabel = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_EXPLANATION_MESSAGE"), _info.UserExplanationLabel);
+			_info.ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_1"), _info.ContactMessageTop);
+			_info.ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_2"), _info.ContactMessageBottom);
 		}
 
 		/// <summary>
@@ -212,55 +175,26 @@ namespace ExceptionReporting
 			return boolCurrent;
 		}
 
-		public void DisplayException(Exception exception)
-		{
-			if (exception == null) return;	
-
-			try
-			{
-				var info = new ExceptionReportInfo
-				           	{
-//				                   		EnumeratePrinters = EnumeratePrinters,
-				                   		Email= ContactEmail,
-//				                   		ContactWeb = ContactWeb,
-				                   		Phone=  ContactPhone,
-				                   		Fax=  ContactFax,
-				                   		ShowAssembliesTab = ShowAssembliesTab,
-				                   		ShowEnvironmentTab = ShowEnvironmentTab,
-				                   		ShowGeneralTab = ShowGeneralTab,
-				                   		ShowSettingsTab = ShowSettingsTab,
-				                   		ShowContactTab = ShowContactTab,
-				                   		ShowExceptionsTab = ShowExceptionsTab,
-//				                   		MailType = MailType,
-//				                   		SMTPServer = SMTPServer,	//TODO
-//				                   		SMTPUsername = SMTPUsername,
-//				                   		SMTPPassword = SMTPPassword,
-//				                   		SMTPFromAddress = SMTPFromAddress,
-//				                   		SendEmailAddress = SendEmailAddress,
-//				                   		GeneralMessage = GeneralMessage,
-				                   		UserExplanation=  ExplanationMessage,
-//				                   		ContactMessageBottom = ContactMessageBottom,
-//				                   		ContactMessageTop = ContactMessageTop
-				                   	};
-
-				var exceptionReportView = new ExceptionReportView(info);
-				exceptionReportView.DisplayException(exception, Assembly.GetCallingAssembly());
-			}
-			catch (Exception internalException)
-			{
-				ShowInternalException("Internal Exception occurred while trying to show the Exception Report", internalException);
-			}
-		}
-
 		/// <summary>
-		/// Handles application error by displaying a simple error form to the user
-		/// The form contains 2 tabs, one for simple information and the other for a more detailed
-		/// exception message
+		/// A cut-down version of the ExceptionReport to show internal exceptions	
 		/// </summary>
 		private static void ShowInternalException(string message, Exception ex)
 		{
 			var exceptionView = new InternalExceptionView();
 			exceptionView.ShowException(message, ex);
 		}
+
+		#region Component Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			new System.ComponentModel.Container();
+		}
+
+		#endregion
 	}
 }

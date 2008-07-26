@@ -8,6 +8,9 @@ using ExceptionReporting.Views;
 
 namespace ExceptionReporting
 {
+	/// <summary>
+	/// TODO I am putting 'printing' on hold pending investigation into making the code simpler/easier
+	/// </summary>
 	public class ExceptionPrinter
 	{
 		private Font _printFont;
@@ -173,7 +176,7 @@ namespace ExceptionReporting
 
 		public void Print()
 		{
-			var printSelectView = new PrintSelectionView();
+			var printSelectView = new PrintExceptionView();
 			bool showGeneral = false;
 			bool showExceptions = false;
 			bool showAssemblies = false;

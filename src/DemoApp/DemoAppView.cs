@@ -23,7 +23,7 @@ namespace ExceptionReporting.DemoApp
 			{
 				var exceptionReporter = new ExceptionReporter();
 				exceptionReporter.ReadConfig();
-				exceptionReporter.DisplayException(ex);
+				exceptionReporter.Show(ex);
 			}
 		}
 	}
