@@ -32,6 +32,7 @@
 			this.lstAssemblies = new System.Windows.Forms.ListView();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabGeneral = new System.Windows.Forms.TabPage();
+			this.label1 = new System.Windows.Forms.Label();
 			this.lblExplanation = new System.Windows.Forms.Label();
 			this.txtExplanation = new System.Windows.Forms.TextBox();
 			this.lblRegion = new System.Windows.Forms.Label();
@@ -78,10 +79,9 @@
 			this.printDialog1 = new System.Windows.Forms.PrintDialog();
 			this.btnEmail = new System.Windows.Forms.Button();
 			this.btnPrint = new System.Windows.Forms.Button();
-			this.lblProgress = new System.Windows.Forms.Label();
+			this.lblProgressMessage = new System.Windows.Forms.Label();
 			this.btnCopy = new System.Windows.Forms.Button();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-			this.label1 = new System.Windows.Forms.Label();
 			this.tabControl.SuspendLayout();
 			this.tabGeneral.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picGeneral)).BeginInit();
@@ -147,6 +147,17 @@
 			this.tabGeneral.TabIndex = 0;
 			this.tabGeneral.Text = "General";
 			this.tabGeneral.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.Location = new System.Drawing.Point(99, 48);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(377, 38);
+			this.label1.TabIndex = 23;
+			this.label1.Text = "Please notify IT support of this exception by using the Save/Copy or Email button" +
+				"s below";
 			// 
 			// lblExplanation
 			// 
@@ -590,14 +601,14 @@
 			this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.btnPrint.Visible = false;
 			// 
-			// lblProgress
+			// lblProgressMessage
 			// 
-			this.lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.lblProgress.Location = new System.Drawing.Point(12, 377);
-			this.lblProgress.Name = "lblProgress";
-			this.lblProgress.Size = new System.Drawing.Size(128, 16);
-			this.lblProgress.TabIndex = 52;
-			this.lblProgress.Text = "Loading System Info...";
+			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.lblProgressMessage.Location = new System.Drawing.Point(12, 377);
+			this.lblProgressMessage.Name = "lblProgressMessage";
+			this.lblProgressMessage.Size = new System.Drawing.Size(128, 16);
+			this.lblProgressMessage.TabIndex = 52;
+			this.lblProgressMessage.Text = "Loading System Info...";
 			// 
 			// btnCopy
 			// 
@@ -612,17 +623,6 @@
 			this.btnCopy.Text = "Copy";
 			this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.Location = new System.Drawing.Point(99, 48);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(377, 38);
-			this.label1.TabIndex = 23;
-			this.label1.Text = "Please notify IT support of this exception by using the Save/Copy or Email button" +
-				"s below";
-			// 
 			// ExceptionReportView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -633,7 +633,7 @@
 			this.Controls.Add(this.progressBar);
 			this.Controls.Add(this.btnEmail);
 			this.Controls.Add(this.btnPrint);
-			this.Controls.Add(this.lblProgress);
+			this.Controls.Add(this.lblProgressMessage);
 			this.Controls.Add(this.btnCopy);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
@@ -709,7 +709,7 @@
 		private System.Windows.Forms.PrintDialog printDialog1;
 		private System.Windows.Forms.Button btnEmail;
 		private System.Windows.Forms.Button btnPrint;
-		private System.Windows.Forms.Label lblProgress;
+		private System.Windows.Forms.Label lblProgressMessage;
 		private System.Windows.Forms.Button btnCopy;
 		private System.Drawing.Printing.PrintDocument printDocument1;
 		private System.Windows.Forms.Label label1;

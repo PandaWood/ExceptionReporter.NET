@@ -9,9 +9,7 @@ using Win32Mapi;
 namespace ExceptionReporting.Views
 {
 	/// <summary>
-	/// The IExceptionReportView and ExceptionReportPresenter is the beginning of my attempt to move this code
-	/// to Model/View/Presenter pattern - mainly to reduce ExceptionReportView down from 2000 lines in one file
-	/// and to separate out logic for testing and maintainability
+	/// The interface (contract) for an ExceptionReportView
 	/// </summary>
 	public interface IExceptionReportView
 	{
@@ -24,20 +22,11 @@ namespace ExceptionReporting.Views
 		void ShowExceptionReporter();
 	}
 
+	/// <summary>
+	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view
+	/// </summary>
 	public class ExceptionReportPresenter
 	{
-		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
-		private Assembly _assembly;
-		private bool _refreshData;
-
-		private bool _showGeneralTab = true;
-		private bool _showEnvironmentTab = true;
-		private bool _showSettingsTab = true;
-		private bool _showContactTab = true;
-		private bool _showExceptionsTab = true;
-		private bool _showAssembliesTab = true;
-		private bool _showEnumeratePrinters = true;
-
 		private readonly IExceptionReportView _view;
 
 		public ExceptionReportPresenter(ExceptionReportInfo info, IExceptionReportView view)
@@ -67,7 +56,7 @@ namespace ExceptionReporting.Views
 
 		public ExceptionReportInfo Info { get; private set; }
 
-		public void SendSmtpMail()
+		private void SendSmtpMail()
 		{
 			_view.ProgressMessage = "Sending email...";
 			_view.EnableEmailButton = false;
@@ -101,11 +90,11 @@ namespace ExceptionReporting.Views
 			                  		Body = exceptionString,
 			                  		Subject = "Exception"
 			                  	};
-			mailMessage.To.Add(new MailAddress(Info.Email));
+			mailMessage.To.Add(new MailAddress(Info.ContactEmail));
 			return mailMessage;
 		}
 
-		public void SaveToFile(string fileName)
+		public void SaveExceptionReportToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName))
 				return;
@@ -129,12 +118,11 @@ namespace ExceptionReporting.Views
 
 		public string BuildExceptionString()
 		{
-			//TODO populate ExceptionReportInfo properly
 			var stringBuilder = new ExceptionStringBuilder(Info);
 			return stringBuilder.Build();
 		}
 
-		public void SendMapiEmail(IntPtr windowHandle)
+		private void SendMapiEmail(IntPtr windowHandle)
 		{
 			string exceptionString = BuildExceptionString();
 			try
@@ -142,9 +130,9 @@ namespace ExceptionReporting.Views
 				var ma = new Mapi();
 				ma.Logon(windowHandle);
 				ma.Reset();
-				if (!string.IsNullOrEmpty(Info.Email))
+				if (!string.IsNullOrEmpty(Info.ContactEmail))
 				{
-					ma.AddRecip(Info.Email, null, false);
+					ma.AddRecip(Info.ContactEmail, null, false);
 				}
 
 				ma.Send("An Exception has occured", exceptionString, true);
@@ -203,7 +191,7 @@ namespace ExceptionReporting.Views
 		private void SetConfigInfo(ExceptionReportInfo info)
 		{
 			//TODO distinguish the 'env' from 'config' variables in ExceptionReportInfo by nesting in another class
-			Info.Email = info.Email;
+			Info.ContactEmail = info.ContactEmail;
 			Info.Fax = info.Fax;
 			Info.Phone = info.Phone;
 
@@ -216,6 +204,20 @@ namespace ExceptionReporting.Views
 
 			Info.SmtpFromAddress = info.SmtpFromAddress;
 			Info.SmtpServer = info.SmtpServer;
+		}
+
+		public void SendExceptionReportByEmail(IntPtr handle)
+		{
+			if (Info.MailType == ExceptionReportInfo.slsMailType.SimpleMAPI)
+				SendMapiEmail(handle);
+
+			if (Info.MailType == ExceptionReportInfo.slsMailType.SMTP)
+				SendSmtpMail();
+		}
+
+		public void CopyExceptionReportToClipboard()
+		{
+			Clipboard.SetDataObject(BuildExceptionString(), true);
 		}
 	}
 }

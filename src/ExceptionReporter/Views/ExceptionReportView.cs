@@ -9,7 +9,6 @@ namespace ExceptionReporting.Views
 {
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	{
-		private ExceptionReporter.slsMailType _sendMailType = ExceptionReporter.slsMailType.SimpleMAPI;
 		private bool _refreshData;
 		private readonly ExceptionReportPresenter _presenter;
 
@@ -19,8 +18,7 @@ namespace ExceptionReporting.Views
 
 			_presenter = new ExceptionReportPresenter(info, this);
 			WireUpEvents();
-
-			SetTabs();
+			PopulateTabs();
 		}
 
 		~ExceptionReportView()
@@ -30,19 +28,23 @@ namespace ExceptionReporting.Views
 
 		private void WireUpEvents()
 		{
-			btnEmail.Click += Email_Click;
-			btnPrint.Click += cmdPrint_Click;
+			btnEmail.Click += EmailButton_Click;
+			btnPrint.Click += PrintButton_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			lblApplication.Click += lblApplication_Click;
-			btnCopy.Click += cmdCopy_Click;
-			lnkEmail.LinkClicked += lnkEmail_LinkClicked;
-			btnSave.Click += Save_Click;
+			btnCopy.Click += CopyButton_Click;
+			lnkEmail.LinkClicked += EmailLink_Click;
+			btnSave.Click += SaveButton_Click;
 			lnkWeb.LinkClicked += UrlClicked;
 		}
 
 		public string ProgressMessage
 		{
-			set { throw new NotImplementedException(); }		//TODO add a progress message label
+			set
+			{
+				lblProgressMessage.Text = value;
+				lblProgressMessage.Refresh();
+			}
 		}
 
 		public bool EnableEmailButton
@@ -52,7 +54,7 @@ namespace ExceptionReporting.Views
 
 		public bool ShowProgressBar
 		{
-			set { throw new NotImplementedException(); }
+			set { progressBar.Visible = value; }
 		}
 
 		public int ProgressValue
@@ -96,21 +98,16 @@ namespace ExceptionReporting.Views
 			set { lblGeneral.Text = value; }
 		}
 
-		public ExceptionReporter.slsMailType MailType
-		{
-			set { _sendMailType = value; }
-		}
-
-		public string ExplanationMessage
+		public string ExplanationLabel
 		{
 			set { lblExplanation.Text = value; }
 		}
 
 		public void SetSendCompleteState()
 		{
-//			lblProgressMessage.Text = "Email sent.";		//TODO add these ui elements
-			progressBar.Visible = false;
-//			btnEmail.Enabled = true;
+			ProgressMessage = "Email sent.";
+			ShowProgressBar = false;
+			btnEmail.Enabled = true;
 		}
 
 		private void lblApplication_Click(object sender, EventArgs e)
@@ -118,21 +115,10 @@ namespace ExceptionReporting.Views
 			//TODO 
 		}
 
-		public void sendMAPIEmail()
-		{
-			_presenter.SendMapiEmail(Handle);
-		}
-
-		public void sendSMTPEmail()
-		{
-			_presenter.SendSmtpMail();
-		}
-
-		public void SetTabs()
+		public void PopulateTabs()
 		{
 			tabControl.TabPages.Clear(); 
 
-			// add back the tabs one by one that are configured to be shown
 			if (_presenter.Info.ShowGeneralTab)
 			{
 				tabControl.TabPages.Add(tabGeneral);
@@ -165,11 +151,6 @@ namespace ExceptionReporting.Views
 			simpleExceptionView.ShowException(message, ex);
 		}
 
-		private string BuildExceptionString()
-		{
-			return _presenter.BuildExceptionString();
-		}
-
 		//TODO put on a background thread
 		protected override void OnActivated(EventArgs e)
 		{
@@ -187,7 +168,7 @@ namespace ExceptionReporting.Views
 
 				_refreshData = false;	// next time we won't refresh unless this flag is set back to true
 				Cursor = Cursors.WaitCursor;
-				lblProgress.Visible = true;
+				lblProgressMessage.Visible = true;
 				progressBar.Visible = true;
 				progressBar.Value = 0;
 				progressBar.Maximum = 13;
@@ -198,13 +179,13 @@ namespace ExceptionReporting.Views
 				PopulateExceptionHierarchyTree(_presenter.TheException); progressBar.Value++;
 				PopulateAssemblyInfo(); progressBar.Value++;
 
-				SetTabs();
+				PopulateTabs();
 			}
 			finally
 			{
 				Cursor = Cursors.Default;
 				progressBar.Value = progressBar.Maximum;
-				lblProgress.Visible = false;
+				lblProgressMessage.Visible = false;
 				progressBar.Visible = false;
 			}
 		}
@@ -274,7 +255,7 @@ namespace ExceptionReporting.Views
 			ShowDialog();
 		}
 
-		public void DisplayException(Exception ex, Assembly callingAssembly)
+		public void ShowException(Exception ex, Assembly callingAssembly)
 		{
 			_refreshData = true;
 			_presenter.DisplayException(ex, callingAssembly);
@@ -296,9 +277,9 @@ namespace ExceptionReporting.Views
 
 			int index = 0;
 			Exception exCurrent = e;
-			bool blnContinue = (exCurrent.InnerException != null);
+			bool shouldContinue = (exCurrent.InnerException != null);
 
-			while (blnContinue)
+			while (shouldContinue)
 			{
 				index++;
 				exCurrent = exCurrent.InnerException;
@@ -308,19 +289,19 @@ namespace ExceptionReporting.Views
 				listViewItem.Tag = index.ToString();
 				listviewExceptions.Items.Add(listViewItem);
 
-				blnContinue = (exCurrent.InnerException != null);
+				shouldContinue = (exCurrent.InnerException != null);
 			}
 
 			txtStackTrace.Text = e.StackTrace;
 			txtMessage.Text = e.Message;
 		}
 
-		private void cmdPrint_Click(object sender, EventArgs e)
+		private void PrintButton_Click(object sender, EventArgs e)
 		{
 			_presenter.PrintException();
 		}
 
-		private void lnkEmail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void EmailLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			try
 			{
@@ -340,28 +321,17 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void cmdCopy_Click(object sender, EventArgs e)
+		private void CopyButton_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				Clipboard.SetDataObject(BuildExceptionString(), true);
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem copying to clipboard", ex);
-			}
+			_presenter.CopyExceptionReportToClipboard();
 		}
 
-		private void Email_Click(object sender, EventArgs e)
+		private void EmailButton_Click(object sender, EventArgs e)
 		{
-			if (_sendMailType == ExceptionReporter.slsMailType.SimpleMAPI)
-				sendMAPIEmail();
-			
-			if (_sendMailType == ExceptionReporter.slsMailType.SMTP)
-				sendSMTPEmail();
+			_presenter.SendExceptionReportByEmail(Handle);
 		}
 
-		private void Save_Click(object sender, EventArgs e)
+		private void SaveButton_Click(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
 			              	{
@@ -372,7 +342,7 @@ namespace ExceptionReporting.Views
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_presenter.SaveToFile(saveDialog.FileName);
+				_presenter.SaveExceptionReportToFile(saveDialog.FileName);
 			}
 		}
 
@@ -398,7 +368,7 @@ namespace ExceptionReporting.Views
 			txtMessage.Text = displayException.Message;
 		}
 
-		private void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private static void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			//TODO make this resuable and test it
 			try
