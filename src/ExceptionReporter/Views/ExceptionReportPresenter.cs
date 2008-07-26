@@ -19,7 +19,7 @@ namespace ExceptionReporting.Views
 		int ProgressValue { get;  set; }
 		void HandleError(string message, Exception ex);
 		void SetSendCompleteState();
-		void ShowExceptionReporter();
+		void ShowExceptionReport();
 	}
 
 	/// <summary>
@@ -29,19 +29,10 @@ namespace ExceptionReporting.Views
 	{
 		private readonly IExceptionReportView _view;
 
-		public ExceptionReportPresenter(ExceptionReportInfo info, IExceptionReportView view)
+		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
-			Info = new ExceptionReportInfo
-			                       	{
-			                       		ExceptionDate = DateTime.Now,
-			                       		UserName = Environment.UserName,
-			                       		MachineName = Environment.MachineName,
-			                       		AppName = Application.ProductName,
-										RegionInfo = Application.CurrentCulture.DisplayName,
-										AppVersion = Application.ProductVersion
-			                       	};
-			SetConfigInfo(info);
+			Info = info;
 		}
 
 		public Exception TheException
@@ -155,13 +146,6 @@ namespace ExceptionReporting.Views
 			printer.Print();
 		}
 
-		public void DisplayException(Exception exception, Assembly assembly)
-		{
-			Info.Exception = exception;
-			Info.AppAssembly = assembly;
-			_view.ShowExceptionReporter();
-		}
-
 		public void AddEnvironmentNode(string caption, string className, TreeNode parentNode, bool useName, string where)
 		{
 			try
@@ -186,24 +170,6 @@ namespace ExceptionReporting.Views
 			{
 				_view.ProgressValue++;
 			}
-		}
-
-		private void SetConfigInfo(ExceptionReportInfo info)
-		{
-			//TODO distinguish the 'env' from 'config' variables in ExceptionReportInfo by nesting in another class
-			Info.ContactEmail = info.ContactEmail;
-			Info.Fax = info.Fax;
-			Info.Phone = info.Phone;
-
-			Info.ShowAssembliesTab = info.ShowAssembliesTab;
-			Info.ShowContactTab = info.ShowContactTab;
-			Info.ShowEnvironmentTab = info.ShowEnvironmentTab;
-			Info.ShowExceptionsTab = info.ShowExceptionsTab;
-			Info.ShowGeneralTab = info.ShowGeneralTab;
-			Info.ShowSettingsTab = info.ShowSettingsTab;
-
-			Info.SmtpFromAddress = info.SmtpFromAddress;
-			Info.SmtpServer = info.SmtpServer;
 		}
 
 		public void SendExceptionReportByEmail(IntPtr handle)

@@ -53,7 +53,7 @@ namespace ExceptionReporting
 			_stringBuilder.AppendLine("Contact")
 						  .AppendLine()
 						  .AppendLine("E-Mail: " + _info.ContactEmail)
-						  .AppendLine("Web:    " + _info.Url)
+						  .AppendLine("Web:    " + _info.WebUrl)
 						  .AppendLine("Phone:  " + _info.Phone)
 						  .AppendLine("Fax:    " + _info.Fax)
 						  .AppendDottedLine().AppendLine();

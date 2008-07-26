@@ -23,7 +23,7 @@ namespace ExceptionReporting
 		public string UserExplanation { get; set; }
 		public Exception RootException { get; set; }
 		public Assembly AppAssembly { get; set; }
-		public string Url { get; set; }
+		public string WebUrl { get; set; }
 		public string Phone { get; set; }
 		public string Fax { get; set; }
 
@@ -36,7 +36,7 @@ namespace ExceptionReporting
 
 		public string Email { get; set; }
 		public string UserExplanationLabel { get; set; }
-		public string ExceptionOccurredMessage { get; set; }
+		public string ExceptionOccuredMessage { get; set; }
 		public string ContactMessageBottom { get; set; }
 		public string ContactMessageTop { get; set; }
 

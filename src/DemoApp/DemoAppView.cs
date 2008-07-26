@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ExceptionReporting.DemoApp
@@ -16,8 +17,9 @@ namespace ExceptionReporting.DemoApp
 		{
 			try
 			{
-				int? x = null;
-				int y = x.Value;
+				var exception = new IOException("Unable to establish a connection with something interesting. Incidentally, the error message number is #FFF474. Hope that helps.",
+				                                new Exception("This is an Inner Exception message"));
+				throw exception;
 			}
 			catch (Exception ex)
 			{

@@ -32,7 +32,8 @@
 			this.lstAssemblies = new System.Windows.Forms.ListView();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabGeneral = new System.Windows.Forms.TabPage();
-			this.label1 = new System.Windows.Forms.Label();
+			this.txtExceptionMessage = new System.Windows.Forms.TextBox();
+			this.lblPleasyNotifyMessage = new System.Windows.Forms.Label();
 			this.lblExplanation = new System.Windows.Forms.Label();
 			this.txtExplanation = new System.Windows.Forms.TextBox();
 			this.lblRegion = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
 			this.lblGeneral = new System.Windows.Forms.Label();
 			this.lblTime = new System.Windows.Forms.Label();
 			this.txtTime = new System.Windows.Forms.TextBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.lblApplication = new System.Windows.Forms.Label();
 			this.txtApplication = new System.Windows.Forms.TextBox();
 			this.lblVersion = new System.Windows.Forms.Label();
@@ -70,7 +70,7 @@
 			this.txtPhone = new System.Windows.Forms.TextBox();
 			this.lblPhone = new System.Windows.Forms.Label();
 			this.lblWebSite = new System.Windows.Forms.Label();
-			this.lnkWeb = new System.Windows.Forms.LinkLabel();
+			this.urlWeb = new System.Windows.Forms.LinkLabel();
 			this.lblEmail = new System.Windows.Forms.Label();
 			this.lnkEmail = new System.Windows.Forms.LinkLabel();
 			this.lblContactMessageBottom = new System.Windows.Forms.Label();
@@ -97,12 +97,13 @@
 			// lstAssemblies
 			// 
 			this.lstAssemblies.Activation = System.Windows.Forms.ItemActivation.OneClick;
+			this.lstAssemblies.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lstAssemblies.FullRowSelect = true;
 			this.lstAssemblies.HotTracking = true;
 			this.lstAssemblies.HoverSelection = true;
-			this.lstAssemblies.Location = new System.Drawing.Point(8, 8);
+			this.lstAssemblies.Location = new System.Drawing.Point(0, 0);
 			this.lstAssemblies.Name = "lstAssemblies";
-			this.lstAssemblies.Size = new System.Drawing.Size(472, 320);
+			this.lstAssemblies.Size = new System.Drawing.Size(488, 334);
 			this.lstAssemblies.TabIndex = 21;
 			this.lstAssemblies.UseCompatibleStateImageBehavior = false;
 			this.lstAssemblies.View = System.Windows.Forms.View.Details;
@@ -125,7 +126,8 @@
 			// 
 			// tabGeneral
 			// 
-			this.tabGeneral.Controls.Add(this.label1);
+			this.tabGeneral.Controls.Add(this.txtExceptionMessage);
+			this.tabGeneral.Controls.Add(this.lblPleasyNotifyMessage);
 			this.tabGeneral.Controls.Add(this.lblExplanation);
 			this.tabGeneral.Controls.Add(this.txtExplanation);
 			this.tabGeneral.Controls.Add(this.lblRegion);
@@ -136,7 +138,6 @@
 			this.tabGeneral.Controls.Add(this.lblGeneral);
 			this.tabGeneral.Controls.Add(this.lblTime);
 			this.tabGeneral.Controls.Add(this.txtTime);
-			this.tabGeneral.Controls.Add(this.groupBox2);
 			this.tabGeneral.Controls.Add(this.lblApplication);
 			this.tabGeneral.Controls.Add(this.txtApplication);
 			this.tabGeneral.Controls.Add(this.lblVersion);
@@ -148,16 +149,30 @@
 			this.tabGeneral.Text = "General";
 			this.tabGeneral.UseVisualStyleBackColor = true;
 			// 
-			// label1
+			// txtExceptionMessage
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtExceptionMessage.Location = new System.Drawing.Point(108, 33);
+			this.txtExceptionMessage.Multiline = true;
+			this.txtExceptionMessage.Name = "txtExceptionMessage";
+			this.txtExceptionMessage.ReadOnly = true;
+			this.txtExceptionMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtExceptionMessage.Size = new System.Drawing.Size(368, 57);
+			this.txtExceptionMessage.TabIndex = 24;
+			this.txtExceptionMessage.Text = "No message";
+			// 
+			// lblPleasyNotifyMessage
+			// 
+			this.lblPleasyNotifyMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.Location = new System.Drawing.Point(99, 48);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(377, 38);
-			this.label1.TabIndex = 23;
-			this.label1.Text = "Please notify IT support of this exception by using the Save/Copy or Email button" +
+			this.lblPleasyNotifyMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblPleasyNotifyMessage.Location = new System.Drawing.Point(15, 108);
+			this.lblPleasyNotifyMessage.Name = "lblPleasyNotifyMessage";
+			this.lblPleasyNotifyMessage.Size = new System.Drawing.Size(461, 19);
+			this.lblPleasyNotifyMessage.TabIndex = 23;
+			this.lblPleasyNotifyMessage.Text = "Please notify IT support of this exception by using the Save/Copy or Email button" +
 				"s below";
+			this.lblPleasyNotifyMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// lblExplanation
 			// 
@@ -170,6 +185,7 @@
 			// 
 			// txtExplanation
 			// 
+			this.txtExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtExplanation.Location = new System.Drawing.Point(8, 273);
 			this.txtExplanation.Multiline = true;
 			this.txtExplanation.Name = "txtExplanation";
@@ -179,7 +195,7 @@
 			// lblRegion
 			// 
 			this.lblRegion.AutoSize = true;
-			this.lblRegion.Location = new System.Drawing.Point(252, 138);
+			this.lblRegion.Location = new System.Drawing.Point(252, 173);
 			this.lblRegion.Name = "lblRegion";
 			this.lblRegion.Size = new System.Drawing.Size(41, 13);
 			this.lblRegion.TabIndex = 7;
@@ -187,8 +203,8 @@
 			// 
 			// txtRegion
 			// 
-			this.txtRegion.BackColor = System.Drawing.SystemColors.Control;
-			this.txtRegion.Location = new System.Drawing.Point(308, 134);
+			this.txtRegion.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtRegion.Location = new System.Drawing.Point(308, 169);
 			this.txtRegion.Name = "txtRegion";
 			this.txtRegion.ReadOnly = true;
 			this.txtRegion.Size = new System.Drawing.Size(168, 20);
@@ -197,7 +213,7 @@
 			// picGeneral
 			// 
 			this.picGeneral.Image = ((System.Drawing.Image)(resources.GetObject("picGeneral.Image")));
-			this.picGeneral.Location = new System.Drawing.Point(3, 3);
+			this.picGeneral.Location = new System.Drawing.Point(8, 7);
 			this.picGeneral.Name = "picGeneral";
 			this.picGeneral.Size = new System.Drawing.Size(87, 83);
 			this.picGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -207,7 +223,7 @@
 			// lblDate
 			// 
 			this.lblDate.AutoSize = true;
-			this.lblDate.Location = new System.Drawing.Point(12, 166);
+			this.lblDate.Location = new System.Drawing.Point(12, 201);
 			this.lblDate.Name = "lblDate";
 			this.lblDate.Size = new System.Drawing.Size(30, 13);
 			this.lblDate.TabIndex = 9;
@@ -215,8 +231,8 @@
 			// 
 			// txtDate
 			// 
-			this.txtDate.BackColor = System.Drawing.SystemColors.Control;
-			this.txtDate.Location = new System.Drawing.Point(76, 166);
+			this.txtDate.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtDate.Location = new System.Drawing.Point(76, 201);
 			this.txtDate.Name = "txtDate";
 			this.txtDate.ReadOnly = true;
 			this.txtDate.Size = new System.Drawing.Size(152, 20);
@@ -225,7 +241,7 @@
 			// lblGeneral
 			// 
 			this.lblGeneral.AutoSize = true;
-			this.lblGeneral.Location = new System.Drawing.Point(99, 16);
+			this.lblGeneral.Location = new System.Drawing.Point(105, 13);
 			this.lblGeneral.Name = "lblGeneral";
 			this.lblGeneral.Size = new System.Drawing.Size(218, 13);
 			this.lblGeneral.TabIndex = 1;
@@ -234,7 +250,7 @@
 			// lblTime
 			// 
 			this.lblTime.AutoSize = true;
-			this.lblTime.Location = new System.Drawing.Point(252, 169);
+			this.lblTime.Location = new System.Drawing.Point(252, 204);
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(30, 13);
 			this.lblTime.TabIndex = 11;
@@ -242,25 +258,17 @@
 			// 
 			// txtTime
 			// 
-			this.txtTime.BackColor = System.Drawing.SystemColors.Control;
-			this.txtTime.Location = new System.Drawing.Point(308, 166);
+			this.txtTime.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtTime.Location = new System.Drawing.Point(308, 201);
 			this.txtTime.Name = "txtTime";
 			this.txtTime.ReadOnly = true;
 			this.txtTime.Size = new System.Drawing.Size(168, 20);
 			this.txtTime.TabIndex = 12;
 			// 
-			// groupBox2
-			// 
-			this.groupBox2.Location = new System.Drawing.Point(8, 229);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(472, 8);
-			this.groupBox2.TabIndex = 13;
-			this.groupBox2.TabStop = false;
-			// 
 			// lblApplication
 			// 
 			this.lblApplication.AutoSize = true;
-			this.lblApplication.Location = new System.Drawing.Point(12, 104);
+			this.lblApplication.Location = new System.Drawing.Point(12, 139);
 			this.lblApplication.Name = "lblApplication";
 			this.lblApplication.Size = new System.Drawing.Size(59, 13);
 			this.lblApplication.TabIndex = 3;
@@ -268,8 +276,8 @@
 			// 
 			// txtApplication
 			// 
-			this.txtApplication.BackColor = System.Drawing.SystemColors.Control;
-			this.txtApplication.Location = new System.Drawing.Point(76, 102);
+			this.txtApplication.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtApplication.Location = new System.Drawing.Point(76, 137);
 			this.txtApplication.Name = "txtApplication";
 			this.txtApplication.ReadOnly = true;
 			this.txtApplication.Size = new System.Drawing.Size(400, 20);
@@ -277,7 +285,7 @@
 			// 
 			// lblVersion
 			// 
-			this.lblVersion.Location = new System.Drawing.Point(12, 138);
+			this.lblVersion.Location = new System.Drawing.Point(12, 173);
 			this.lblVersion.Name = "lblVersion";
 			this.lblVersion.Size = new System.Drawing.Size(48, 16);
 			this.lblVersion.TabIndex = 5;
@@ -285,8 +293,8 @@
 			// 
 			// txtVersion
 			// 
-			this.txtVersion.BackColor = System.Drawing.SystemColors.Control;
-			this.txtVersion.Location = new System.Drawing.Point(76, 134);
+			this.txtVersion.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtVersion.Location = new System.Drawing.Point(76, 169);
 			this.txtVersion.Name = "txtVersion";
 			this.txtVersion.ReadOnly = true;
 			this.txtVersion.Size = new System.Drawing.Size(152, 20);
@@ -381,10 +389,11 @@
 			// 
 			// treeSettings
 			// 
+			this.treeSettings.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeSettings.HotTracking = true;
-			this.treeSettings.Location = new System.Drawing.Point(8, 8);
+			this.treeSettings.Location = new System.Drawing.Point(0, 0);
 			this.treeSettings.Name = "treeSettings";
-			this.treeSettings.Size = new System.Drawing.Size(472, 320);
+			this.treeSettings.Size = new System.Drawing.Size(488, 334);
 			this.treeSettings.TabIndex = 20;
 			// 
 			// tabEnvironment
@@ -457,7 +466,7 @@
 			this.tabContact.Controls.Add(this.txtPhone);
 			this.tabContact.Controls.Add(this.lblPhone);
 			this.tabContact.Controls.Add(this.lblWebSite);
-			this.tabContact.Controls.Add(this.lnkWeb);
+			this.tabContact.Controls.Add(this.urlWeb);
 			this.tabContact.Controls.Add(this.lblEmail);
 			this.tabContact.Controls.Add(this.lnkEmail);
 			this.tabContact.Controls.Add(this.lblContactMessageBottom);
@@ -474,7 +483,7 @@
 			this.lblContactMessageTop.Name = "lblContactMessageTop";
 			this.lblContactMessageTop.Size = new System.Drawing.Size(432, 24);
 			this.lblContactMessageTop.TabIndex = 27;
-			this.lblContactMessageTop.Text = "The following details can be used to obtain support for this application....";
+			this.lblContactMessageTop.Text = "The following details can be used to obtain support for this application.";
 			// 
 			// txtFax
 			// 
@@ -519,12 +528,12 @@
 			this.lblWebSite.TabIndex = 30;
 			this.lblWebSite.Text = "Web";
 			// 
-			// lnkWeb
+			// urlWeb
 			// 
-			this.lnkWeb.Location = new System.Drawing.Point(69, 80);
-			this.lnkWeb.Name = "lnkWeb";
-			this.lnkWeb.Size = new System.Drawing.Size(400, 59);
-			this.lnkWeb.TabIndex = 31;
+			this.urlWeb.Location = new System.Drawing.Point(72, 79);
+			this.urlWeb.Name = "urlWeb";
+			this.urlWeb.Size = new System.Drawing.Size(397, 59);
+			this.urlWeb.TabIndex = 31;
 			// 
 			// lblEmail
 			// 
@@ -537,9 +546,9 @@
 			// 
 			// lnkEmail
 			// 
-			this.lnkEmail.Location = new System.Drawing.Point(69, 56);
+			this.lnkEmail.Location = new System.Drawing.Point(73, 55);
 			this.lnkEmail.Name = "lnkEmail";
-			this.lnkEmail.Size = new System.Drawing.Size(400, 16);
+			this.lnkEmail.Size = new System.Drawing.Size(394, 16);
 			this.lnkEmail.TabIndex = 29;
 			// 
 			// lblContactMessageBottom
@@ -572,7 +581,7 @@
 			this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.progressBar.Location = new System.Drawing.Point(12, 396);
 			this.progressBar.Name = "progressBar";
-			this.progressBar.Size = new System.Drawing.Size(128, 16);
+			this.progressBar.Size = new System.Drawing.Size(141, 16);
 			this.progressBar.TabIndex = 53;
 			// 
 			// btnEmail
@@ -606,9 +615,9 @@
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblProgressMessage.Location = new System.Drawing.Point(12, 377);
 			this.lblProgressMessage.Name = "lblProgressMessage";
-			this.lblProgressMessage.Size = new System.Drawing.Size(128, 16);
+			this.lblProgressMessage.Size = new System.Drawing.Size(184, 16);
 			this.lblProgressMessage.TabIndex = 52;
-			this.lblProgressMessage.Text = "Loading System Info...";
+			this.lblProgressMessage.Text = "Loading system information...";
 			// 
 			// btnCopy
 			// 
@@ -673,7 +682,6 @@
 		private System.Windows.Forms.Label lblGeneral;
 		private System.Windows.Forms.Label lblTime;
 		private System.Windows.Forms.TextBox txtTime;
-		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label lblApplication;
 		private System.Windows.Forms.TextBox txtApplication;
 		private System.Windows.Forms.Label lblVersion;
@@ -700,7 +708,7 @@
 		private System.Windows.Forms.TextBox txtPhone;
 		private System.Windows.Forms.Label lblPhone;
 		private System.Windows.Forms.Label lblWebSite;
-		private System.Windows.Forms.LinkLabel lnkWeb;
+		private System.Windows.Forms.LinkLabel urlWeb;
 		private System.Windows.Forms.Label lblEmail;
 		private System.Windows.Forms.LinkLabel lnkEmail;
 		private System.Windows.Forms.Label lblContactMessageBottom;
@@ -712,6 +720,7 @@
 		private System.Windows.Forms.Label lblProgressMessage;
 		private System.Windows.Forms.Button btnCopy;
 		private System.Drawing.Printing.PrintDocument printDocument1;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label lblPleasyNotifyMessage;
+		private System.Windows.Forms.TextBox txtExceptionMessage;
 	}
 }

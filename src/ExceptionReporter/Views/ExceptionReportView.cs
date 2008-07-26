@@ -9,16 +9,30 @@ namespace ExceptionReporting.Views
 {
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	{
-		private bool _refreshData;
+		private bool _isDataRefreshRequired;
 		private readonly ExceptionReportPresenter _presenter;
 
-		public ExceptionReportView(ExceptionReportInfo info)
+		public ExceptionReportView(ExceptionReportInfo reportInfo)
 		{
 			InitializeComponent();
 
-			_presenter = new ExceptionReportPresenter(info, this);
+			_presenter = new ExceptionReportPresenter(this, reportInfo);
 			WireUpEvents();
 			PopulateTabs();
+			PopulateReportInfo(reportInfo);
+		}
+
+		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
+		{
+			ContactEmail = reportInfo.ContactEmail;
+			ContactFax = reportInfo.Fax;
+			ContactMessageBottom = reportInfo.ContactMessageBottom;
+			ContactMessageTop  = reportInfo.ContactMessageTop;
+			ContactPhone = reportInfo.Phone;
+			ContactWebUrl = reportInfo.WebUrl;
+			UserExplanationLabel = reportInfo.UserExplanationLabel;
+			ExceptionOccuredMessage = reportInfo.ExceptionOccuredMessage;
+			ExceptionMessage = reportInfo.Exception.Message;
 		}
 
 		~ExceptionReportView()
@@ -35,7 +49,7 @@ namespace ExceptionReporting.Views
 			btnCopy.Click += CopyButton_Click;
 			lnkEmail.LinkClicked += EmailLink_Click;
 			btnSave.Click += SaveButton_Click;
-			lnkWeb.LinkClicked += UrlClicked;
+			urlWeb.LinkClicked += UrlClicked;
 		}
 
 		public string ProgressMessage
@@ -50,6 +64,11 @@ namespace ExceptionReporting.Views
 		public bool EnableEmailButton
 		{
 			set { btnEmail.Enabled = value; }
+		}
+
+		public string ExceptionMessage
+		{
+			set { txtExceptionMessage.Text = value; }
 		}
 
 		public bool ShowProgressBar
@@ -68,9 +87,9 @@ namespace ExceptionReporting.Views
 			set { lnkEmail.Text = value; }
 		}
 
-		public string ContactWeb
+		public string ContactWebUrl
 		{
-			set { lnkWeb.Text = value; }
+			set { urlWeb.Text = value; }
 		}
 
 		public string ContactPhone
@@ -93,12 +112,12 @@ namespace ExceptionReporting.Views
 			set { lblContactMessageBottom.Text = value; }
 		}
 
-		public string GeneralMessage
+		public string ExceptionOccuredMessage
 		{
 			set { lblGeneral.Text = value; }
 		}
 
-		public string ExplanationLabel
+		public string UserExplanationLabel
 		{
 			set { lblExplanation.Text = value; }
 		}
@@ -155,18 +174,18 @@ namespace ExceptionReporting.Views
 		protected override void OnActivated(EventArgs e)
 		{
 			base.OnActivated(e);
-
 			PopulateAll();
 		}
 
 		private void PopulateAll()
 		{
+			if (!_isDataRefreshRequired)		// only refresh when we need to
+				return;
+
+			_isDataRefreshRequired = false;		// next time we won't refresh unless this flag is set back to true
+
 			try
 			{
-				if (!_refreshData)	// only refresh when we need to
-					return;
-
-				_refreshData = false;	// next time we won't refresh unless this flag is set back to true
 				Cursor = Cursors.WaitCursor;
 				lblProgressMessage.Visible = true;
 				progressBar.Visible = true;
@@ -250,15 +269,10 @@ namespace ExceptionReporting.Views
 			txtVersion.Text = _presenter.Info.AppVersion;
 		}
 
-		public void ShowExceptionReporter()
+		public void ShowExceptionReport()
 		{
+			_isDataRefreshRequired = true;
 			ShowDialog();
-		}
-
-		public void ShowException(Exception ex, Assembly callingAssembly)
-		{
-			_refreshData = true;
-			_presenter.DisplayException(ex, callingAssembly);
 		}
 
 		private void PopulateExceptionHierarchyTree(Exception e)
@@ -285,7 +299,10 @@ namespace ExceptionReporting.Views
 				exCurrent = exCurrent.InnerException;
 				listViewItem = new ListViewItem {Text = ("Inner Exception " + index)};
 				listViewItem.SubItems.Add(exCurrent.GetType().ToString());
-				listViewItem.SubItems.Add(exCurrent.TargetSite.ToString());
+
+				if (exCurrent.TargetSite != null)
+					listViewItem.SubItems.Add(exCurrent.TargetSite.ToString());
+
 				listViewItem.Tag = index.ToString();
 				listviewExceptions.Items.Add(listViewItem);
 
@@ -299,26 +316,6 @@ namespace ExceptionReporting.Views
 		private void PrintButton_Click(object sender, EventArgs e)
 		{
 			_presenter.PrintException();
-		}
-
-		private void EmailLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			try
-			{
-				string strLink = lnkEmail.Text;
-
-				const string MAILTO = "MAILTO:";
-				if (!strLink.Substring(0, MAILTO.Length).ToUpper().Equals(MAILTO))
-				{
-					strLink = "MailTo:" + strLink;
-				}
-
-				Process.Start(strLink);
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem handling the e-mail link", ex);
-			}
 		}
 
 		private void CopyButton_Click(object sender, EventArgs e)
@@ -368,17 +365,37 @@ namespace ExceptionReporting.Views
 			txtMessage.Text = displayException.Message;
 		}
 
-		private static void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			//TODO make this resuable and test it
 			try
 			{
-				var psi = new ProcessStartInfo(e.Link.Name) { UseShellExecute = true };
+				//TODO should be gotten from the ReportInfo, not the UI
+				var psi = new ProcessStartInfo(urlWeb.Text) { UseShellExecute = true };
 				Process.Start(psi);
 			}
 			catch (Exception ex)
 			{
 				ShowError("There has been a problem handling the web link click", ex);
+			}
+		}
+
+		private void EmailLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			try
+			{
+				//TODO this should be gotten from the ReportInfo, not the UI
+				string emailAddress = lnkEmail.Text.Trim();
+
+				const string MAILTO = "MAILTO:";
+				if (!emailAddress.Substring(0, MAILTO.Length).ToUpper().Equals(MAILTO))
+					emailAddress = MAILTO + emailAddress;
+
+				var psi = new ProcessStartInfo(emailAddress) { UseShellExecute = true };
+				Process.Start(psi);
+			}
+			catch (Exception ex)
+			{
+				ShowError("There has been a problem handling the e-mail link", ex);
 			}
 		}
 

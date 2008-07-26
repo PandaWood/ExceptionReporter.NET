@@ -17,9 +17,13 @@ PandaWood (spurrymoses@gmail.com)
 
 
 ** Changes **
-The config items which specificed whether or not buttons were displayed (eg Save/Print/Email/Copy) have been removed, the buttons are always shown.
+Below are removed config items
+1) The config items which specificed whether or not buttons were displayed (eg Save/Print/Email/Copy) are removed - the buttons are always shown.
 "SLS_ER_PRINT_BUTTON"
 "SLS_ER_SAVE_BUTTON"
 "SLS_ER_COPY_BUTTON"
 "SLS_ER_EMAIL_BUTTON"
+
+2) The serial number is a left-over from when this was commercial software
+"SLS_ER_SERIAL_NUMBER"
 

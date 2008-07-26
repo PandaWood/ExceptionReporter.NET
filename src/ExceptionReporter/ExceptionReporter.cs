@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Reflection;
+using System.Windows.Forms;
 using ExceptionReporting.Views;
 
 namespace ExceptionReporting
@@ -11,7 +12,7 @@ namespace ExceptionReporting
 	[ToolboxBitmap(typeof (ExceptionReporter), "ExceptionReporter.ico")]
 	public class ExceptionReporter : Component
 	{
-		private readonly ExceptionReportInfo _info = new ExceptionReportInfo();
+		private readonly ExceptionReportInfo _reportInfo;
 
 		public ExceptionReporter(IContainer container) : this()
 		{
@@ -22,18 +23,28 @@ namespace ExceptionReporting
 		{
 			InitializeComponent();
 
-			_info.UserExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
-			_info.ExceptionOccurredMessage = "An exception has occured in this application";
-			_info.ContactMessageBottom = "The information shown on this form describing the error and envrionment may be relevant when contacting support";
-			_info.ContactMessageTop = "The following details can be used to obtain support for this application";
-
-			_info.ShowExceptionsTab = true;
-			_info.ShowContactTab = true;
-			_info.ShowSettingsTab = true;
-			_info.ShowAssembliesTab = true;
-			_info.EnumeratePrinters = true;
-			_info.ShowEnvironmentTab = true;
-			_info.ShowGeneralTab = true;
+			_reportInfo = new ExceptionReportInfo
+			              	{
+			              		UserExplanationLabel = "Please enter a brief explanation of events leading up to this exception",
+			              		ExceptionOccuredMessage = "An exception has occured in this application",
+			              		ContactMessageBottom =
+			              			"The information shown on this form describing the error and environment may be relevant when contacting support",
+			              		ContactMessageTop = "The following details can be used to obtain support for this application",
+			              		ShowExceptionsTab = true,
+			              		ShowContactTab = true,
+			              		ShowSettingsTab = true,
+			              		ShowAssembliesTab = true,
+			              		EnumeratePrinters = true,
+			              		ShowEnvironmentTab = true,
+			              		ShowGeneralTab = true,
+			              		ExceptionDate = DateTime.Now,
+			              		UserName = Environment.UserName,
+			              		MachineName = Environment.MachineName,
+			              		AppName = Application.ProductName,
+			              		RegionInfo = Application.CurrentCulture.DisplayName,
+			              		AppVersion = Application.ProductVersion,
+			              		AppAssembly = Assembly.GetCallingAssembly()
+			        	};
 		}
 	
 		/// <summary>
@@ -48,8 +59,10 @@ namespace ExceptionReporting
 
 			try
 			{
-				var reportView = new ExceptionReportView(_info);
-				reportView.ShowException(exception, Assembly.GetCallingAssembly());
+				_reportInfo.Exception = exception;
+
+				var reportView = new ExceptionReportView(_reportInfo);
+				reportView.ShowExceptionReport();
 			}
 			catch (Exception internalException)
 			{
@@ -85,17 +98,17 @@ namespace ExceptionReporting
 
 		private void ReadGeneralConfig()
 		{
-			_info.ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_EMAIL"), _info.ContactEmail);
-			_info.Url = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_WEB"), _info.Url);
-			_info.Phone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_PHONE"), _info.Phone);
-			_info.Fax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_FAX"), _info.Fax);
-			_info.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_GENERAL"), _info.ShowAssembliesTab);
-			_info.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_EXCEPTIONS"), _info.ShowExceptionsTab);
-			_info.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ASSEMBLIES"), _info.ShowAssembliesTab);
-			_info.ShowSettingsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), _info.ShowSettingsTab);
-			_info.ShowEnvironmentTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), _info.ShowEnvironmentTab);
-			_info.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_CONTACT"), _info.ShowContactTab);
-			_info.EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), _info.EnumeratePrinters);
+			_reportInfo.ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_EMAIL"), _reportInfo.ContactEmail);
+			_reportInfo.WebUrl = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_WEB"), _reportInfo.WebUrl);
+			_reportInfo.Phone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_PHONE"), _reportInfo.Phone);
+			_reportInfo.Fax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_FAX"), _reportInfo.Fax);
+			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_GENERAL"), _reportInfo.ShowAssembliesTab);
+			_reportInfo.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_EXCEPTIONS"), _reportInfo.ShowExceptionsTab);
+			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ASSEMBLIES"), _reportInfo.ShowAssembliesTab);
+			_reportInfo.ShowSettingsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), _reportInfo.ShowSettingsTab);
+			_reportInfo.ShowEnvironmentTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), _reportInfo.ShowEnvironmentTab);
+			_reportInfo.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_CONTACT"), _reportInfo.ShowContactTab);
+			_reportInfo.EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), _reportInfo.EnumeratePrinters);
 		}
 
 		private void ReadMailConfig()
@@ -106,11 +119,11 @@ namespace ExceptionReporting
 
 		private void ReadMailValues()
 		{
-			_info.SmtpServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_SERVER"), _info.SmtpServer);
-			_info.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_USERNAME"), _info.SmtpUsername);
-			_info.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_PASSWORD"), _info.SmtpPassword);
-			_info.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_FROM"), _info.SmtpFromAddress);
-			_info.Email = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), _info.Email);
+			_reportInfo.SmtpServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_SERVER"), _reportInfo.SmtpServer);
+			_reportInfo.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_USERNAME"), _reportInfo.SmtpUsername);
+			_reportInfo.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_PASSWORD"), _reportInfo.SmtpPassword);
+			_reportInfo.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_FROM"), _reportInfo.SmtpFromAddress);
+			_reportInfo.Email = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), _reportInfo.Email);
 		}
 
 		private void ReadMailType()
@@ -121,22 +134,22 @@ namespace ExceptionReporting
 
 			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
 			{
-				_info.MailType = ExceptionReportInfo.slsMailType.SMTP;
+				_reportInfo.MailType = ExceptionReportInfo.slsMailType.SMTP;
 			}
 			strCompare = "MAPI";
 			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE"))
 			    || strCompare2.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
 			{
-				_info.MailType = ExceptionReportInfo.slsMailType.SimpleMAPI;
+				_reportInfo.MailType = ExceptionReportInfo.slsMailType.SimpleMAPI;
 			}
 		}
 
 		private void ReadInterfaceMessageConfig()
 		{
-			_info.ExceptionOccurredMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_GENERAL_MESSAGE"), _info.ExceptionOccurredMessage);
-			_info.UserExplanationLabel = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_EXPLANATION_MESSAGE"), _info.UserExplanationLabel);
-			_info.ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_1"), _info.ContactMessageTop);
-			_info.ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_2"), _info.ContactMessageBottom);
+			_reportInfo.ExceptionOccuredMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_GENERAL_MESSAGE"), _reportInfo.ExceptionOccuredMessage);
+			_reportInfo.UserExplanationLabel = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_EXPLANATION_MESSAGE"), _reportInfo.UserExplanationLabel);
+			_reportInfo.ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_1"), _reportInfo.ContactMessageTop);
+			_reportInfo.ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_2"), _reportInfo.ContactMessageBottom);
 		}
 
 		/// <summary>
