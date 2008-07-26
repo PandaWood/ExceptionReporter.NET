@@ -28,24 +28,28 @@ namespace ExceptionReporting.Views
 	public class ExceptionReportPresenter
 	{
 		private readonly IExceptionReportView _view;
+		private readonly ExceptionReportInfo _reportInfo;
 
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
-			Info = info;
+			_reportInfo = info;
 		}
 
 		public Exception TheException
 		{
-			get { return Info.Exception; }
+			get { return _reportInfo.Exception; }
 		}
 
-		public Assembly TheAssembly
+		public Assembly AppAssembly
 		{
-			get { return Info.AppAssembly; }
+			get { return _reportInfo.AppAssembly; }
 		}
 
-		public ExceptionReportInfo Info { get; private set; }
+		public ExceptionReportInfo ReportInfo
+		{
+			get { return _reportInfo; }
+		}
 
 		private void SendSmtpMail()
 		{
@@ -57,7 +61,7 @@ namespace ExceptionReporting.Views
 
 			try
 			{
-				var smtpClient = new SmtpClient(Info.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
+				var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
 				MailMessage mailMessage = GetMailMessage(exceptionString);
 
 				smtpClient.SendCompleted += ((sender, e) => _view.SetSendCompleteState());
@@ -76,12 +80,12 @@ namespace ExceptionReporting.Views
 		{
 			var mailMessage = new MailMessage
 			                  	{
-			                  		From = new MailAddress(Info.SmtpFromAddress, null),
-									ReplyTo = new MailAddress(Info.SmtpFromAddress, null),
+			                  		From = new MailAddress(_reportInfo.SmtpFromAddress, null),
+									ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
 			                  		Body = exceptionString,
 			                  		Subject = "Exception"
 			                  	};
-			mailMessage.To.Add(new MailAddress(Info.ContactEmail));
+			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
 			return mailMessage;
 		}
 
@@ -107,9 +111,10 @@ namespace ExceptionReporting.Views
 			}
 		}
 
+		//TODO we should just build this string once-and-for-all
 		public string BuildExceptionString()
 		{
-			var stringBuilder = new ExceptionStringBuilder(Info);
+			var stringBuilder = new ExceptionStringBuilder(_reportInfo);
 			return stringBuilder.Build();
 		}
 
@@ -121,9 +126,9 @@ namespace ExceptionReporting.Views
 				var ma = new Mapi();
 				ma.Logon(windowHandle);
 				ma.Reset();
-				if (!string.IsNullOrEmpty(Info.ContactEmail))
+				if (!string.IsNullOrEmpty(_reportInfo.ContactEmail))
 				{
-					ma.AddRecip(Info.ContactEmail, null, false);
+					ma.AddRecip(_reportInfo.ContactEmail, null, false);
 				}
 
 				ma.Send("An Exception has occured", exceptionString, true);
@@ -174,10 +179,10 @@ namespace ExceptionReporting.Views
 
 		public void SendExceptionReportByEmail(IntPtr handle)
 		{
-			if (Info.MailType == ExceptionReportInfo.slsMailType.SimpleMAPI)
+			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SimpleMAPI)
 				SendMapiEmail(handle);
 
-			if (Info.MailType == ExceptionReportInfo.slsMailType.SMTP)
+			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SMTP)
 				SendSmtpMail();
 		}
 

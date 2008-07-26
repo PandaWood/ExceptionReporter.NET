@@ -138,27 +138,27 @@ namespace ExceptionReporting.Views
 		{
 			tabControl.TabPages.Clear(); 
 
-			if (_presenter.Info.ShowGeneralTab)
+			if (_presenter.ReportInfo.ShowGeneralTab)
 			{
 				tabControl.TabPages.Add(tabGeneral);
 			}
-			if (_presenter.Info.ShowExceptionsTab)
+			if (_presenter.ReportInfo.ShowExceptionsTab)
 			{
 				tabControl.TabPages.Add(tabExceptions);
 			}
-			if (_presenter.Info.ShowAssembliesTab)
+			if (_presenter.ReportInfo.ShowAssembliesTab)
 			{
 				tabControl.TabPages.Add(tabAssemblies);
 			}
-			if (_presenter.Info.ShowSettingsTab)
+			if (_presenter.ReportInfo.ShowSettingsTab)
 			{
 				tabControl.TabPages.Add(tabSettings);
 			}
-			if (_presenter.Info.ShowEnvironmentTab)
+			if (_presenter.ReportInfo.ShowEnvironmentTab)
 			{
 				tabControl.TabPages.Add(tabEnvironment);
 			}
-			if (_presenter.Info.ShowContactTab)
+			if (_presenter.ReportInfo.ShowContactTab)
 			{
 				tabControl.TabPages.Add(tabContact);
 			}
@@ -216,7 +216,7 @@ namespace ExceptionReporting.Views
 			lstAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 			lstAssemblies.Columns.Add("Culture", 150, HorizontalAlignment.Left);
 
-			foreach (AssemblyName assemblyName in _presenter.TheAssembly.GetReferencedAssemblies())
+			foreach (AssemblyName assemblyName in _presenter.AppAssembly.GetReferencedAssemblies())
 			{
 				var listViewItem = new ListViewItem {Text = assemblyName.Name};
 				listViewItem.SubItems.Add(assemblyName.Version.ToString());
@@ -251,7 +251,7 @@ namespace ExceptionReporting.Views
 			_presenter.AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, string.Empty);
 			_presenter.AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, string.Empty);
 
-			if (_presenter.Info.EnumeratePrinters)
+			if (_presenter.ReportInfo.EnumeratePrinters)
 				_presenter.AddEnvironmentNode("Printers", "Win32_Printer", root, true, string.Empty);
 
 			treeEnvironment.Nodes.Add(root);
@@ -260,13 +260,13 @@ namespace ExceptionReporting.Views
 
 		private void PopulateGeneralTab()
 		{
-			txtDate.Text = _presenter.Info.ExceptionDate.ToShortDateString();
-			txtTime.Text = _presenter.Info.ExceptionDate.ToShortTimeString();
-			txtUserName.Text = _presenter.Info.UserName;
-			txtMachine.Text = _presenter.Info.MachineName;
-			txtRegion.Text = _presenter.Info.RegionInfo;
-			txtApplication.Text = _presenter.Info.AppName;
-			txtVersion.Text = _presenter.Info.AppVersion;
+			txtDate.Text = _presenter.ReportInfo.ExceptionDate.ToShortDateString();
+			txtTime.Text = _presenter.ReportInfo.ExceptionDate.ToShortTimeString();
+			txtUserName.Text = _presenter.ReportInfo.UserName;
+			txtMachine.Text = _presenter.ReportInfo.MachineName;
+			txtRegion.Text = _presenter.ReportInfo.RegionInfo;
+			txtApplication.Text = _presenter.ReportInfo.AppName;
+			txtVersion.Text = _presenter.ReportInfo.AppVersion;
 		}
 
 		public void ShowExceptionReport()

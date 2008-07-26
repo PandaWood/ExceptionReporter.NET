@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Exception Reporter")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.codeplex.com/ExceptionReporter")]
-[assembly: AssemblyProduct("www.codeplex.com/ExceptionReporter")]
+[assembly: AssemblyProduct("Exception Reporter")]
 [assembly: AssemblyCopyright("Copyright © 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
