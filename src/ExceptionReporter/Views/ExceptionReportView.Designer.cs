@@ -648,7 +648,6 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "ExceptionReportView";
-			this.ShowIcon = false;
 			this.Text = "Exception Report";
 			this.tabControl.ResumeLayout(false);
 			this.tabGeneral.ResumeLayout(false);

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ExceptionReporter")]
+[assembly: AssemblyTitle("Exception Reporter")]
 [assembly: AssemblyDescription("Exception Reporter")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.codeplex.com/ExceptionReporter")]

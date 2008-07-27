@@ -45,7 +45,6 @@ namespace ExceptionReporting.Views
 			btnEmail.Click += EmailButton_Click;
 			btnPrint.Click += PrintButton_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
-			lblApplication.Click += lblApplication_Click;
 			btnCopy.Click += CopyButton_Click;
 			lnkEmail.LinkClicked += EmailLink_Click;
 			btnSave.Click += SaveButton_Click;
@@ -129,11 +128,6 @@ namespace ExceptionReporting.Views
 			btnEmail.Enabled = true;
 		}
 
-		private void lblApplication_Click(object sender, EventArgs e)
-		{
-			//TODO 
-		}
-
 		public void PopulateTabs()
 		{
 			tabControl.TabPages.Clear(); 
@@ -179,14 +173,15 @@ namespace ExceptionReporting.Views
 
 		private void PopulateAll()
 		{
-			if (!_isDataRefreshRequired)		// only refresh when we need to
+			if (!_isDataRefreshRequired)
 				return;
 
-			_isDataRefreshRequired = false;		// next time we won't refresh unless this flag is set back to true
+			_isDataRefreshRequired = false;
 
 			try
 			{
-				Cursor = Cursors.WaitCursor;
+				//TODO this method needs a bit of tidy-up
+				Cursor = Cursors.WaitCursor;	
 				lblProgressMessage.Visible = true;
 				progressBar.Visible = true;
 				progressBar.Value = 0;
@@ -203,9 +198,8 @@ namespace ExceptionReporting.Views
 			finally
 			{
 				Cursor = Cursors.Default;
-				progressBar.Value = progressBar.Maximum;
 				lblProgressMessage.Visible = false;
-				progressBar.Visible = false;
+				ShowProgressBar = false;
 			}
 		}
 
@@ -259,7 +253,7 @@ namespace ExceptionReporting.Views
 		}
 
 		private void PopulateGeneralTab()
-		{
+		{   //TODO this could be set in the constructor - check for consistency
 			txtDate.Text = _presenter.ReportInfo.ExceptionDate.ToShortDateString();
 			txtTime.Text = _presenter.ReportInfo.ExceptionDate.ToShortTimeString();
 			txtUserName.Text = _presenter.ReportInfo.UserName;
