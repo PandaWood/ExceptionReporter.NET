@@ -1,10 +1,10 @@
 using System;
+using System.Configuration;
 using System.IO;
 using System.Management;
-using System.Net.Mail;
 using System.Reflection;
 using System.Windows.Forms;
-using Win32Mapi;
+using ExceptionReporting.Mail;
 
 namespace ExceptionReporting.Views
 {
@@ -17,8 +17,9 @@ namespace ExceptionReporting.Views
 		bool EnableEmailButton { set; }
 		bool ShowProgressBar { set; }
 		int ProgressValue { get;  set; }
-		void HandleError(string message, Exception ex);
-		void SetSendCompleteState();
+		string UserExplanation { get; }
+		void ShowError(string message, Exception exception);
+		void SetSendMailCompletedState();
 		void ShowExceptionReport();
 	}
 
@@ -51,42 +52,11 @@ namespace ExceptionReporting.Views
 			get { return _reportInfo; }
 		}
 
-		private void SendSmtpMail()
+		public string BuildExceptionString()
 		{
-			_view.ProgressMessage = "Sending email...";
-			_view.EnableEmailButton = false;
-			_view.ShowProgressBar = true;
-
-			string exceptionString = BuildExceptionString();
-
-			try
-			{
-				var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
-				MailMessage mailMessage = GetMailMessage(exceptionString);
-
-				smtpClient.SendCompleted += ((sender, e) => _view.SetSendCompleteState());
-				smtpClient.SendAsync(mailMessage, null);
-			}
-			catch (Exception ex)
-			{
-				_view.ProgressMessage= string.Empty;
-				_view.ShowProgressBar = false;
-				_view.EnableEmailButton = true;
-				_view.HandleError("Problem sending SMTP Mail", ex);
-			}
-		}
-
-		private MailMessage GetMailMessage(string exceptionString)
-		{
-			var mailMessage = new MailMessage
-			                  	{
-			                  		From = new MailAddress(_reportInfo.SmtpFromAddress, null),
-									ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
-			                  		Body = exceptionString,
-			                  		Subject = "Exception"
-			                  	};
-			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
-			return mailMessage;
+			_reportInfo.UserExplanation = _view.UserExplanation;
+			var stringBuilder = new ExceptionStringBuilder(_reportInfo);
+			return stringBuilder.Build();
 		}
 
 		public void SaveExceptionReportToFile(string fileName)
@@ -98,55 +68,71 @@ namespace ExceptionReporting.Views
 
 			try
 			{
-				using (var stream = File.OpenWrite(fileName))
+				using (FileStream stream = File.OpenWrite(fileName))
 				{
 					var writer = new StreamWriter(stream);
 					writer.Write(exceptionString);
 					writer.Flush();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
-				_view.HandleError("Error saving to file", ex);
+				_view.ShowError(string.Format("Unable to save '{0}'", fileName), exception);
 			}
 		}
 
-		//TODO we should just build this string once-and-for-all
-		public string BuildExceptionString()
+		public void SendExceptionReportByEmail(IntPtr handle)
 		{
-			var stringBuilder = new ExceptionStringBuilder(_reportInfo);
-			return stringBuilder.Build();
+			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SimpleMAPI)
+				SendMapiEmail(handle);
+
+			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SMTP)
+				SendSmtpMail();
+		}
+
+		public void CopyExceptionReportToClipboard()
+		{
+			string exceptionString = BuildExceptionString();
+			Clipboard.SetDataObject(exceptionString, true);
+		}
+
+		private void SendSmtpMail()
+		{
+			string exceptionString = BuildExceptionString();
+
+			_view.ProgressMessage = "Sending email...";
+			_view.EnableEmailButton = false;
+			_view.ShowProgressBar = true;
+
+			try
+			{
+				var mailSender = new MailSender(_reportInfo);
+				mailSender.SendSmtp(exceptionString, _view.SetSendMailCompletedState);
+			}
+			catch (Exception exception)
+			{
+				_view.ProgressMessage = "Unable to send email";
+				_view.ShowError("Unable to send Email using SMTP", exception);
+			}
 		}
 
 		private void SendMapiEmail(IntPtr windowHandle)
 		{
 			string exceptionString = BuildExceptionString();
+
 			try
 			{
-				var ma = new Mapi();
-				ma.Logon(windowHandle);
-				ma.Reset();
-				if (!string.IsNullOrEmpty(_reportInfo.ContactEmail))
-				{
-					ma.AddRecip(_reportInfo.ContactEmail, null, false);
-				}
-
-				ma.Send("An Exception has occured", exceptionString, true);
-				ma.Logoff();
+				var mailSender = new MailSender(_reportInfo);
+				mailSender.SendMapi(exceptionString, windowHandle);
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
-				_view.HandleError(
-					"There has been a problem sending e-mail. " +
-					"The machine may not be configured to be able to send mail in the way required (SimpleMAPI). " +
-					"Instead, use the copy button to place details of the error onto the clipboard, " +
-					"and then paste directly into an email", ex);
-				//TODO why don't copy the detail onto the clipboard for them - or too intrusive?
+				_view.ShowError("Unable to send Email using 'Simple MAPI'", exception);
 			}
 		}
 
 		public void PrintException()
-		{
+		{	//TODO I'm basically ignoring printing for the moment, come back to it
 			var printer = new ExceptionPrinter();
 			printer.Print();
 		}
@@ -154,14 +140,14 @@ namespace ExceptionReporting.Views
 		public void AddEnvironmentNode(string caption, string className, TreeNode parentNode, bool useName, string where)
 		{
 			try
-			{
-				string strDisplayField = useName ? "Name" : "Caption";
+			{	//TODO the presenters probably doing too much here, extract out and test it
+				string displayField = useName ? "Name" : "Caption";
 				var treeNode1 = new TreeNode(caption);
 				var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0} {1}", className, where));
 
 				foreach (ManagementObject managementObject in objectSearcher.Get())
 				{
-					var treeNode2 = new TreeNode(managementObject.GetPropertyValue(strDisplayField).ToString().Trim());
+					var treeNode2 = new TreeNode(managementObject.GetPropertyValue(displayField).ToString().Trim());
 					treeNode1.Nodes.Add(treeNode2);
 					foreach (PropertyData propertyData in managementObject.Properties)
 					{
@@ -177,18 +163,19 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public void SendExceptionReportByEmail(IntPtr handle)
+		public TreeNode CreateSettingsTree()
 		{
-			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SimpleMAPI)
-				SendMapiEmail(handle);
+			var rootNode = new TreeNode("Application Settings");
 
-			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SMTP)
-				SendSmtpMail();
-		}
+			foreach (var appSetting in ConfigurationManager.AppSettings)
+			{
+				string settingText = ConfigurationManager.AppSettings.Get(appSetting.ToString());
+				string nodeText = appSetting + " : " + settingText;
+				var treeNode = new TreeNode(nodeText);
+				rootNode.Nodes.Add(treeNode);
+			}
 
-		public void CopyExceptionReportToClipboard()
-		{
-			Clipboard.SetDataObject(BuildExceptionString(), true);
+			return rootNode;
 		}
 	}
 }

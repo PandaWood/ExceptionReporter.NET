@@ -26,7 +26,7 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		public void CanReturn_Nothing_If_Assembly_IsNull()
+		public void CanCreate_Referenced_Assemblies_String_If_Assembly_IsNull()
 		{
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
 			string assemblyNames = stringBuilder.ReferencedAssembliesToString(null);
@@ -46,7 +46,8 @@ namespace Test.ExceptionReporter
 			Assert.That(hierarchyString, Is.Not.Empty);
 			Assert.That(hierarchyString.Length, Is.GreaterThan(0));
 			StringAssert.Contains("OuterException", hierarchyString);
-			StringAssert.Contains("InnerException", hierarchyString);
+			StringAssert.Contains("Inner Exception 1", hierarchyString);
+			Assert.IsTrue(hierarchyString.EndsWith("      \r\n"));
 		}
 	}
 }

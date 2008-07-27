@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
@@ -55,6 +53,7 @@ namespace ExceptionReporting.Views
 		{
 			set
 			{
+				lblProgressMessage.Visible = true;	// force visibility
 				lblProgressMessage.Text = value;
 				lblProgressMessage.Refresh();
 			}
@@ -73,6 +72,11 @@ namespace ExceptionReporting.Views
 		public bool ShowProgressBar
 		{
 			set { progressBar.Visible = value; }
+		}
+
+		public bool ShowProgressLabel
+		{
+			set { lblProgressMessage.Visible = value; }
 		}
 
 		public int ProgressValue
@@ -121,7 +125,12 @@ namespace ExceptionReporting.Views
 			set { lblExplanation.Text = value; }
 		}
 
-		public void SetSendCompleteState()
+		public string UserExplanation
+		{
+			get { return txtUserExplanation.Text; }
+		}
+
+		public void SetSendMailCompletedState()
 		{
 			ProgressMessage = "Email sent.";
 			ShowProgressBar = false;
@@ -158,13 +167,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public void HandleError(string message, Exception ex)
-		{
-			var simpleExceptionView = new InternalExceptionView();
-			simpleExceptionView.ShowException(message, ex);
-		}
-
-		//TODO put on a background thread
+		//TODO put on a background thread - and avoid the OnActivated event altogether
 		protected override void OnActivated(EventArgs e)
 		{
 			base.OnActivated(e);
@@ -179,15 +182,10 @@ namespace ExceptionReporting.Views
 			_isDataRefreshRequired = false;
 
 			try
-			{
-				//TODO this method needs a bit of tidy-up
-				Cursor = Cursors.WaitCursor;	
-				lblProgressMessage.Visible = true;
-				progressBar.Visible = true;
-				progressBar.Value = 0;
-				progressBar.Maximum = 13;
+			{	
+				SetInProgressState();
 
-				PopulateGeneralTab(); progressBar.Value++;
+				PopulateGeneralTab(); progressBar.Value++;		//TODO the progress bar's progress precision needs some work
 				PopulateEnvironmentTree(); progressBar.Value++;
 				PopulateSettingsTab(); progressBar.Value++;
 				PopulateExceptionHierarchyTree(_presenter.TheException); progressBar.Value++;
@@ -197,45 +195,50 @@ namespace ExceptionReporting.Views
 			}
 			finally
 			{
-				Cursor = Cursors.Default;
-				lblProgressMessage.Visible = false;
-				ShowProgressBar = false;
+				SetProgressCompleteState();
 			}
+		}
+
+		private void SetProgressCompleteState()
+		{
+			Cursor = Cursors.Default;
+			ShowProgressLabel = ShowProgressBar = false;
+		}
+
+		private void SetInProgressState()
+		{
+			Cursor = Cursors.WaitCursor;
+			ShowProgressLabel = true;
+			progressBar.Value = 0;
+			progressBar.Maximum = 13;
+			ShowProgressBar = true;
 		}
 
 		private void PopulateAssemblyInfo()
 		{
 			lstAssemblies.Clear();
-			lstAssemblies.Columns.Add("Name", 100, HorizontalAlignment.Left);
+			lstAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
 			lstAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
-			lstAssemblies.Columns.Add("Culture", 150, HorizontalAlignment.Left);
 
+			//TODO extract out the reference to AssemblyName to the presenter (eg return a DTO)
 			foreach (AssemblyName assemblyName in _presenter.AppAssembly.GetReferencedAssemblies())
 			{
 				var listViewItem = new ListViewItem {Text = assemblyName.Name};
 				listViewItem.SubItems.Add(assemblyName.Version.ToString());
-				listViewItem.SubItems.Add(assemblyName.CultureInfo.EnglishName);
 				lstAssemblies.Items.Add(listViewItem);
 			}
 		}
 
 		private void PopulateSettingsTab()
 		{
-			var settingsRoot = new TreeNode("Application Settings");
-			IEnumerator configEnum = ConfigurationManager.AppSettings.GetEnumerator();
-
-			while (configEnum.MoveNext())
-			{
-				settingsRoot.Nodes.Add(
-					new TreeNode(configEnum.Current + " : " + ConfigurationManager.AppSettings.Get(configEnum.Current.ToString())));
-			}
-
-			treeSettings.Nodes.Add(settingsRoot);
-			settingsRoot.Expand();
+			TreeNode rootNode = _presenter.CreateSettingsTree();
+			treeviewSettings.Nodes.Add(rootNode);
+			rootNode.Expand();
 		}
 
 		private void PopulateEnvironmentTree()
 		{
+			//TODO the calls to AddEnvironmentNode should all originate from the presenter as the result of a single call - passing the root node
 			var root = new TreeNode("Environment");
 
 			_presenter.AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, string.Empty);
@@ -284,27 +287,27 @@ namespace ExceptionReporting.Views
 			listViewItem.Selected = true;
 
 			int index = 0;
-			Exception exCurrent = e;
-			bool shouldContinue = (exCurrent.InnerException != null);
+			Exception currentException = e;
+			bool shouldContinue = (currentException.InnerException != null);
 
 			while (shouldContinue)
 			{
 				index++;
-				exCurrent = exCurrent.InnerException;
+				currentException = currentException.InnerException;
 				listViewItem = new ListViewItem {Text = ("Inner Exception " + index)};
-				listViewItem.SubItems.Add(exCurrent.GetType().ToString());
+				listViewItem.SubItems.Add(currentException.GetType().ToString());
 
-				if (exCurrent.TargetSite != null)
-					listViewItem.SubItems.Add(exCurrent.TargetSite.ToString());
+				if (currentException.TargetSite != null)
+					listViewItem.SubItems.Add(currentException.TargetSite.ToString());
 
 				listViewItem.Tag = index.ToString();
 				listviewExceptions.Items.Add(listViewItem);
 
-				shouldContinue = (exCurrent.InnerException != null);
+				shouldContinue = (currentException.InnerException != null);
 			}
 
-			txtStackTrace.Text = e.StackTrace;
-			txtMessage.Text = e.Message;
+			txtExceptionTabStackTrace.Text = e.StackTrace;
+			txtExceptionTabMessage.Text = e.Message;
 		}
 
 		private void PrintButton_Click(object sender, EventArgs e)
@@ -349,21 +352,20 @@ namespace ExceptionReporting.Views
 				}
 			}
 
-			txtStackTrace.Text = string.Empty;
-			txtMessage.Text = string.Empty;
+			txtExceptionTabStackTrace.Text = string.Empty;
+			txtExceptionTabMessage.Text = string.Empty;
 
 			if (displayException == null) displayException = _presenter.TheException;
-			if ((displayException == null)) return;
+			if (displayException == null) return;
 
-			txtStackTrace.Text = displayException.StackTrace;
-			txtMessage.Text = displayException.Message;
+			txtExceptionTabStackTrace.Text = displayException.StackTrace;
+			txtExceptionTabMessage.Text = displayException.Message;
 		}
 
 		private void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			try
-			{
-				//TODO should be gotten from the ReportInfo, not the UI
+			{	//TODO move this out to presenter (ie single call to presenter here)
 				var psi = new ProcessStartInfo(urlWeb.Text) { UseShellExecute = true };
 				Process.Start(psi);
 			}
@@ -376,8 +378,7 @@ namespace ExceptionReporting.Views
 		private void EmailLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			try
-			{
-				//TODO this should be gotten from the ReportInfo, not the UI
+			{	//TODO move this out to presenter (ie single call to presenter here)
 				string emailAddress = lnkEmail.Text.Trim();
 
 				const string MAILTO = "MAILTO:";
@@ -393,10 +394,10 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private static void ShowError(string strMessage, Exception ex)
+		public void ShowError(string message, Exception exception)
 		{
 			var simpleExceptionView = new InternalExceptionView();
-			simpleExceptionView.ShowException(strMessage, ex);
+			simpleExceptionView.ShowException(message, exception);
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace System.Runtime.CompilerServices
 	public class ExtensionAttribute : Attribute { }
 }
 
-namespace ExceptionReporting
+namespace ExceptionReporting.Extensions
 {
 	public static class ExceptionExtensions
 	{

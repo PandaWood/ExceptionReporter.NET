@@ -3,6 +3,9 @@ using System.Reflection;
 
 namespace ExceptionReporting
 {
+	/// <summary>
+	/// a bag of information (partly config) that is passed around and used in the Exception Report
+	/// </summary>
 	public class ExceptionReportInfo
 	{
 		public string SmtpUsername { get; set; }
@@ -13,7 +16,7 @@ namespace ExceptionReporting
 		public Exception Exception { get; set; }
 		public bool isForPrinting { get; set; }
 		public string ContactEmail { get; set; }
-		public string GeneralInfo { get; set; }
+		public string GeneralInfo { get; set; }		//TODO clarify what exactly is this
 		public string AppName { get; set; }
 		public string AppVersion { get; set; }
 		public string RegionInfo { get; set; }
@@ -21,7 +24,6 @@ namespace ExceptionReporting
 		public string UserName { get; set; }
 		public DateTime ExceptionDate { get; set; }
 		public string UserExplanation { get; set; }
-		public Exception RootException { get; set; }
 		public Assembly AppAssembly { get; set; }
 		public string WebUrl { get; set; }
 		public string Phone { get; set; }
@@ -34,7 +36,7 @@ namespace ExceptionReporting
 		public bool ShowEnvironmentTab { get; set; }
 		public bool ShowAssembliesTab { get; set; }
 
-		public string Email { get; set; }
+		public string Email { get; set; }			//TODO if 2 emails are required what's the diff? Clarify this.
 		public string UserExplanationLabel { get; set; }
 		public string ExceptionOccuredMessage { get; set; }
 		public string ContactMessageBottom { get; set; }

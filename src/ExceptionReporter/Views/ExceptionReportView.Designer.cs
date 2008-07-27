@@ -35,7 +35,7 @@
 			this.txtExceptionMessage = new System.Windows.Forms.TextBox();
 			this.lblPleasyNotifyMessage = new System.Windows.Forms.Label();
 			this.lblExplanation = new System.Windows.Forms.Label();
-			this.txtExplanation = new System.Windows.Forms.TextBox();
+			this.txtUserExplanation = new System.Windows.Forms.TextBox();
 			this.lblRegion = new System.Windows.Forms.Label();
 			this.txtRegion = new System.Windows.Forms.TextBox();
 			this.picGeneral = new System.Windows.Forms.PictureBox();
@@ -51,12 +51,12 @@
 			this.tabExceptions = new System.Windows.Forms.TabPage();
 			this.listviewExceptions = new System.Windows.Forms.ListView();
 			this.grbMessage = new System.Windows.Forms.GroupBox();
-			this.txtMessage = new System.Windows.Forms.TextBox();
+			this.txtExceptionTabMessage = new System.Windows.Forms.TextBox();
 			this.grbStackTrace = new System.Windows.Forms.GroupBox();
-			this.txtStackTrace = new System.Windows.Forms.TextBox();
+			this.txtExceptionTabStackTrace = new System.Windows.Forms.TextBox();
 			this.tabAssemblies = new System.Windows.Forms.TabPage();
 			this.tabSettings = new System.Windows.Forms.TabPage();
-			this.treeSettings = new System.Windows.Forms.TreeView();
+			this.treeviewSettings = new System.Windows.Forms.TreeView();
 			this.tabEnvironment = new System.Windows.Forms.TabPage();
 			this.lblMachine = new System.Windows.Forms.Label();
 			this.txtMachine = new System.Windows.Forms.TextBox();
@@ -129,7 +129,7 @@
 			this.tabGeneral.Controls.Add(this.txtExceptionMessage);
 			this.tabGeneral.Controls.Add(this.lblPleasyNotifyMessage);
 			this.tabGeneral.Controls.Add(this.lblExplanation);
-			this.tabGeneral.Controls.Add(this.txtExplanation);
+			this.tabGeneral.Controls.Add(this.txtUserExplanation);
 			this.tabGeneral.Controls.Add(this.lblRegion);
 			this.tabGeneral.Controls.Add(this.txtRegion);
 			this.tabGeneral.Controls.Add(this.picGeneral);
@@ -157,7 +157,7 @@
 			this.txtExceptionMessage.Name = "txtExceptionMessage";
 			this.txtExceptionMessage.ReadOnly = true;
 			this.txtExceptionMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtExceptionMessage.Size = new System.Drawing.Size(368, 57);
+			this.txtExceptionMessage.Size = new System.Drawing.Size(368, 68);
 			this.txtExceptionMessage.TabIndex = 24;
 			this.txtExceptionMessage.Text = "No message";
 			// 
@@ -166,18 +166,18 @@
 			this.lblPleasyNotifyMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblPleasyNotifyMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPleasyNotifyMessage.Location = new System.Drawing.Point(15, 108);
+			this.lblPleasyNotifyMessage.Location = new System.Drawing.Point(8, 104);
 			this.lblPleasyNotifyMessage.Name = "lblPleasyNotifyMessage";
-			this.lblPleasyNotifyMessage.Size = new System.Drawing.Size(461, 19);
+			this.lblPleasyNotifyMessage.Size = new System.Drawing.Size(468, 30);
 			this.lblPleasyNotifyMessage.TabIndex = 23;
-			this.lblPleasyNotifyMessage.Text = "Please notify IT support of this exception by using the Save/Copy or Email button" +
-				"s below";
+			this.lblPleasyNotifyMessage.Text = "You can inform someone about this exception by using the Copy/Save or Email butto" +
+				"ns below";
 			this.lblPleasyNotifyMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// lblExplanation
 			// 
 			this.lblExplanation.AutoSize = true;
-			this.lblExplanation.Location = new System.Drawing.Point(5, 247);
+			this.lblExplanation.Location = new System.Drawing.Point(10, 251);
 			this.lblExplanation.Name = "lblExplanation";
 			this.lblExplanation.Size = new System.Drawing.Size(334, 13);
 			this.lblExplanation.TabIndex = 14;
@@ -185,17 +185,17 @@
 			// 
 			// txtExplanation
 			// 
-			this.txtExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtExplanation.Location = new System.Drawing.Point(8, 273);
-			this.txtExplanation.Multiline = true;
-			this.txtExplanation.Name = "txtExplanation";
-			this.txtExplanation.Size = new System.Drawing.Size(472, 55);
-			this.txtExplanation.TabIndex = 15;
+			this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtUserExplanation.Location = new System.Drawing.Point(8, 273);
+			this.txtUserExplanation.Multiline = true;
+			this.txtUserExplanation.Name = "txtUserExplanation";
+			this.txtUserExplanation.Size = new System.Drawing.Size(472, 55);
+			this.txtUserExplanation.TabIndex = 15;
 			// 
 			// lblRegion
 			// 
 			this.lblRegion.AutoSize = true;
-			this.lblRegion.Location = new System.Drawing.Point(252, 173);
+			this.lblRegion.Location = new System.Drawing.Point(252, 172);
 			this.lblRegion.Name = "lblRegion";
 			this.lblRegion.Size = new System.Drawing.Size(41, 13);
 			this.lblRegion.TabIndex = 7;
@@ -215,7 +215,7 @@
 			this.picGeneral.Image = ((System.Drawing.Image)(resources.GetObject("picGeneral.Image")));
 			this.picGeneral.Location = new System.Drawing.Point(8, 7);
 			this.picGeneral.Name = "picGeneral";
-			this.picGeneral.Size = new System.Drawing.Size(87, 83);
+			this.picGeneral.Size = new System.Drawing.Size(87, 94);
 			this.picGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.picGeneral.TabIndex = 22;
 			this.picGeneral.TabStop = false;
@@ -223,7 +223,7 @@
 			// lblDate
 			// 
 			this.lblDate.AutoSize = true;
-			this.lblDate.Location = new System.Drawing.Point(12, 201);
+			this.lblDate.Location = new System.Drawing.Point(12, 204);
 			this.lblDate.Name = "lblDate";
 			this.lblDate.Size = new System.Drawing.Size(30, 13);
 			this.lblDate.TabIndex = 9;
@@ -285,7 +285,7 @@
 			// 
 			// lblVersion
 			// 
-			this.lblVersion.Location = new System.Drawing.Point(12, 173);
+			this.lblVersion.Location = new System.Drawing.Point(12, 172);
 			this.lblVersion.Name = "lblVersion";
 			this.lblVersion.Size = new System.Drawing.Size(48, 16);
 			this.lblVersion.TabIndex = 5;
@@ -327,7 +327,7 @@
 			// 
 			// grbMessage
 			// 
-			this.grbMessage.Controls.Add(this.txtMessage);
+			this.grbMessage.Controls.Add(this.txtExceptionTabMessage);
 			this.grbMessage.Location = new System.Drawing.Point(8, 136);
 			this.grbMessage.Name = "grbMessage";
 			this.grbMessage.Size = new System.Drawing.Size(472, 88);
@@ -337,18 +337,18 @@
 			// 
 			// txtMessage
 			// 
-			this.txtMessage.BackColor = System.Drawing.SystemColors.Window;
-			this.txtMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtMessage.Location = new System.Drawing.Point(3, 16);
-			this.txtMessage.Multiline = true;
-			this.txtMessage.Name = "txtMessage";
-			this.txtMessage.ReadOnly = true;
-			this.txtMessage.Size = new System.Drawing.Size(466, 69);
-			this.txtMessage.TabIndex = 24;
+			this.txtExceptionTabMessage.BackColor = System.Drawing.SystemColors.Window;
+			this.txtExceptionTabMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtExceptionTabMessage.Location = new System.Drawing.Point(3, 16);
+			this.txtExceptionTabMessage.Multiline = true;
+			this.txtExceptionTabMessage.Name = "txtExceptionTabMessage";
+			this.txtExceptionTabMessage.ReadOnly = true;
+			this.txtExceptionTabMessage.Size = new System.Drawing.Size(466, 69);
+			this.txtExceptionTabMessage.TabIndex = 24;
 			// 
 			// grbStackTrace
 			// 
-			this.grbStackTrace.Controls.Add(this.txtStackTrace);
+			this.grbStackTrace.Controls.Add(this.txtExceptionTabStackTrace);
 			this.grbStackTrace.Location = new System.Drawing.Point(8, 224);
 			this.grbStackTrace.Name = "grbStackTrace";
 			this.grbStackTrace.Size = new System.Drawing.Size(472, 104);
@@ -358,14 +358,14 @@
 			// 
 			// txtStackTrace
 			// 
-			this.txtStackTrace.BackColor = System.Drawing.SystemColors.Window;
-			this.txtStackTrace.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtStackTrace.Location = new System.Drawing.Point(3, 16);
-			this.txtStackTrace.Multiline = true;
-			this.txtStackTrace.Name = "txtStackTrace";
-			this.txtStackTrace.ReadOnly = true;
-			this.txtStackTrace.Size = new System.Drawing.Size(466, 85);
-			this.txtStackTrace.TabIndex = 26;
+			this.txtExceptionTabStackTrace.BackColor = System.Drawing.SystemColors.Window;
+			this.txtExceptionTabStackTrace.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtExceptionTabStackTrace.Location = new System.Drawing.Point(3, 16);
+			this.txtExceptionTabStackTrace.Multiline = true;
+			this.txtExceptionTabStackTrace.Name = "txtExceptionTabStackTrace";
+			this.txtExceptionTabStackTrace.ReadOnly = true;
+			this.txtExceptionTabStackTrace.Size = new System.Drawing.Size(466, 85);
+			this.txtExceptionTabStackTrace.TabIndex = 26;
 			// 
 			// tabAssemblies
 			// 
@@ -379,7 +379,7 @@
 			// 
 			// tabSettings
 			// 
-			this.tabSettings.Controls.Add(this.treeSettings);
+			this.tabSettings.Controls.Add(this.treeviewSettings);
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
 			this.tabSettings.Size = new System.Drawing.Size(488, 334);
@@ -389,12 +389,12 @@
 			// 
 			// treeSettings
 			// 
-			this.treeSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.treeSettings.HotTracking = true;
-			this.treeSettings.Location = new System.Drawing.Point(0, 0);
-			this.treeSettings.Name = "treeSettings";
-			this.treeSettings.Size = new System.Drawing.Size(488, 334);
-			this.treeSettings.TabIndex = 20;
+			this.treeviewSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.treeviewSettings.HotTracking = true;
+			this.treeviewSettings.Location = new System.Drawing.Point(0, 0);
+			this.treeviewSettings.Name = "treeviewSettings";
+			this.treeviewSettings.Size = new System.Drawing.Size(488, 334);
+			this.treeviewSettings.TabIndex = 20;
 			// 
 			// tabEnvironment
 			// 
@@ -530,10 +530,17 @@
 			// 
 			// urlWeb
 			// 
-			this.urlWeb.Location = new System.Drawing.Point(72, 79);
+			this.urlWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.urlWeb.AutoSize = true;
+			this.urlWeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.urlWeb.Location = new System.Drawing.Point(72, 77);
+			this.urlWeb.Margin = new System.Windows.Forms.Padding(5);
 			this.urlWeb.Name = "urlWeb";
-			this.urlWeb.Size = new System.Drawing.Size(397, 59);
+			this.urlWeb.Size = new System.Drawing.Size(27, 16);
 			this.urlWeb.TabIndex = 31;
+			this.urlWeb.TabStop = true;
+			this.urlWeb.Text = "NA";
 			// 
 			// lblEmail
 			// 
@@ -546,10 +553,17 @@
 			// 
 			// lnkEmail
 			// 
-			this.lnkEmail.Location = new System.Drawing.Point(73, 55);
+			this.lnkEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lnkEmail.AutoSize = true;
+			this.lnkEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lnkEmail.Location = new System.Drawing.Point(72, 53);
+			this.lnkEmail.Margin = new System.Windows.Forms.Padding(5);
 			this.lnkEmail.Name = "lnkEmail";
-			this.lnkEmail.Size = new System.Drawing.Size(394, 16);
+			this.lnkEmail.Size = new System.Drawing.Size(27, 16);
 			this.lnkEmail.TabIndex = 29;
+			this.lnkEmail.TabStop = true;
+			this.lnkEmail.Text = "NA";
 			// 
 			// lblContactMessageBottom
 			// 
@@ -674,7 +688,7 @@
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage tabGeneral;
 		private System.Windows.Forms.Label lblExplanation;
-		private System.Windows.Forms.TextBox txtExplanation;
+		private System.Windows.Forms.TextBox txtUserExplanation;
 		private System.Windows.Forms.Label lblRegion;
 		private System.Windows.Forms.TextBox txtRegion;
 		private System.Windows.Forms.PictureBox picGeneral;
@@ -690,12 +704,12 @@
 		private System.Windows.Forms.TabPage tabExceptions;
 		private System.Windows.Forms.ListView listviewExceptions;
 		private System.Windows.Forms.GroupBox grbMessage;
-		private System.Windows.Forms.TextBox txtMessage;
+		private System.Windows.Forms.TextBox txtExceptionTabMessage;
 		private System.Windows.Forms.GroupBox grbStackTrace;
-		private System.Windows.Forms.TextBox txtStackTrace;
+		private System.Windows.Forms.TextBox txtExceptionTabStackTrace;
 		private System.Windows.Forms.TabPage tabAssemblies;
 		private System.Windows.Forms.TabPage tabSettings;
-		private System.Windows.Forms.TreeView treeSettings;
+		private System.Windows.Forms.TreeView treeviewSettings;
 		private System.Windows.Forms.TabPage tabEnvironment;
 		private System.Windows.Forms.Label lblMachine;
 		private System.Windows.Forms.TextBox txtMachine;

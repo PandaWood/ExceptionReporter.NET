@@ -1,21 +1,23 @@
 using System;
+using System.Configuration;
 using System.Reflection;
 using System.Text;
+using ExceptionReporting.Extensions;
 
 namespace ExceptionReporting
 {
 	public class ExceptionStringBuilder
 	{
-		public ExceptionReportInfo _info;
+		public ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
 
 		/// <summary>
 		/// the (only) constructor
 		/// </summary>
-		/// <param name="info">ExceptionReportInfo </param>
-		public ExceptionStringBuilder(ExceptionReportInfo info)
+		/// <param name="reportInfo">ExceptionReportInfo </param>
+		public ExceptionStringBuilder(ExceptionReportInfo reportInfo)
 		{
-			_info = info;
+			_reportInfo = reportInfo;
 		}
 
 		/// <summary>
@@ -25,87 +27,109 @@ namespace ExceptionReporting
 		{
 			_stringBuilder = new StringBuilder();
 
-			if (_info.ShowGeneralTab)
-				BuildGeneralInfo();
-
-			if (_info.ShowExceptionsTab)
-				BuildExceptionInfo();
-
-			if (_info.ShowAssembliesTab)
-				BuildAssemblyInfo();
-
-			if (_info.ShowSettingsTab)
-				// TreeToString(tvwSettings, stringBuilder);		//TODO put back in but isolate the functionality out of here
-				_stringBuilder.AppendDottedLine().AppendLine();
-
-			if (_info.ShowEnvironmentTab)
-				// TreeToString(tvwEnvironment, stringBuilder);
-				_stringBuilder.AppendDottedLine().AppendLine();
-
-			if (_info.ShowContactTab)
-				BuildContactInfo();
+			BuildGeneralInfo();
+			BuildExceptionInfo();
+            BuildAssemblyInfo();
+			BuildSettingsInfo();
+			BuildEnvironmentInfo();
+			BuildContactInfo();
 
 			return _stringBuilder.ToString();
 		}
 
-		private void BuildContactInfo()
+		private void BuildGeneralInfo()
 		{
-			_stringBuilder.AppendLine("Contact")
-						  .AppendLine()
-						  .AppendLine("E-Mail: " + _info.ContactEmail)
-						  .AppendLine("Web:    " + _info.WebUrl)
-						  .AppendLine("Phone:  " + _info.Phone)
-						  .AppendLine("Fax:    " + _info.Fax)
-						  .AppendDottedLine().AppendLine();
-		}
+			if (!_reportInfo.ShowGeneralTab) return;
 
-		private void BuildAssemblyInfo()
-		{
-			_stringBuilder.AppendLine("Assemblies")
-						  .AppendLine()
-						  .AppendLine(ReferencedAssembliesToString(_info.AppAssembly))
-						  .AppendDottedLine().AppendLine();
+			if (!_reportInfo.isForPrinting)
+			{
+				_stringBuilder.AppendLine(_reportInfo.GeneralInfo)
+					.AppendLine().AppendDottedLine().AppendLine();
+			}
+
+			_stringBuilder.AppendLine("General")
+				.AppendLine()
+				.AppendLine("Application: " + _reportInfo.AppName)
+				.AppendLine("Version:     " + _reportInfo.AppVersion)
+				.AppendLine("Region:      " + _reportInfo.RegionInfo)
+				.AppendLine("Machine:     " + _reportInfo.MachineName)
+				.AppendLine("User:        " + _reportInfo.UserName)
+				.AppendDottedLine();
+
+			if (!_reportInfo.isForPrinting)
+			{
+				_stringBuilder.AppendLine()
+					.AppendLine("Date: " + _reportInfo.ExceptionDate.ToShortDateString())
+					.AppendLine("Time: " + _reportInfo.ExceptionDate.ToShortTimeString())
+					.AppendDottedLine();
+			}
+
+			_stringBuilder.AppendLine("User Explanation")
+				.AppendLine()
+				.AppendFormat("{0} said \"{1}\"", _reportInfo.UserName, _reportInfo.UserExplanation)
+				.AppendLine().AppendDottedLine().AppendLine();
 		}
 
 		private void BuildExceptionInfo()
 		{
+			if (!_reportInfo.ShowExceptionsTab) return;
+
 			_stringBuilder.AppendLine("Exceptions")
-						  .AppendLine()
-						  .AppendLine(ExceptionHierarchyToString(_info.RootException))
-						  .AppendLine().AppendDottedLine().AppendLine();
+				.AppendLine()
+				.AppendLine(ExceptionHierarchyToString(_reportInfo.Exception))
+				.AppendLine().AppendDottedLine().AppendLine();
 		}
 
-		private void BuildGeneralInfo()
+		private void BuildAssemblyInfo()
 		{
-			if (!_info.isForPrinting)
-			{
-				_stringBuilder.AppendLine(_info.GeneralInfo)
-							  .AppendLine().AppendDottedLine().AppendLine();
-			}
+			if (!_reportInfo.ShowAssembliesTab) return;
 
-			_stringBuilder.AppendLine("General")
-						  .AppendLine()
-						  .AppendLine("Application: " + _info.AppName)
-						  .AppendLine("Version:     " + _info.AppVersion)
-						  .AppendLine("Region:      " + _info.RegionInfo)
-						  .AppendLine("Machine:     " + _info.MachineName)
-						  .AppendLine("User:        " + _info.UserName)
-						  .AppendDottedLine();
-
-			if (!_info.isForPrinting)
-			{
-				_stringBuilder.AppendLine()
-							  .AppendLine("Date: " + _info.ExceptionDate.ToShortDateString())
-							  .AppendLine("Time: " + _info.ExceptionDate.ToShortTimeString())
-							  .AppendDottedLine();
-			}
-
-			_stringBuilder.AppendLine()
-						  .AppendLine("Explanation")
-						  .AppendLine(_info.UserExplanation)
-						  .AppendLine().AppendDottedLine().AppendLine();
+			_stringBuilder.AppendLine("Assemblies")
+				.AppendLine()
+				.AppendLine(ReferencedAssembliesToString(_reportInfo.AppAssembly))
+				.AppendDottedLine().AppendLine();
 		}
 
+		private void BuildSettingsInfo()
+		{
+			if (!_reportInfo.ShowSettingsTab) return;
+
+			_stringBuilder.AppendLine("Config Settings").AppendLine();
+
+			// TODO commonise this with CreateSettingsTree in ExceptionReportPresenter
+			foreach (var appSetting in ConfigurationManager.AppSettings)
+			{
+				string settingText = ConfigurationManager.AppSettings.Get(appSetting.ToString());
+				_stringBuilder.AppendLine(appSetting + " : " + settingText);
+			}
+
+			_stringBuilder.AppendDottedLine().AppendLine();
+		}
+
+		private void BuildEnvironmentInfo()
+		{
+			if (!_reportInfo.ShowEnvironmentTab) return;
+
+			// TreeToString(tvwEnvironment, stringBuilder);
+			_stringBuilder.AppendDottedLine().AppendLine();
+		}
+
+		private void BuildContactInfo()
+		{
+			if (!_reportInfo.ShowContactTab) return;
+
+			_stringBuilder.AppendLine("Contact")
+						  .AppendLine()
+						  .AppendLine("Email:  " + _reportInfo.ContactEmail)
+						  .AppendLine("Web:    " + _reportInfo.WebUrl)
+						  .AppendLine("Phone:  " + _reportInfo.Phone)
+						  .AppendLine("Fax:    " + _reportInfo.Fax)
+						  .AppendDottedLine().AppendLine();
+		}
+
+		/// <summary>
+		/// Create a line-delimited string of the exception hierarchy
+		/// </summary>
 		public string ExceptionHierarchyToString(Exception exception)
 		{
 			Exception currentException = exception;
@@ -117,7 +141,7 @@ namespace ExceptionReporting
 				if (count++ == 0)
 					stringBuilder.AppendLine("Top-level Exception");
 				else
-					stringBuilder.AppendLine("Inner Exception " + count);
+					stringBuilder.AppendLine("Inner Exception " + (count-1));
 
 				stringBuilder.AppendLine("Type:        " + currentException.GetType())
 						     .AppendLine("Message:     " + currentException.Message)
@@ -130,9 +154,13 @@ namespace ExceptionReporting
 				currentException = currentException.InnerException;
 			}
 
-			return stringBuilder.ToString();
+			string exceptionString = stringBuilder.ToString();
+			return exceptionString.Remove(exceptionString.Length-2, 2);
 		}
 
+		/// <summary>
+		/// Create a line-delimited string of all the assemblies that are referenced by the given assembly
+		/// </summary>
 		public string ReferencedAssembliesToString(Assembly assembly)
 		{
 			var stringBuilder = new StringBuilder();
