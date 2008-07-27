@@ -33,11 +33,13 @@ namespace ExceptionReporting.DemoApp
 			// 
 			// button1
 			// 
+			this.button1.FlatAppearance.BorderSize = 2;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.button1.Location = new System.Drawing.Point(12, 12);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(267, 55);
 			this.button1.TabIndex = 1;
-			this.button1.Text = "Throw Exception";
+			this.button1.Text = "Show Exception Report";
 			// 
 			// DemoAppView
 			// 

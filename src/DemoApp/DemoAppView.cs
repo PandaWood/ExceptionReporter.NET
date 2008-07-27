@@ -27,6 +27,8 @@ namespace ExceptionReporting.DemoApp
 				exceptionReporter.ReadConfig();
 				exceptionReporter.Show(ex);
 			}
+
+			Application.Exit();
 		}
 	}
 }
