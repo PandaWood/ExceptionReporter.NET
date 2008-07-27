@@ -10,14 +10,14 @@ namespace ExceptionReporting.DemoApp
 		{
 			InitializeComponent();
 
-			button1.Click += Throw_Click;
+			btnShowExceptionReport.Click += Throw_Click;
 		}
 
 		private static void Throw_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				var exception = new IOException("Unable to establish a connection with something interesting. Incidentally, the error message number is #FFF474. Hope that helps.",
+				var exception = new IOException("Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.",
 				                                new Exception("This is an Inner Exception message"));
 				throw exception;
 			}
