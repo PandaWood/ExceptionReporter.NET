@@ -47,7 +47,7 @@ namespace Test.ExceptionReporter
 			Assert.That(hierarchyString.Length, Is.GreaterThan(0));
 			StringAssert.Contains("OuterException", hierarchyString);
 			StringAssert.Contains("Inner Exception 1", hierarchyString);
-			Assert.IsTrue(hierarchyString.EndsWith("      \r\n"));
+			Assert.IsTrue(hierarchyString.EndsWith("      \r\n"));		// a test to ensure not appending 2 blank lines at the end
 		}
 	}
 }

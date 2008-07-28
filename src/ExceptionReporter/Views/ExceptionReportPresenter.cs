@@ -139,31 +139,25 @@ namespace ExceptionReporting.Views
 
 		public void AddEnvironmentNode(string caption, string className, TreeNode parentNode, bool useName, string where)
 		{
-			try
-			{	//TODO the presenters probably doing too much here, extract out and test it
-				string displayField = useName ? "Name" : "Caption";
-				var treeNode1 = new TreeNode(caption);
-				var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0} {1}", className, where));
+			//TODO the presenters probably doing too much here, extract out and test it
+			string displayField = useName ? "Name" : "Caption";
+			var treeNode1 = new TreeNode(caption);
+			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0} {1}", className, where));
 
-				foreach (ManagementObject managementObject in objectSearcher.Get())
-				{
-					var treeNode2 = new TreeNode(managementObject.GetPropertyValue(displayField).ToString().Trim());
-					treeNode1.Nodes.Add(treeNode2);
-					foreach (PropertyData propertyData in managementObject.Properties)
-					{
-						var propertyNode = new TreeNode(propertyData.Name + ':' + Convert.ToString(propertyData.Value));
-						treeNode2.Nodes.Add(propertyNode);
-					}
-				}
-				parentNode.Nodes.Add(treeNode1);
-			}
-			finally
+			foreach (ManagementObject managementObject in objectSearcher.Get())
 			{
-				_view.ProgressValue++;
+				var treeNode2 = new TreeNode(managementObject.GetPropertyValue(displayField).ToString().Trim());
+				treeNode1.Nodes.Add(treeNode2);
+				foreach (PropertyData propertyData in managementObject.Properties)
+				{
+					var propertyNode = new TreeNode(propertyData.Name + ':' + Convert.ToString(propertyData.Value));
+					treeNode2.Nodes.Add(propertyNode);
+				}
 			}
+			parentNode.Nodes.Add(treeNode1);
 		}
 
-		public TreeNode CreateSettingsTree()
+		public TreeNode CreateConfigSettingsTree()
 		{
 			var rootNode = new TreeNode("Application Settings");
 

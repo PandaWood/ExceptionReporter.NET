@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Management;
 using System.Reflection;
 using System.Text;
 using ExceptionReporting.Extensions;
@@ -110,7 +111,7 @@ namespace ExceptionReporting
 		{
 			if (!_reportInfo.ShowEnvironmentTab) return;
 
-			// TreeToString(tvwEnvironment, stringBuilder);
+			// TreeToString(tvwEnvironment, stringBuilder);	//TODO extract out the logic for this in the Presenter so can be reused here
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 

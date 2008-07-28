@@ -15,6 +15,7 @@ namespace ExceptionReporting.Views
 			InitializeComponent();
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo);
+
 			WireUpEvents();
 			PopulateTabs();
 			PopulateReportInfo(reportInfo);
@@ -22,15 +23,23 @@ namespace ExceptionReporting.Views
 
 		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
-			ContactEmail = reportInfo.ContactEmail;
-			ContactFax = reportInfo.Fax;
-			ContactMessageBottom = reportInfo.ContactMessageBottom;
-			ContactMessageTop  = reportInfo.ContactMessageTop;
-			ContactPhone = reportInfo.Phone;
-			ContactWebUrl = reportInfo.WebUrl;
-			UserExplanationLabel = reportInfo.UserExplanationLabel;
-			ExceptionOccuredMessage = reportInfo.ExceptionOccuredMessage;
-			ExceptionMessage = reportInfo.Exception.Message;
+			lnkEmail.Text = reportInfo.ContactEmail;
+			txtFax.Text = reportInfo.Fax;
+			lblContactMessageBottom.Text = reportInfo.ContactMessageBottom;
+			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
+			txtPhone.Text = reportInfo.Phone;
+			urlWeb.Text = reportInfo.WebUrl;
+			lblExplanation.Text = reportInfo.UserExplanationLabel;
+			lblGeneral.Text = reportInfo.ExceptionOccuredMessage;
+			txtExceptionMessage.Text = reportInfo.Exception.Message;
+
+			txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
+			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
+			txtUserName.Text = reportInfo.UserName;
+			txtMachine.Text = reportInfo.MachineName;
+			txtRegion.Text = reportInfo.RegionInfo;
+			txtApplicationName.Text = reportInfo.AppName;
+			txtVersion.Text = reportInfo.AppVersion;
 		}
 
 		~ExceptionReportView()
@@ -64,11 +73,6 @@ namespace ExceptionReporting.Views
 			set { btnEmail.Enabled = value; }
 		}
 
-		public string ExceptionMessage
-		{
-			set { txtExceptionMessage.Text = value; }
-		}
-
 		public bool ShowProgressBar
 		{
 			set { progressBar.Visible = value; }
@@ -83,46 +87,6 @@ namespace ExceptionReporting.Views
 		{
 			get { return progressBar.Value; }
 			set { progressBar.Value = value; }
-		}
-
-		public string ContactEmail
-		{
-			set { lnkEmail.Text = value; }
-		}
-
-		public string ContactWebUrl
-		{
-			set { urlWeb.Text = value; }
-		}
-
-		public string ContactPhone
-		{
-			set { txtPhone.Text = value; }
-		}
-
-		public string ContactFax
-		{
-			set { txtFax.Text = value; }
-		}
-
-		public string ContactMessageTop
-		{
-			set { lblContactMessageTop.Text = value; }
-		}
-
-		public string ContactMessageBottom
-		{
-			set { lblContactMessageBottom.Text = value; }
-		}
-
-		public string ExceptionOccuredMessage
-		{
-			set { lblGeneral.Text = value; }
-		}
-
-		public string UserExplanationLabel
-		{
-			set { lblExplanation.Text = value; }
 		}
 
 		public string UserExplanation
@@ -185,11 +149,11 @@ namespace ExceptionReporting.Views
 			{	
 				SetInProgressState();
 
-				PopulateGeneralTab(); progressBar.Value++;		//TODO the progress bar's progress precision needs some work
-				PopulateEnvironmentTree(); progressBar.Value++;
-				PopulateSettingsTab(); progressBar.Value++;
+				//TODO the progress bar's progress precision needs some work
+				PopulateConfigSettingsTab(); progressBar.Value++;
 				PopulateExceptionHierarchyTree(_presenter.TheException); progressBar.Value++;
-				PopulateAssemblyInfo(); progressBar.Value++;
+				PopulateAssemblyInfoTab(); progressBar.Value++;
+				PopulateEnvironmentTree(); progressBar.Value++;
 
 				PopulateTabs();
 			}
@@ -209,12 +173,13 @@ namespace ExceptionReporting.Views
 		{
 			Cursor = Cursors.WaitCursor;
 			ShowProgressLabel = true;
-			progressBar.Value = 0;
-			progressBar.Maximum = 13;
+			progressBar.Maximum = 12;
+			progressBar.Value = 2;
 			ShowProgressBar = true;
+			progressBar.Refresh();
 		}
 
-		private void PopulateAssemblyInfo()
+		private void PopulateAssemblyInfoTab()
 		{
 			lstAssemblies.Clear();
 			lstAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
@@ -229,9 +194,9 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void PopulateSettingsTab()
+		private void PopulateConfigSettingsTab()
 		{
-			TreeNode rootNode = _presenter.CreateSettingsTree();
+			TreeNode rootNode = _presenter.CreateConfigSettingsTree();
 			treeviewSettings.Nodes.Add(rootNode);
 			rootNode.Expand();
 		}
@@ -241,29 +206,18 @@ namespace ExceptionReporting.Views
 			//TODO the calls to AddEnvironmentNode should all originate from the presenter as the result of a single call - passing the root node
 			var root = new TreeNode("Environment");
 
-			_presenter.AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, string.Empty);
-			_presenter.AddEnvironmentNode("CPU", "Win32_Processor", root, true, string.Empty);
-			_presenter.AddEnvironmentNode("Memory", "Win32_PhysicalMemory", root, true, string.Empty);
-			_presenter.AddEnvironmentNode("Drives", "Win32_DiskDrive", root, true, string.Empty);
-			_presenter.AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, string.Empty);
-			_presenter.AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, string.Empty);
+			_presenter.AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, string.Empty); progressBar.Value++;
+			_presenter.AddEnvironmentNode("CPU", "Win32_Processor", root, true, string.Empty); progressBar.Value++;
+			_presenter.AddEnvironmentNode("Memory", "Win32_PhysicalMemory", root, true, string.Empty); progressBar.Value++;
+			_presenter.AddEnvironmentNode("Drives", "Win32_DiskDrive", root, true, string.Empty); progressBar.Value++;
+			_presenter.AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, string.Empty); progressBar.Value++;
+			_presenter.AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, string.Empty); progressBar.Value++;
 
 			if (_presenter.ReportInfo.EnumeratePrinters)
 				_presenter.AddEnvironmentNode("Printers", "Win32_Printer", root, true, string.Empty);
 
 			treeEnvironment.Nodes.Add(root);
 			root.Expand();
-		}
-
-		private void PopulateGeneralTab()
-		{   //TODO this could be set in the constructor - check for consistency
-			txtDate.Text = _presenter.ReportInfo.ExceptionDate.ToShortDateString();
-			txtTime.Text = _presenter.ReportInfo.ExceptionDate.ToShortTimeString();
-			txtUserName.Text = _presenter.ReportInfo.UserName;
-			txtMachine.Text = _presenter.ReportInfo.MachineName;
-			txtRegion.Text = _presenter.ReportInfo.RegionInfo;
-			txtApplication.Text = _presenter.ReportInfo.AppName;
-			txtVersion.Text = _presenter.ReportInfo.AppVersion;
 		}
 
 		public void ShowExceptionReport()

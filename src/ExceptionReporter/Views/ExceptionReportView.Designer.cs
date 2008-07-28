@@ -45,7 +45,7 @@
 			this.lblTime = new System.Windows.Forms.Label();
 			this.txtTime = new System.Windows.Forms.TextBox();
 			this.lblApplication = new System.Windows.Forms.Label();
-			this.txtApplication = new System.Windows.Forms.TextBox();
+			this.txtApplicationName = new System.Windows.Forms.TextBox();
 			this.lblVersion = new System.Windows.Forms.Label();
 			this.txtVersion = new System.Windows.Forms.TextBox();
 			this.tabExceptions = new System.Windows.Forms.TabPage();
@@ -139,7 +139,7 @@
 			this.tabGeneral.Controls.Add(this.lblTime);
 			this.tabGeneral.Controls.Add(this.txtTime);
 			this.tabGeneral.Controls.Add(this.lblApplication);
-			this.tabGeneral.Controls.Add(this.txtApplication);
+			this.tabGeneral.Controls.Add(this.txtApplicationName);
 			this.tabGeneral.Controls.Add(this.lblVersion);
 			this.tabGeneral.Controls.Add(this.txtVersion);
 			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -276,12 +276,12 @@
 			// 
 			// txtApplication
 			// 
-			this.txtApplication.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtApplication.Location = new System.Drawing.Point(76, 137);
-			this.txtApplication.Name = "txtApplication";
-			this.txtApplication.ReadOnly = true;
-			this.txtApplication.Size = new System.Drawing.Size(400, 20);
-			this.txtApplication.TabIndex = 4;
+			this.txtApplicationName.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtApplicationName.Location = new System.Drawing.Point(76, 137);
+			this.txtApplicationName.Name = "txtApplicationName";
+			this.txtApplicationName.ReadOnly = true;
+			this.txtApplicationName.Size = new System.Drawing.Size(400, 20);
+			this.txtApplicationName.TabIndex = 4;
 			// 
 			// lblVersion
 			// 
@@ -698,7 +698,7 @@
 		private System.Windows.Forms.Label lblTime;
 		private System.Windows.Forms.TextBox txtTime;
 		private System.Windows.Forms.Label lblApplication;
-		private System.Windows.Forms.TextBox txtApplication;
+		private System.Windows.Forms.TextBox txtApplicationName;
 		private System.Windows.Forms.Label lblVersion;
 		private System.Windows.Forms.TextBox txtVersion;
 		private System.Windows.Forms.TabPage tabExceptions;

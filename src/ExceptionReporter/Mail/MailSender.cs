@@ -14,12 +14,12 @@ namespace ExceptionReporting.Mail
 			_reportInfo = reportInfo;
 		}
 
-		public void SendSmtp(string exceptionString, CompletedMethodDelegate SetCompletedStateInTheUI)
+		public void SendSmtp(string exceptionString, CompletedMethodDelegate setCompletedState)
 		{
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
 			MailMessage mailMessage = CreateMailMessage(exceptionString);
 
-			smtpClient.SendCompleted += delegate { SetCompletedStateInTheUI(); };
+			smtpClient.SendCompleted += delegate { setCompletedState(); };
 			smtpClient.SendAsync(mailMessage, null);
 		}
 
