@@ -12,7 +12,7 @@ namespace Test.ExceptionReporter
 	[TestFixture]
 	public class SystemInfoRetrieverTest
 	{
-		private readonly SystemInfoRetriever _retriever = new SystemInfoRetriever();
+		private readonly SysInfoRetriever _retriever = new SysInfoRetriever();
 
 		[Test]
 		public void CanRetrieve_SysInfo_For_CPU()

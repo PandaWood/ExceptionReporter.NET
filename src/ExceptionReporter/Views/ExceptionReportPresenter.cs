@@ -1,10 +1,10 @@
 using System;
 using System.Configuration;
 using System.IO;
-using System.Management;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Mail;
+using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Views
 {
@@ -137,23 +137,21 @@ namespace ExceptionReporting.Views
 			printer.Print();
 		}
 
-
-
-		public void AddSysInfoNode(string caption, string queryClassName, TreeNode parentNode, bool useName)
+		public void AddSysInfoNode(TreeNode parentNode, SysInfoResult result)
 		{
-			//TODO the presenters doing too much here, and we need to reuse it - extract out (and test)
-			string displayField = useName ? "Name" : "Caption";
-			var nodeRoot = new TreeNode(caption);
-			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", queryClassName));
+			var nodeRoot = new TreeNode(result.Name);
 
-			foreach (ManagementObject managementObject in objectSearcher.Get())
+			foreach (string nodeValueParent in result.Nodes)
 			{
-				var nodeLeaf = new TreeNode(managementObject.GetPropertyValue(displayField).ToString().Trim());
+				var nodeLeaf = new TreeNode(nodeValueParent);
 				nodeRoot.Nodes.Add(nodeLeaf);
-				foreach (PropertyData propertyData in managementObject.Properties)
+
+				foreach (SysInfoResult childResult in result.ChildResults)
 				{
-					var propertyNode = new TreeNode(propertyData.Name + ':' + Convert.ToString(propertyData.Value));
-					nodeLeaf.Nodes.Add(propertyNode);
+					foreach (var nodeValue in childResult.Nodes)
+					{
+						nodeLeaf.Nodes.Add(new TreeNode(nodeValue));	
+					}
 				}
 			}
 			parentNode.Nodes.Add(nodeRoot);
@@ -177,16 +175,14 @@ namespace ExceptionReporting.Views
 
 		public TreeNode CreateSysInfoTree()
 		{
+			var retriever = new SysInfoRetriever();
 			var root = new TreeNode("Computer");
 
-			AddSysInfoNode("Operating System", "Win32_OperatingSystem", root, false);
-			AddSysInfoNode("CPU", "Win32_Processor", root, true);
-			AddSysInfoNode("Memory", "Win32_PhysicalMemory", root, true);
-			AddSysInfoNode("Environment Variables", "Win32_Environment", root, true);
-			AddSysInfoNode("System", "Win32_ComputerSystem", root, true);
-
-			if (_reportInfo.EnumeratePrinters)
-				AddSysInfoNode("Printers", "Win32_Printer", root, true);
+			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.CPU));
+			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.Environment));
+			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.Memory));
+			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.OperatingSystem));
+			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.System));
 
 			return root;
 		}
