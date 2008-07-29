@@ -58,8 +58,7 @@
     <Compile Include="ExceptionStringBuilder.cs" />
     <Compile Include="ExceptionReporterExtensions.cs" />
     <Compile Include="Mail\MailSender.cs" />
-    <Compile Include="SystemInfo\ManagementObjectDto.cs" />
-    <Compile Include="SystemInfo\SysInfoDto.cs" />
+    <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
     <Compile Include="SystemInfo\SysInfoQuery.cs" />
     <Compile Include="SystemInfo\SystemInfoRetriever.cs" />

@@ -4,43 +4,42 @@ using NUnit.Framework.SyntaxHelpers;
 
 namespace Test.ExceptionReporter
 {
+	/// <summary>
+	/// these are probably best labelled "integration tests"
+	/// I've left the code actually querying the system, but tried to keep the tests generic enough 
+	/// to pass on anyone's machine - maybe not a great idea long term
+	/// </summary>
 	[TestFixture]
 	public class SystemInfoRetrieverTest
 	{
+		private readonly SystemInfoRetriever _retriever = new SystemInfoRetriever();
+
 		[Test]
 		public void CanRetrieve_SysInfo_For_CPU()
 		{
-			var retriever = new SystemInfoRetriever();
-			var sysInfoClass = new SysInfoDto(SysInfoQueries.CpuStrategy);
+			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.CPU);
 
-			sysInfoClass = retriever.GetSysInfo(sysInfoClass);
-
-			Assert.That(sysInfoClass.ManagedObjectList.Count, Is.GreaterThan(0));
-			Assert.That(sysInfoClass.ManagedObjectList[0].PropertyKeys.Count, Is.GreaterThan(0));
+			Assert.That(result.Nodes.Count, Is.GreaterThan(0));		// at least 1 cpu
+			StringAssert.Contains("GHz", result.Nodes[0]);
+			Assert.That(result.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
+			Assert.That(result.ChildResults[0].Nodes.Find(x => x.Contains("CpuStatus")), Is.Not.Null);
 		}
 
 		[Test]
 		public void CanRetrieve_SysInfo_For_OS()
 		{
-			var retriever = new SystemInfoRetriever();
-			var sysInfoClass = new SysInfoDto(SysInfoQueries.OsStrategy);
-
-			sysInfoClass = retriever.GetSysInfo(sysInfoClass);
-
-			StringAssert.Contains("Windows", sysInfoClass.ManagedObjectList[0].PropertyValue);
+			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
+			StringAssert.Contains("Windows", result.Nodes[0]);
 		}
 
 		[Test]
 		public void CanRetrieve_SysInfo_For_Memory()
 		{
-			var retriever = new SystemInfoRetriever();
-			var sysInfoClass = new SysInfoDto(SysInfoQueries.Memory);
+			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.Memory);
 
-			sysInfoClass = retriever.GetSysInfo(sysInfoClass);
-
-			StringAssert.Contains("Memory", sysInfoClass.ManagedObjectList[0].PropertyValue);
-			Assert.That(sysInfoClass.ManagedObjectList[0].PropertyKeys.Count, Is.GreaterThan(0));
-			Assert.That(sysInfoClass.ManagedObjectList[0].PropertyKeys.Find(x => x.Contains("HotSwappable")), Is.Not.Null);
+			StringAssert.Contains("Memory", result.Nodes[0]);
+			Assert.That(result.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
+			Assert.That(result.ChildResults[0].Nodes.Find(x => x.Contains("HotSwappable")), Is.Not.Null);
 		}
 	}
 }
