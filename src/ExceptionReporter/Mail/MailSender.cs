@@ -33,7 +33,7 @@ namespace ExceptionReporting.Mail
 				mapi.AddRecip(_reportInfo.ContactEmail, null, false);
 			}
 
-			mapi.Send("An Exception has occured", exceptionString, true);
+			mapi.Send(CreateSubject(), exceptionString, true);
 			mapi.Logoff();
 		}
 
@@ -44,10 +44,15 @@ namespace ExceptionReporting.Mail
 			                  		From = new MailAddress(_reportInfo.SmtpFromAddress, null),
 			                  		ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
 			                  		Body = exceptionString,
-			                  		Subject = string.Format("Exception Report for {0} v{1}", _reportInfo.AppName, _reportInfo.AppVersion) 
+									Subject = CreateSubject() 
 			                  	};
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
 			return mailMessage;
+		}
+
+		private string CreateSubject()
+		{
+			return string.Format("Exception Report for {0} v{1}", _reportInfo.AppName, _reportInfo.AppVersion);
 		}
 	}
 }

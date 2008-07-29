@@ -123,7 +123,7 @@ namespace ExceptionReporting
 			_reportInfo.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_USERNAME"), _reportInfo.SmtpUsername);
 			_reportInfo.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_PASSWORD"), _reportInfo.SmtpPassword);
 			_reportInfo.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_FROM"), _reportInfo.SmtpFromAddress);
-			_reportInfo.Email = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), _reportInfo.Email);
+			_reportInfo.EmailSendAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), _reportInfo.EmailSendAddress);
 		}
 
 		private void ReadMailType()
@@ -154,6 +154,7 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Returns the newString if it is not NULL or 0 length, otherwise the currentString value is returned
+		/// //TODO write the method in a way that avoids passing the same argument
 		/// </summary>
 		private static string AssignIfNotNull(string newString, string currentString)
 		{

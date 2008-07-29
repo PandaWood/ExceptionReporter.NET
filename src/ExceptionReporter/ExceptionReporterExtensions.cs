@@ -9,7 +9,7 @@ namespace System.Runtime.CompilerServices
 
 namespace ExceptionReporting.Extensions
 {
-	public static class ExceptionExtensions
+	public static class ExceptionReporterExtensions
 	{
 		public static StringBuilder AppendDottedLine(this StringBuilder stringBuilder)
 		{

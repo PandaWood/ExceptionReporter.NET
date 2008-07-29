@@ -56,8 +56,13 @@
     </Compile>
     <Compile Include="ExceptionReportInfo.cs" />
     <Compile Include="ExceptionStringBuilder.cs" />
-    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="ExceptionReporterExtensions.cs" />
     <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="SystemInfo\ManagementObjectDto.cs" />
+    <Compile Include="SystemInfo\SysInfoDto.cs" />
+    <Compile Include="SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SystemInfoRetriever.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Views\ExceptionReportView.cs">
       <SubType>Form</SubType>

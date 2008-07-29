@@ -59,7 +59,7 @@ namespace ExceptionReporting.Views
 			return stringBuilder.Build();
 		}
 
-		public void SaveExceptionReportToFile(string fileName)
+		public void SaveReportToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName))
 				return;
@@ -81,7 +81,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public void SendExceptionReportByEmail(IntPtr handle)
+		public void SendReportByEmail(IntPtr handle)
 		{
 			if (_reportInfo.MailType == ExceptionReportInfo.slsMailType.SimpleMAPI)
 				SendMapiEmail(handle);
@@ -90,7 +90,7 @@ namespace ExceptionReporting.Views
 				SendSmtpMail();
 		}
 
-		public void CopyExceptionReportToClipboard()
+		public void CopyReportToClipboard()
 		{
 			string exceptionString = BuildExceptionString();
 			Clipboard.SetDataObject(exceptionString, true);
@@ -137,29 +137,32 @@ namespace ExceptionReporting.Views
 			printer.Print();
 		}
 
-		public void AddEnvironmentNode(string caption, string className, TreeNode parentNode, bool useName, string where)
+
+
+		public void AddSysInfoNode(string caption, string queryClassName, TreeNode parentNode, bool useName)
 		{
-			//TODO the presenters probably doing too much here, extract out and test it
+			//TODO the presenters doing too much here, and we need to reuse it - extract out (and test)
 			string displayField = useName ? "Name" : "Caption";
-			var treeNode1 = new TreeNode(caption);
-			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0} {1}", className, where));
+			var nodeRoot = new TreeNode(caption);
+			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", queryClassName));
 
 			foreach (ManagementObject managementObject in objectSearcher.Get())
 			{
-				var treeNode2 = new TreeNode(managementObject.GetPropertyValue(displayField).ToString().Trim());
-				treeNode1.Nodes.Add(treeNode2);
+				var nodeLeaf = new TreeNode(managementObject.GetPropertyValue(displayField).ToString().Trim());
+				nodeRoot.Nodes.Add(nodeLeaf);
 				foreach (PropertyData propertyData in managementObject.Properties)
 				{
 					var propertyNode = new TreeNode(propertyData.Name + ':' + Convert.ToString(propertyData.Value));
-					treeNode2.Nodes.Add(propertyNode);
+					nodeLeaf.Nodes.Add(propertyNode);
 				}
 			}
-			parentNode.Nodes.Add(treeNode1);
+			parentNode.Nodes.Add(nodeRoot);
 		}
 
 		public TreeNode CreateConfigSettingsTree()
 		{
-			var rootNode = new TreeNode("Application Settings");
+			//TODO the presenters doing too much here, and we need to reuse it - extract out (and test)
+			var rootNode = new TreeNode("Configuration Settings");
 
 			foreach (var appSetting in ConfigurationManager.AppSettings)
 			{
@@ -170,6 +173,22 @@ namespace ExceptionReporting.Views
 			}
 
 			return rootNode;
+		}
+
+		public TreeNode CreateSysInfoTree()
+		{
+			var root = new TreeNode("Computer");
+
+			AddSysInfoNode("Operating System", "Win32_OperatingSystem", root, false);
+			AddSysInfoNode("CPU", "Win32_Processor", root, true);
+			AddSysInfoNode("Memory", "Win32_PhysicalMemory", root, true);
+			AddSysInfoNode("Environment Variables", "Win32_Environment", root, true);
+			AddSysInfoNode("System", "Win32_ComputerSystem", root, true);
+
+			if (_reportInfo.EnumeratePrinters)
+				AddSysInfoNode("Printers", "Win32_Printer", root, true);
+
+			return root;
 		}
 	}
 }

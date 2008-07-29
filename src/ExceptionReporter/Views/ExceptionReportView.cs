@@ -119,11 +119,11 @@ namespace ExceptionReporting.Views
 			}
 			if (_presenter.ReportInfo.ShowSettingsTab)
 			{
-				tabControl.TabPages.Add(tabSettings);
+				tabControl.TabPages.Add(tabConfig);
 			}
 			if (_presenter.ReportInfo.ShowEnvironmentTab)
 			{
-				tabControl.TabPages.Add(tabEnvironment);
+				tabControl.TabPages.Add(tabComputer);
 			}
 			if (_presenter.ReportInfo.ShowContactTab)
 			{
@@ -149,11 +149,10 @@ namespace ExceptionReporting.Views
 			{	
 				SetInProgressState();
 
-				//TODO the progress bar's progress precision needs some work
-				PopulateConfigSettingsTab(); progressBar.Value++;
-				PopulateExceptionHierarchyTree(_presenter.TheException); progressBar.Value++;
-				PopulateAssemblyInfoTab(); progressBar.Value++;
-				PopulateEnvironmentTree(); progressBar.Value++;
+				PopulateConfigSettingsTab(); 
+				PopulateExceptionHierarchyTree(_presenter.TheException);
+				PopulateAssemblyInfoTab(); 
+				PopulateEnvironmentVariableTree();
 
 				PopulateTabs();
 			}
@@ -173,24 +172,21 @@ namespace ExceptionReporting.Views
 		{
 			Cursor = Cursors.WaitCursor;
 			ShowProgressLabel = true;
-			progressBar.Maximum = 12;
-			progressBar.Value = 2;
 			ShowProgressBar = true;
-			progressBar.Refresh();
 		}
 
 		private void PopulateAssemblyInfoTab()
 		{
-			lstAssemblies.Clear();
-			lstAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
-			lstAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
+			listviewAssemblies.Clear();
+			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
+			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 
 			//TODO extract out the reference to AssemblyName to the presenter (eg return a DTO)
 			foreach (AssemblyName assemblyName in _presenter.AppAssembly.GetReferencedAssemblies())
 			{
 				var listViewItem = new ListViewItem {Text = assemblyName.Name};
 				listViewItem.SubItems.Add(assemblyName.Version.ToString());
-				lstAssemblies.Items.Add(listViewItem);
+				listviewAssemblies.Items.Add(listViewItem);
 			}
 		}
 
@@ -201,23 +197,11 @@ namespace ExceptionReporting.Views
 			rootNode.Expand();
 		}
 
-		private void PopulateEnvironmentTree()
+		private void PopulateEnvironmentVariableTree()
 		{
-			//TODO the calls to AddEnvironmentNode should all originate from the presenter as the result of a single call - passing the root node
-			var root = new TreeNode("Environment");
-
-			_presenter.AddEnvironmentNode("Operating System", "Win32_OperatingSystem", root, false, string.Empty); progressBar.Value++;
-			_presenter.AddEnvironmentNode("CPU", "Win32_Processor", root, true, string.Empty); progressBar.Value++;
-			_presenter.AddEnvironmentNode("Memory", "Win32_PhysicalMemory", root, true, string.Empty); progressBar.Value++;
-			_presenter.AddEnvironmentNode("Drives", "Win32_DiskDrive", root, true, string.Empty); progressBar.Value++;
-			_presenter.AddEnvironmentNode("Environment Variables", "Win32_Environment", root, true, string.Empty); progressBar.Value++;
-			_presenter.AddEnvironmentNode("System", "Win32_ComputerSystem", root, true, string.Empty); progressBar.Value++;
-
-			if (_presenter.ReportInfo.EnumeratePrinters)
-				_presenter.AddEnvironmentNode("Printers", "Win32_Printer", root, true, string.Empty);
-
-			treeEnvironment.Nodes.Add(root);
-			root.Expand();
+			TreeNode rootNode = _presenter.CreateSysInfoTree();
+			treeEnvironment.Nodes.Add(rootNode);
+			rootNode.Expand();
 		}
 
 		public void ShowExceptionReport()
@@ -226,7 +210,7 @@ namespace ExceptionReporting.Views
 			ShowDialog();
 		}
 
-		private void PopulateExceptionHierarchyTree(Exception e)
+		private void PopulateExceptionHierarchyTree(Exception rootException)
 		{
 			listviewExceptions.Clear();
 			listviewExceptions.Columns.Add("Level", 100, HorizontalAlignment.Left);
@@ -234,14 +218,14 @@ namespace ExceptionReporting.Views
 			listviewExceptions.Columns.Add("Target Site / Method", 150, HorizontalAlignment.Left);
 
 			var listViewItem = new ListViewItem {Text = "Top Level"};
-			listViewItem.SubItems.Add(e.GetType().ToString());
-			listViewItem.SubItems.Add(e.TargetSite.ToString());
+			listViewItem.SubItems.Add(rootException.GetType().ToString());
+			listViewItem.SubItems.Add(rootException.TargetSite.ToString());
 			listViewItem.Tag = "0";
 			listviewExceptions.Items.Add(listViewItem);
 			listViewItem.Selected = true;
 
 			int index = 0;
-			Exception currentException = e;
+			Exception currentException = rootException;
 			bool shouldContinue = (currentException.InnerException != null);
 
 			while (shouldContinue)
@@ -260,8 +244,8 @@ namespace ExceptionReporting.Views
 				shouldContinue = (currentException.InnerException != null);
 			}
 
-			txtExceptionTabStackTrace.Text = e.StackTrace;
-			txtExceptionTabMessage.Text = e.Message;
+			txtExceptionTabStackTrace.Text = rootException.StackTrace;
+			txtExceptionTabMessage.Text = rootException.Message;
 		}
 
 		private void PrintButton_Click(object sender, EventArgs e)
@@ -271,12 +255,12 @@ namespace ExceptionReporting.Views
 
 		private void CopyButton_Click(object sender, EventArgs e)
 		{
-			_presenter.CopyExceptionReportToClipboard();
+			_presenter.CopyReportToClipboard();
 		}
 
 		private void EmailButton_Click(object sender, EventArgs e)
 		{
-			_presenter.SendExceptionReportByEmail(Handle);
+			_presenter.SendReportByEmail(Handle);
 		}
 
 		private void SaveButton_Click(object sender, EventArgs e)
@@ -290,7 +274,7 @@ namespace ExceptionReporting.Views
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_presenter.SaveExceptionReportToFile(saveDialog.FileName);
+				_presenter.SaveReportToFile(saveDialog.FileName);
 			}
 		}
 

@@ -1,6 +1,5 @@
 using System;
 using System.Configuration;
-using System.Management;
 using System.Reflection;
 using System.Text;
 using ExceptionReporting.Extensions;
@@ -26,13 +25,13 @@ namespace ExceptionReporting
 		/// </summary>
 		public string Build()
 		{
-			_stringBuilder = new StringBuilder();
+			_stringBuilder = new StringBuilder().AppendDottedLine();
 
 			BuildGeneralInfo();
 			BuildExceptionInfo();
             BuildAssemblyInfo();
-			BuildSettingsInfo();
-			BuildEnvironmentInfo();
+			BuildConfigInfo();
+			BuildSysInfo();
 			BuildContactInfo();
 
 			return _stringBuilder.ToString();
@@ -42,60 +41,48 @@ namespace ExceptionReporting
 		{
 			if (!_reportInfo.ShowGeneralTab) return;
 
-			if (!_reportInfo.isForPrinting)
-			{
-				_stringBuilder.AppendLine(_reportInfo.GeneralInfo)
-					.AppendLine().AppendDottedLine().AppendLine();
-			}
-
-			_stringBuilder.AppendLine("General")
+			_stringBuilder.AppendLine("[General Info]")
 				.AppendLine()
 				.AppendLine("Application: " + _reportInfo.AppName)
 				.AppendLine("Version:     " + _reportInfo.AppVersion)
 				.AppendLine("Region:      " + _reportInfo.RegionInfo)
 				.AppendLine("Machine:     " + _reportInfo.MachineName)
 				.AppendLine("User:        " + _reportInfo.UserName)
+				.AppendLine("Date: " + _reportInfo.ExceptionDate.ToShortDateString())
+				.AppendLine("Time: " + _reportInfo.ExceptionDate.ToShortTimeString())
 				.AppendDottedLine();
-
-			if (!_reportInfo.isForPrinting)
-			{
-				_stringBuilder.AppendLine()
-					.AppendLine("Date: " + _reportInfo.ExceptionDate.ToShortDateString())
-					.AppendLine("Time: " + _reportInfo.ExceptionDate.ToShortTimeString())
-					.AppendDottedLine();
-			}
-
-			_stringBuilder.AppendLine("User Explanation")
+			
+			_stringBuilder.AppendLine("[User Explanation]")
 				.AppendLine()
 				.AppendFormat("{0} said \"{1}\"", _reportInfo.UserName, _reportInfo.UserExplanation)
-				.AppendLine().AppendDottedLine().AppendLine();
+				.AppendLine().AppendDottedLine();
 		}
 
 		private void BuildExceptionInfo()
 		{
 			if (!_reportInfo.ShowExceptionsTab) return;
 
-			_stringBuilder.AppendLine("Exceptions")
+			_stringBuilder.AppendLine("[Exception Info]")
 				.AppendLine()
 				.AppendLine(ExceptionHierarchyToString(_reportInfo.Exception))
-				.AppendLine().AppendDottedLine().AppendLine();
+				.AppendLine().AppendDottedLine();
 		}
 
 		private void BuildAssemblyInfo()
 		{
 			if (!_reportInfo.ShowAssembliesTab) return;
 
-			_stringBuilder.AppendLine("Assemblies")
+			_stringBuilder.AppendLine("[Assembly Info]")
 				.AppendLine()
 				.AppendLine(ReferencedAssembliesToString(_reportInfo.AppAssembly))
-				.AppendDottedLine().AppendLine();
+				.AppendDottedLine();
 		}
 
-		private void BuildSettingsInfo()
+		private void BuildConfigInfo()
 		{
 			if (!_reportInfo.ShowSettingsTab) return;
 
-			_stringBuilder.AppendLine("Config Settings").AppendLine();
+			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
 
 			// TODO commonise this with CreateSettingsTree in ExceptionReportPresenter
 			foreach (var appSetting in ConfigurationManager.AppSettings)
@@ -104,28 +91,30 @@ namespace ExceptionReporting
 				_stringBuilder.AppendLine(appSetting + " : " + settingText);
 			}
 
-			_stringBuilder.AppendDottedLine().AppendLine();
+			_stringBuilder.AppendDottedLine();
 		}
 
-		private void BuildEnvironmentInfo()
+		private void BuildSysInfo()
 		{
 			if (!_reportInfo.ShowEnvironmentTab) return;
 
+			_stringBuilder.AppendLine("[Environment Variables]").AppendLine();
 			// TreeToString(tvwEnvironment, stringBuilder);	//TODO extract out the logic for this in the Presenter so can be reused here
-			_stringBuilder.AppendDottedLine().AppendLine();
+			_stringBuilder.AppendLine("TODO");
+			_stringBuilder.AppendDottedLine();
 		}
 
 		private void BuildContactInfo()
 		{
 			if (!_reportInfo.ShowContactTab) return;
 
-			_stringBuilder.AppendLine("Contact")
+			_stringBuilder.AppendLine("[Contact Info]")
 						  .AppendLine()
 						  .AppendLine("Email:  " + _reportInfo.ContactEmail)
 						  .AppendLine("Web:    " + _reportInfo.WebUrl)
 						  .AppendLine("Phone:  " + _reportInfo.Phone)
 						  .AppendLine("Fax:    " + _reportInfo.Fax)
-						  .AppendDottedLine().AppendLine();
+						  .AppendDottedLine();
 		}
 
 		/// <summary>

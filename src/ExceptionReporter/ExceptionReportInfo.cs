@@ -14,9 +14,7 @@ namespace ExceptionReporting
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
 		public Exception Exception { get; set; }
-		public bool isForPrinting { get; set; }
 		public string ContactEmail { get; set; }
-		public string GeneralInfo { get; set; }		//TODO clarify what exactly is this
 		public string AppName { get; set; }
 		public string AppVersion { get; set; }
 		public string RegionInfo { get; set; }
@@ -36,7 +34,7 @@ namespace ExceptionReporting
 		public bool ShowEnvironmentTab { get; set; }
 		public bool ShowAssembliesTab { get; set; }
 
-		public string Email { get; set; }			//TODO if 2 emails are required what's the diff? Clarify this.
+		public string EmailSendAddress { get; set; }			//TODO if 2 emails are required what's the diff? Clarify this.
 		public string UserExplanationLabel { get; set; }
 		public string ExceptionOccuredMessage { get; set; }
 		public string ContactMessageBottom { get; set; }

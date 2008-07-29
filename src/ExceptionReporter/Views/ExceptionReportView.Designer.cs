@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExceptionReportView));
-			this.lstAssemblies = new System.Windows.Forms.ListView();
+			this.listviewAssemblies = new System.Windows.Forms.ListView();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabGeneral = new System.Windows.Forms.TabPage();
 			this.txtExceptionMessage = new System.Windows.Forms.TextBox();
@@ -55,9 +55,9 @@
 			this.grbStackTrace = new System.Windows.Forms.GroupBox();
 			this.txtExceptionTabStackTrace = new System.Windows.Forms.TextBox();
 			this.tabAssemblies = new System.Windows.Forms.TabPage();
-			this.tabSettings = new System.Windows.Forms.TabPage();
+			this.tabConfig = new System.Windows.Forms.TabPage();
 			this.treeviewSettings = new System.Windows.Forms.TreeView();
-			this.tabEnvironment = new System.Windows.Forms.TabPage();
+			this.tabComputer = new System.Windows.Forms.TabPage();
 			this.lblMachine = new System.Windows.Forms.Label();
 			this.txtMachine = new System.Windows.Forms.TextBox();
 			this.lblUsername = new System.Windows.Forms.Label();
@@ -89,32 +89,32 @@
 			this.grbMessage.SuspendLayout();
 			this.grbStackTrace.SuspendLayout();
 			this.tabAssemblies.SuspendLayout();
-			this.tabSettings.SuspendLayout();
-			this.tabEnvironment.SuspendLayout();
+			this.tabConfig.SuspendLayout();
+			this.tabComputer.SuspendLayout();
 			this.tabContact.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// lstAssemblies
+			// listviewAssemblies
 			// 
-			this.lstAssemblies.Activation = System.Windows.Forms.ItemActivation.OneClick;
-			this.lstAssemblies.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lstAssemblies.FullRowSelect = true;
-			this.lstAssemblies.HotTracking = true;
-			this.lstAssemblies.HoverSelection = true;
-			this.lstAssemblies.Location = new System.Drawing.Point(0, 0);
-			this.lstAssemblies.Name = "lstAssemblies";
-			this.lstAssemblies.Size = new System.Drawing.Size(488, 334);
-			this.lstAssemblies.TabIndex = 21;
-			this.lstAssemblies.UseCompatibleStateImageBehavior = false;
-			this.lstAssemblies.View = System.Windows.Forms.View.Details;
+			this.listviewAssemblies.Activation = System.Windows.Forms.ItemActivation.OneClick;
+			this.listviewAssemblies.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listviewAssemblies.FullRowSelect = true;
+			this.listviewAssemblies.HotTracking = true;
+			this.listviewAssemblies.HoverSelection = true;
+			this.listviewAssemblies.Location = new System.Drawing.Point(0, 0);
+			this.listviewAssemblies.Name = "listviewAssemblies";
+			this.listviewAssemblies.Size = new System.Drawing.Size(488, 334);
+			this.listviewAssemblies.TabIndex = 21;
+			this.listviewAssemblies.UseCompatibleStateImageBehavior = false;
+			this.listviewAssemblies.View = System.Windows.Forms.View.Details;
 			// 
 			// tabControl
 			// 
 			this.tabControl.Controls.Add(this.tabGeneral);
 			this.tabControl.Controls.Add(this.tabExceptions);
 			this.tabControl.Controls.Add(this.tabAssemblies);
-			this.tabControl.Controls.Add(this.tabSettings);
-			this.tabControl.Controls.Add(this.tabEnvironment);
+			this.tabControl.Controls.Add(this.tabConfig);
+			this.tabControl.Controls.Add(this.tabComputer);
 			this.tabControl.Controls.Add(this.tabContact);
 			this.tabControl.HotTrack = true;
 			this.tabControl.Location = new System.Drawing.Point(12, 12);
@@ -183,7 +183,7 @@
 			this.lblExplanation.TabIndex = 14;
 			this.lblExplanation.Text = "Please enter a brief explanation of events leading up to this exception";
 			// 
-			// txtExplanation
+			// txtUserExplanation
 			// 
 			this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtUserExplanation.Location = new System.Drawing.Point(8, 273);
@@ -274,7 +274,7 @@
 			this.lblApplication.TabIndex = 3;
 			this.lblApplication.Text = "Application";
 			// 
-			// txtApplication
+			// txtApplicationName
 			// 
 			this.txtApplicationName.BackColor = System.Drawing.SystemColors.ButtonFace;
 			this.txtApplicationName.Location = new System.Drawing.Point(76, 137);
@@ -335,7 +335,7 @@
 			this.grbMessage.TabStop = false;
 			this.grbMessage.Text = "Message";
 			// 
-			// txtMessage
+			// txtExceptionTabMessage
 			// 
 			this.txtExceptionTabMessage.BackColor = System.Drawing.SystemColors.Window;
 			this.txtExceptionTabMessage.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -356,7 +356,7 @@
 			this.grbStackTrace.TabStop = false;
 			this.grbStackTrace.Text = "Stack Trace";
 			// 
-			// txtStackTrace
+			// txtExceptionTabStackTrace
 			// 
 			this.txtExceptionTabStackTrace.BackColor = System.Drawing.SystemColors.Window;
 			this.txtExceptionTabStackTrace.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -369,7 +369,7 @@
 			// 
 			// tabAssemblies
 			// 
-			this.tabAssemblies.Controls.Add(this.lstAssemblies);
+			this.tabAssemblies.Controls.Add(this.listviewAssemblies);
 			this.tabAssemblies.Location = new System.Drawing.Point(4, 22);
 			this.tabAssemblies.Name = "tabAssemblies";
 			this.tabAssemblies.Size = new System.Drawing.Size(488, 334);
@@ -377,17 +377,17 @@
 			this.tabAssemblies.Text = "Assemblies";
 			this.tabAssemblies.UseVisualStyleBackColor = true;
 			// 
-			// tabSettings
+			// tabConfig
 			// 
-			this.tabSettings.Controls.Add(this.treeviewSettings);
-			this.tabSettings.Location = new System.Drawing.Point(4, 22);
-			this.tabSettings.Name = "tabSettings";
-			this.tabSettings.Size = new System.Drawing.Size(488, 334);
-			this.tabSettings.TabIndex = 5;
-			this.tabSettings.Text = "Settings";
-			this.tabSettings.UseVisualStyleBackColor = true;
+			this.tabConfig.Controls.Add(this.treeviewSettings);
+			this.tabConfig.Location = new System.Drawing.Point(4, 22);
+			this.tabConfig.Name = "tabConfig";
+			this.tabConfig.Size = new System.Drawing.Size(488, 334);
+			this.tabConfig.TabIndex = 5;
+			this.tabConfig.Text = "Configuration";
+			this.tabConfig.UseVisualStyleBackColor = true;
 			// 
-			// treeSettings
+			// treeviewSettings
 			// 
 			this.treeviewSettings.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeviewSettings.HotTracking = true;
@@ -396,19 +396,19 @@
 			this.treeviewSettings.Size = new System.Drawing.Size(488, 334);
 			this.treeviewSettings.TabIndex = 20;
 			// 
-			// tabEnvironment
+			// tabComputer
 			// 
-			this.tabEnvironment.Controls.Add(this.lblMachine);
-			this.tabEnvironment.Controls.Add(this.txtMachine);
-			this.tabEnvironment.Controls.Add(this.lblUsername);
-			this.tabEnvironment.Controls.Add(this.txtUserName);
-			this.tabEnvironment.Controls.Add(this.treeEnvironment);
-			this.tabEnvironment.Location = new System.Drawing.Point(4, 22);
-			this.tabEnvironment.Name = "tabEnvironment";
-			this.tabEnvironment.Size = new System.Drawing.Size(488, 334);
-			this.tabEnvironment.TabIndex = 3;
-			this.tabEnvironment.Text = "Environment";
-			this.tabEnvironment.UseVisualStyleBackColor = true;
+			this.tabComputer.Controls.Add(this.lblMachine);
+			this.tabComputer.Controls.Add(this.txtMachine);
+			this.tabComputer.Controls.Add(this.lblUsername);
+			this.tabComputer.Controls.Add(this.txtUserName);
+			this.tabComputer.Controls.Add(this.treeEnvironment);
+			this.tabComputer.Location = new System.Drawing.Point(4, 22);
+			this.tabComputer.Name = "tabComputer";
+			this.tabComputer.Size = new System.Drawing.Size(488, 334);
+			this.tabComputer.TabIndex = 3;
+			this.tabComputer.Text = "Computer";
+			this.tabComputer.UseVisualStyleBackColor = true;
 			// 
 			// lblMachine
 			// 
@@ -596,6 +596,7 @@
 			this.progressBar.Location = new System.Drawing.Point(12, 396);
 			this.progressBar.Name = "progressBar";
 			this.progressBar.Size = new System.Drawing.Size(141, 16);
+			this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar.TabIndex = 53;
 			// 
 			// btnEmail
@@ -673,9 +674,9 @@
 			this.grbStackTrace.ResumeLayout(false);
 			this.grbStackTrace.PerformLayout();
 			this.tabAssemblies.ResumeLayout(false);
-			this.tabSettings.ResumeLayout(false);
-			this.tabEnvironment.ResumeLayout(false);
-			this.tabEnvironment.PerformLayout();
+			this.tabConfig.ResumeLayout(false);
+			this.tabComputer.ResumeLayout(false);
+			this.tabComputer.PerformLayout();
 			this.tabContact.ResumeLayout(false);
 			this.tabContact.PerformLayout();
 			this.ResumeLayout(false);
@@ -684,7 +685,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.ListView lstAssemblies;
+		private System.Windows.Forms.ListView listviewAssemblies;
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage tabGeneral;
 		private System.Windows.Forms.Label lblExplanation;
@@ -708,9 +709,9 @@
 		private System.Windows.Forms.GroupBox grbStackTrace;
 		private System.Windows.Forms.TextBox txtExceptionTabStackTrace;
 		private System.Windows.Forms.TabPage tabAssemblies;
-		private System.Windows.Forms.TabPage tabSettings;
+		private System.Windows.Forms.TabPage tabConfig;
 		private System.Windows.Forms.TreeView treeviewSettings;
-		private System.Windows.Forms.TabPage tabEnvironment;
+		private System.Windows.Forms.TabPage tabComputer;
 		private System.Windows.Forms.Label lblMachine;
 		private System.Windows.Forms.TextBox txtMachine;
 		private System.Windows.Forms.Label lblUsername;
