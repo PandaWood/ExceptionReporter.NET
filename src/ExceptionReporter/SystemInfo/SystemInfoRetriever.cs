@@ -5,23 +5,31 @@ namespace ExceptionReporting.SystemInfo
 {
 	public class SystemInfoRetriever
 	{
-		public SysInfoDto GetSysInfo(SysInfoDto sysInfoDto)
+		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
 		{
-			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", sysInfoDto.Query.Query));
+			var result = new SysInfoResult(sysInfoQuery.Name);
+
+			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", sysInfoQuery.QueryText));
 
 			foreach (ManagementObject mgtObject in objectSearcher.Get())
 			{
-				string propertyValue = mgtObject.GetPropertyValue(sysInfoDto.Query.DisplayField).ToString().Trim();
-				var dto = new ManagementObjectDto(propertyValue);
-				sysInfoDto.ManagedObjectList.Add(dto);
+				string propertyValue = mgtObject.GetPropertyValue(sysInfoQuery.DisplayField).ToString().Trim();
+				result.Nodes.Add(propertyValue);
 
+				SysInfoResult childResult = null;
 				foreach (PropertyData propertyData in mgtObject.Properties)
 				{
-					string propertyKey = propertyData.Name + ':' + Convert.ToString(propertyData.Value);
-					dto.PropertyKeys.Add(propertyKey);
+					if (childResult == null)
+					{
+						childResult = new SysInfoResult(sysInfoQuery.Name + "Sub");
+						result.ChildResults.Add(childResult);
+					}
+
+					string nodeValue = propertyData.Name + ':' + Convert.ToString(propertyData.Value);
+					childResult.Nodes.Add(nodeValue);
 				}
 			}
-			return sysInfoDto;
+			return result;
 		}
 	}
 }

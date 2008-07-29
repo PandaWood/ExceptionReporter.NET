@@ -2,10 +2,10 @@ namespace ExceptionReporting.SystemInfo
 {
 	public class SysInfoQueries
 	{
-		public static SysInfoQuery CpuStrategy = new SysInfoQuery("CPU", true, "Win32_Processor");
-		public static SysInfoQuery OsStrategy = new SysInfoQuery("Operating System", false, "Win32_OperatingSystem");
-		public static SysInfoQuery Memory = new SysInfoQuery("Memory", true, "Win32_PhysicalMemory");
-		public static SysInfoQuery Environment = new SysInfoQuery("Environment", true, "Win32_Environment");
-		public static SysInfoQuery System = new SysInfoQuery("System", true, "Win32_ComputerSystem");
+		public static SysInfoQuery CPU = new SysInfoQuery("CPU", "Win32_Processor", true);
+		public static SysInfoQuery OperatingSystem = new SysInfoQuery("Operating System", "Win32_OperatingSystem", false);
+		public static SysInfoQuery Memory = new SysInfoQuery("Memory", "Win32_PhysicalMemory", true);
+		public static SysInfoQuery Environment = new SysInfoQuery("Environment", "Win32_Environment", true);
+		public static SysInfoQuery System = new SysInfoQuery("System", "Win32_ComputerSystem", true);
 	}
 }

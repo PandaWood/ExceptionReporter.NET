@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ExceptionReporting.SystemInfo
 {
 	/// <summary>
@@ -7,18 +9,19 @@ namespace ExceptionReporting.SystemInfo
 	{
 		private readonly string _name;
 		private readonly bool _useNameAsDisplayField;
-		private readonly string _query;
+		private readonly string _queryText;
+		private readonly IList<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
-		public SysInfoQuery(string name, bool useNameAsDisplayField, string classQuery)
+		public SysInfoQuery(string name, string query, bool useNameAsDisplayField)
 		{
 			_name = name;
 			_useNameAsDisplayField = useNameAsDisplayField;
-			_query = classQuery;
+			_queryText = query;
 		}
 
-		public string Query
+		public string QueryText
 		{
-			get { return _query; }
+			get { return _queryText; }
 		}
 
 		public string DisplayField
@@ -29,6 +32,11 @@ namespace ExceptionReporting.SystemInfo
 		public string Name
 		{
 			get { return _name; }
+		}
+
+		public IList<SysInfoResult> SysInfoResults
+		{
+			get { return _sysInfoResults; }
 		}
 	}
 }
