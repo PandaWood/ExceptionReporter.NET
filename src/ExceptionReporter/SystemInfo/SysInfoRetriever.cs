@@ -3,7 +3,7 @@ using System.Management;
 
 namespace ExceptionReporting.SystemInfo
 {
-	public class SystemInfoRetriever
+	public class SysInfoRetriever
 	{
 		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
 		{
@@ -21,7 +21,7 @@ namespace ExceptionReporting.SystemInfo
 				{
 					if (childResult == null)
 					{
-						childResult = new SysInfoResult(sysInfoQuery.Name + "Sub");
+						childResult = new SysInfoResult(sysInfoQuery.Name + "_ChildResult");
 						result.ChildResults.Add(childResult);
 					}
 

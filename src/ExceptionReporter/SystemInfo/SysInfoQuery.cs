@@ -1,16 +1,13 @@
-using System.Collections.Generic;
-
 namespace ExceptionReporting.SystemInfo
 {
 	/// <summary>
-	/// 
+	/// describes a query to SysInfo (more precisely, the Windows 'WMI' ManagementObjectSearcher)
 	/// </summary>
 	public class SysInfoQuery
 	{
 		private readonly string _name;
 		private readonly bool _useNameAsDisplayField;
 		private readonly string _queryText;
-		private readonly IList<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
 		public SysInfoQuery(string name, string query, bool useNameAsDisplayField)
 		{
@@ -32,11 +29,6 @@ namespace ExceptionReporting.SystemInfo
 		public string Name
 		{
 			get { return _name; }
-		}
-
-		public IList<SysInfoResult> SysInfoResults
-		{
-			get { return _sysInfoResults; }
 		}
 	}
 }
