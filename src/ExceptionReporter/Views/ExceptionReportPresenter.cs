@@ -137,26 +137,6 @@ namespace ExceptionReporting.Views
 			printer.Print();
 		}
 
-		public void AddSysInfoNode(TreeNode parentNode, SysInfoResult result)
-		{
-			var nodeRoot = new TreeNode(result.Name);
-
-			foreach (string nodeValueParent in result.Nodes)
-			{
-				var nodeLeaf = new TreeNode(nodeValueParent);
-				nodeRoot.Nodes.Add(nodeLeaf);
-
-				foreach (SysInfoResult childResult in result.ChildResults)
-				{
-					foreach (var nodeValue in childResult.Nodes)
-					{
-						nodeLeaf.Nodes.Add(new TreeNode(nodeValue));	
-					}
-				}
-			}
-			parentNode.Nodes.Add(nodeRoot);
-		}
-
 		public TreeNode CreateConfigSettingsTree()
 		{
 			//TODO the presenters doing too much here, and we need to reuse it - extract out (and test)
@@ -176,15 +156,16 @@ namespace ExceptionReporting.Views
 		public TreeNode CreateSysInfoTree()
 		{
 			var retriever = new SysInfoRetriever();
-			var root = new TreeNode("Computer");
+			var mapper = new SysInfoResultMapper();
 
-			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.CPU));
-			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.Environment));
-			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.Memory));
-			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.OperatingSystem));
-			AddSysInfoNode(root, retriever.Retrieve(SysInfoQueries.System));
+			var rootNode = new TreeNode("Computer");
+			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.CPU));
+			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.Environment));
+			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.Memory));
+			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.OperatingSystem));
+			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.System));
 
-			return root;
+			return rootNode;
 		}
 	}
 }

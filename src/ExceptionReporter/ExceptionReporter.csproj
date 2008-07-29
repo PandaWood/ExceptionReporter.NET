@@ -61,6 +61,7 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
     <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Views\ExceptionReportView.cs">

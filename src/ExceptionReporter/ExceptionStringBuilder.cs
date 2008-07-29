@@ -50,12 +50,12 @@ namespace ExceptionReporting
 				.AppendLine("User:        " + _reportInfo.UserName)
 				.AppendLine("Date: " + _reportInfo.ExceptionDate.ToShortDateString())
 				.AppendLine("Time: " + _reportInfo.ExceptionDate.ToShortTimeString())
-				.AppendDottedLine();
-			
-			_stringBuilder.AppendLine("[User Explanation]")
+				.AppendLine();
+
+			_stringBuilder.AppendLine("User Explanation:")
 				.AppendLine()
 				.AppendFormat("{0} said \"{1}\"", _reportInfo.UserName, _reportInfo.UserExplanation)
-				.AppendLine().AppendDottedLine();
+				.AppendLine().AppendDottedLine().AppendLine();
 		}
 
 		private void BuildExceptionInfo()
@@ -65,7 +65,7 @@ namespace ExceptionReporting
 			_stringBuilder.AppendLine("[Exception Info]")
 				.AppendLine()
 				.AppendLine(ExceptionHierarchyToString(_reportInfo.Exception))
-				.AppendLine().AppendDottedLine();
+				.AppendLine().AppendDottedLine().AppendLine();
 		}
 
 		private void BuildAssemblyInfo()
@@ -75,7 +75,7 @@ namespace ExceptionReporting
 			_stringBuilder.AppendLine("[Assembly Info]")
 				.AppendLine()
 				.AppendLine(ReferencedAssembliesToString(_reportInfo.AppAssembly))
-				.AppendDottedLine();
+				.AppendDottedLine().AppendLine();
 		}
 
 		private void BuildConfigInfo()
@@ -84,14 +84,13 @@ namespace ExceptionReporting
 
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
 
-			// TODO commonise this with CreateSettingsTree in ExceptionReportPresenter
 			foreach (var appSetting in ConfigurationManager.AppSettings)
 			{
 				string settingText = ConfigurationManager.AppSettings.Get(appSetting.ToString());
 				_stringBuilder.AppendLine(appSetting + " : " + settingText);
 			}
 
-			_stringBuilder.AppendDottedLine();
+			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
 		private void BuildSysInfo()
@@ -99,9 +98,9 @@ namespace ExceptionReporting
 			if (!_reportInfo.ShowEnvironmentTab) return;
 
 			_stringBuilder.AppendLine("[Environment Variables]").AppendLine();
-			// TreeToString(tvwEnvironment, stringBuilder);	//TODO extract out the logic for this in the Presenter so can be reused here
+			// TreeToString(tvwEnvironment, stringBuilder);	//TODO use the SysInfoResultMapper (with stored results) to derive this
 			_stringBuilder.AppendLine("TODO");
-			_stringBuilder.AppendDottedLine();
+			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
 		private void BuildContactInfo()
@@ -114,7 +113,7 @@ namespace ExceptionReporting
 						  .AppendLine("Web:    " + _reportInfo.WebUrl)
 						  .AppendLine("Phone:  " + _reportInfo.Phone)
 						  .AppendLine("Fax:    " + _reportInfo.Fax)
-						  .AppendDottedLine();
+						  .AppendDottedLine().AppendLine();
 		}
 
 		/// <summary>
@@ -145,7 +144,7 @@ namespace ExceptionReporting
 			}
 
 			string exceptionString = stringBuilder.ToString();
-			return exceptionString.Remove(exceptionString.Length-2, 2);
+			return exceptionString.TrimEnd();
 		}
 
 		/// <summary>
@@ -159,7 +158,7 @@ namespace ExceptionReporting
 			{
 				foreach (AssemblyName assemblyName in assembly.GetReferencedAssemblies())
 				{
-					stringBuilder.AppendLine(assemblyName.FullName).AppendLine();
+					stringBuilder.AppendLine(assemblyName.FullName);
 				}
 			}
 			return stringBuilder.ToString();

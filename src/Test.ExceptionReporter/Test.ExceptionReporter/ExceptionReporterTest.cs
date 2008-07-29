@@ -20,9 +20,10 @@ namespace Test.ExceptionReporter
 			Assert.That(assemblyNames, Is.Not.Null);
 			Assert.That(assemblyNames.Length, Is.GreaterThan(0));
 
-			StringAssert.Contains("nunit", assemblyNames);	// not too precise and a little coupled, but better than nothing
+			StringAssert.Contains("nunit", assemblyNames);	// not too precise and coupled to NUnit, but better than nothing
 			StringAssert.Contains("ExceptionReporter", assemblyNames);
 			StringAssert.Contains(Environment.NewLine, assemblyNames);
+			Assert.IsFalse(assemblyNames.Contains("\r\n\r\n"));		// to ensure we don't have any extra lines
 		}
 
 		[Test]
@@ -47,7 +48,7 @@ namespace Test.ExceptionReporter
 			Assert.That(hierarchyString.Length, Is.GreaterThan(0));
 			StringAssert.Contains("OuterException", hierarchyString);
 			StringAssert.Contains("Inner Exception 1", hierarchyString);
-			Assert.IsTrue(hierarchyString.EndsWith("      \r\n"));		// a test to ensure not appending 2 blank lines at the end
+			Assert.IsFalse(hierarchyString.EndsWith("\r\n"));		// a test to ensure not appending 2 blank lines at the end
 		}
 	}
 }
