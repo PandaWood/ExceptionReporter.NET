@@ -58,6 +58,7 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanBuild_SysInfoString()
 		{
+			//setup SysInfoResult object
 			ICollection<SysInfoResult> results = new List<SysInfoResult>();
 			var result = new SysInfoResult("Memory");
 			result.Nodes.Add("Physical Memory");
@@ -66,6 +67,7 @@ namespace Test.ExceptionReporter
 			resultChild.Nodes.Add("Version:2.66");
 			results.Add(result);
 
+			// created expected string
 			StringBuilder expectedString = new StringBuilder().AppendDottedLine();
 			expectedString.AppendLine("[Environment Variables]").AppendLine();
 			expectedString.AppendLine("TODO");
@@ -73,6 +75,8 @@ namespace Test.ExceptionReporter
 
 			// TODO the other tests (above) should use ExceptionStringBuilder's design in this way (ie no methods should be public)
 			// we force only the chosen method to execution by passing the appropriate ExceptionReportInfo object in
+
+			// make the call
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo() { ShowSysInfoTab = true }, results);
 			string sysInfoString = stringBuilder.Build();
 			

@@ -158,7 +158,7 @@ namespace ExceptionReporting.Views
 			var retriever = new SysInfoRetriever();
 			var mapper = new SysInfoResultMapper();
 
-			var rootNode = new TreeNode("Computer");
+			var rootNode = new TreeNode("System");
 			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.CPU));
 			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.Environment));
 			mapper.AddTreeViewNode(rootNode, retriever.Retrieve(SysInfoQueries.Memory));

@@ -6,6 +6,6 @@ namespace ExceptionReporting.SystemInfo
 		public static SysInfoQuery OperatingSystem = new SysInfoQuery("Operating System", "Win32_OperatingSystem", false);
 		public static SysInfoQuery Memory = new SysInfoQuery("Memory", "Win32_PhysicalMemory", true);
 		public static SysInfoQuery Environment = new SysInfoQuery("Environment", "Win32_Environment", true);
-		public static SysInfoQuery System = new SysInfoQuery("System", "Win32_ComputerSystem", true);
+		public static SysInfoQuery System = new SysInfoQuery("System Information", "Win32_ComputerSystem", true);
 	}
 }

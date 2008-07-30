@@ -75,8 +75,8 @@ namespace ExceptionReporting
 		/// <example>
 		/// <configuration>
 		/// \<appSettings>
-		/// \<add key="SLS_ER_CONTACT_EMAIL" value="TheAddress@theserver.com"/> 
-		/// \<add key="SLS_ER_CONTACT_PHONE" value="012 3456 7890"/> 
+		/// \<add key="ER_CONTACT_EMAIL" value="TheAddress@theserver.com"/> 
+		/// \<add key="ER_CONTACT_PHONE" value="012 3456 7890"/> 
 		/// \</appSettings>
 		/// \</configuration>
 		/// </example>
@@ -98,16 +98,16 @@ namespace ExceptionReporting
 
 		private void ReadGeneralConfig()
 		{
-			_reportInfo.ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_EMAIL"), _reportInfo.ContactEmail);
-			_reportInfo.WebUrl = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_WEB"), _reportInfo.WebUrl);
-			_reportInfo.Phone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_PHONE"), _reportInfo.Phone);
-			_reportInfo.Fax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_FAX"), _reportInfo.Fax);
-			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_GENERAL"), _reportInfo.ShowAssembliesTab);
-			_reportInfo.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_EXCEPTIONS"), _reportInfo.ShowExceptionsTab);
-			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ASSEMBLIES"), _reportInfo.ShowAssembliesTab);
-			_reportInfo.ShowConfigTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), _reportInfo.ShowConfigTab);
-			_reportInfo.ShowSysInfoTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), _reportInfo.ShowSysInfoTab);
-			_reportInfo.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_CONTACT"), _reportInfo.ShowContactTab);
+			_reportInfo.ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_EMAIL"), _reportInfo.ContactEmail);
+			_reportInfo.WebUrl = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_WEB"), _reportInfo.WebUrl);
+			_reportInfo.Phone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_PHONE"), _reportInfo.Phone);
+			_reportInfo.Fax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_FAX"), _reportInfo.Fax);
+			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_GENERAL"), _reportInfo.ShowAssembliesTab);
+			_reportInfo.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_EXCEPTIONS"), _reportInfo.ShowExceptionsTab);
+			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_ASSEMBLIES"), _reportInfo.ShowAssembliesTab);
+			_reportInfo.ShowConfigTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_SETTINGS"), _reportInfo.ShowConfigTab);
+			_reportInfo.ShowSysInfoTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_ENVIRONMENT"), _reportInfo.ShowSysInfoTab);
+			_reportInfo.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_CONTACT"), _reportInfo.ShowContactTab);
 			_reportInfo.EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), _reportInfo.EnumeratePrinters);
 		}
 
@@ -119,26 +119,26 @@ namespace ExceptionReporting
 
 		private void ReadMailValues()
 		{
-			_reportInfo.SmtpServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_SERVER"), _reportInfo.SmtpServer);
-			_reportInfo.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_USERNAME"), _reportInfo.SmtpUsername);
-			_reportInfo.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_PASSWORD"), _reportInfo.SmtpPassword);
-			_reportInfo.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SMTP_FROM"), _reportInfo.SmtpFromAddress);
-			_reportInfo.EmailSendAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_SEND_ADDRESS"), _reportInfo.EmailSendAddress);
+			_reportInfo.SmtpServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_SERVER"), _reportInfo.SmtpServer);
+			_reportInfo.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_USERNAME"), _reportInfo.SmtpUsername);
+			_reportInfo.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_PASSWORD"), _reportInfo.SmtpPassword);
+			_reportInfo.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_FROM"), _reportInfo.SmtpFromAddress);
+			_reportInfo.EmailSendAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SEND_ADDRESS"), _reportInfo.EmailSendAddress);
 		}
 
 		private void ReadMailType()
 		{
 			string strCompare = "SMTP";
 			const string strCompare2 = "SIMPLEMAPI";
-			if ((ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE") == null)) return;
+			if ((ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE") == null)) return;
 
-			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
+			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE")))
 			{
 				_reportInfo.MailType = ExceptionReportInfo.slsMailType.SMTP;
 			}
 			strCompare = "MAPI";
-			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE"))
-			    || strCompare2.Equals(ConfigurationManager.AppSettings.Get("SLS_ER_MAIL_TYPE")))
+			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE"))
+			    || strCompare2.Equals(ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE")))
 			{
 				_reportInfo.MailType = ExceptionReportInfo.slsMailType.SimpleMAPI;
 			}
@@ -146,10 +146,10 @@ namespace ExceptionReporting
 
 		private void ReadInterfaceMessageConfig()
 		{
-			_reportInfo.ExceptionOccuredMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_GENERAL_MESSAGE"), _reportInfo.ExceptionOccuredMessage);
-			_reportInfo.UserExplanationLabel = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_EXPLANATION_MESSAGE"), _reportInfo.UserExplanationLabel);
-			_reportInfo.ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_1"), _reportInfo.ContactMessageTop);
-			_reportInfo.ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("SLS_ER_CONTACT_MESSAGE_2"), _reportInfo.ContactMessageBottom);
+			_reportInfo.ExceptionOccuredMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_GENERAL_MESSAGE"), _reportInfo.ExceptionOccuredMessage);
+			_reportInfo.UserExplanationLabel = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_EXPLANATION_MESSAGE"), _reportInfo.UserExplanationLabel);
+			_reportInfo.ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_MESSAGE_1"), _reportInfo.ContactMessageTop);
+			_reportInfo.ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_MESSAGE_2"), _reportInfo.ContactMessageBottom);
 		}
 
 		/// <summary>

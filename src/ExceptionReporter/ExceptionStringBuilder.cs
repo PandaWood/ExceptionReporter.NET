@@ -108,7 +108,7 @@ namespace ExceptionReporting
 		{
 			if (!_reportInfo.ShowSysInfoTab) return;
 
-			_stringBuilder.AppendLine("[Environment Variables]").AppendLine();
+			_stringBuilder.AppendLine("[System Info]").AppendLine();
 			// TreeToString(tvwEnvironment, stringBuilder);	//TODO use the SysInfoResultMapper (with stored results) to derive this
 			_stringBuilder.AppendLine("TODO");
 			_stringBuilder.AppendDottedLine().AppendLine();

@@ -120,7 +120,7 @@ namespace ExceptionReporting.Views
 			}
 			if (!_presenter.ReportInfo.ShowSysInfoTab)
 			{
-				tabControl.TabPages.Remove(tabComputer);
+				tabControl.TabPages.Remove(tabSysInfo);
 			}
 			if (!_presenter.ReportInfo.ShowContactTab)
 			{

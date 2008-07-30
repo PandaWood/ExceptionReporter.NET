@@ -16,14 +16,20 @@ phillippettit
 PandaWood (spurrymoses@gmail.com)
 
 
-** Changes **
+** Changes so far for Release 2.0**
 Below are removed config items
-1) The config items which specificed whether or not buttons were displayed (eg Save/Print/Email/Copy) are removed - the buttons are always shown.
+1) The config items which specificed whether or not buttons were displayed (eg Save/Print/Email/Copy) are removed - the buttons are always shown. Except for 'Printer' which is not decided on yet (perhaps not show at all)
 "SLS_ER_PRINT_BUTTON"
 "SLS_ER_SAVE_BUTTON"
 "SLS_ER_COPY_BUTTON"
 "SLS_ER_EMAIL_BUTTON"
-
-2) The serial number is a left-over from when this was commercial software
 "SLS_ER_SERIAL_NUMBER"
+
+2) The serial number config has been  removed. THis was a left-over from when this was commercial software
+"SLS_ER_SERIAL_NUMBER"
+
+3) Config property names prefixed with "SLS_ER" are now just "ER" (ie "SLS_" is removed)
+SLS - was [S]trata[L]ogic[S]oftware - which is no longer relevant, since it's become Open Source.
+
+
 

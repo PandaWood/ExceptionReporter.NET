@@ -57,7 +57,7 @@
 			this.tabAssemblies = new System.Windows.Forms.TabPage();
 			this.tabConfig = new System.Windows.Forms.TabPage();
 			this.treeviewSettings = new System.Windows.Forms.TreeView();
-			this.tabComputer = new System.Windows.Forms.TabPage();
+			this.tabSysInfo = new System.Windows.Forms.TabPage();
 			this.lblMachine = new System.Windows.Forms.Label();
 			this.txtMachine = new System.Windows.Forms.TextBox();
 			this.lblUsername = new System.Windows.Forms.Label();
@@ -90,7 +90,7 @@
 			this.grbStackTrace.SuspendLayout();
 			this.tabAssemblies.SuspendLayout();
 			this.tabConfig.SuspendLayout();
-			this.tabComputer.SuspendLayout();
+			this.tabSysInfo.SuspendLayout();
 			this.tabContact.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -114,7 +114,7 @@
 			this.tabControl.Controls.Add(this.tabExceptions);
 			this.tabControl.Controls.Add(this.tabAssemblies);
 			this.tabControl.Controls.Add(this.tabConfig);
-			this.tabControl.Controls.Add(this.tabComputer);
+			this.tabControl.Controls.Add(this.tabSysInfo);
 			this.tabControl.Controls.Add(this.tabContact);
 			this.tabControl.HotTrack = true;
 			this.tabControl.Location = new System.Drawing.Point(12, 12);
@@ -396,19 +396,19 @@
 			this.treeviewSettings.Size = new System.Drawing.Size(488, 334);
 			this.treeviewSettings.TabIndex = 20;
 			// 
-			// tabComputer
+			// tabSysInfo
 			// 
-			this.tabComputer.Controls.Add(this.lblMachine);
-			this.tabComputer.Controls.Add(this.txtMachine);
-			this.tabComputer.Controls.Add(this.lblUsername);
-			this.tabComputer.Controls.Add(this.txtUserName);
-			this.tabComputer.Controls.Add(this.treeEnvironment);
-			this.tabComputer.Location = new System.Drawing.Point(4, 22);
-			this.tabComputer.Name = "tabComputer";
-			this.tabComputer.Size = new System.Drawing.Size(488, 334);
-			this.tabComputer.TabIndex = 3;
-			this.tabComputer.Text = "Computer";
-			this.tabComputer.UseVisualStyleBackColor = true;
+			this.tabSysInfo.Controls.Add(this.lblMachine);
+			this.tabSysInfo.Controls.Add(this.txtMachine);
+			this.tabSysInfo.Controls.Add(this.lblUsername);
+			this.tabSysInfo.Controls.Add(this.txtUserName);
+			this.tabSysInfo.Controls.Add(this.treeEnvironment);
+			this.tabSysInfo.Location = new System.Drawing.Point(4, 22);
+			this.tabSysInfo.Name = "tabSysInfo";
+			this.tabSysInfo.Size = new System.Drawing.Size(488, 334);
+			this.tabSysInfo.TabIndex = 3;
+			this.tabSysInfo.Text = "System";
+			this.tabSysInfo.UseVisualStyleBackColor = true;
 			// 
 			// lblMachine
 			// 
@@ -675,8 +675,8 @@
 			this.grbStackTrace.PerformLayout();
 			this.tabAssemblies.ResumeLayout(false);
 			this.tabConfig.ResumeLayout(false);
-			this.tabComputer.ResumeLayout(false);
-			this.tabComputer.PerformLayout();
+			this.tabSysInfo.ResumeLayout(false);
+			this.tabSysInfo.PerformLayout();
 			this.tabContact.ResumeLayout(false);
 			this.tabContact.PerformLayout();
 			this.ResumeLayout(false);
@@ -711,7 +711,7 @@
 		private System.Windows.Forms.TabPage tabAssemblies;
 		private System.Windows.Forms.TabPage tabConfig;
 		private System.Windows.Forms.TreeView treeviewSettings;
-		private System.Windows.Forms.TabPage tabComputer;
+		private System.Windows.Forms.TabPage tabSysInfo;
 		private System.Windows.Forms.Label lblMachine;
 		private System.Windows.Forms.TextBox txtMachine;
 		private System.Windows.Forms.Label lblUsername;
