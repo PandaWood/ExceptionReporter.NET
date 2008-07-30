@@ -64,7 +64,6 @@ namespace ExceptionReporting.Views
 			{
 				lblProgressMessage.Visible = true;	// force visibility
 				lblProgressMessage.Text = value;
-				lblProgressMessage.Refresh();
 			}
 		}
 
@@ -103,31 +102,29 @@ namespace ExceptionReporting.Views
 
 		public void PopulateTabs()
 		{
-			tabControl.TabPages.Clear(); 
-
-			if (_presenter.ReportInfo.ShowGeneralTab)
+			if (!_presenter.ReportInfo.ShowGeneralTab)
 			{
-				tabControl.TabPages.Add(tabGeneral);
+				tabControl.TabPages.Remove(tabGeneral);
 			}
-			if (_presenter.ReportInfo.ShowExceptionsTab)
+			if (!_presenter.ReportInfo.ShowExceptionsTab)
 			{
-				tabControl.TabPages.Add(tabExceptions);
+				tabControl.TabPages.Remove(tabExceptions);
 			}
-			if (_presenter.ReportInfo.ShowAssembliesTab)
+			if (!_presenter.ReportInfo.ShowAssembliesTab)
 			{
-				tabControl.TabPages.Add(tabAssemblies);
+				tabControl.TabPages.Remove(tabAssemblies);
 			}
-			if (_presenter.ReportInfo.ShowSettingsTab)
+			if (!_presenter.ReportInfo.ShowConfigTab)
 			{
-				tabControl.TabPages.Add(tabConfig);
+				tabControl.TabPages.Remove(tabConfig);
 			}
-			if (_presenter.ReportInfo.ShowEnvironmentTab)
+			if (!_presenter.ReportInfo.ShowSysInfoTab)
 			{
-				tabControl.TabPages.Add(tabComputer);
+				tabControl.TabPages.Remove(tabComputer);
 			}
-			if (_presenter.ReportInfo.ShowContactTab)
+			if (!_presenter.ReportInfo.ShowContactTab)
 			{
-				tabControl.TabPages.Add(tabContact);
+				tabControl.TabPages.Remove(tabContact);
 			}
 		}
 
@@ -149,10 +146,11 @@ namespace ExceptionReporting.Views
 			{	
 				SetInProgressState();
 
+				Application.DoEvents();		// not sure whether to keep this or incorporate threading
 				PopulateConfigSettingsTab(); 
 				PopulateExceptionHierarchyTree(_presenter.TheException);
 				PopulateAssemblyInfoTab(); 
-				PopulateEnvironmentVariableTree();
+				PopulateEnvironmentVariableTree(); 
 
 				PopulateTabs();
 			}

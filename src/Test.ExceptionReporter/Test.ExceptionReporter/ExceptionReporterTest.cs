@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 using ExceptionReporting;
+using ExceptionReporting.Extensions;
+using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -49,6 +53,30 @@ namespace Test.ExceptionReporter
 			StringAssert.Contains("OuterException", hierarchyString);
 			StringAssert.Contains("Inner Exception 1", hierarchyString);
 			Assert.IsFalse(hierarchyString.EndsWith("\r\n"));		// a test to ensure not appending 2 blank lines at the end
+		}
+
+		[Test]
+		public void CanBuild_SysInfoString()
+		{
+			ICollection<SysInfoResult> results = new List<SysInfoResult>();
+			var result = new SysInfoResult("Memory");
+			result.Nodes.Add("Physical Memory");
+			var resultChild = new SysInfoResult("Bla");
+			result.ChildResults.Add(resultChild);
+			resultChild.Nodes.Add("Version:2.66");
+			results.Add(result);
+
+			StringBuilder expectedString = new StringBuilder().AppendDottedLine();
+			expectedString.AppendLine("[Environment Variables]").AppendLine();
+			expectedString.AppendLine("TODO");
+			expectedString.AppendDottedLine().AppendLine();
+
+			// TODO the other tests (above) should use ExceptionStringBuilder's design in this way (ie no methods should be public)
+			// we force only the chosen method to execution by passing the appropriate ExceptionReportInfo object in
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo() { ShowSysInfoTab = true }, results);
+			string sysInfoString = stringBuilder.Build();
+			
+			Assert.That(sysInfoString, Is.EqualTo(expectedString.ToString()));
 		}
 	}
 }

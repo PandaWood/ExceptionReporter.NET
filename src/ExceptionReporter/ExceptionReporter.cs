@@ -32,10 +32,10 @@ namespace ExceptionReporting
 			              		ContactMessageTop = "The following details can be used to obtain support for this application",
 			              		ShowExceptionsTab = true,
 			              		ShowContactTab = true,
-			              		ShowSettingsTab = true,
+			              		ShowConfigTab = true,
 			              		ShowAssembliesTab = true,
 			              		EnumeratePrinters = true,
-			              		ShowEnvironmentTab = true,
+			              		ShowSysInfoTab = true,
 			              		ShowGeneralTab = true,
 			              		ExceptionDate = DateTime.Now,
 			              		UserName = Environment.UserName,
@@ -105,8 +105,8 @@ namespace ExceptionReporting
 			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_GENERAL"), _reportInfo.ShowAssembliesTab);
 			_reportInfo.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_EXCEPTIONS"), _reportInfo.ShowExceptionsTab);
 			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ASSEMBLIES"), _reportInfo.ShowAssembliesTab);
-			_reportInfo.ShowSettingsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), _reportInfo.ShowSettingsTab);
-			_reportInfo.ShowEnvironmentTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), _reportInfo.ShowEnvironmentTab);
+			_reportInfo.ShowConfigTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_SETTINGS"), _reportInfo.ShowConfigTab);
+			_reportInfo.ShowSysInfoTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_ENVIRONMENT"), _reportInfo.ShowSysInfoTab);
 			_reportInfo.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ER_SHOW_CONTACT"), _reportInfo.ShowContactTab);
 			_reportInfo.EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), _reportInfo.EnumeratePrinters);
 		}

@@ -28,10 +28,10 @@ namespace ExceptionReporting
 		public string Fax { get; set; }
 
 		public bool ShowGeneralTab { get; set; }
-		public bool ShowSettingsTab { get; set; }
+		public bool ShowConfigTab { get; set; }
 		public bool ShowContactTab { get; set; }
 		public bool ShowExceptionsTab { get; set; }
-		public bool ShowEnvironmentTab { get; set; }
+		public bool ShowSysInfoTab { get; set; }
 		public bool ShowAssembliesTab { get; set; }
 
 		public string EmailSendAddress { get; set; }			//TODO if 2 emails are required what's the diff? Clarify this.

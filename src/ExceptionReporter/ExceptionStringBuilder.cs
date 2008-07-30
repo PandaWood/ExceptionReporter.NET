@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
 using System.Text;
 using ExceptionReporting.Extensions;
+using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting
 {
@@ -10,14 +12,23 @@ namespace ExceptionReporting
 	{
 		public ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
+		private IEnumerable<SysInfoResult> _sysInfoResults;
 
 		/// <summary>
-		/// the (only) constructor
+		/// the non-SysInfo constructor
 		/// </summary>
 		/// <param name="reportInfo">ExceptionReportInfo </param>
 		public ExceptionStringBuilder(ExceptionReportInfo reportInfo)
 		{
 			_reportInfo = reportInfo;
+		}
+
+		/// <summary>
+		/// constructor that includes support for SysInfo
+		/// </summary>
+		public ExceptionStringBuilder(ExceptionReportInfo reportInfo, IEnumerable<SysInfoResult> sysInfoResults) : this(reportInfo)
+		{
+			_sysInfoResults = sysInfoResults;
 		}
 
 		/// <summary>
@@ -80,7 +91,7 @@ namespace ExceptionReporting
 
 		private void BuildConfigInfo()
 		{
-			if (!_reportInfo.ShowSettingsTab) return;
+			if (!_reportInfo.ShowConfigTab) return;
 
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
 
@@ -95,7 +106,7 @@ namespace ExceptionReporting
 
 		private void BuildSysInfo()
 		{
-			if (!_reportInfo.ShowEnvironmentTab) return;
+			if (!_reportInfo.ShowSysInfoTab) return;
 
 			_stringBuilder.AppendLine("[Environment Variables]").AppendLine();
 			// TreeToString(tvwEnvironment, stringBuilder);	//TODO use the SysInfoResultMapper (with stored results) to derive this
