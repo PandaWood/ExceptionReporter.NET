@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using ExceptionReporting.Extensions;
 using ExceptionReporting.Views;
 
 namespace ExceptionReporting
@@ -12,7 +13,7 @@ namespace ExceptionReporting
 	[ToolboxBitmap(typeof (ExceptionReporter), "ExceptionReporter.ico")]
 	public class ExceptionReporter : Component
 	{
-		private readonly ExceptionReportInfo _reportInfo;
+		private readonly ExceptionReportInfo _info;
 
 		public ExceptionReporter(IContainer container) : this()
 		{
@@ -23,7 +24,7 @@ namespace ExceptionReporting
 		{
 			InitializeComponent();
 
-			_reportInfo = new ExceptionReportInfo
+			_info = new ExceptionReportInfo
 			              	{
 			              		UserExplanationLabel = "Please enter a brief explanation of events leading up to this exception",
 			              		ExceptionOccuredMessage = "An exception has occured in this application",
@@ -59,9 +60,9 @@ namespace ExceptionReporting
 
 			try
 			{
-				_reportInfo.Exception = exception;
+				_info.Exception = exception;
 
-				var reportView = new ExceptionReportView(_reportInfo);
+				var reportView = new ExceptionReportView(_info);
 				reportView.ShowExceptionReport();
 			}
 			catch (Exception internalException)
@@ -98,17 +99,17 @@ namespace ExceptionReporting
 
 		private void ReadGeneralConfig()
 		{
-			_reportInfo.ContactEmail = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_EMAIL"), _reportInfo.ContactEmail);
-			_reportInfo.WebUrl = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_WEB"), _reportInfo.WebUrl);
-			_reportInfo.Phone = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_PHONE"), _reportInfo.Phone);
-			_reportInfo.Fax = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_FAX"), _reportInfo.Fax);
-			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_GENERAL"), _reportInfo.ShowAssembliesTab);
-			_reportInfo.ShowExceptionsTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_EXCEPTIONS"), _reportInfo.ShowExceptionsTab);
-			_reportInfo.ShowAssembliesTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_ASSEMBLIES"), _reportInfo.ShowAssembliesTab);
-			_reportInfo.ShowConfigTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_SETTINGS"), _reportInfo.ShowConfigTab);
-			_reportInfo.ShowSysInfoTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_ENVIRONMENT"), _reportInfo.ShowSysInfoTab);
-			_reportInfo.ShowContactTab = AssignBoolValue(ConfigurationManager.AppSettings.Get("ER_SHOW_CONTACT"), _reportInfo.ShowContactTab);
-			_reportInfo.EnumeratePrinters = AssignBoolValue(ConfigurationManager.AppSettings.Get("SLS_ENUMERATE_PRINTERS"), _reportInfo.EnumeratePrinters);
+			_info.ContactEmail = ConfigurationManager.AppSettings.Get("ER_CONTACT_EMAIL").ReturnStringOr(_info.ContactEmail);
+			_info.WebUrl = ConfigurationManager.AppSettings.Get("ER_CONTACT_WEB").ReturnStringOr(_info.WebUrl);
+			_info.Phone = ConfigurationManager.AppSettings.Get("ER_CONTACT_PHONE").ReturnStringOr( _info.Phone);
+			_info.Fax = ConfigurationManager.AppSettings.Get("ER_CONTACT_FAX").ReturnStringOr( _info.Fax);
+
+			_info.ShowAssembliesTab = ConfigurationManager.AppSettings.Get("ER_SHOW_GENERAL").ReturnBoolOr(_info.ShowAssembliesTab);
+			_info.ShowExceptionsTab = ConfigurationManager.AppSettings.Get("ER_SHOW_EXCEPTIONS").ReturnBoolOr(_info.ShowExceptionsTab);
+			_info.ShowAssembliesTab = ConfigurationManager.AppSettings.Get("ER_SHOW_ASSEMBLIES").ReturnBoolOr(_info.ShowAssembliesTab);
+			_info.ShowConfigTab = ConfigurationManager.AppSettings.Get("ER_SHOW_SETTINGS").ReturnBoolOr(_info.ShowConfigTab);
+			_info.ShowSysInfoTab = ConfigurationManager.AppSettings.Get("ER_SHOW_ENVIRONMENT").ReturnBoolOr(_info.ShowSysInfoTab);
+			_info.ShowContactTab = ConfigurationManager.AppSettings.Get("ER_SHOW_CONTACT").ReturnBoolOr(_info.ShowContactTab);
 		}
 
 		private void ReadMailConfig()
@@ -119,11 +120,11 @@ namespace ExceptionReporting
 
 		private void ReadMailValues()
 		{
-			_reportInfo.SmtpServer = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_SERVER"), _reportInfo.SmtpServer);
-			_reportInfo.SmtpUsername = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_USERNAME"), _reportInfo.SmtpUsername);
-			_reportInfo.SmtpPassword = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_PASSWORD"), _reportInfo.SmtpPassword);
-			_reportInfo.SmtpFromAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SMTP_FROM"), _reportInfo.SmtpFromAddress);
-			_reportInfo.EmailSendAddress = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_SEND_ADDRESS"), _reportInfo.EmailSendAddress);
+			_info.SmtpServer = ConfigurationManager.AppSettings.Get("ER_SMTP_SERVER").ReturnStringOr(_info.SmtpServer);
+			_info.SmtpUsername = ConfigurationManager.AppSettings.Get("ER_SMTP_USERNAME").ReturnStringOr( _info.SmtpUsername);
+			_info.SmtpPassword = ConfigurationManager.AppSettings.Get("ER_SMTP_PASSWORD").ReturnStringOr( _info.SmtpPassword);
+			_info.SmtpFromAddress = ConfigurationManager.AppSettings.Get("ER_SMTP_FROM").ReturnStringOr( _info.SmtpFromAddress);
+			_info.EmailSendAddress = ConfigurationManager.AppSettings.Get("ER_SEND_ADDRESS").ReturnStringOr(_info.EmailSendAddress);
 		}
 
 		private void ReadMailType()
@@ -134,59 +135,22 @@ namespace ExceptionReporting
 
 			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE")))
 			{
-				_reportInfo.MailType = ExceptionReportInfo.slsMailType.SMTP;
+				_info.MailType = ExceptionReportInfo.slsMailType.SMTP;
 			}
 			strCompare = "MAPI";
 			if (strCompare.Equals(ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE"))
 			    || strCompare2.Equals(ConfigurationManager.AppSettings.Get("ER_MAIL_TYPE")))
 			{
-				_reportInfo.MailType = ExceptionReportInfo.slsMailType.SimpleMAPI;
+				_info.MailType = ExceptionReportInfo.slsMailType.SimpleMAPI;
 			}
 		}
 
 		private void ReadInterfaceMessageConfig()
 		{
-			_reportInfo.ExceptionOccuredMessage = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_GENERAL_MESSAGE"), _reportInfo.ExceptionOccuredMessage);
-			_reportInfo.UserExplanationLabel = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_EXPLANATION_MESSAGE"), _reportInfo.UserExplanationLabel);
-			_reportInfo.ContactMessageTop = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_MESSAGE_1"), _reportInfo.ContactMessageTop);
-			_reportInfo.ContactMessageBottom = AssignIfNotNull(ConfigurationManager.AppSettings.Get("ER_CONTACT_MESSAGE_2"), _reportInfo.ContactMessageBottom);
-		}
-
-		/// <summary>
-		/// Returns the newString if it is not NULL or 0 length, otherwise the currentString value is returned
-		/// //TODO write the method in a way that avoids passing the same argument
-		/// </summary>
-		private static string AssignIfNotNull(string newString, string currentString)
-		{
-			if (newString == null)
-				return currentString;
-			
-			return newString.Length == 0 ? currentString : newString;
-		}
-
-		/// <summary>
-		/// Returns the true if strNew is a string representing Yes (Y) or false if it represents No (N)
-		/// if strNew is NULL or zero length the current value is returned
-		/// </summary>
-		private static bool AssignBoolValue(string strNew, bool boolCurrent)
-		{
-			if (strNew == null)
-			{
-				return boolCurrent;
-			}
-			if (strNew.Length == 0)
-			{
-				return boolCurrent;
-			}
-			if (strNew.Equals("Y"))
-			{
-				return true;
-			}
-			if (strNew.Equals("N"))
-			{
-				return false;
-			}
-			return boolCurrent;
+			_info.ExceptionOccuredMessage = ConfigurationManager.AppSettings.Get("ER_GENERAL_MESSAGE").ReturnStringOr(_info.ExceptionOccuredMessage);
+			_info.UserExplanationLabel = ConfigurationManager.AppSettings.Get("ER_EXPLANATION_MESSAGE").ReturnStringOr(_info.UserExplanationLabel);
+			_info.ContactMessageTop = ConfigurationManager.AppSettings.Get("ER_CONTACT_MESSAGE_1").ReturnStringOr(_info.ContactMessageTop);
+			_info.ContactMessageBottom = ConfigurationManager.AppSettings.Get("ER_CONTACT_MESSAGE_2").ReturnStringOr(_info.ContactMessageBottom);
 		}
 
 		/// <summary>

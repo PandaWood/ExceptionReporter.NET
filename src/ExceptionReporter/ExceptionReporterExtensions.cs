@@ -15,5 +15,24 @@ namespace ExceptionReporting.Extensions
 		{
 			return stringBuilder.AppendLine("-----------------------------");
 		}
+
+		public static string ReturnStringOr(this string newString, string currentString)
+		{
+			return string.IsNullOrEmpty(newString) ? currentString : newString;
+		}
+
+		/// <summary>
+		/// Returns the true if strNew is a string representing Yes (Y) or false if it represents No (N)
+		/// if strNew is NULL or zero length the current value is returned
+		/// </summary>
+		public static bool ReturnBoolOr(this string configString, bool currentValue)
+		{
+			if (string.IsNullOrEmpty(configString)) return currentValue;
+
+			if (configString.ToUpper().Equals("Y")) return true;
+			if (configString.ToUpper().Equals("N")) return false;
+
+			return currentValue;
+		}
 	}
 }

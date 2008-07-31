@@ -11,9 +11,7 @@ SLSExceptionReporterDemo.exe.config  - this file is used by the Demo, and illust
 doc  - HTML documentation for the Exception Reporter, refer to Documentation\index.html
 src - the source code for the exception reporter and the demo application
 
-Contributors:
-phillippettit
-PandaWood (spurrymoses@gmail.com)
+
 
 
 ** Changes so far for Release 2.0**
@@ -25,11 +23,16 @@ Below are removed config items
 "SLS_ER_EMAIL_BUTTON"
 "SLS_ER_SERIAL_NUMBER"
 
-2) The serial number config has been  removed. THis was a left-over from when this was commercial software
+2) The serial number config has been  removed. This was a left-over from when this was commercial software
 "SLS_ER_SERIAL_NUMBER"
 
 3) Config property names prefixed with "SLS_ER" are now just "ER" (ie "SLS_" is removed)
-SLS - was [S]trata[L]ogic[S]oftware - which is no longer relevant, since it's become Open Source.
+SLS - was [S]trata[L]ogic[S]oftware - which is no longer relevant, since ExceptionReporter has become Open Source.
+
+4) SLS_ENUMERATE_PRINTERS removed
 
 
+Contributors:
 
+phillippettit
+PandaWood (Peter van der Woude - spurrymoses@gmail.com)
