@@ -25,6 +25,7 @@ namespace ExceptionReporting.DemoApp
 			{
 				var exceptionReporter = new ExceptionReporter();
 				exceptionReporter.ReadConfig();
+//				exceptionReporter.Info.ShowSysInfoTab = false;
 				exceptionReporter.Show(ex);
 			}
 
