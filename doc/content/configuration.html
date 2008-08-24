@@ -1,0 +1,57 @@
+<HTML>
+<HEADER>
+<LINK href="styles.css" type="text/css" rel="stylesheet"/>
+</HEADER>
+<BODY>
+<H2>Configuration</H2>
+
+<div class="NextPage"><a href="SampleUsage.html">Next >></a></div>
+
+<p>Many interface elements can be configured using XML. Add a special section to your application configuration file (eg app.config) as per the sample below. The easiest way to set this up, is to copy the config section below; paste into your app.config and edit as appropriate.</p>
+<p>Note that all configuration options can also be set in code - see <a href="SampleUsage.html">Sample Usage</a>.
+
+<div class="CodeBox">
+<pre>
+&lt;configSections&gt;
+  &lt;sectionGroup name="ExceptionReporter"&gt;
+    &lt;section name="Contact" type="System.Configuration.NameValueSectionHandler"/&gt;
+    &lt;section name="TabsToShow" type="System.Configuration.NameValueSectionHandler"/&gt;
+    &lt;section name="Email" type="System.Configuration.NameValueSectionHandler"/&gt;
+    &lt;section name="LabelMessages" type="System.Configuration.NameValueSectionHandler"/&gt;
+  &lt;/sectionGroup&gt;
+&lt;/configSections&gt;
+
+&lt;ExceptionReporter&gt;
+  &lt;Contact&gt;
+    &lt;add key="email" value="mysupport@zzzsupport.com"/&gt;
+    &lt;add key="web" value="www.codeplex.com/ExceptionReporter"/&gt;
+    &lt;add key="phone" value="1423 1234 4321"/&gt;
+    &lt;add key="fax" value="1423 1234 4322"/&gt;
+  &lt;/Contact&gt;
+  &lt;TabsToShow&gt;
+    &lt;add key="exceptions" value="true"/&gt;
+    &lt;add key="assemblies" value="true"/&gt;
+    &lt;add key="config" value="true"/&gt;
+    &lt;add key="system" value="true"/&gt;
+    &lt;add key="contact" value="true"/&gt;
+  &lt;/TabsToShow&gt;
+  &lt;Email&gt;
+    &lt;add key="method" value="MAPI"/&gt;
+    &lt;add key="SmtpServer" value="smtpserver.server.au"/&gt;
+    &lt;add key="SmtpUsername" value="bob"/&gt;
+    &lt;add key="SmtpPassword" value="password"/&gt;
+    &lt;add key="from" value="from@from.com"/&gt;
+    &lt;add key="to" value="to@to.com"/&gt;
+  &lt;/Email&gt;
+  &lt;LabelMessages&gt;
+    &lt;add key="general" value="An exception has occured"/&gt;
+    &lt;add key="explanation" value="Please explain what happened"/&gt;
+    &lt;add key="contact_top" value="The numbers below may be used to contact support"/&gt;
+    &lt;add key="contact_bottom" value="Some bottom message"/&gt;
+  &lt;/LabelMessages&gt;
+&lt;/ExceptionReporter&gt;
+</pre>
+
+
+</BODY>
+</HTML>

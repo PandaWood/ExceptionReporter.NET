@@ -12,86 +12,24 @@ BODY
 	word-spacing: normal;
 	text-transform: none;
 	padding-top: 0px;
-	font-family: Verdana, Helvetica, sans-serif;
+	font-family:  "Trebuchet MS", "Verdana", "sans-serif";
 	border-right-style: none;
 	border-left-style: none;
 	letter-spacing: normal;
-	background-color: #FFF8DF;
+	background-color: #ffffff;
 	border-bottom-style: none;
-}
-
-P {
-font-size: smaller;
 }
 
 H1, H2, H3, H4, H5, TH, THEAD, TFOOT
 {
-    COLOR: #003366;
+    COLOR: #003366;    
 }
-H1	{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:	2em;
-	font-weight:	700;
-	font-style:	normal;
-	text-decoration:	none;
-	word-spacing:	normal;
-	letter-spacing:	normal;
-	text-transform:	none;
-	}	
-		
-H2	{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:	1.75em;
-	font-weight:	700;
-	font-style:	normal;
-	text-decoration:	none;
-	word-spacing:	normal;
-	letter-spacing:	normal;
-	text-transform:	none;
-	}	
-		
-H3	{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:	1.58em;
-	font-weight:	500;
-	font-style:	normal;
-	text-decoration:	none;
-	word-spacing:	normal;
-	letter-spacing:	normal;
-	text-transform:	none;
-	}	
-		
-H4	{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:	1.33em;
-	font-weight:	500;
-	text-decoration:	none;
-	word-spacing:	normal;
-	letter-spacing:	normal;
-	text-transform:	none;
-	}	
-		
-H5, DT	{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:	1em;
-	font-weight:	700;
-	font-style:	normal;
-	text-decoration:	none;
-	word-spacing:	normal;
-	letter-spacing:	normal;
-	text-transform:	none;
-	}	
-		
-H6	{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:	.8em;
-	font-weight:	700;
-	font-style:	normal;
-	text-decoration:	none;
-	word-spacing:	normal;
-	letter-spacing:	normal;
-	text-transform:	none;
-	}	
+
+h3
+{
+	margin-bottom:-5px;
+}
+
 		
 TFOOT, THEAD	{	
 	font-size:	1em;
@@ -197,11 +135,18 @@ IMG 	{
 	font-size: smaller;
 }
 	
-.SLSTitle
+.CodeBox
 {
-	font-weight: normal;
-	font-size: medium;
-	color: navy;
-	font-style: italic;
-	font-family: Verdana, Helvetica, sans-serif;
+	border-style:groove; 
+	border-width:1px; 
+	margin:15px; 
+	padding:10px; 
+	background-color:#FDFFDC;
+}
+
+.NextPage
+{
+	text-align:right;
+	margin-top:-30;
+	margin-right:10;"
 }
