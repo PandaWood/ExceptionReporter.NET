@@ -51,7 +51,7 @@ namespace ExceptionReporting.Config
 			ReadContactSettings();
 			ReadTabSettings();
 			ReadMailSettings();
-			ReadInterfaceMessageSettings();
+			ReadInterfaceSettings();
 		}
 
 		private void ReadContactSettings()
@@ -94,7 +94,7 @@ namespace ExceptionReporting.Config
 			_info.MailMethod = mailMethod.Equals(SMTP) ? ExceptionReportInfo.EmailMethod.SMTP : ExceptionReportInfo.EmailMethod.SimpleMAPI;
 		}
 
-		private void ReadInterfaceMessageSettings()
+		private void ReadInterfaceSettings()
 		{
 			_info.ExceptionOccuredMessage = GetLabelSetting("general").ReturnStringIfNotNullElse(_info.ExceptionOccuredMessage);
 			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNullElse(_info.UserExplanationLabel);
