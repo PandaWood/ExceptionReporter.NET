@@ -17,12 +17,11 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanRetrieve_SysInfo_For_CPU()
 		{
-			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.CPU);
+			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.Machine);
 
-			Assert.That(result.Nodes.Count, Is.GreaterThan(0));		// at least 1 cpu
-			StringAssert.Contains("GHz", result.Nodes[0]);
+			Assert.That(result.Nodes.Count, Is.EqualTo(1));		// at least 1 machine name
 			Assert.That(result.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
-			Assert.That(result.ChildResults[0].Nodes.Find(x => x.Contains("CpuStatus")), Is.Not.Null);
+			Assert.That(result.ChildResults[0].Nodes.Find(x => x.Contains("CurrentTimeZone")), Is.Not.Null);
 		}
 
 		[Test]
@@ -30,16 +29,6 @@ namespace Test.ExceptionReporter
 		{
 			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
 			StringAssert.Contains("Windows", result.Nodes[0]);
-		}
-
-		[Test]
-		public void CanRetrieve_SysInfo_For_Memory()
-		{
-			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.Memory);
-
-			StringAssert.Contains("Memory", result.Nodes[0]);
-			Assert.That(result.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
-			Assert.That(result.ChildResults[0].Nodes.Find(x => x.Contains("HotSwappable")), Is.Not.Null);
 		}
 	}
 }

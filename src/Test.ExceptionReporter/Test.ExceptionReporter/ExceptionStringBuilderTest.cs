@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using ExceptionReporting;
+using ExceptionReporting.Core;
 using ExceptionReporting.Extensions;
 using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
@@ -14,52 +14,53 @@ namespace Test.ExceptionReporter
 	public class ExceptionStringBuilderTest
 	{
 		[Test]
-		public void CanCreate_Referenced_Assemblies_String()
+		public void CanCreate_Referenced_AssembliesString()
 		{
 			Assembly dataAssembly = Assembly.GetExecutingAssembly();
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { AppAssembly = dataAssembly, ShowAssembliesTab = true});
+			string assembliesString = stringBuilder.Build();
 
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
-			string assemblyNames = stringBuilder.ReferencedAssembliesToString(dataAssembly);
+			Assert.That(assembliesString, Is.Not.Null);
+			Assert.That(assembliesString.Length, Is.GreaterThan(0));
 
-			Assert.That(assemblyNames, Is.Not.Null);
-			Assert.That(assemblyNames.Length, Is.GreaterThan(0));
-
-			StringAssert.Contains("nunit", assemblyNames);	// not too precise and coupled to NUnit, but better than nothing
-			StringAssert.Contains("ExceptionReporter", assemblyNames);
-			StringAssert.Contains(Environment.NewLine, assemblyNames);
-			Assert.IsFalse(assemblyNames.Contains("\r\n\r\n"));		// to ensure we don't have any extra lines
+			StringAssert.Contains("nunit", assembliesString);	// not too precise and coupled to NUnit, but better than nothing
+			StringAssert.Contains("ExceptionReporter, Version=1.0.2.0\r\n", assembliesString);
+			StringAssert.Contains(Environment.NewLine, assembliesString);
 		}
 
 		[Test]
-		public void CanCreate_Referenced_Assemblies_String_If_Assembly_IsNull()
+		public void CanCreate_HierarchyString_With_Root_And_InnerException()
 		{
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
-			string assemblyNames = stringBuilder.ReferencedAssembliesToString(null);
+			// exhibits bug in ReSharper - keep for bug report
+			Exception innerException = new ArgumentNullException("InnerException");
+			var exception = new ArgumentOutOfRangeException("OuterException", innerException);
 
-			Assert.That(assemblyNames, Is.Not.Null);
-			Assert.That(assemblyNames.Length, Is.EqualTo(0));
-		}
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { ShowExceptionsTab = true, Exception = exception});
+			string hierarchyString = stringBuilder.Build();
 
-		[Test]
-		public void CanCreate_Hierarchy_String_With_Root_And_Inner_Exception()
-		{
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo());
-			string hierarchyString = stringBuilder.ExceptionHierarchyToString(
-				new ArgumentOutOfRangeException("OuterException", new ArgumentNullException("InnerException")));
+			// created expected string
+			StringBuilder expectedString = new StringBuilder().AppendDottedLine()
+				.AppendLine("[Exception Info]").AppendLine()
+				.AppendLine("Top-level Exception")
+				.AppendLine("Type:        System.ArgumentOutOfRangeException")
+				.AppendLine("Message:     OuterException")
+				.AppendLine("Source:      ")
+				.AppendLine()
+				.AppendLine("Inner Exception 1")
+				.AppendLine("Type:        System.ArgumentNullException")
+				.AppendLine("Message:     Value cannot be null.")
+				.AppendLine("Parameter name: InnerException")
+				.AppendLine("Source:")
+				.AppendLine().AppendDottedLine().AppendLine();
 
-			Assert.That(hierarchyString, Is.Not.Null);
-			Assert.That(hierarchyString, Is.Not.Empty);
-			Assert.That(hierarchyString.Length, Is.GreaterThan(0));
-			StringAssert.Contains("OuterException", hierarchyString);
-			StringAssert.Contains("Inner Exception 1", hierarchyString);
-			Assert.IsFalse(hierarchyString.EndsWith("\r\n"));		// a test to ensure not appending 2 blank lines at the end
+			Assert.That(hierarchyString, Is.EqualTo(expectedString.ToString()));
 		}
 
 		[Test]
 		public void CanBuild_SysInfoString()
 		{
 			//setup SysInfoResult object
-			ICollection<SysInfoResult> results = new List<SysInfoResult>();
+			IList<SysInfoResult> results = new List<SysInfoResult>();
 			var result = new SysInfoResult("Memory");
 			result.Nodes.Add("Physical Memory");
 			var resultChild = new SysInfoResult("Bla");
@@ -70,13 +71,12 @@ namespace Test.ExceptionReporter
 			// created expected string
 			StringBuilder expectedString = new StringBuilder().AppendDottedLine();
 			expectedString.AppendLine("[System Info]").AppendLine();
-			expectedString.AppendLine("TODO");
-			expectedString.AppendDottedLine().AppendLine();
+			expectedString.AppendLine("Memory");
+			expectedString.AppendLine("-Physical Memory");
+			expectedString.AppendLine("--Version:2.66");
+			expectedString.AppendLine().AppendDottedLine().AppendLine();
 
-			// TODO the other tests (above) should use ExceptionStringBuilder's design in this way (ie no methods should be public)
-			// we force only the chosen method to execution by passing the appropriate ExceptionReportInfo object in
-
-			// make the call
+			// we force only the chosen method to "build a string" by passing an ExceptionReportInfo object with ShowSysInfoTab true
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { ShowSysInfoTab = true }, results);
 			string sysInfoString = stringBuilder.Build();
 
