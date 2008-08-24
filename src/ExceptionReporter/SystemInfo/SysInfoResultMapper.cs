@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ExceptionReporting.SystemInfo
@@ -24,9 +26,30 @@ namespace ExceptionReporting.SystemInfo
 			parentNode.Nodes.Add(nodeRoot);
 		}
 
-		public override string ToString()
+		public string CreateStringList(ICollection<SysInfoResult> results)
 		{
-			return base.ToString();
+			var stringBuilder = new StringBuilder();
+
+			foreach (SysInfoResult result in results)
+			{
+				stringBuilder.AppendLine(result.Name);
+
+				foreach (string nodeValueParent in result.Nodes)
+				{
+					stringBuilder.AppendLine("-" + nodeValueParent);
+
+					foreach (SysInfoResult childResult in result.ChildResults)
+					{
+						foreach (var nodeValue in childResult.Nodes)
+						{
+							stringBuilder.AppendLine("--" + nodeValue);		// the max no. of levels is 2, ie '--' is as deep as we go
+						}
+					}
+				}
+				stringBuilder.AppendLine();
+			}
+
+			return stringBuilder.ToString();
 		}
 	}
 }

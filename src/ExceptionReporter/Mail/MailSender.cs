@@ -1,25 +1,26 @@
 using System;
 using System.Net.Mail;
+using ExceptionReporting.Core;
 using Win32Mapi;
 
 namespace ExceptionReporting.Mail
 {
-	public class MailSender
+	internal class MailSender
 	{
-		public delegate void CompletedMethodDelegate();
+		public delegate void CompletedMethodDelegate(bool success);
 		private readonly ExceptionReportInfo _reportInfo;
 
-		public MailSender(ExceptionReportInfo reportInfo)
+		internal MailSender(ExceptionReportInfo reportInfo)
 		{
 			_reportInfo = reportInfo;
 		}
 
-		public void SendSmtp(string exceptionString, CompletedMethodDelegate setCompletedState)
+		public void SendSmtp(string exceptionString, CompletedMethodDelegate setEmailCompletedState)
 		{
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
 			MailMessage mailMessage = CreateMailMessage(exceptionString);
 
-			smtpClient.SendCompleted += delegate { setCompletedState(); };
+			smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
 			smtpClient.SendAsync(mailMessage, null);
 		}
 
@@ -28,11 +29,12 @@ namespace ExceptionReporting.Mail
 			var mapi = new Mapi();
 			mapi.Logon(windowHandle);
 			mapi.Reset();
-			if (!string.IsNullOrEmpty(_reportInfo.ContactEmail))
-			{
-				mapi.AddRecip(_reportInfo.ContactEmail, null, false);
-			}
 
+			string emailAddress = (string.IsNullOrEmpty(_reportInfo.EmailReportAddress))
+			                      	? _reportInfo.ContactEmail
+			                      	: _reportInfo.EmailReportAddress;
+
+			mapi.AddRecipient(emailAddress, null, false);
 			mapi.Send(CreateSubject(), exceptionString, true);
 			mapi.Logoff();
 		}

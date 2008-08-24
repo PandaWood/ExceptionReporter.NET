@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
+using ExceptionReporting.Config;
 using ExceptionReporting.Extensions;
 using ExceptionReporting.SystemInfo;
 
-namespace ExceptionReporting
+[assembly: InternalsVisibleTo("Test.ExceptionReporter")]
+
+namespace ExceptionReporting.Core
 {
-	public class ExceptionStringBuilder
+	internal class ExceptionStringBuilder
 	{
-		public ExceptionReportInfo _reportInfo;
+		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
-		private IEnumerable<SysInfoResult> _sysInfoResults;
+		private readonly ICollection<SysInfoResult> _sysInfoResults;
 
 		/// <summary>
 		/// the non-SysInfo constructor
@@ -26,7 +29,8 @@ namespace ExceptionReporting
 		/// <summary>
 		/// constructor that includes support for SysInfo
 		/// </summary>
-		public ExceptionStringBuilder(ExceptionReportInfo reportInfo, IEnumerable<SysInfoResult> sysInfoResults) : this(reportInfo)
+		public ExceptionStringBuilder(ExceptionReportInfo reportInfo, ICollection<SysInfoResult> sysInfoResults)
+			: this(reportInfo)
 		{
 			_sysInfoResults = sysInfoResults;
 		}
@@ -40,7 +44,7 @@ namespace ExceptionReporting
 
 			BuildGeneralInfo();
 			BuildExceptionInfo();
-            BuildAssemblyInfo();
+			BuildAssemblyInfo();
 			BuildConfigInfo();
 			BuildSysInfo();
 			BuildContactInfo();
@@ -95,10 +99,9 @@ namespace ExceptionReporting
 
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
 
-			foreach (var appSetting in ConfigurationManager.AppSettings)
+			foreach (string configString in ConfigReader.GetConfigKeyValuePairsToString())
 			{
-				string settingText = ConfigurationManager.AppSettings.Get(appSetting.ToString());
-				_stringBuilder.AppendLine(appSetting + " : " + settingText);
+				_stringBuilder.AppendLine(configString);
 			}
 
 			_stringBuilder.AppendDottedLine().AppendLine();
@@ -109,8 +112,8 @@ namespace ExceptionReporting
 			if (!_reportInfo.ShowSysInfoTab) return;
 
 			_stringBuilder.AppendLine("[System Info]").AppendLine();
-			// TreeToString(tvwEnvironment, stringBuilder);	//TODO use the SysInfoResultMapper (with stored results) to derive this
-			_stringBuilder.AppendLine("TODO");
+
+			_stringBuilder.Append(new SysInfoResultMapper().CreateStringList(_sysInfoResults));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
@@ -119,18 +122,18 @@ namespace ExceptionReporting
 			if (!_reportInfo.ShowContactTab) return;
 
 			_stringBuilder.AppendLine("[Contact Info]")
-						  .AppendLine()
-						  .AppendLine("Email:  " + _reportInfo.ContactEmail)
-						  .AppendLine("Web:    " + _reportInfo.WebUrl)
-						  .AppendLine("Phone:  " + _reportInfo.Phone)
-						  .AppendLine("Fax:    " + _reportInfo.Fax)
-						  .AppendDottedLine().AppendLine();
+				.AppendLine()
+				.AppendLine("Email:  " + _reportInfo.ContactEmail)
+				.AppendLine("Web:    " + _reportInfo.WebUrl)
+				.AppendLine("Phone:  " + _reportInfo.Phone)
+				.AppendLine("Fax:    " + _reportInfo.Fax)
+				.AppendDottedLine().AppendLine();
 		}
 
 		/// <summary>
-		/// Create a line-delimited string of the exception hierarchy
+		/// Create a line-delimited string of the exception hierarchy //TODO see Label='EH' in View
 		/// </summary>
-		public string ExceptionHierarchyToString(Exception exception)
+		private static string ExceptionHierarchyToString(Exception exception)
 		{
 			Exception currentException = exception;
 			var stringBuilder = new StringBuilder();
@@ -144,7 +147,7 @@ namespace ExceptionReporting
 					stringBuilder.AppendLine("Inner Exception " + (count-1));
 
 				stringBuilder.AppendLine("Type:        " + currentException.GetType())
-						     .AppendLine("Message:     " + currentException.Message)
+							 .AppendLine("Message:     " + currentException.Message)
 							 .AppendLine("Source:      " + currentException.Source);
 
 				if (currentException.StackTrace != null)
@@ -161,17 +164,15 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Create a line-delimited string of all the assemblies that are referenced by the given assembly
 		/// </summary>
-		public string ReferencedAssembliesToString(Assembly assembly)
+		private static string ReferencedAssembliesToString(Assembly assembly)
 		{
 			var stringBuilder = new StringBuilder();
 
-			if (assembly != null)
+			foreach (AssemblyName assemblyName in assembly.GetReferencedAssemblies())
 			{
-				foreach (AssemblyName assemblyName in assembly.GetReferencedAssemblies())
-				{
-					stringBuilder.AppendLine(assemblyName.FullName);
-				}
+				stringBuilder.AppendLine(string.Format("{0}, Version={1}", assemblyName.Name, assemblyName.Version));
 			}
+
 			return stringBuilder.ToString();
 		}
 	}

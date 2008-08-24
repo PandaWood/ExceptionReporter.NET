@@ -21,11 +21,11 @@ namespace ExceptionReporting.SystemInfo
 				{
 					if (childResult == null)
 					{
-						childResult = new SysInfoResult(sysInfoQuery.Name + "_ChildResult");
+						childResult = new SysInfoResult(sysInfoQuery.Name + "_Child");
 						result.ChildResults.Add(childResult);
 					}
 
-					string nodeValue = propertyData.Name + ':' + Convert.ToString(propertyData.Value);
+					string nodeValue = propertyData.Name + " = " + Convert.ToString(propertyData.Value);
 					childResult.Nodes.Add(nodeValue);
 				}
 			}

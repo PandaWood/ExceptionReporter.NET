@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30428</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F9133E79-D0C7-4A08-A4B8-75DD06314270}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
-    <ApplicationIcon>ExceptionWarning.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ExceptionWarning.ico</ApplicationIcon>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
   </PropertyGroup>
@@ -40,9 +40,6 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -50,13 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionPrinter.cs" />
+    <Compile Include="Config\ConfigReader.cs" />
     <Compile Include="ExceptionReporter.cs">
-      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ExceptionReportInfo.cs" />
-    <Compile Include="ExceptionStringBuilder.cs" />
-    <Compile Include="ExceptionReporterExtensions.cs" />
+    <Compile Include="Core\ExceptionReportInfo.cs" />
+    <Compile Include="Core\ExceptionStringBuilder.cs" />
+    <Compile Include="Core\ExceptionReporterExtensions.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
@@ -70,9 +66,6 @@
     <Compile Include="Views\ExceptionReportView.Designer.cs">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PrintExceptionView.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Views\InternalExceptionView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,9 +78,6 @@
     <EmbeddedResource Include="Views\ExceptionReportView.resx">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PrintExceptionView.resx">
-      <DependentUpon>PrintExceptionView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\InternalExceptionView.resx">
       <DependentUpon>InternalExceptionView.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,7 +86,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,7 +98,7 @@
     <Compile Include="Mail\Win32Mapi.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExceptionWarning.ico" />
+    <EmbeddedResource Include="Resources\ExceptionWarning.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

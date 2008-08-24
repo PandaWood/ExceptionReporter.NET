@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace ExceptionReporting
+namespace ExceptionReporting.Core
 {
 	/// <summary>
 	/// a bag of information (partly config) that is passed around and used in the Exception Report
@@ -34,7 +34,7 @@ namespace ExceptionReporting
 		public bool ShowSysInfoTab { get; set; }
 		public bool ShowAssembliesTab { get; set; }
 
-		public string EmailSendAddress { get; set; }			//TODO if 2 emails are required what's the diff? Clarify this.
+		public string EmailReportAddress { get; set; }
 		public string UserExplanationLabel { get; set; }
 		public string ExceptionOccuredMessage { get; set; }
 		public string ContactMessageBottom { get; set; }
@@ -43,12 +43,12 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Enumerated type used to represent supported e-mail mechanisms 
 		/// </summary>
-		public enum slsMailType
+		public enum EmailMethod
 		{
 			SimpleMAPI,
 			SMTP
 		};
 
-		public slsMailType MailType { get; set; }
+		public EmailMethod MailMethod { get; set; }
 	}
 }

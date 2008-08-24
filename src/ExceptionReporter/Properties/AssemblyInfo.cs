@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Exception Reporter")]
-[assembly: AssemblyDescription("Exception Reporter")]
+[assembly: AssemblyDescription("Displays exception details and system information")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.codeplex.com/ExceptionReporter")]
 [assembly: AssemblyProduct("Exception Reporter")]

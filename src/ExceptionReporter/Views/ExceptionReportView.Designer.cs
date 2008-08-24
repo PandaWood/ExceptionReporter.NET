@@ -1,6 +1,6 @@
 ﻿namespace ExceptionReporting.Views
 {
-	partial class ExceptionReportView
+	internal partial class ExceptionReportView
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -72,16 +72,14 @@
 			this.lblWebSite = new System.Windows.Forms.Label();
 			this.urlWeb = new System.Windows.Forms.LinkLabel();
 			this.lblEmail = new System.Windows.Forms.Label();
-			this.lnkEmail = new System.Windows.Forms.LinkLabel();
+			this.urlEmail = new System.Windows.Forms.LinkLabel();
 			this.lblContactMessageBottom = new System.Windows.Forms.Label();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.progressBar = new System.Windows.Forms.ProgressBar();
-			this.printDialog1 = new System.Windows.Forms.PrintDialog();
 			this.btnEmail = new System.Windows.Forms.Button();
 			this.btnPrint = new System.Windows.Forms.Button();
 			this.lblProgressMessage = new System.Windows.Forms.Label();
 			this.btnCopy = new System.Windows.Forms.Button();
-			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.tabControl.SuspendLayout();
 			this.tabGeneral.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picGeneral)).BeginInit();
@@ -170,8 +168,8 @@
 			this.lblPleasyNotifyMessage.Name = "lblPleasyNotifyMessage";
 			this.lblPleasyNotifyMessage.Size = new System.Drawing.Size(468, 30);
 			this.lblPleasyNotifyMessage.TabIndex = 23;
-			this.lblPleasyNotifyMessage.Text = "You can inform someone about this exception by using the Copy/Save or Email butto" +
-				"ns below";
+			this.lblPleasyNotifyMessage.Text = "Use the Copy/Save or Email buttons below to send details of this exception to sup" +
+				"port";
 			this.lblPleasyNotifyMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// lblExplanation
@@ -468,7 +466,7 @@
 			this.tabContact.Controls.Add(this.lblWebSite);
 			this.tabContact.Controls.Add(this.urlWeb);
 			this.tabContact.Controls.Add(this.lblEmail);
-			this.tabContact.Controls.Add(this.lnkEmail);
+			this.tabContact.Controls.Add(this.urlEmail);
 			this.tabContact.Controls.Add(this.lblContactMessageBottom);
 			this.tabContact.Location = new System.Drawing.Point(4, 22);
 			this.tabContact.Name = "tabContact";
@@ -533,11 +531,11 @@
 			this.urlWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.urlWeb.AutoSize = true;
-			this.urlWeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.urlWeb.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.urlWeb.Location = new System.Drawing.Point(72, 77);
 			this.urlWeb.Margin = new System.Windows.Forms.Padding(5);
 			this.urlWeb.Name = "urlWeb";
-			this.urlWeb.Size = new System.Drawing.Size(27, 16);
+			this.urlWeb.Size = new System.Drawing.Size(24, 18);
 			this.urlWeb.TabIndex = 31;
 			this.urlWeb.TabStop = true;
 			this.urlWeb.Text = "NA";
@@ -551,19 +549,19 @@
 			this.lblEmail.TabIndex = 28;
 			this.lblEmail.Text = "Email";
 			// 
-			// lnkEmail
+			// urlEmail
 			// 
-			this.lnkEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.urlEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.lnkEmail.AutoSize = true;
-			this.lnkEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lnkEmail.Location = new System.Drawing.Point(72, 53);
-			this.lnkEmail.Margin = new System.Windows.Forms.Padding(5);
-			this.lnkEmail.Name = "lnkEmail";
-			this.lnkEmail.Size = new System.Drawing.Size(27, 16);
-			this.lnkEmail.TabIndex = 29;
-			this.lnkEmail.TabStop = true;
-			this.lnkEmail.Text = "NA";
+			this.urlEmail.AutoSize = true;
+			this.urlEmail.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.urlEmail.Location = new System.Drawing.Point(72, 53);
+			this.urlEmail.Margin = new System.Windows.Forms.Padding(5);
+			this.urlEmail.Name = "urlEmail";
+			this.urlEmail.Size = new System.Drawing.Size(24, 18);
+			this.urlEmail.TabIndex = 29;
+			this.urlEmail.TabStop = true;
+			this.urlEmail.Text = "NA";
 			// 
 			// lblContactMessageBottom
 			// 
@@ -726,16 +724,14 @@
 		private System.Windows.Forms.Label lblWebSite;
 		private System.Windows.Forms.LinkLabel urlWeb;
 		private System.Windows.Forms.Label lblEmail;
-		private System.Windows.Forms.LinkLabel lnkEmail;
+		private System.Windows.Forms.LinkLabel urlEmail;
 		private System.Windows.Forms.Label lblContactMessageBottom;
 		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.ProgressBar progressBar;
-		private System.Windows.Forms.PrintDialog printDialog1;
 		private System.Windows.Forms.Button btnEmail;
 		private System.Windows.Forms.Button btnPrint;
 		private System.Windows.Forms.Label lblProgressMessage;
 		private System.Windows.Forms.Button btnCopy;
-		private System.Drawing.Printing.PrintDocument printDocument1;
 		private System.Windows.Forms.Label lblPleasyNotifyMessage;
 		private System.Windows.Forms.TextBox txtExceptionMessage;
 	}

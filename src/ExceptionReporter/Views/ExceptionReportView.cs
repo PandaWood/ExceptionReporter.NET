@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
+using ExceptionReporting.Core;
 
 namespace ExceptionReporting.Views
 {
-	public partial class ExceptionReportView : Form, IExceptionReportView
+	internal partial class ExceptionReportView : Form, IExceptionReportView
 	{
 		private bool _isDataRefreshRequired;
 		private readonly ExceptionReportPresenter _presenter;
@@ -23,7 +23,7 @@ namespace ExceptionReporting.Views
 
 		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
-			lnkEmail.Text = reportInfo.ContactEmail;
+			urlEmail.Text = reportInfo.ContactEmail;
 			txtFax.Text = reportInfo.Fax;
 			lblContactMessageBottom.Text = reportInfo.ContactMessageBottom;
 			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
@@ -49,13 +49,13 @@ namespace ExceptionReporting.Views
 
 		private void WireUpEvents()
 		{
-			btnEmail.Click += EmailButton_Click;
-			btnPrint.Click += PrintButton_Click;
+			btnEmail.Click += Email_Click;
+			btnPrint.Click += Print_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
-			btnCopy.Click += CopyButton_Click;
-			lnkEmail.LinkClicked += EmailLink_Click;
-			btnSave.Click += SaveButton_Click;
-			urlWeb.LinkClicked += UrlClicked;
+			btnCopy.Click += Copy_Click;
+			urlEmail.LinkClicked += EmailLink_Clicked;
+			btnSave.Click += Save_Click;
+			urlWeb.LinkClicked += UrlLink_Clicked;
 		}
 
 		public string ProgressMessage
@@ -93,11 +93,19 @@ namespace ExceptionReporting.Views
 			get { return txtUserExplanation.Text; }
 		}
 
-		public void SetSendMailCompletedState()
+		public void SetEmailCompletedState(bool success)
 		{
-			ProgressMessage = "Email sent.";
+			ProgressMessage = success ? "Email sent" : "Failed to send Email";
 			ShowProgressBar = false;
 			btnEmail.Enabled = true;
+		}
+
+		public void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage)
+		{
+			SetEmailCompletedState(success);
+
+			if (success)
+				ProgressMessage = successMessage;
 		}
 
 		public void PopulateTabs()
@@ -128,78 +136,21 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		//TODO put on a background thread - and avoid the OnActivated event altogether
+		//TODO consider putting on a background thread - and avoid the OnActivated event altogether
 		protected override void OnActivated(EventArgs e)
 		{
 			base.OnActivated(e);
-			PopulateAll();
-		}
 
-		private void PopulateAll()
-		{
-			if (!_isDataRefreshRequired)
-				return;
+			if (_isDataRefreshRequired)
+				_presenter.PopulateReport();
 
 			_isDataRefreshRequired = false;
-
-			try
-			{	
-				SetInProgressState();
-
-				Application.DoEvents();		// not sure whether to keep this or incorporate threading
-				PopulateConfigSettingsTab(); 
-				PopulateExceptionHierarchyTree(_presenter.TheException);
-				PopulateAssemblyInfoTab(); 
-				PopulateEnvironmentVariableTree(); 
-
-				PopulateTabs();
-			}
-			finally
-			{
-				SetProgressCompleteState();
-			}
 		}
 
-		private void SetProgressCompleteState()
+		public void SetProgressCompleteState()
 		{
 			Cursor = Cursors.Default;
 			ShowProgressLabel = ShowProgressBar = false;
-		}
-
-		private void SetInProgressState()
-		{
-			Cursor = Cursors.WaitCursor;
-			ShowProgressLabel = true;
-			ShowProgressBar = true;
-		}
-
-		private void PopulateAssemblyInfoTab()
-		{
-			listviewAssemblies.Clear();
-			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
-			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
-
-			//TODO extract out the reference to AssemblyName to the presenter (eg return a DTO)
-			foreach (AssemblyName assemblyName in _presenter.AppAssembly.GetReferencedAssemblies())
-			{
-				var listViewItem = new ListViewItem {Text = assemblyName.Name};
-				listViewItem.SubItems.Add(assemblyName.Version.ToString());
-				listviewAssemblies.Items.Add(listViewItem);
-			}
-		}
-
-		private void PopulateConfigSettingsTab()
-		{
-			TreeNode rootNode = _presenter.CreateConfigSettingsTree();
-			treeviewSettings.Nodes.Add(rootNode);
-			rootNode.Expand();
-		}
-
-		private void PopulateEnvironmentVariableTree()
-		{
-			TreeNode rootNode = _presenter.CreateSysInfoTree();
-			treeEnvironment.Nodes.Add(rootNode);
-			rootNode.Expand();
 		}
 
 		public void ShowExceptionReport()
@@ -208,7 +159,42 @@ namespace ExceptionReporting.Views
 			ShowDialog();
 		}
 
-		private void PopulateExceptionHierarchyTree(Exception rootException)
+		public void SetInProgressState()
+		{
+			Cursor = Cursors.WaitCursor;
+			ShowProgressLabel = true;
+			ShowProgressBar = true;		//TODO this is redundant until we place the work on a thread
+			Application.DoEvents();		// not sure whether to keep this or incorporate threading
+		}
+
+		public void PopulateAssembliesTab()
+		{
+			listviewAssemblies.Clear();
+			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
+			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
+
+			foreach (AssemblyName assemblyName in _presenter.AppAssembly.GetReferencedAssemblies())
+			{
+				var listViewItem = new ListViewItem {Text = assemblyName.Name};
+				listViewItem.SubItems.Add(assemblyName.Version.ToString());
+				listviewAssemblies.Items.Add(listViewItem);
+			}
+		}
+
+		public void PopulateConfigTab(TreeNode rootNode)
+		{
+			treeviewSettings.Nodes.Add(rootNode);
+			rootNode.Expand();
+		}
+
+		public void PopulateSysInfoTab(TreeNode rootNode)
+		{
+			treeEnvironment.Nodes.Add(rootNode);
+			rootNode.Expand();
+		}
+
+		//TODO Label='EH' - move this logic out (is duplicated almost entirely (without ListView) in ExceptionStringBuilder)
+		public void PopulateExceptionTab(Exception rootException)
 		{
 			listviewExceptions.Clear();
 			listviewExceptions.Columns.Add("Level", 100, HorizontalAlignment.Left);
@@ -246,22 +232,22 @@ namespace ExceptionReporting.Views
 			txtExceptionTabMessage.Text = rootException.Message;
 		}
 
-		private void PrintButton_Click(object sender, EventArgs e)
+		private void Print_Click(object sender, EventArgs e)
 		{
-			_presenter.PrintException();
+			_presenter.PrintReport();
 		}
 
-		private void CopyButton_Click(object sender, EventArgs e)
+		private void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
 		}
 
-		private void EmailButton_Click(object sender, EventArgs e)
+		private void Email_Click(object sender, EventArgs e)
 		{
 			_presenter.SendReportByEmail(Handle);
 		}
 
-		private void SaveButton_Click(object sender, EventArgs e)
+		private void Save_Click(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
 			              	{
@@ -271,9 +257,7 @@ namespace ExceptionReporting.Views
 			              	};
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
-			{
 				_presenter.SaveReportToFile(saveDialog.FileName);
-			}
 		}
 
 		private void ExceptionsSelectedIndexChanged(object sender, EventArgs e)
@@ -298,42 +282,20 @@ namespace ExceptionReporting.Views
 			txtExceptionTabMessage.Text = displayException.Message;
 		}
 
-		private void UrlClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			try
-			{	//TODO move this out to presenter (ie single call to presenter here)
-				var psi = new ProcessStartInfo(urlWeb.Text) { UseShellExecute = true };
-				Process.Start(psi);
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem handling the web link click", ex);
-			}
+			_presenter.NavigateToWebsite();
 		}
 
-		private void EmailLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
+		private void EmailLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			try
-			{	//TODO move this out to presenter (ie single call to presenter here)
-				string emailAddress = lnkEmail.Text.Trim();
-
-				const string MAILTO = "MAILTO:";
-				if (!emailAddress.Substring(0, MAILTO.Length).ToUpper().Equals(MAILTO))
-					emailAddress = MAILTO + emailAddress;
-
-				var psi = new ProcessStartInfo(emailAddress) { UseShellExecute = true };
-				Process.Start(psi);
-			}
-			catch (Exception ex)
-			{
-				ShowError("There has been a problem handling the e-mail link", ex);
-			}
+			_presenter.SendContactEmail();
 		}
 
-		public void ShowError(string message, Exception exception)
+		public void ShowErrorDialog(string message, Exception exception)
 		{
-			var simpleExceptionView = new InternalExceptionView();
-			simpleExceptionView.ShowException(message, exception);
+			var internalExceptionView = new InternalExceptionView();
+			internalExceptionView.ShowException(message, exception);
 		}
 	}
 }

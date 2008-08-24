@@ -59,5 +59,12 @@ namespace ExceptionReporting.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Icon ExceptionWarning {
+            get {
+                object obj = ResourceManager.GetObject("ExceptionWarning", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

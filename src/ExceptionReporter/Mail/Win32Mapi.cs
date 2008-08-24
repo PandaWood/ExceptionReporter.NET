@@ -98,7 +98,7 @@ namespace Win32Mapi
 			return error == 0;
 		}
 
-		public void AddRecip(string name, string addr, bool cc)
+		public void AddRecipient(string name, string addr, bool cc)
 		{
 			var dest = new MapiRecipDesc {recipClass = (cc ? MapiCC : MapiTO), name = name, address = addr};
 			recpts.Add(dest);
