@@ -39,8 +39,9 @@ namespace ExceptionReporting.Config
 
 		private static string GetConfigSetting(string sectionName, string configName)
 		{
-			var sections = (NameValueCollection)ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName);
+			NameValueCollection sections = ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
 			if (sections == null) return string.Empty;
+
 			string setting = sections[configName];
 			return setting;
 		}
@@ -51,7 +52,7 @@ namespace ExceptionReporting.Config
 			ReadContactSettings();
 			ReadTabSettings();
 			ReadMailSettings();
-			ReadInterfaceSettings();
+			ReadLabelSettings();
 		}
 
 		private void ReadContactSettings()
@@ -94,7 +95,7 @@ namespace ExceptionReporting.Config
 			_info.MailMethod = mailMethod.Equals(SMTP) ? ExceptionReportInfo.EmailMethod.SMTP : ExceptionReportInfo.EmailMethod.SimpleMAPI;
 		}
 
-		private void ReadInterfaceSettings()
+		private void ReadLabelSettings()
 		{
 			_info.ExceptionOccuredMessage = GetLabelSetting("general").ReturnStringIfNotNullElse(_info.ExceptionOccuredMessage);
 			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNullElse(_info.UserExplanationLabel);

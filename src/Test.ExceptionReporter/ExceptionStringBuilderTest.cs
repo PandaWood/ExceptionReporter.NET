@@ -17,7 +17,11 @@ namespace Test.ExceptionReporter
 		public void CanCreate_Referenced_AssembliesString()
 		{
 			Assembly dataAssembly = Assembly.GetExecutingAssembly();
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { AppAssembly = dataAssembly, ShowAssembliesTab = true});
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo
+			                                               	{
+			                                               		AppAssembly = dataAssembly, 
+																ShowAssembliesTab = true
+			                                               	});
 			string assembliesString = stringBuilder.Build();
 
 			Assert.That(assembliesString, Is.Not.Null);
@@ -35,7 +39,11 @@ namespace Test.ExceptionReporter
 			Exception innerException = new ArgumentNullException("InnerException");
 			var exception = new ArgumentOutOfRangeException("OuterException", innerException);
 
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { ShowExceptionsTab = true, Exception = exception});
+			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo
+			                                               	{
+			                                               		ShowExceptionsTab = true, 
+																Exception = exception
+			                                               	});
 			string hierarchyString = stringBuilder.Build();
 
 			// created expected string
