@@ -17,7 +17,7 @@ namespace ExceptionReporting.Extensions
 		}
 
 		// TODO this is probably a dodgy use of extension methods, consider refactoring
-		public static string ReturnStringIfNotNullElse(this string newString, string currentString)
+		public static string ReturnStringIfNotNull_Else(this string newString, string currentString)
 		{
 			return string.IsNullOrEmpty(newString) ? currentString : newString.Trim();
 		}
@@ -26,7 +26,7 @@ namespace ExceptionReporting.Extensions
 		/// Returns the boolean value of configString; where configString is null or empty, the current value is returned
 		/// <remarks>all of (case insensitive) 'y' 'n' 'true' or 'false' are accepted as boolean indicators</remarks>
 		/// </summary>
-		public static bool ReturnBoolfNotNullElse(this string configString, bool currentValue)
+		public static bool ReturnBoolfNotNull_Else(this string configString, bool currentValue)
 		{
 			if (string.IsNullOrEmpty(configString)) return currentValue;
 

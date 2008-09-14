@@ -35,7 +35,7 @@ namespace ExceptionReporting.Views
 	}
 
 	/// <summary>
-	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view (attempting)
+	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view
 	/// </summary>
 	internal class ExceptionReportPresenter
 	{

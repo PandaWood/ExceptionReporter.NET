@@ -12,7 +12,8 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanCreate_ConfigStringList_With_1()
 		{
-			// using ConfigurationManager.AppSettings in a UnitTest works, although a tad brittle (and could cause issues one day)
+			// using ConfigurationManager.AppSettings in a UnitTest works, although brittle (and could cause issues one day)
+			// because the settings added are compounded for each test (you can't erase a config key once you've added it)
 			ConfigurationManager.AppSettings["AKey"] = "AValue";
 
 			IList<string> stringList = ConfigReader.GetConfigKeyValuePairsToString();
@@ -32,17 +33,5 @@ namespace Test.ExceptionReporter
 			Assert.That(stringList[0], Is.EqualTo("AKey = AValue"));
 			Assert.That(stringList[1], Is.EqualTo("Key2 = Value2"));
 		}
-
-//		[Test]
-//		public void CanGet_ConfigSection()
-//		{
-//			ConfigurationManager.
-//
-//			IList<string> stringList = ConfigReader.GetConfigKeyValuePairsToString();
-//
-//			Assert.That(stringList.Count, Is.EqualTo(2));
-//			Assert.That(stringList[0], Is.EqualTo("AKey = AValue"));
-//			Assert.That(stringList[1], Is.EqualTo("Key2 = Value2"));
-//		}
 	}
 }

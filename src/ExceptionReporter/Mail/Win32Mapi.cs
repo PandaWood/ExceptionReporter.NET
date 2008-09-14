@@ -2,13 +2,11 @@
 /******************************************************
 					Simple MAPI.NET
 This class is based on code from www.codeproject.com
-which is a repository for source code freely contributed
-and used
 the resource contributing this class was contributed
 by netmaster@swissonline.ch
  
 ExceptionReporter codeplex project comment: I cannot
-find the source code for this oneline, so this is an
+find the source code for this online, so this is an
 untouchable black-box
 *******************************************************/
 

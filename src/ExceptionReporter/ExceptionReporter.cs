@@ -79,7 +79,7 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// Read settings from the config file
+		/// Read settings from config file
 		/// <remarks> This method must be explicitly called - config is not automatically read</remarks>
 		/// </summary>
 		public void ReadConfig()

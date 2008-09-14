@@ -164,7 +164,7 @@ namespace ExceptionReporting.Views
 			Cursor = Cursors.WaitCursor;
 			ShowProgressLabel = true;
 			ShowProgressBar = true;		//TODO this is redundant until we place the work on a thread
-			Application.DoEvents();		// not sure whether to keep this or incorporate threading
+			Application.DoEvents();
 		}
 
 		public void PopulateAssembliesTab()

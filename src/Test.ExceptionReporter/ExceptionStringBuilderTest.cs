@@ -35,8 +35,7 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanCreate_HierarchyString_With_Root_And_InnerException()
 		{
-			// exhibits bug in ReSharper - keep for bug report
-			Exception innerException = new ArgumentNullException("InnerException");
+			Exception innerException = new ArgumentNullException("Inner" + "Exception");
 			var exception = new ArgumentOutOfRangeException("OuterException", innerException);
 
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo

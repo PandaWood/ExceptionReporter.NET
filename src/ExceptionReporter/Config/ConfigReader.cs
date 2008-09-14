@@ -57,19 +57,19 @@ namespace ExceptionReporting.Config
 
 		private void ReadContactSettings()
 		{
-			_info.ContactEmail = GetContactSetting("email").ReturnStringIfNotNullElse(_info.ContactEmail);
-			_info.WebUrl = GetContactSetting("web").ReturnStringIfNotNullElse(_info.WebUrl);
-			_info.Phone = GetContactSetting("phone").ReturnStringIfNotNullElse(_info.Phone);
-			_info.Fax = GetContactSetting("fax").ReturnStringIfNotNullElse(_info.Fax);
+			_info.ContactEmail = GetContactSetting("email").ReturnStringIfNotNull_Else(_info.ContactEmail);
+			_info.WebUrl = GetContactSetting("web").ReturnStringIfNotNull_Else(_info.WebUrl);
+			_info.Phone = GetContactSetting("phone").ReturnStringIfNotNull_Else(_info.Phone);
+			_info.Fax = GetContactSetting("fax").ReturnStringIfNotNull_Else(_info.Fax);
 		}
 
 		private void ReadTabSettings()
 		{
-			_info.ShowExceptionsTab = GetTabSetting("exceptions").ReturnBoolfNotNullElse(_info.ShowExceptionsTab);
-			_info.ShowAssembliesTab = GetTabSetting("assemblies").ReturnBoolfNotNullElse(_info.ShowAssembliesTab);
-			_info.ShowConfigTab = GetTabSetting("config").ReturnBoolfNotNullElse(_info.ShowConfigTab);
-			_info.ShowSysInfoTab = GetTabSetting("system").ReturnBoolfNotNullElse(_info.ShowSysInfoTab);
-			_info.ShowContactTab = GetTabSetting("contact").ReturnBoolfNotNullElse(_info.ShowContactTab);
+			_info.ShowExceptionsTab = GetTabSetting("exceptions").ReturnBoolfNotNull_Else(_info.ShowExceptionsTab);
+			_info.ShowAssembliesTab = GetTabSetting("assemblies").ReturnBoolfNotNull_Else(_info.ShowAssembliesTab);
+			_info.ShowConfigTab = GetTabSetting("config").ReturnBoolfNotNull_Else(_info.ShowConfigTab);
+			_info.ShowSysInfoTab = GetTabSetting("system").ReturnBoolfNotNull_Else(_info.ShowSysInfoTab);
+			_info.ShowContactTab = GetTabSetting("contact").ReturnBoolfNotNull_Else(_info.ShowContactTab);
 		}
 
 		private void ReadMailSettings()
@@ -80,11 +80,11 @@ namespace ExceptionReporting.Config
 
 		private void ReadMailValues()
 		{
-			_info.SmtpServer = GetMailSetting("SmtpServer").ReturnStringIfNotNullElse(_info.SmtpServer);
-			_info.SmtpUsername = GetMailSetting("SmtpUsername").ReturnStringIfNotNullElse(_info.SmtpUsername);
-			_info.SmtpPassword = GetMailSetting("SmtpPassword").ReturnStringIfNotNullElse(_info.SmtpPassword);
-			_info.SmtpFromAddress = GetMailSetting("from").ReturnStringIfNotNullElse(_info.SmtpFromAddress);
-			_info.EmailReportAddress = GetMailSetting("to").ReturnStringIfNotNullElse(_info.EmailReportAddress);
+			_info.SmtpServer = GetMailSetting("SmtpServer").ReturnStringIfNotNull_Else(_info.SmtpServer);
+			_info.SmtpUsername = GetMailSetting("SmtpUsername").ReturnStringIfNotNull_Else(_info.SmtpUsername);
+			_info.SmtpPassword = GetMailSetting("SmtpPassword").ReturnStringIfNotNull_Else(_info.SmtpPassword);
+			_info.SmtpFromAddress = GetMailSetting("from").ReturnStringIfNotNull_Else(_info.SmtpFromAddress);
+			_info.EmailReportAddress = GetMailSetting("to").ReturnStringIfNotNull_Else(_info.EmailReportAddress);
 		}
 
 		private void ReadMailMethod()
@@ -97,10 +97,10 @@ namespace ExceptionReporting.Config
 
 		private void ReadLabelSettings()
 		{
-			_info.ExceptionOccuredMessage = GetLabelSetting("general").ReturnStringIfNotNullElse(_info.ExceptionOccuredMessage);
-			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNullElse(_info.UserExplanationLabel);
-			_info.ContactMessageTop = GetLabelSetting("contact_top").ReturnStringIfNotNullElse(_info.ContactMessageTop);
-			_info.ContactMessageBottom = GetLabelSetting("contact_bottom").ReturnStringIfNotNullElse(_info.ContactMessageBottom);
+			_info.ExceptionOccuredMessage = GetLabelSetting("general").ReturnStringIfNotNull_Else(_info.ExceptionOccuredMessage);
+			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNull_Else(_info.UserExplanationLabel);
+			_info.ContactMessageTop = GetLabelSetting("contact_top").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
+			_info.ContactMessageBottom = GetLabelSetting("contact_bottom").ReturnStringIfNotNull_Else(_info.ContactMessageBottom);
 		}
 
 		public static IList<string> GetConfigKeyValuePairsToString()
