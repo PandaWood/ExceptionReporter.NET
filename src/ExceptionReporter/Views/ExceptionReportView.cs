@@ -163,7 +163,7 @@ namespace ExceptionReporting.Views
 		{
 			Cursor = Cursors.WaitCursor;
 			ShowProgressLabel = true;
-			ShowProgressBar = true;		//TODO this is redundant until we place the work on a thread
+			ShowProgressBar = true;		//TODO this is redundant until we place the work on a separate thread
 			Application.DoEvents();
 		}
 

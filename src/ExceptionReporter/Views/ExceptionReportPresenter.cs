@@ -89,7 +89,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception exception)
 			{
-				_view.ShowErrorDialog(string.Format("Unable to save '{0}'", fileName), exception);
+				_view.ShowErrorDialog(string.Format("Unable to save file '{0}'", fileName), exception);
 			}
 		}
 
@@ -161,6 +161,7 @@ namespace ExceptionReporting.Views
 
 		public TreeNode CreateConfigTree()
 		{
+			//TODO there's a case to be made, that this should be done by another class/mapper (not the presenter)
 			var rootNode = new TreeNode("Configuration Settings");
 
 			foreach (string configString in ConfigReader.GetConfigKeyValuePairsToString())

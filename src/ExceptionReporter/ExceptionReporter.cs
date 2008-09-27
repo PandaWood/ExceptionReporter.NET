@@ -22,7 +22,7 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// initialise the ExceptionReporter
-		/// <remarks>readConfig() must be called subsequently if overriding of defaults from config is required</remarks>
+		/// <remarks>readConfig() must be called explicitly if need to override defaults</remarks>
 		/// </summary>
 		public ExceptionReporter()
 		{
@@ -90,8 +90,8 @@ namespace ExceptionReporting
 				configReader.ReadConfig();
 			}
 			catch (Exception ex)
-			{
-				ShowInternalException("Unable to read from config file - default values will be used", ex);
+			{	
+				ShowInternalException("Unable to read ExceptionReporter configuration - default values will be used", ex);
 			}
 		}
 
