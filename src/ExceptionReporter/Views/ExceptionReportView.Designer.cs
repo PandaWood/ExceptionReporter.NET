@@ -33,7 +33,6 @@
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabGeneral = new System.Windows.Forms.TabPage();
 			this.txtExceptionMessage = new System.Windows.Forms.TextBox();
-			this.lblPleasyNotifyMessage = new System.Windows.Forms.Label();
 			this.lblExplanation = new System.Windows.Forms.Label();
 			this.txtUserExplanation = new System.Windows.Forms.TextBox();
 			this.lblRegion = new System.Windows.Forms.Label();
@@ -107,6 +106,9 @@
 			// 
 			// tabControl
 			// 
+			this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl.Controls.Add(this.tabGeneral);
 			this.tabControl.Controls.Add(this.tabExceptions);
 			this.tabControl.Controls.Add(this.tabAssemblies);
@@ -115,6 +117,7 @@
 			this.tabControl.Controls.Add(this.tabContact);
 			this.tabControl.HotTrack = true;
 			this.tabControl.Location = new System.Drawing.Point(12, 12);
+			this.tabControl.MinimumSize = new System.Drawing.Size(200, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.ShowToolTips = true;
@@ -124,7 +127,6 @@
 			// tabGeneral
 			// 
 			this.tabGeneral.Controls.Add(this.txtExceptionMessage);
-			this.tabGeneral.Controls.Add(this.lblPleasyNotifyMessage);
 			this.tabGeneral.Controls.Add(this.lblExplanation);
 			this.tabGeneral.Controls.Add(this.txtUserExplanation);
 			this.tabGeneral.Controls.Add(this.lblRegion);
@@ -148,6 +150,8 @@
 			// 
 			// txtExceptionMessage
 			// 
+			this.txtExceptionMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtExceptionMessage.Location = new System.Drawing.Point(108, 33);
 			this.txtExceptionMessage.Multiline = true;
@@ -157,19 +161,6 @@
 			this.txtExceptionMessage.Size = new System.Drawing.Size(368, 68);
 			this.txtExceptionMessage.TabIndex = 24;
 			this.txtExceptionMessage.Text = "No message";
-			// 
-			// lblPleasyNotifyMessage
-			// 
-			this.lblPleasyNotifyMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.lblPleasyNotifyMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPleasyNotifyMessage.Location = new System.Drawing.Point(8, 115);
-			this.lblPleasyNotifyMessage.Name = "lblPleasyNotifyMessage";
-			this.lblPleasyNotifyMessage.Size = new System.Drawing.Size(468, 30);
-			this.lblPleasyNotifyMessage.TabIndex = 23;
-			this.lblPleasyNotifyMessage.Text = "Use the Copy/Save or Email buttons below to send details of this exception to sup" +
-				"port";
-			this.lblPleasyNotifyMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// lblExplanation
 			// 
@@ -182,6 +173,9 @@
 			// 
 			// txtUserExplanation
 			// 
+			this.txtUserExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtUserExplanation.Location = new System.Drawing.Point(8, 273);
 			this.txtUserExplanation.Multiline = true;
@@ -192,7 +186,7 @@
 			// lblRegion
 			// 
 			this.lblRegion.AutoSize = true;
-			this.lblRegion.Location = new System.Drawing.Point(252, 183);
+			this.lblRegion.Location = new System.Drawing.Point(252, 179);
 			this.lblRegion.Name = "lblRegion";
 			this.lblRegion.Size = new System.Drawing.Size(41, 13);
 			this.lblRegion.TabIndex = 7;
@@ -200,8 +194,10 @@
 			// 
 			// txtRegion
 			// 
+			this.txtRegion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtRegion.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtRegion.Location = new System.Drawing.Point(308, 180);
+			this.txtRegion.Location = new System.Drawing.Point(308, 176);
 			this.txtRegion.Name = "txtRegion";
 			this.txtRegion.ReadOnly = true;
 			this.txtRegion.Size = new System.Drawing.Size(168, 20);
@@ -220,7 +216,7 @@
 			// lblDate
 			// 
 			this.lblDate.AutoSize = true;
-			this.lblDate.Location = new System.Drawing.Point(12, 215);
+			this.lblDate.Location = new System.Drawing.Point(12, 211);
 			this.lblDate.Name = "lblDate";
 			this.lblDate.Size = new System.Drawing.Size(30, 13);
 			this.lblDate.TabIndex = 9;
@@ -229,7 +225,7 @@
 			// txtDate
 			// 
 			this.txtDate.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtDate.Location = new System.Drawing.Point(76, 212);
+			this.txtDate.Location = new System.Drawing.Point(76, 208);
 			this.txtDate.Name = "txtDate";
 			this.txtDate.ReadOnly = true;
 			this.txtDate.Size = new System.Drawing.Size(152, 20);
@@ -247,7 +243,7 @@
 			// lblTime
 			// 
 			this.lblTime.AutoSize = true;
-			this.lblTime.Location = new System.Drawing.Point(252, 215);
+			this.lblTime.Location = new System.Drawing.Point(252, 211);
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(30, 13);
 			this.lblTime.TabIndex = 11;
@@ -255,8 +251,10 @@
 			// 
 			// txtTime
 			// 
+			this.txtTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtTime.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtTime.Location = new System.Drawing.Point(308, 212);
+			this.txtTime.Location = new System.Drawing.Point(308, 208);
 			this.txtTime.Name = "txtTime";
 			this.txtTime.ReadOnly = true;
 			this.txtTime.Size = new System.Drawing.Size(168, 20);
@@ -265,7 +263,7 @@
 			// lblApplication
 			// 
 			this.lblApplication.AutoSize = true;
-			this.lblApplication.Location = new System.Drawing.Point(12, 150);
+			this.lblApplication.Location = new System.Drawing.Point(12, 146);
 			this.lblApplication.Name = "lblApplication";
 			this.lblApplication.Size = new System.Drawing.Size(59, 13);
 			this.lblApplication.TabIndex = 3;
@@ -273,8 +271,10 @@
 			// 
 			// txtApplicationName
 			// 
+			this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtApplicationName.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtApplicationName.Location = new System.Drawing.Point(76, 148);
+			this.txtApplicationName.Location = new System.Drawing.Point(76, 144);
 			this.txtApplicationName.Name = "txtApplicationName";
 			this.txtApplicationName.ReadOnly = true;
 			this.txtApplicationName.Size = new System.Drawing.Size(400, 20);
@@ -282,7 +282,7 @@
 			// 
 			// lblVersion
 			// 
-			this.lblVersion.Location = new System.Drawing.Point(12, 183);
+			this.lblVersion.Location = new System.Drawing.Point(12, 179);
 			this.lblVersion.Name = "lblVersion";
 			this.lblVersion.Size = new System.Drawing.Size(48, 16);
 			this.lblVersion.TabIndex = 5;
@@ -291,7 +291,7 @@
 			// txtVersion
 			// 
 			this.txtVersion.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtVersion.Location = new System.Drawing.Point(76, 180);
+			this.txtVersion.Location = new System.Drawing.Point(76, 176);
 			this.txtVersion.Name = "txtVersion";
 			this.txtVersion.ReadOnly = true;
 			this.txtVersion.Size = new System.Drawing.Size(152, 20);
@@ -312,6 +312,8 @@
 			// listviewExceptions
 			// 
 			this.listviewExceptions.Activation = System.Windows.Forms.ItemActivation.OneClick;
+			this.listviewExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.listviewExceptions.FullRowSelect = true;
 			this.listviewExceptions.HotTracking = true;
 			this.listviewExceptions.HoverSelection = true;
@@ -324,6 +326,8 @@
 			// 
 			// grbMessage
 			// 
+			this.grbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.grbMessage.Controls.Add(this.txtExceptionTabMessage);
 			this.grbMessage.Location = new System.Drawing.Point(8, 136);
 			this.grbMessage.Name = "grbMessage";
@@ -334,8 +338,10 @@
 			// 
 			// txtExceptionTabMessage
 			// 
+			this.txtExceptionTabMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExceptionTabMessage.BackColor = System.Drawing.SystemColors.Window;
-			this.txtExceptionTabMessage.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.txtExceptionTabMessage.Location = new System.Drawing.Point(3, 16);
 			this.txtExceptionTabMessage.Multiline = true;
 			this.txtExceptionTabMessage.Name = "txtExceptionTabMessage";
@@ -346,6 +352,9 @@
 			// 
 			// grbStackTrace
 			// 
+			this.grbStackTrace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.grbStackTrace.Controls.Add(this.txtExceptionTabStackTrace);
 			this.grbStackTrace.Location = new System.Drawing.Point(8, 224);
 			this.grbStackTrace.Name = "grbStackTrace";
@@ -356,8 +365,10 @@
 			// 
 			// txtExceptionTabStackTrace
 			// 
+			this.txtExceptionTabStackTrace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExceptionTabStackTrace.BackColor = System.Drawing.SystemColors.Window;
-			this.txtExceptionTabStackTrace.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.txtExceptionTabStackTrace.Location = new System.Drawing.Point(3, 16);
 			this.txtExceptionTabStackTrace.Multiline = true;
 			this.txtExceptionTabStackTrace.Name = "txtExceptionTabStackTrace";
@@ -420,6 +431,8 @@
 			// 
 			// txtMachine
 			// 
+			this.txtMachine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtMachine.BackColor = System.Drawing.SystemColors.Control;
 			this.txtMachine.Location = new System.Drawing.Point(59, 12);
 			this.txtMachine.Name = "txtMachine";
@@ -429,6 +442,7 @@
 			// 
 			// lblUsername
 			// 
+			this.lblUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblUsername.AutoSize = true;
 			this.lblUsername.Location = new System.Drawing.Point(250, 15);
 			this.lblUsername.Name = "lblUsername";
@@ -478,7 +492,10 @@
 			// 
 			// lblContactMessageTop
 			// 
+			this.lblContactMessageTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblContactMessageTop.Location = new System.Drawing.Point(8, 24);
+			this.lblContactMessageTop.MinimumSize = new System.Drawing.Size(200, 0);
 			this.lblContactMessageTop.Name = "lblContactMessageTop";
 			this.lblContactMessageTop.Size = new System.Drawing.Size(432, 24);
 			this.lblContactMessageTop.TabIndex = 27;
@@ -486,8 +503,11 @@
 			// 
 			// txtFax
 			// 
+			this.txtFax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtFax.BackColor = System.Drawing.SystemColors.Control;
 			this.txtFax.Location = new System.Drawing.Point(72, 168);
+			this.txtFax.MinimumSize = new System.Drawing.Size(200, 0);
 			this.txtFax.Name = "txtFax";
 			this.txtFax.Size = new System.Drawing.Size(240, 20);
 			this.txtFax.TabIndex = 35;
@@ -503,8 +523,11 @@
 			// 
 			// txtPhone
 			// 
+			this.txtPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtPhone.BackColor = System.Drawing.SystemColors.Control;
 			this.txtPhone.Location = new System.Drawing.Point(72, 142);
+			this.txtPhone.MinimumSize = new System.Drawing.Size(200, 0);
 			this.txtPhone.Name = "txtPhone";
 			this.txtPhone.Size = new System.Drawing.Size(240, 20);
 			this.txtPhone.TabIndex = 33;
@@ -529,14 +552,16 @@
 			// 
 			// urlWeb
 			// 
+			this.urlWeb.ActiveLinkColor = System.Drawing.Color.Orange;
 			this.urlWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.urlWeb.AutoSize = true;
 			this.urlWeb.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.urlWeb.Location = new System.Drawing.Point(72, 77);
 			this.urlWeb.Margin = new System.Windows.Forms.Padding(5);
+			this.urlWeb.MinimumSize = new System.Drawing.Size(200, 0);
 			this.urlWeb.Name = "urlWeb";
-			this.urlWeb.Size = new System.Drawing.Size(24, 18);
+			this.urlWeb.Size = new System.Drawing.Size(200, 18);
 			this.urlWeb.TabIndex = 31;
 			this.urlWeb.TabStop = true;
 			this.urlWeb.Text = "NA";
@@ -552,14 +577,16 @@
 			// 
 			// urlEmail
 			// 
+			this.urlEmail.ActiveLinkColor = System.Drawing.Color.Orange;
 			this.urlEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.urlEmail.AutoSize = true;
 			this.urlEmail.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.urlEmail.Location = new System.Drawing.Point(72, 53);
 			this.urlEmail.Margin = new System.Windows.Forms.Padding(5);
+			this.urlEmail.MinimumSize = new System.Drawing.Size(200, 0);
 			this.urlEmail.Name = "urlEmail";
-			this.urlEmail.Size = new System.Drawing.Size(24, 18);
+			this.urlEmail.Size = new System.Drawing.Size(200, 18);
 			this.urlEmail.TabIndex = 29;
 			this.urlEmail.TabStop = true;
 			this.urlEmail.Text = "NA";
@@ -570,6 +597,7 @@
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblContactMessageBottom.Location = new System.Drawing.Point(11, 238);
+			this.lblContactMessageBottom.MinimumSize = new System.Drawing.Size(200, 0);
 			this.lblContactMessageBottom.Name = "lblContactMessageBottom";
 			this.lblContactMessageBottom.Size = new System.Drawing.Size(458, 96);
 			this.lblContactMessageBottom.TabIndex = 36;
@@ -579,7 +607,7 @@
 			// btnSave
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnSave.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
 			this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnSave.Location = new System.Drawing.Point(358, 380);
@@ -601,7 +629,7 @@
 			// btnEmail
 			// 
 			this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnEmail.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
 			this.btnEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnEmail.Location = new System.Drawing.Point(436, 380);
@@ -623,7 +651,7 @@
 			// btnCopy
 			// 
 			this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCopy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnCopy.Image")));
 			this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnCopy.Location = new System.Drawing.Point(280, 380);
@@ -635,8 +663,7 @@
 			// 
 			// ExceptionReportView
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.ClientSize = new System.Drawing.Size(517, 419);
 			this.Controls.Add(this.tabControl);
 			this.Controls.Add(this.btnSave);
@@ -644,7 +671,6 @@
 			this.Controls.Add(this.btnEmail);
 			this.Controls.Add(this.lblProgressMessage);
 			this.Controls.Add(this.btnCopy);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "ExceptionReportView";
@@ -718,7 +744,6 @@
 		private System.Windows.Forms.Button btnEmail;
 		private System.Windows.Forms.Label lblProgressMessage;
 		private System.Windows.Forms.Button btnCopy;
-		private System.Windows.Forms.Label lblPleasyNotifyMessage;
 		private System.Windows.Forms.TextBox txtExceptionMessage;
 	}
 }
