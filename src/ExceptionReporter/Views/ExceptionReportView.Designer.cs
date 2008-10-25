@@ -75,6 +75,7 @@
 			this.urlEmail = new System.Windows.Forms.LinkLabel();
 			this.lblContactMessageBottom = new System.Windows.Forms.Label();
 			this.btnSave = new System.Windows.Forms.Button();
+			this.progressBar = new System.Windows.Forms.ProgressBar();
 			this.btnEmail = new System.Windows.Forms.Button();
 			this.lblProgressMessage = new System.Windows.Forms.Label();
 			this.btnCopy = new System.Windows.Forms.Button();
@@ -586,6 +587,15 @@
 			this.btnSave.Text = "Save";
 			this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// progressBar
+			// 
+			this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.progressBar.Location = new System.Drawing.Point(12, 396);
+			this.progressBar.Name = "progressBar";
+			this.progressBar.Size = new System.Drawing.Size(141, 16);
+			this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+			this.progressBar.TabIndex = 53;
+			// 
 			// btnEmail
 			// 
 			this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -602,9 +612,9 @@
 			// lblProgressMessage
 			// 
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.lblProgressMessage.Location = new System.Drawing.Point(12, 380);
+			this.lblProgressMessage.Location = new System.Drawing.Point(12, 371);
 			this.lblProgressMessage.Name = "lblProgressMessage";
-			this.lblProgressMessage.Size = new System.Drawing.Size(262, 32);
+			this.lblProgressMessage.Size = new System.Drawing.Size(262, 22);
 			this.lblProgressMessage.TabIndex = 52;
 			this.lblProgressMessage.Text = "Loading system information...";
 			// 
@@ -628,6 +638,7 @@
 			this.ClientSize = new System.Drawing.Size(517, 419);
 			this.Controls.Add(this.tabControl);
 			this.Controls.Add(this.btnSave);
+			this.Controls.Add(this.progressBar);
 			this.Controls.Add(this.btnEmail);
 			this.Controls.Add(this.lblProgressMessage);
 			this.Controls.Add(this.btnCopy);
@@ -701,6 +712,7 @@
 		private System.Windows.Forms.LinkLabel urlEmail;
 		private System.Windows.Forms.Label lblContactMessageBottom;
 		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.ProgressBar progressBar;
 		private System.Windows.Forms.Button btnEmail;
 		private System.Windows.Forms.Label lblProgressMessage;
 		private System.Windows.Forms.Button btnCopy;

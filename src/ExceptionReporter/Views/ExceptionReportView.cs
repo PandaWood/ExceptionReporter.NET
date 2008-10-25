@@ -50,7 +50,6 @@ namespace ExceptionReporting.Views
 		private void WireUpEvents()
 		{
 			btnEmail.Click += Email_Click;
-			btnPrint.Click += Print_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			btnCopy.Click += Copy_Click;
 			urlEmail.LinkClicked += EmailLink_Clicked;
@@ -230,11 +229,6 @@ namespace ExceptionReporting.Views
 
 			txtExceptionTabStackTrace.Text = rootException.StackTrace;
 			txtExceptionTabMessage.Text = rootException.Message;
-		}
-
-		private void Print_Click(object sender, EventArgs e)
-		{
-			_presenter.PrintReport();
 		}
 
 		private void Copy_Click(object sender, EventArgs e)
