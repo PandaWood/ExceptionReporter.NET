@@ -17,9 +17,8 @@ namespace ExceptionReporting.DemoApp
 		{
 			try
 			{
-				var exception = new IOException("Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.",
-				                                new Exception("This is an Inner Exception message"));
-				throw exception;
+				SomeMethod();
+				
 			}
 			catch (Exception ex)
 			{
@@ -30,6 +29,23 @@ namespace ExceptionReporting.DemoApp
 			}
 
 			Application.Exit();
+		}
+
+		private static void SomeMethod()
+		{
+			CallAnotherMethod();
+		}
+
+		private static void CallAnotherMethod()
+		{
+			AndAnotherOne();
+		}
+
+		private static void AndAnotherOne()
+		{
+			var exception = new IOException("Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.",
+												new Exception("This is an Inner Exception message - with a message that is not too small but then again, perhaps it should be smaller"));
+			throw exception;
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// initialise the ExceptionReporter
-		/// <remarks>readConfig() must be called explicitly if need to override defaults</remarks>
+		/// <remarks>readConfig() should be called (explicitly) if you need to override default config</remarks>
 		/// </summary>
 		public ExceptionReporter()
 		{
@@ -59,7 +59,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Show the ExceptionReporter dialog
 		/// </summary>
-		/// <remarks>The ExceptionReporter will analyze the exception and create and show the report</remarks>
+		/// <remarks>The ExceptionReporter will analyze the exception and create and show the report dialog</remarks>
 		/// <param name="exception">the exception to show</param>
 		public void Show(Exception exception)
 		{

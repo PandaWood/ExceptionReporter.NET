@@ -14,7 +14,7 @@ namespace Test.ExceptionReporter
 	public class ExceptionStringBuilderTest
 	{
 		[Test]
-		public void CanCreate_Referenced_AssembliesString()
+		public void CanBuild_ReferencedAssemblies_String()
 		{
 			Assembly dataAssembly = Assembly.GetExecutingAssembly();
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo
@@ -27,13 +27,13 @@ namespace Test.ExceptionReporter
 			Assert.That(assembliesString, Is.Not.Null);
 			Assert.That(assembliesString.Length, Is.GreaterThan(0));
 
-			StringAssert.Contains("nunit", assembliesString);	// not too precise and coupled to NUnit, but better than nothing
+			StringAssert.Contains("nunit", assembliesString);	// coupled to NUnit, but better than nothing
 			StringAssert.Contains("ExceptionReporter, Version=1.0.2.0\r\n", assembliesString);
 			StringAssert.Contains(Environment.NewLine, assembliesString);
 		}
 
 		[Test]
-		public void CanCreate_HierarchyString_With_Root_And_InnerException()
+		public void CanBuild_HierarchyString_With_Root_And_InnerException()
 		{
 			Exception innerException = new ArgumentNullException("Inner" + "Exception");
 			var exception = new ArgumentOutOfRangeException("OuterException", innerException);
@@ -83,7 +83,7 @@ namespace Test.ExceptionReporter
 			expectedString.AppendLine("--Version:2.66");
 			expectedString.AppendLine().AppendDottedLine().AppendLine();
 
-			// we force only the chosen method to "build a string" by passing an ExceptionReportInfo object with ShowSysInfoTab true
+			// we force only ShowSysInfoTab to "build a string" by passing an ExceptionReportInfo object with ShowSysInfoTab true
 			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { ShowSysInfoTab = true }, results);
 			string sysInfoString = stringBuilder.Build();
 

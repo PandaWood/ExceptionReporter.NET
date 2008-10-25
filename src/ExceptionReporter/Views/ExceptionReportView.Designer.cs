@@ -340,6 +340,7 @@
 			this.txtExceptionTabMessage.Multiline = true;
 			this.txtExceptionTabMessage.Name = "txtExceptionTabMessage";
 			this.txtExceptionTabMessage.ReadOnly = true;
+			this.txtExceptionTabMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtExceptionTabMessage.Size = new System.Drawing.Size(466, 69);
 			this.txtExceptionTabMessage.TabIndex = 24;
 			// 
@@ -361,6 +362,7 @@
 			this.txtExceptionTabStackTrace.Multiline = true;
 			this.txtExceptionTabStackTrace.Name = "txtExceptionTabStackTrace";
 			this.txtExceptionTabStackTrace.ReadOnly = true;
+			this.txtExceptionTabStackTrace.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtExceptionTabStackTrace.Size = new System.Drawing.Size(466, 85);
 			this.txtExceptionTabStackTrace.TabIndex = 26;
 			// 
