@@ -163,7 +163,7 @@
 			this.lblPleasyNotifyMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblPleasyNotifyMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPleasyNotifyMessage.Location = new System.Drawing.Point(8, 104);
+			this.lblPleasyNotifyMessage.Location = new System.Drawing.Point(8, 115);
 			this.lblPleasyNotifyMessage.Name = "lblPleasyNotifyMessage";
 			this.lblPleasyNotifyMessage.Size = new System.Drawing.Size(468, 30);
 			this.lblPleasyNotifyMessage.TabIndex = 23;
@@ -174,7 +174,7 @@
 			// lblExplanation
 			// 
 			this.lblExplanation.AutoSize = true;
-			this.lblExplanation.Location = new System.Drawing.Point(10, 251);
+			this.lblExplanation.Location = new System.Drawing.Point(9, 251);
 			this.lblExplanation.Name = "lblExplanation";
 			this.lblExplanation.Size = new System.Drawing.Size(334, 13);
 			this.lblExplanation.TabIndex = 14;
@@ -192,7 +192,7 @@
 			// lblRegion
 			// 
 			this.lblRegion.AutoSize = true;
-			this.lblRegion.Location = new System.Drawing.Point(252, 172);
+			this.lblRegion.Location = new System.Drawing.Point(252, 183);
 			this.lblRegion.Name = "lblRegion";
 			this.lblRegion.Size = new System.Drawing.Size(41, 13);
 			this.lblRegion.TabIndex = 7;
@@ -201,7 +201,7 @@
 			// txtRegion
 			// 
 			this.txtRegion.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtRegion.Location = new System.Drawing.Point(308, 169);
+			this.txtRegion.Location = new System.Drawing.Point(308, 180);
 			this.txtRegion.Name = "txtRegion";
 			this.txtRegion.ReadOnly = true;
 			this.txtRegion.Size = new System.Drawing.Size(168, 20);
@@ -220,7 +220,7 @@
 			// lblDate
 			// 
 			this.lblDate.AutoSize = true;
-			this.lblDate.Location = new System.Drawing.Point(12, 204);
+			this.lblDate.Location = new System.Drawing.Point(12, 215);
 			this.lblDate.Name = "lblDate";
 			this.lblDate.Size = new System.Drawing.Size(30, 13);
 			this.lblDate.TabIndex = 9;
@@ -229,7 +229,7 @@
 			// txtDate
 			// 
 			this.txtDate.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtDate.Location = new System.Drawing.Point(76, 201);
+			this.txtDate.Location = new System.Drawing.Point(76, 212);
 			this.txtDate.Name = "txtDate";
 			this.txtDate.ReadOnly = true;
 			this.txtDate.Size = new System.Drawing.Size(152, 20);
@@ -247,7 +247,7 @@
 			// lblTime
 			// 
 			this.lblTime.AutoSize = true;
-			this.lblTime.Location = new System.Drawing.Point(252, 204);
+			this.lblTime.Location = new System.Drawing.Point(252, 215);
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(30, 13);
 			this.lblTime.TabIndex = 11;
@@ -256,7 +256,7 @@
 			// txtTime
 			// 
 			this.txtTime.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtTime.Location = new System.Drawing.Point(308, 201);
+			this.txtTime.Location = new System.Drawing.Point(308, 212);
 			this.txtTime.Name = "txtTime";
 			this.txtTime.ReadOnly = true;
 			this.txtTime.Size = new System.Drawing.Size(168, 20);
@@ -265,7 +265,7 @@
 			// lblApplication
 			// 
 			this.lblApplication.AutoSize = true;
-			this.lblApplication.Location = new System.Drawing.Point(12, 139);
+			this.lblApplication.Location = new System.Drawing.Point(12, 150);
 			this.lblApplication.Name = "lblApplication";
 			this.lblApplication.Size = new System.Drawing.Size(59, 13);
 			this.lblApplication.TabIndex = 3;
@@ -274,7 +274,7 @@
 			// txtApplicationName
 			// 
 			this.txtApplicationName.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtApplicationName.Location = new System.Drawing.Point(76, 137);
+			this.txtApplicationName.Location = new System.Drawing.Point(76, 148);
 			this.txtApplicationName.Name = "txtApplicationName";
 			this.txtApplicationName.ReadOnly = true;
 			this.txtApplicationName.Size = new System.Drawing.Size(400, 20);
@@ -282,7 +282,7 @@
 			// 
 			// lblVersion
 			// 
-			this.lblVersion.Location = new System.Drawing.Point(12, 172);
+			this.lblVersion.Location = new System.Drawing.Point(12, 183);
 			this.lblVersion.Name = "lblVersion";
 			this.lblVersion.Size = new System.Drawing.Size(48, 16);
 			this.lblVersion.TabIndex = 5;
@@ -291,7 +291,7 @@
 			// txtVersion
 			// 
 			this.txtVersion.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtVersion.Location = new System.Drawing.Point(76, 169);
+			this.txtVersion.Location = new System.Drawing.Point(76, 180);
 			this.txtVersion.Name = "txtVersion";
 			this.txtVersion.ReadOnly = true;
 			this.txtVersion.Size = new System.Drawing.Size(152, 20);
@@ -579,7 +579,7 @@
 			// btnSave
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
 			this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnSave.Location = new System.Drawing.Point(358, 380);
@@ -601,7 +601,7 @@
 			// btnEmail
 			// 
 			this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
 			this.btnEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnEmail.Location = new System.Drawing.Point(436, 380);
@@ -614,16 +614,16 @@
 			// lblProgressMessage
 			// 
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.lblProgressMessage.Location = new System.Drawing.Point(12, 371);
+			this.lblProgressMessage.Location = new System.Drawing.Point(12, 373);
 			this.lblProgressMessage.Name = "lblProgressMessage";
-			this.lblProgressMessage.Size = new System.Drawing.Size(262, 22);
+			this.lblProgressMessage.Size = new System.Drawing.Size(262, 20);
 			this.lblProgressMessage.TabIndex = 52;
 			this.lblProgressMessage.Text = "Loading system information...";
 			// 
 			// btnCopy
 			// 
 			this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnCopy.Image")));
 			this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnCopy.Location = new System.Drawing.Point(280, 380);
