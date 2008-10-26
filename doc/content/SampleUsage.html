@@ -28,7 +28,7 @@ catch (Exception exception)
     reporter.ReadConfig();  // optionally, read properties from the application's config file
 
     reporter.Config.ShowSysInfoTab = false;   // alternatively, set properties programmatically
-
+    reporter.Config.ShowFlatButtons = true;   // this particular config is code-only
     reporter.Show(exception);
  }
 </PRE>

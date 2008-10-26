@@ -40,6 +40,10 @@ namespace ExceptionReporting.Views
 			txtRegion.Text = reportInfo.RegionInfo;
 			txtApplicationName.Text = reportInfo.AppName;
 			txtVersion.Text = reportInfo.AppVersion;
+
+			btnCopy.FlatStyle = 
+				btnEmail.FlatStyle = 
+				btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
 		}
 
 		~ExceptionReportView()

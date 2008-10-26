@@ -165,7 +165,7 @@
 			// lblExplanation
 			// 
 			this.lblExplanation.AutoSize = true;
-			this.lblExplanation.Location = new System.Drawing.Point(9, 251);
+			this.lblExplanation.Location = new System.Drawing.Point(9, 255);
 			this.lblExplanation.Name = "lblExplanation";
 			this.lblExplanation.Size = new System.Drawing.Size(334, 13);
 			this.lblExplanation.TabIndex = 14;
@@ -236,9 +236,9 @@
 			this.lblGeneral.AutoSize = true;
 			this.lblGeneral.Location = new System.Drawing.Point(105, 13);
 			this.lblGeneral.Name = "lblGeneral";
-			this.lblGeneral.Size = new System.Drawing.Size(218, 13);
+			this.lblGeneral.Size = new System.Drawing.Size(215, 13);
 			this.lblGeneral.TabIndex = 1;
-			this.lblGeneral.Text = "An exception has occured in this application.";
+			this.lblGeneral.Text = "An exception has occured in this application";
 			// 
 			// lblTime
 			// 
@@ -399,6 +399,7 @@
 			// 
 			// treeviewSettings
 			// 
+			this.treeviewSettings.BackColor = System.Drawing.SystemColors.Window;
 			this.treeviewSettings.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeviewSettings.HotTracking = true;
 			this.treeviewSettings.Location = new System.Drawing.Point(0, 0);
@@ -465,6 +466,7 @@
 			this.treeEnvironment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.treeEnvironment.BackColor = System.Drawing.SystemColors.Window;
 			this.treeEnvironment.HotTracking = true;
 			this.treeEnvironment.Location = new System.Drawing.Point(8, 40);
 			this.treeEnvironment.Name = "treeEnvironment";
@@ -642,9 +644,9 @@
 			// lblProgressMessage
 			// 
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.lblProgressMessage.Location = new System.Drawing.Point(12, 373);
+			this.lblProgressMessage.Location = new System.Drawing.Point(12, 375);
 			this.lblProgressMessage.Name = "lblProgressMessage";
-			this.lblProgressMessage.Size = new System.Drawing.Size(262, 20);
+			this.lblProgressMessage.Size = new System.Drawing.Size(262, 18);
 			this.lblProgressMessage.TabIndex = 52;
 			this.lblProgressMessage.Text = "Loading system information...";
 			// 

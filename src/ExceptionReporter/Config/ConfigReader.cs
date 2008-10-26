@@ -46,7 +46,7 @@ namespace ExceptionReporting.Config
 			return setting;
 		}
 
-		/// <summary>Read all settings from the config file</summary>
+		/// <summary>Read all settings from the application config file</summary>
 		public void ReadConfig()
 		{
 			ReadContactSettings();
@@ -99,8 +99,8 @@ namespace ExceptionReporting.Config
 		{
 			_info.ExceptionOccuredMessage = GetLabelSetting("general").ReturnStringIfNotNull_Else(_info.ExceptionOccuredMessage);
 			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNull_Else(_info.UserExplanationLabel);
-			_info.ContactMessageTop = GetLabelSetting("contact_top").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
-			_info.ContactMessageBottom = GetLabelSetting("contact_bottom").ReturnStringIfNotNull_Else(_info.ContactMessageBottom);
+			_info.ContactMessageTop = GetLabelSetting("ContactTop").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
+			_info.ContactMessageBottom = GetLabelSetting("ContactBottom").ReturnStringIfNotNull_Else(_info.ContactMessageBottom);
 		}
 
 		public static IList<string> GetConfigKeyValuePairsToString()

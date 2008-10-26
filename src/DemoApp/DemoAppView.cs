@@ -10,25 +10,38 @@ namespace ExceptionReporting.DemoApp
 		{
 			InitializeComponent();
 
-			btnShowExceptionReport.Click += Throw_Click;
+			btnShowConfiguredExceptionReport.Click += Throw_Configured_Click;
+			btnShowNonConfiguredExceptionReport.Click += Throw_NonConfigured_Click;
 		}
 
-		private static void Throw_Click(object sender, EventArgs e)
+		private static void Throw_NonConfigured_Click(object sender, EventArgs e)
+		{
+			ShowExceptionReporter(false);
+		}
+
+		private static void Throw_Configured_Click(object sender, EventArgs e)
+		{
+			ShowExceptionReporter(true);
+		}
+
+		private static void ShowExceptionReporter(bool useConfig) 
 		{
 			try
 			{
 				SomeMethod();
-				
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
 				var exceptionReporter = new ExceptionReporter();
-				exceptionReporter.ReadConfig();
-//				exceptionReporter.Info.ShowSysInfoTab = false;
-				exceptionReporter.Show(ex);
-			}
 
-			Application.Exit();
+				if (useConfig)
+				{
+					exceptionReporter.ReadConfig();
+					exceptionReporter.Config.ShowFlatButtons = true;
+				}
+				
+				exceptionReporter.Show(exception);
+			}
 		}
 
 		private static void SomeMethod()

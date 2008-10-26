@@ -135,6 +135,7 @@ namespace ExceptionReporting.Views
 
 			_view.ProgressMessage = "Launching email program...";
 			_view.EnableEmailButton = false;
+
 			bool wasSuccessful = false;
 
 			try

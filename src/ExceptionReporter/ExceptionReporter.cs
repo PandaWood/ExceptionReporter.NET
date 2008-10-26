@@ -15,7 +15,7 @@ namespace ExceptionReporting
 		private const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
 		private const string DefaultExceptionOccuredMessage = "An exception has occured in this application";
 		private const string DefaultContactMessageBottom 
-			= "The information shown on this form describing the error and environment may be relevant when contacting support";
+			= "The information shown on this form may be relevant when contacting support";
 		private const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
 
 		private readonly ExceptionReportInfo _reportInfo;
@@ -38,7 +38,6 @@ namespace ExceptionReporting
 			              		ShowContactTab = true,
 			              		ShowConfigTab = true,
 			              		ShowAssembliesTab = true,
-			              		EnumeratePrinters = true,
 			              		ShowSysInfoTab = true,
 			              		ShowGeneralTab = true,
 			              		ExceptionDate = DateTime.Now,

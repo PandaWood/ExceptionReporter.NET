@@ -10,7 +10,6 @@ namespace ExceptionReporting.Core
 	{
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
-		public bool EnumeratePrinters { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
 		public Exception Exception { get; set; }
@@ -39,6 +38,9 @@ namespace ExceptionReporting.Core
 		public string ExceptionOccuredMessage { get; set; }
 		public string ContactMessageBottom { get; set; }
 		public string ContactMessageTop { get; set; }
+
+		// a code-only config item
+		public bool ShowFlatButtons { get; set; }
 
 		/// <summary>
 		/// Enumerated type used to represent supported e-mail mechanisms 

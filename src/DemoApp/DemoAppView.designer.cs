@@ -28,38 +28,49 @@ namespace ExceptionReporting.DemoApp
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnShowExceptionReport = new System.Windows.Forms.Button();
+			this.btnShowConfiguredExceptionReport = new System.Windows.Forms.Button();
+			this.btnShowNonConfiguredExceptionReport = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// btnShowExceptionReport
+			// btnShowConfiguredExceptionReport
 			// 
-			this.btnShowExceptionReport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.btnShowExceptionReport.FlatAppearance.BorderSize = 2;
-			this.btnShowExceptionReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.btnShowExceptionReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnShowExceptionReport.Location = new System.Drawing.Point(56, 21);
-			this.btnShowExceptionReport.Name = "btnShowExceptionReport";
-			this.btnShowExceptionReport.Size = new System.Drawing.Size(178, 36);
-			this.btnShowExceptionReport.TabIndex = 1;
-			this.btnShowExceptionReport.Text = "Show Exception Report";
+			this.btnShowConfiguredExceptionReport.FlatAppearance.BorderSize = 2;
+			this.btnShowConfiguredExceptionReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.btnShowConfiguredExceptionReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnShowConfiguredExceptionReport.Location = new System.Drawing.Point(12, 27);
+			this.btnShowConfiguredExceptionReport.Name = "btnShowConfiguredExceptionReport";
+			this.btnShowConfiguredExceptionReport.Size = new System.Drawing.Size(249, 30);
+			this.btnShowConfiguredExceptionReport.TabIndex = 1;
+			this.btnShowConfiguredExceptionReport.Text = "Show Configured Exception Report";
+			// 
+			// btnShowNonConfiguredExceptionReport
+			// 
+			this.btnShowNonConfiguredExceptionReport.FlatAppearance.BorderSize = 2;
+			this.btnShowNonConfiguredExceptionReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.btnShowNonConfiguredExceptionReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnShowNonConfiguredExceptionReport.Location = new System.Drawing.Point(12, 73);
+			this.btnShowNonConfiguredExceptionReport.Name = "btnShowNonConfiguredExceptionReport";
+			this.btnShowNonConfiguredExceptionReport.Size = new System.Drawing.Size(249, 30);
+			this.btnShowNonConfiguredExceptionReport.TabIndex = 2;
+			this.btnShowNonConfiguredExceptionReport.Text = "Show Non Configured Exception Report";
 			// 
 			// DemoAppView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(291, 79);
-			this.Controls.Add(this.btnShowExceptionReport);
+			this.ClientSize = new System.Drawing.Size(298, 132);
+			this.Controls.Add(this.btnShowNonConfiguredExceptionReport);
+			this.Controls.Add(this.btnShowConfiguredExceptionReport);
 			this.Name = "DemoAppView";
-			this.Text = "ExceptionReportView";
+			this.Text = "Exception Reporter Demo";
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.Button btnShowExceptionReport;
+		private System.Windows.Forms.Button btnShowConfiguredExceptionReport;
+		private System.Windows.Forms.Button btnShowNonConfiguredExceptionReport;
 
 	}
 }
