@@ -30,6 +30,8 @@ Basically, copy the sample config and edit as necessary.
 - I've also spent a fair chunk of time updating and improving the documentation by editing images, adding screenshots, 
 clarifying the explanations and including text-dumps of the Formatted Exception Report.
 
+NB* for those who downloaded and used versions prior to release, note that the config items contact_top and contact_bottom were renamed to ContactTop and ContactBottom (ie using CamelCase)
+
 [FUTURE MOVEMENTS]
 There is a WPF (Windows Presentation Foundation) project in the solution with the bare minimum of code. It's just a skeletal beginning.
 This is not part of this release, but hopefully will be ready for the next release, when we've had some time to work on it.
