@@ -30,7 +30,6 @@ namespace ExceptionReporting.Views
 			txtPhone.Text = reportInfo.Phone;
 			urlWeb.Text = reportInfo.WebUrl;
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
-			lblGeneral.Text = reportInfo.ExceptionOccuredMessage;
 			txtExceptionMessage.Text = reportInfo.Exception.Message;
 
 			txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();

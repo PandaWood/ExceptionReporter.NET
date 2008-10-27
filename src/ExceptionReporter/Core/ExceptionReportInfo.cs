@@ -35,12 +35,16 @@ namespace ExceptionReporting.Core
 
 		public string EmailReportAddress { get; set; }
 		public string UserExplanationLabel { get; set; }
-		public string ExceptionOccuredMessage { get; set; }
 		public string ContactMessageBottom { get; set; }
 		public string ContactMessageTop { get; set; }
 
 		// a code-only config item
 		public bool ShowFlatButtons { get; set; }
+
+		//todo
+		public bool ShowButtonIcons { get; set; }
+		public bool ShowWhiteBackground { get; set; }
+
 
 		/// <summary>
 		/// Enumerated type used to represent supported e-mail mechanisms 

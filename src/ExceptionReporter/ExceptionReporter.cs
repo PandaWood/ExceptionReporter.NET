@@ -31,7 +31,6 @@ namespace ExceptionReporting
 			_reportInfo = new ExceptionReportInfo
 			              	{
 			              		UserExplanationLabel = DefaultExplanationLabel,
-			              		ExceptionOccuredMessage = DefaultExceptionOccuredMessage,
 			              		ContactMessageBottom = DefaultContactMessageBottom,
 			              		ContactMessageTop = DefaultContactMessageTop,
 			              		ShowExceptionsTab = true,

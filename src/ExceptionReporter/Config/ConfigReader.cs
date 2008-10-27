@@ -97,7 +97,6 @@ namespace ExceptionReporting.Config
 
 		private void ReadLabelSettings()
 		{
-			_info.ExceptionOccuredMessage = GetLabelSetting("general").ReturnStringIfNotNull_Else(_info.ExceptionOccuredMessage);
 			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNull_Else(_info.UserExplanationLabel);
 			_info.ContactMessageTop = GetLabelSetting("ContactTop").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
 			_info.ContactMessageBottom = GetLabelSetting("ContactBottom").ReturnStringIfNotNull_Else(_info.ContactMessageBottom);
