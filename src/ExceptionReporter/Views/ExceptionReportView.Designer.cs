@@ -158,6 +158,7 @@
 			// 
 			this.txtExceptionMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtExceptionMessage.BackColor = System.Drawing.Color.White;
 			this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtExceptionMessage.Location = new System.Drawing.Point(78, 7);
 			this.txtExceptionMessage.Multiline = true;
@@ -203,7 +204,7 @@
 			// 
 			this.txtRegion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.txtRegion.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtRegion.BackColor = System.Drawing.Color.Snow;
 			this.txtRegion.Location = new System.Drawing.Point(310, 124);
 			this.txtRegion.Name = "txtRegion";
 			this.txtRegion.ReadOnly = true;
@@ -221,7 +222,7 @@
 			// 
 			// txtDate
 			// 
-			this.txtDate.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtDate.BackColor = System.Drawing.Color.Snow;
 			this.txtDate.Location = new System.Drawing.Point(78, 156);
 			this.txtDate.Name = "txtDate";
 			this.txtDate.ReadOnly = true;
@@ -241,7 +242,7 @@
 			// 
 			this.txtTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTime.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtTime.BackColor = System.Drawing.Color.Snow;
 			this.txtTime.Location = new System.Drawing.Point(310, 156);
 			this.txtTime.Name = "txtTime";
 			this.txtTime.ReadOnly = true;
@@ -261,7 +262,7 @@
 			// 
 			this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.txtApplicationName.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtApplicationName.BackColor = System.Drawing.Color.Snow;
 			this.txtApplicationName.Location = new System.Drawing.Point(78, 92);
 			this.txtApplicationName.Name = "txtApplicationName";
 			this.txtApplicationName.ReadOnly = true;
@@ -278,7 +279,7 @@
 			// 
 			// txtVersion
 			// 
-			this.txtVersion.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtVersion.BackColor = System.Drawing.Color.Snow;
 			this.txtVersion.Location = new System.Drawing.Point(78, 124);
 			this.txtVersion.Name = "txtVersion";
 			this.txtVersion.ReadOnly = true;
@@ -626,9 +627,9 @@
 			// lblProgressMessage
 			// 
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.lblProgressMessage.Location = new System.Drawing.Point(12, 380);
+			this.lblProgressMessage.Location = new System.Drawing.Point(12, 381);
 			this.lblProgressMessage.Name = "lblProgressMessage";
-			this.lblProgressMessage.Size = new System.Drawing.Size(262, 18);
+			this.lblProgressMessage.Size = new System.Drawing.Size(262, 16);
 			this.lblProgressMessage.TabIndex = 52;
 			this.lblProgressMessage.Text = "Loading system information...";
 			// 

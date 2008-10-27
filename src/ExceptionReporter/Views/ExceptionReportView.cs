@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
@@ -43,6 +44,22 @@ namespace ExceptionReporting.Views
 			btnCopy.FlatStyle = 
 				btnEmail.FlatStyle = 
 				btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
+
+			listviewExceptions.BackColor = 
+				listviewAssemblies.BackColor =
+				txtExceptionTabStackTrace.BackColor = 
+				txtFax.BackColor = 
+				txtMachine.BackColor =
+				txtPhone.BackColor =
+				txtRegion.BackColor =
+				txtTime.BackColor =
+				txtTime.BackColor =
+				txtUserName.BackColor =
+				txtVersion.BackColor =
+				txtApplicationName.BackColor =
+				txtDate.BackColor =
+				txtExceptionMessage.BackColor =
+				txtExceptionTabMessage.BackColor = reportInfo.ShowWhiteBackground ? Color.White : Color.WhiteSmoke;
 		}
 
 		~ExceptionReportView()
