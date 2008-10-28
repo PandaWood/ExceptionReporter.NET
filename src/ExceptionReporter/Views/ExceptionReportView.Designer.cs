@@ -71,7 +71,6 @@
 			this.urlWeb = new System.Windows.Forms.LinkLabel();
 			this.lblEmail = new System.Windows.Forms.Label();
 			this.urlEmail = new System.Windows.Forms.LinkLabel();
-			this.lblContactMessageBottom = new System.Windows.Forms.Label();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.progressBar = new System.Windows.Forms.ProgressBar();
 			this.btnEmail = new System.Windows.Forms.Button();
@@ -438,7 +437,7 @@
 			// 
 			this.txtUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUserName.BackColor = System.Drawing.SystemColors.Control;
-			this.txtUserName.Location = new System.Drawing.Point(320, 12);
+			this.txtUserName.Location = new System.Drawing.Point(320, 14);
 			this.txtUserName.Name = "txtUserName";
 			this.txtUserName.ReadOnly = true;
 			this.txtUserName.Size = new System.Drawing.Size(169, 20);
@@ -467,7 +466,6 @@
 			this.tabContact.Controls.Add(this.urlWeb);
 			this.tabContact.Controls.Add(this.lblEmail);
 			this.tabContact.Controls.Add(this.urlEmail);
-			this.tabContact.Controls.Add(this.lblContactMessageBottom);
 			this.tabContact.Location = new System.Drawing.Point(4, 22);
 			this.tabContact.Name = "tabContact";
 			this.tabContact.Size = new System.Drawing.Size(497, 348);
@@ -575,19 +573,6 @@
 			this.urlEmail.TabIndex = 29;
 			this.urlEmail.TabStop = true;
 			this.urlEmail.Text = "NA";
-			// 
-			// lblContactMessageBottom
-			// 
-			this.lblContactMessageBottom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.lblContactMessageBottom.Location = new System.Drawing.Point(11, 238);
-			this.lblContactMessageBottom.MinimumSize = new System.Drawing.Size(200, 0);
-			this.lblContactMessageBottom.Name = "lblContactMessageBottom";
-			this.lblContactMessageBottom.Size = new System.Drawing.Size(467, 110);
-			this.lblContactMessageBottom.TabIndex = 36;
-			this.lblContactMessageBottom.Text = "The information on this form describing the error and envrionment settings will b" +
-				"e of use when contacting support.";
 			// 
 			// btnSave
 			// 
@@ -716,7 +701,6 @@
 		private System.Windows.Forms.LinkLabel urlWeb;
 		private System.Windows.Forms.Label lblEmail;
 		private System.Windows.Forms.LinkLabel urlEmail;
-		private System.Windows.Forms.Label lblContactMessageBottom;
 		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.ProgressBar progressBar;
 		private System.Windows.Forms.Button btnEmail;

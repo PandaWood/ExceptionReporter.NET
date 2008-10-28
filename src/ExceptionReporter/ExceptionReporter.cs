@@ -12,12 +12,6 @@ namespace ExceptionReporting
 //	[ToolboxBitmap(typeof(ExceptionReporter), "ExceptionReporter")]
 	public class ExceptionReporter //: Component
 	{
-		private const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
-		private const string DefaultExceptionOccuredMessage = "An exception has occured in this application";
-		private const string DefaultContactMessageBottom 
-			= "The information shown on this form may be relevant when contacting support";
-		private const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
-
 		private readonly ExceptionReportInfo _reportInfo;
 
 		/// <summary>
@@ -29,24 +23,15 @@ namespace ExceptionReporting
 			InitializeComponent();
 
 			_reportInfo = new ExceptionReportInfo
-			              	{
-			              		UserExplanationLabel = DefaultExplanationLabel,
-			              		ContactMessageBottom = DefaultContactMessageBottom,
-			              		ContactMessageTop = DefaultContactMessageTop,
-			              		ShowExceptionsTab = true,
-			              		ShowContactTab = true,
-			              		ShowConfigTab = true,
-			              		ShowAssembliesTab = true,
-			              		ShowSysInfoTab = true,
-			              		ShowGeneralTab = true,
-			              		ExceptionDate = DateTime.Now,
-			              		UserName = Environment.UserName,
-			              		MachineName = Environment.MachineName,
-			              		AppName = Application.ProductName,
-			              		RegionInfo = Application.CurrentCulture.DisplayName,
-			              		AppVersion = Application.ProductVersion,
-			              		AppAssembly = Assembly.GetCallingAssembly()
-			        	};
+			{
+				ExceptionDate = DateTime.Now,
+			    UserName = Environment.UserName,
+			    MachineName = Environment.MachineName,
+			    AppName = Application.ProductName,
+			    RegionInfo = Application.CurrentCulture.DisplayName,
+			    AppVersion = Application.ProductVersion,
+			    AppAssembly = Assembly.GetCallingAssembly(),
+			};
 		}
 
 		public ExceptionReportInfo Config

@@ -99,7 +99,6 @@ namespace ExceptionReporting.Config
 		{
 			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNull_Else(_info.UserExplanationLabel);
 			_info.ContactMessageTop = GetLabelSetting("ContactTop").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
-			_info.ContactMessageBottom = GetLabelSetting("ContactBottom").ReturnStringIfNotNull_Else(_info.ContactMessageBottom);
 		}
 
 		public static IList<string> GetConfigKeyValuePairsToString()

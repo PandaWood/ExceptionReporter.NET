@@ -1,13 +1,20 @@
 using System;
+using System.Drawing;
 using System.Reflection;
 
 namespace ExceptionReporting.Core
 {
+	public class DefaultLabelMessages
+	{
+		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
+		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
+	}
 	/// <summary>
 	/// a bag of information (partly config) that is passed around and used in the Exception Report
 	/// </summary>
 	public class ExceptionReportInfo
 	{
+
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
@@ -35,16 +42,28 @@ namespace ExceptionReporting.Core
 
 		public string EmailReportAddress { get; set; }
 		public string UserExplanationLabel { get; set; }
-		public string ContactMessageBottom { get; set; }
 		public string ContactMessageTop { get; set; }
 
-		// a code-only config item
+		//todo add to app config
 		public bool ShowFlatButtons { get; set; }
-
-		//todo
 		public bool ShowButtonIcons { get; set; }
-		public bool ShowWhiteBackground { get; set; }
+		public Color BackgroundColor { get; set; }
 
+		public ExceptionReportInfo()
+		{
+			// defaults
+			ShowFlatButtons = true;
+			BackgroundColor = Color.WhiteSmoke;
+			ShowExceptionsTab = true;
+			ShowContactTab = false;
+			ShowConfigTab = true;
+			ShowAssembliesTab = true;
+			ShowSysInfoTab = true;
+			ShowGeneralTab = true;
+			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
+			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
+			EmailReportAddress = "support@**EnterEmailAddressHere**.com";		// the SimpleMAPI won't work if this is blank, so make one up
+		}
 
 		/// <summary>
 		/// Enumerated type used to represent supported e-mail mechanisms 

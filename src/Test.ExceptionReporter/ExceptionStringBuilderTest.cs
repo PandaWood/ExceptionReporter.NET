@@ -17,32 +17,44 @@ namespace Test.ExceptionReporter
 		public void CanBuild_ReferencedAssemblies_String()
 		{
 			Assembly dataAssembly = Assembly.GetExecutingAssembly();
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo
-			                                               	{
-			                                               		AppAssembly = dataAssembly, 
-																ShowAssembliesTab = true
-			                                               	});
+
+			ExceptionReportInfo reportInfo = CreateReportInfo();
+			reportInfo.ShowAssembliesTab = true;
+			reportInfo.AppAssembly = dataAssembly;
+
+			var stringBuilder = new ExceptionStringBuilder(reportInfo);
+
 			string assembliesString = stringBuilder.Build();
 
 			Assert.That(assembliesString, Is.Not.Null);
 			Assert.That(assembliesString.Length, Is.GreaterThan(0));
 
 			StringAssert.Contains("nunit", assembliesString);	// coupled to NUnit, but better than nothing
-			StringAssert.Contains("ExceptionReporter, Version=1.0.2.0\r\n", assembliesString);
+			StringAssert.Contains("ExceptionReporter, Version=", assembliesString);
+			StringAssert.Contains("System, Version=", assembliesString);
 			StringAssert.Contains(Environment.NewLine, assembliesString);
+		}
+
+		private static ExceptionReportInfo CreateReportInfo()
+		{
+			return new ExceptionReportInfo
+	        {
+				ShowAssembliesTab = false,
+	       		ShowConfigTab = false,
+	       		ShowGeneralTab = false,
+	       		ShowSysInfoTab = false,
+	       		ShowExceptionsTab = false,
+	        };
 		}
 
 		[Test]
 		public void CanBuild_HierarchyString_With_Root_And_InnerException()
 		{
-			Exception innerException = new ArgumentNullException("Inner" + "Exception");
-			var exception = new ArgumentOutOfRangeException("OuterException", innerException);
+			ExceptionReportInfo reportInfo = CreateReportInfo();
+			reportInfo.ShowExceptionsTab = true;
+			reportInfo.Exception = new ArgumentOutOfRangeException("OuterException", new ArgumentNullException("Inner" + "Exception"));
 
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo
-			                                               	{
-			                                               		ShowExceptionsTab = true, 
-																Exception = exception
-			                                               	});
+			var stringBuilder = new ExceptionStringBuilder(reportInfo);
 			string hierarchyString = stringBuilder.Build();
 
 			// created expected string
@@ -84,7 +96,10 @@ namespace Test.ExceptionReporter
 			expectedString.AppendLine().AppendDottedLine().AppendLine();
 
 			// we force only ShowSysInfoTab to "build a string" by passing an ExceptionReportInfo object with ShowSysInfoTab true
-			var stringBuilder = new ExceptionStringBuilder(new ExceptionReportInfo { ShowSysInfoTab = true }, results);
+			ExceptionReportInfo reportInfo = CreateReportInfo();
+			reportInfo.ShowSysInfoTab = true;
+
+			var stringBuilder = new ExceptionStringBuilder(reportInfo, results);
 			string sysInfoString = stringBuilder.Build();
 
 			Assert.That(sysInfoString, Is.EqualTo(expectedString.ToString()));

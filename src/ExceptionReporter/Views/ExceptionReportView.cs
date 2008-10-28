@@ -26,7 +26,6 @@ namespace ExceptionReporting.Views
 		{
 			urlEmail.Text = reportInfo.ContactEmail;
 			txtFax.Text = reportInfo.Fax;
-			lblContactMessageBottom.Text = reportInfo.ContactMessageBottom;
 			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
 			txtPhone.Text = reportInfo.Phone;
 			urlWeb.Text = reportInfo.WebUrl;
@@ -59,7 +58,7 @@ namespace ExceptionReporting.Views
 				txtApplicationName.BackColor =
 				txtDate.BackColor =
 				txtExceptionMessage.BackColor =
-				txtExceptionTabMessage.BackColor = reportInfo.ShowWhiteBackground ? Color.White : Color.WhiteSmoke;
+				txtExceptionTabMessage.BackColor = reportInfo.BackgroundColor;
 		}
 
 		~ExceptionReportView()
@@ -75,6 +74,14 @@ namespace ExceptionReporting.Views
 			urlEmail.LinkClicked += EmailLink_Clicked;
 			btnSave.Click += Save_Click;
 			urlWeb.LinkClicked += UrlLink_Clicked;
+			KeyPreview = true;
+			this.KeyDown += ExceptionReportView_KeyDown;
+		}
+
+		void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+				this.Close();
 		}
 
 		public string ProgressMessage
