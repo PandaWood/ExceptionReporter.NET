@@ -53,6 +53,7 @@ namespace ExceptionReporting.Core
 		{
 			// defaults
 			ShowFlatButtons = true;
+			ShowButtonIcons = true;
 			BackgroundColor = Color.WhiteSmoke;
 			ShowExceptionsTab = true;
 			ShowContactTab = false;

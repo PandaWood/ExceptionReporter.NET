@@ -580,7 +580,7 @@
 			this.btnSave.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
 			this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnSave.Location = new System.Drawing.Point(358, 383);
+			this.btnSave.Location = new System.Drawing.Point(360, 383);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(72, 32);
 			this.btnSave.TabIndex = 56;
@@ -602,7 +602,7 @@
 			this.btnEmail.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
 			this.btnEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnEmail.Location = new System.Drawing.Point(436, 383);
+			this.btnEmail.Location = new System.Drawing.Point(438, 383);
 			this.btnEmail.Name = "btnEmail";
 			this.btnEmail.Size = new System.Drawing.Size(72, 32);
 			this.btnEmail.TabIndex = 57;
@@ -612,9 +612,11 @@
 			// lblProgressMessage
 			// 
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.lblProgressMessage.AutoSize = true;
+			this.lblProgressMessage.BackColor = System.Drawing.Color.Transparent;
 			this.lblProgressMessage.Location = new System.Drawing.Point(12, 381);
 			this.lblProgressMessage.Name = "lblProgressMessage";
-			this.lblProgressMessage.Size = new System.Drawing.Size(262, 16);
+			this.lblProgressMessage.Size = new System.Drawing.Size(143, 13);
 			this.lblProgressMessage.TabIndex = 52;
 			this.lblProgressMessage.Text = "Loading system information...";
 			// 
@@ -624,7 +626,7 @@
 			this.btnCopy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnCopy.Image")));
 			this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnCopy.Location = new System.Drawing.Point(280, 383);
+			this.btnCopy.Location = new System.Drawing.Point(282, 383);
 			this.btnCopy.Name = "btnCopy";
 			this.btnCopy.Size = new System.Drawing.Size(72, 32);
 			this.btnCopy.TabIndex = 55;
@@ -658,6 +660,7 @@
 			this.tabContact.ResumeLayout(false);
 			this.tabContact.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
+using TreeNode=System.Windows.Forms.TreeNode;
 
 namespace ExceptionReporting.Views
 {
@@ -59,6 +60,18 @@ namespace ExceptionReporting.Views
 				txtDate.BackColor =
 				txtExceptionMessage.BackColor =
 				txtExceptionTabMessage.BackColor = reportInfo.BackgroundColor;
+
+			if (!reportInfo.ShowButtonIcons)
+			{	// quite a lot of trouble for not much, but we want to make the "don't want icons on buttons" people happy with the look
+				btnCopy.Image = btnEmail.Image = btnSave.Image = null;
+				btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
+				btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
+				btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
+
+				btnCopy.Location = Point.Add(btnCopy.Location, new Size(new Point(0, 3)));
+				btnEmail.Location = Point.Add(btnEmail.Location, new Size(new Point(0, 3)));
+				btnSave.Location = Point.Add(btnSave.Location, new Size(new Point(0, 3)));
+			}
 		}
 
 		~ExceptionReportView()

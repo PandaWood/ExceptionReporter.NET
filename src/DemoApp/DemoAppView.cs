@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -37,7 +38,9 @@ namespace ExceptionReporting.DemoApp
 				if (useConfig)
 				{
 					exceptionReporter.ReadConfig();
-					exceptionReporter.Config.ShowFlatButtons = true;
+					exceptionReporter.Config.ShowButtonIcons = false;
+					exceptionReporter.Config.ShowFlatButtons = false;
+					exceptionReporter.Config.BackgroundColor = Color.White;
 				}
 				
 				exceptionReporter.Show(exception);
