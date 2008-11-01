@@ -28,49 +28,50 @@ namespace ExceptionReporting.DemoApp
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnShowConfiguredExceptionReport = new System.Windows.Forms.Button();
-			this.btnShowNonConfiguredExceptionReport = new System.Windows.Forms.Button();
+			this.urlDefault = new System.Windows.Forms.LinkLabel();
+			this.urlConfigured = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
-			// btnShowConfiguredExceptionReport
+			// urlDefault
 			// 
-			this.btnShowConfiguredExceptionReport.FlatAppearance.BorderSize = 2;
-			this.btnShowConfiguredExceptionReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.btnShowConfiguredExceptionReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnShowConfiguredExceptionReport.Location = new System.Drawing.Point(12, 27);
-			this.btnShowConfiguredExceptionReport.Name = "btnShowConfiguredExceptionReport";
-			this.btnShowConfiguredExceptionReport.Size = new System.Drawing.Size(249, 30);
-			this.btnShowConfiguredExceptionReport.TabIndex = 1;
-			this.btnShowConfiguredExceptionReport.Text = "Show Configured Exception Report";
+			this.urlDefault.AutoSize = true;
+			this.urlDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.urlDefault.Location = new System.Drawing.Point(12, 19);
+			this.urlDefault.Name = "urlDefault";
+			this.urlDefault.Size = new System.Drawing.Size(192, 16);
+			this.urlDefault.TabIndex = 3;
+			this.urlDefault.TabStop = true;
+			this.urlDefault.Text = "Show Default Exception Report";
 			// 
-			// btnShowNonConfiguredExceptionReport
+			// urlConfigured
 			// 
-			this.btnShowNonConfiguredExceptionReport.FlatAppearance.BorderSize = 2;
-			this.btnShowNonConfiguredExceptionReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.btnShowNonConfiguredExceptionReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnShowNonConfiguredExceptionReport.Location = new System.Drawing.Point(12, 73);
-			this.btnShowNonConfiguredExceptionReport.Name = "btnShowNonConfiguredExceptionReport";
-			this.btnShowNonConfiguredExceptionReport.Size = new System.Drawing.Size(249, 30);
-			this.btnShowNonConfiguredExceptionReport.TabIndex = 2;
-			this.btnShowNonConfiguredExceptionReport.Text = "Show Non Configured Exception Report";
+			this.urlConfigured.AutoSize = true;
+			this.urlConfigured.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.urlConfigured.Location = new System.Drawing.Point(12, 54);
+			this.urlConfigured.Name = "urlConfigured";
+			this.urlConfigured.Size = new System.Drawing.Size(215, 16);
+			this.urlConfigured.TabIndex = 4;
+			this.urlConfigured.TabStop = true;
+			this.urlConfigured.Text = "Show Configured Exception Report";
 			// 
 			// DemoAppView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(298, 132);
-			this.Controls.Add(this.btnShowNonConfiguredExceptionReport);
-			this.Controls.Add(this.btnShowConfiguredExceptionReport);
+			this.Controls.Add(this.urlConfigured);
+			this.Controls.Add(this.urlDefault);
 			this.Name = "DemoAppView";
 			this.Text = "Exception Reporter Demo";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.Button btnShowConfiguredExceptionReport;
-		private System.Windows.Forms.Button btnShowNonConfiguredExceptionReport;
+		private System.Windows.Forms.LinkLabel urlDefault;
+		private System.Windows.Forms.LinkLabel urlConfigured;
 
 	}
 }

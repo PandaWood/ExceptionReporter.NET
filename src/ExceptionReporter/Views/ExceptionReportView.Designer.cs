@@ -136,6 +136,7 @@
 			this.tabGeneral.Controls.Add(this.txtApplicationName);
 			this.tabGeneral.Controls.Add(this.lblVersion);
 			this.tabGeneral.Controls.Add(this.txtVersion);
+			this.tabGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tabGeneral.Name = "tabGeneral";
 			this.tabGeneral.Size = new System.Drawing.Size(497, 348);
@@ -158,7 +159,7 @@
 			this.txtExceptionMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExceptionMessage.BackColor = System.Drawing.Color.White;
-			this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtExceptionMessage.Location = new System.Drawing.Point(78, 7);
 			this.txtExceptionMessage.Multiline = true;
 			this.txtExceptionMessage.Name = "txtExceptionMessage";
@@ -171,7 +172,7 @@
 			// lblExplanation
 			// 
 			this.lblExplanation.AutoSize = true;
-			this.lblExplanation.Location = new System.Drawing.Point(5, 194);
+			this.lblExplanation.Location = new System.Drawing.Point(6, 191);
 			this.lblExplanation.Name = "lblExplanation";
 			this.lblExplanation.Size = new System.Drawing.Size(334, 13);
 			this.lblExplanation.TabIndex = 14;
@@ -302,7 +303,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(5, 219);
+			this.label2.Location = new System.Drawing.Point(5, 213);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(66, 13);
 			this.label2.TabIndex = 28;
@@ -314,18 +315,18 @@
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExceptionTabStackTrace.BackColor = System.Drawing.SystemColors.Window;
-			this.txtExceptionTabStackTrace.Location = new System.Drawing.Point(8, 235);
+			this.txtExceptionTabStackTrace.Location = new System.Drawing.Point(18, 231);
 			this.txtExceptionTabStackTrace.Multiline = true;
 			this.txtExceptionTabStackTrace.Name = "txtExceptionTabStackTrace";
 			this.txtExceptionTabStackTrace.ReadOnly = true;
 			this.txtExceptionTabStackTrace.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtExceptionTabStackTrace.Size = new System.Drawing.Size(481, 99);
+			this.txtExceptionTabStackTrace.Size = new System.Drawing.Size(471, 107);
 			this.txtExceptionTabStackTrace.TabIndex = 26;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(5, 131);
+			this.label1.Location = new System.Drawing.Point(5, 135);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(50, 13);
 			this.label1.TabIndex = 27;
@@ -336,12 +337,12 @@
 			this.txtExceptionTabMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtExceptionTabMessage.BackColor = System.Drawing.SystemColors.Window;
-			this.txtExceptionTabMessage.Location = new System.Drawing.Point(8, 147);
+			this.txtExceptionTabMessage.Location = new System.Drawing.Point(18, 153);
 			this.txtExceptionTabMessage.Multiline = true;
 			this.txtExceptionTabMessage.Name = "txtExceptionTabMessage";
 			this.txtExceptionTabMessage.ReadOnly = true;
 			this.txtExceptionTabMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtExceptionTabMessage.Size = new System.Drawing.Size(481, 69);
+			this.txtExceptionTabMessage.Size = new System.Drawing.Size(471, 52);
 			this.txtExceptionTabMessage.TabIndex = 24;
 			// 
 			// listviewExceptions

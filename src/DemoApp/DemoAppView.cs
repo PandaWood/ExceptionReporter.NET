@@ -11,8 +11,8 @@ namespace ExceptionReporting.DemoApp
 		{
 			InitializeComponent();
 
-			btnShowConfiguredExceptionReport.Click += Throw_Configured_Click;
-			btnShowNonConfiguredExceptionReport.Click += Throw_NonConfigured_Click;
+			urlConfigured.Click += Throw_Configured_Click;
+			urlDefault.Click += Throw_NonConfigured_Click;
 		}
 
 		private static void Throw_NonConfigured_Click(object sender, EventArgs e)
