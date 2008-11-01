@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
@@ -62,19 +63,31 @@ namespace ExceptionReporting.Views
 				txtExceptionTabMessage.BackColor = reportInfo.BackgroundColor;
 
 			if (!reportInfo.ShowButtonIcons)
-			{	// quite a lot of trouble for not much, but we want to make the "don't want icons on buttons" people happy with the look
-				btnCopy.Image = btnEmail.Image = btnSave.Image = null;
-				btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
-				btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
-				btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
-
-				btnCopy.Location = Point.Add(btnCopy.Location, new Size(new Point(0, 3)));
-				btnEmail.Location = Point.Add(btnEmail.Location, new Size(new Point(0, 3)));
-				btnSave.Location = Point.Add(btnSave.Location, new Size(new Point(0, 3)));
+			{	
+				RemoveButtonIcons();
 			}
 
 			this.Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
+
+			if (reportInfo.TakeScreenshotOnLoad)
+				reportInfo.ScreenshotBitmap = ScreenshotHelper.ScreenShot();
+		}
+
+		private void RemoveButtonIcons() 
+		{
+			// removing the icons, requires a bit of reshuffling of positions
+			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
+			btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
+			btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
+			btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
+			ShiftDown3Pixels(new[] { btnCopy, btnEmail, btnSave });
+		}
+
+		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
+		{
+			foreach (var button in buttons)
+				button.Location = Point.Add(button.Location, new Size(new Point(0, 3)));
 		}
 
 		~ExceptionReportView()

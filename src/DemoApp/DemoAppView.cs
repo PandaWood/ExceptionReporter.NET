@@ -41,6 +41,7 @@ namespace ExceptionReporting.DemoApp
 					exceptionReporter.Config.ShowButtonIcons = false;
 					exceptionReporter.Config.ShowFlatButtons = false;
 					exceptionReporter.Config.BackgroundColor = Color.White;
+					exceptionReporter.Config.TakeScreenshotOnLoad = true;
 				}
 				
 				exceptionReporter.Show(exception);

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net.Mail;
 using ExceptionReporting.Core;
 using Win32Mapi;
@@ -35,6 +36,12 @@ namespace ExceptionReporting.Mail
 			                      	: _reportInfo.EmailReportAddress;
 
 			mapi.AddRecipient(emailAddress, null, false);
+
+			if (_reportInfo.TakeScreenshotOnLoad && _reportInfo.ScreenshotBitmap != null)
+			{
+				mapi.Attach(ScreenshotHelper.GetBitmapAsFile(_reportInfo.ScreenshotBitmap));
+			}
+
 			mapi.Send(CreateSubject(), exceptionString, true);
 			mapi.Logoff();
 		}
@@ -49,12 +56,16 @@ namespace ExceptionReporting.Mail
 									Subject = CreateSubject() 
 			                  	};
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
+
+			if (_reportInfo.TakeScreenshotOnLoad && _reportInfo.ScreenshotBitmap != null)
+				mailMessage.Attachments.Add(new Attachment(ScreenshotHelper.GetBitmapAsFile(_reportInfo.ScreenshotBitmap), "image/bmp"));
+
 			return mailMessage;
 		}
 
 		private string CreateSubject()
 		{
-			return string.Format("Exception Report for {0} v{1}", _reportInfo.AppName, _reportInfo.AppVersion);
+			return string.Format(_reportInfo.TitleText + " for {0} v{1}", _reportInfo.AppName, _reportInfo.AppVersion);
 		}
 	}
 }

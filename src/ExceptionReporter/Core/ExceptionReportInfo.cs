@@ -49,6 +49,8 @@ namespace ExceptionReporting.Core
 		public Color BackgroundColor { get; set; }
 		public string TitleText { get; set; }
 		public float UserExplanationFontSize { get; set; }
+		public bool TakeScreenshotOnLoad { get; set; }
+		public Bitmap ScreenshotBitmap { get; set; }
 
 		public ExceptionReportInfo()
 		{
@@ -67,6 +69,7 @@ namespace ExceptionReporting.Core
 			EmailReportAddress = "support@someemailaddress.com";		// the SimpleMAPI won't work if this is blank, so make one up
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
+			TakeScreenshotOnLoad = false;
 		}
 
 		/// <summary>
