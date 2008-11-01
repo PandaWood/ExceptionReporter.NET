@@ -52,6 +52,11 @@ namespace ExceptionReporting.Core
 		public bool TakeScreenshotOnLoad { get; set; }
 		public Bitmap ScreenshotBitmap { get; set; }
 
+		public bool ScreenshotAvailable 
+		{ 
+			get { return TakeScreenshotOnLoad && ScreenshotBitmap != null; }
+		}
+
 		public ExceptionReportInfo()
 		{
 			// defaults
