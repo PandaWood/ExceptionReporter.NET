@@ -106,7 +106,7 @@ namespace ExceptionReporting.Views
 		{
 			string exceptionString = BuildExceptionString();
 			Clipboard.SetDataObject(exceptionString, true);
-			_view.ProgressMessage = "Exception Report copied to clipboard";
+			_view.ProgressMessage = string.Format("{0} copied to clipboard", _reportInfo.TitleText);
 		}
 
 		private void SendSmtpMail()
@@ -153,11 +153,6 @@ namespace ExceptionReporting.Views
 			{
 				_view.SetEmailCompletedState_WithMessageIfSuccess(wasSuccessful, string.Empty);
 			}
-		}
-
-		public void PrintReport()
-		{	
-			//TODO ignore printing for the moment, come back to it
 		}
 
 		public TreeNode CreateConfigTree()

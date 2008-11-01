@@ -72,6 +72,9 @@ namespace ExceptionReporting.Views
 				btnEmail.Location = Point.Add(btnEmail.Location, new Size(new Point(0, 3)));
 				btnSave.Location = Point.Add(btnSave.Location, new Size(new Point(0, 3)));
 			}
+
+			this.Text = reportInfo.TitleText;
+			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 		}
 
 		~ExceptionReportView()

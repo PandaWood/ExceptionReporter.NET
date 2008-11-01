@@ -183,8 +183,8 @@
 			this.txtUserExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUserExplanation.BackColor = System.Drawing.Color.LemonChiffon;
-			this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtUserExplanation.BackColor = System.Drawing.Color.Cornsilk;
+			this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtUserExplanation.Location = new System.Drawing.Point(8, 210);
 			this.txtUserExplanation.Multiline = true;
 			this.txtUserExplanation.Name = "txtUserExplanation";
@@ -591,7 +591,7 @@
 			// progressBar
 			// 
 			this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.progressBar.Location = new System.Drawing.Point(12, 399);
+			this.progressBar.Location = new System.Drawing.Point(5, 399);
 			this.progressBar.Name = "progressBar";
 			this.progressBar.Size = new System.Drawing.Size(141, 16);
 			this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -615,7 +615,7 @@
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblProgressMessage.AutoSize = true;
 			this.lblProgressMessage.BackColor = System.Drawing.Color.Transparent;
-			this.lblProgressMessage.Location = new System.Drawing.Point(12, 381);
+			this.lblProgressMessage.Location = new System.Drawing.Point(3, 383);
 			this.lblProgressMessage.Name = "lblProgressMessage";
 			this.lblProgressMessage.Size = new System.Drawing.Size(143, 13);
 			this.lblProgressMessage.TabIndex = 52;

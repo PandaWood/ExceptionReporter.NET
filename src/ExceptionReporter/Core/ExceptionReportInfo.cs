@@ -14,7 +14,6 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReportInfo
 	{
-
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
@@ -48,6 +47,8 @@ namespace ExceptionReporting.Core
 		public bool ShowFlatButtons { get; set; }
 		public bool ShowButtonIcons { get; set; }
 		public Color BackgroundColor { get; set; }
+		public string TitleText { get; set; }
+		public float UserExplanationFontSize { get; set; }
 
 		public ExceptionReportInfo()
 		{
@@ -63,7 +64,9 @@ namespace ExceptionReporting.Core
 			ShowGeneralTab = true;
 			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
 			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-			EmailReportAddress = "support@**EnterEmailAddressHere**.com";		// the SimpleMAPI won't work if this is blank, so make one up
+			EmailReportAddress = "support@someemailaddress.com";		// the SimpleMAPI won't work if this is blank, so make one up
+			TitleText = "Exception Report";
+			UserExplanationFontSize = 12f;
 		}
 
 		/// <summary>
