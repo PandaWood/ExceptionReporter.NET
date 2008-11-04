@@ -9,30 +9,26 @@ namespace ExceptionReporting.Core
 	{
 		public static Bitmap ScreenShot()
 		{
-			Rectangle totalSize = Rectangle.Empty;
+			Rectangle rectangle = Rectangle.Empty;
 
-			foreach (Screen s in Screen.AllScreens)
-				totalSize = Rectangle.Union(totalSize, s.Bounds);
+			foreach (Screen screen in Screen.AllScreens)
+			{
+				rectangle = Rectangle.Union(rectangle, screen.Bounds);
+			}
 
-			var screenShotBMP = new Bitmap(
-				totalSize.Width, totalSize.Height,
-				PixelFormat.Format32bppArgb);
+			var bitmap = new Bitmap(rectangle.Width, rectangle.Height, PixelFormat.Format32bppArgb);
 
-			Graphics screenShotGraphics = Graphics.FromImage(screenShotBMP);
+			using (Graphics graphics = Graphics.FromImage(bitmap))
+			{
+				graphics.CopyFromScreen(rectangle.X, rectangle.Y, 0, 0, rectangle.Size, CopyPixelOperation.SourceCopy);
+			}
 
-			screenShotGraphics.CopyFromScreen(
-				totalSize.X, totalSize.Y,
-				0, 0, totalSize.Size,
-				CopyPixelOperation.SourceCopy);
-
-			screenShotGraphics.Dispose();
-
-			return screenShotBMP;
+			return bitmap;
 		}
 
 		public static string GetBitmapAsFile(Bitmap bitmap)
 		{
-			string tempFileName = Path.GetTempPath() + "screenshot.bmp";
+			string tempFileName = Path.GetTempPath() + "ExceptionReporter_Screenshot.bmp";
 			bitmap.Save(tempFileName);
 			return tempFileName;
 		}

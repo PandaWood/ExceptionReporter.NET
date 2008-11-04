@@ -37,6 +37,11 @@ namespace ExceptionReporting.Config
 			return GetConfigSetting("LabelMessages", configName);
 		}
 
+		private static string GetUserInterfaceSetting(string configName)
+		{
+			return GetConfigSetting("UserInterface", configName);
+		}
+
 		private static string GetConfigSetting(string sectionName, string configName)
 		{
 			NameValueCollection sections = ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
@@ -53,6 +58,7 @@ namespace ExceptionReporting.Config
 			ReadTabSettings();
 			ReadMailSettings();
 			ReadLabelSettings();
+			ReadUserInterfaceSettings();
 		}
 
 		private void ReadContactSettings()
@@ -99,6 +105,14 @@ namespace ExceptionReporting.Config
 		{
 			_info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNull_Else(_info.UserExplanationLabel);
 			_info.ContactMessageTop = GetLabelSetting("ContactTop").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
+		}
+
+		private void ReadUserInterfaceSettings()
+		{
+			_info.ShowFlatButtons = GetUserInterfaceSetting("ShowFlatButtons").ReturnBoolfNotNull_Else(_info.ShowFlatButtons);
+			_info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").ReturnBoolfNotNull_Else(_info.ShowButtonIcons);
+			_info.TitleText = GetUserInterfaceSetting("TitleText").ReturnStringIfNotNull_Else(_info.TitleText);
+			_info.TakeScreenshotOnLoad = GetUserInterfaceSetting("TakeScreenshotOnLoad").ReturnBoolfNotNull_Else(_info.TakeScreenshotOnLoad);
 		}
 
 		public static IList<string> GetConfigKeyValuePairsToString()

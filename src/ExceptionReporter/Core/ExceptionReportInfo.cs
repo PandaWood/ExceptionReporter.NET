@@ -71,7 +71,7 @@ namespace ExceptionReporting.Core
 			ShowGeneralTab = true;
 			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
 			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-			EmailReportAddress = "support@someemailaddress.com";		// the SimpleMAPI won't work if this is blank, so make one up
+			EmailReportAddress = "support@sampleemail.com";		// the SimpleMAPI won't work if this is blank, so make one up
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
 			TakeScreenshotOnLoad = false;
