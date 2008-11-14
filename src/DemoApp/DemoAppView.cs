@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -36,13 +35,7 @@ namespace ExceptionReporting.DemoApp
 				var exceptionReporter = new ExceptionReporter();
 
 				if (useConfig)
-				{
 					exceptionReporter.ReadConfig();
-					exceptionReporter.Config.ShowButtonIcons = false;
-					exceptionReporter.Config.ShowFlatButtons = false;
-					exceptionReporter.Config.BackgroundColor = Color.White;
-					exceptionReporter.Config.TakeScreenshotOnLoad = true;
-				}
 				
 				exceptionReporter.Show(exception);
 			}
@@ -60,8 +53,10 @@ namespace ExceptionReporting.DemoApp
 
 		private static void AndAnotherOne()
 		{
-			var exception = new IOException("Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.",
-												new Exception("This is an Inner Exception message - with a message that is not too small but then again, perhaps it should be smaller"));
+			var exception = new IOException(
+				"Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.",
+					new Exception(
+						"This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller"));
 			throw exception;
 		}
 	}

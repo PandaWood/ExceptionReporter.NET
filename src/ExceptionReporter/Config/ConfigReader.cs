@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Globalization;
 using ExceptionReporting.Core;
 using ExceptionReporting.Extensions;
 
 namespace ExceptionReporting.Config
 {
-	internal class ConfigReader
+	public class ConfigReader
 	{
 		const string SMTP = "SMTP";
 
@@ -112,7 +113,14 @@ namespace ExceptionReporting.Config
 			_info.ShowFlatButtons = GetUserInterfaceSetting("ShowFlatButtons").ReturnBoolfNotNull_Else(_info.ShowFlatButtons);
 			_info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").ReturnBoolfNotNull_Else(_info.ShowButtonIcons);
 			_info.TitleText = GetUserInterfaceSetting("TitleText").ReturnStringIfNotNull_Else(_info.TitleText);
-			_info.TakeScreenshotOnLoad = GetUserInterfaceSetting("TakeScreenshotOnLoad").ReturnBoolfNotNull_Else(_info.TakeScreenshotOnLoad);
+			_info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").ReturnBoolfNotNull_Else(_info.TakeScreenshot);
+
+			float fontSize;
+			string fontSizeAsString = GetUserInterfaceSetting("UserExplanationFontSize");
+			if (float.TryParse(fontSizeAsString, NumberStyles.Float, CultureInfo.CurrentCulture.NumberFormat, out fontSize))
+			{
+				_info.UserExplanationFontSize = fontSize;
+			}
 		}
 
 		public static IList<string> GetConfigKeyValuePairsToString()

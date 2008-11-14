@@ -28,7 +28,7 @@ namespace ExceptionReporting.Core
 
 		public static string GetBitmapAsFile(Bitmap bitmap)
 		{
-			string tempFileName = Path.GetTempPath() + "ExceptionReporter_Screenshot.bmp";
+			string tempFileName = Path.GetTempPath() + "ExceptionReport_Screenshot.bmp";
 			bitmap.Save(tempFileName);
 			return tempFileName;
 		}

@@ -43,18 +43,19 @@ namespace ExceptionReporting.Core
 		public string UserExplanationLabel { get; set; }
 		public string ContactMessageTop { get; set; }
 
-		//todo add to app config
 		public bool ShowFlatButtons { get; set; }
 		public bool ShowButtonIcons { get; set; }
-		public Color BackgroundColor { get; set; }
 		public string TitleText { get; set; }
+
+		public Color BackgroundColor { get; set; }
 		public float UserExplanationFontSize { get; set; }
-		public bool TakeScreenshotOnLoad { get; set; }
+
+		public bool TakeScreenshot { get; set; }
 		public Bitmap ScreenshotBitmap { get; set; }
 
 		public bool ScreenshotAvailable 
 		{ 
-			get { return TakeScreenshotOnLoad && ScreenshotBitmap != null; }
+			get { return TakeScreenshot && ScreenshotBitmap != null; }
 		}
 
 		public ExceptionReportInfo()
@@ -74,7 +75,7 @@ namespace ExceptionReporting.Core
 			EmailReportAddress = "support@sampleemail.com";		// the SimpleMAPI won't work if this is blank, so make one up
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
-			TakeScreenshotOnLoad = false;
+			TakeScreenshot = false;
 		}
 
 		/// <summary>
