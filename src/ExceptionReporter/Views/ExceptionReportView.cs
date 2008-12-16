@@ -18,7 +18,6 @@ namespace ExceptionReporting.Views
 			InitializeComponent();
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo);
-
 			WireUpEvents();
 			PopulateTabs();
 			PopulateReportInfo(reportInfo);
@@ -32,9 +31,12 @@ namespace ExceptionReporting.Views
 			txtPhone.Text = reportInfo.Phone;
 			urlWeb.Text = reportInfo.WebUrl;
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
-			txtExceptionMessage.Text = reportInfo.Exception.Message;
 
-			txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
+		    txtExceptionMessage.Text = 
+                !string.IsNullOrEmpty(reportInfo.CustomMessage) ?
+                    reportInfo.CustomMessage : reportInfo.Exception.Message;
+
+		    txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
 			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
 			txtUserName.Text = reportInfo.UserName;
 			txtMachine.Text = reportInfo.MachineName;

@@ -13,6 +13,7 @@ namespace ExceptionReporting
 	public class ExceptionReporter //: Component
 	{
 		private readonly ExceptionReportInfo _reportInfo;
+	    private string _customMessage;
 
 		/// <summary>
 		/// initialise the ExceptionReporter
@@ -52,7 +53,7 @@ namespace ExceptionReporting
 			{
 				_reportInfo.Exception = exception;
 
-				var reportView = new ExceptionReportView(_reportInfo);
+                var reportView = new ExceptionReportView(_reportInfo);
 				reportView.ShowExceptionReport();
 			}
 			catch (Exception internalException)
@@ -60,6 +61,12 @@ namespace ExceptionReporting
 				ShowInternalException("An exception occurred while trying to show the Exception Report", internalException);
 			}
 		}
+
+        public void Show(string customMessage, Exception exception)
+        {
+            _reportInfo.CustomMessage = customMessage;
+            Show(exception);
+        }
 
 		/// <summary>
 		/// Read settings from config file

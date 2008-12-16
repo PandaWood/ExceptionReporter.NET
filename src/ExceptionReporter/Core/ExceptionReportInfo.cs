@@ -14,7 +14,8 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReportInfo
 	{
-		public string SmtpUsername { get; set; }
+        public string CustomMessage { get; set; }
+	    public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }

@@ -28,43 +28,56 @@ namespace ExceptionReporting.DemoApp
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.urlDefault = new System.Windows.Forms.LinkLabel();
-			this.urlConfigured = new System.Windows.Forms.LinkLabel();
-			this.SuspendLayout();
-			// 
-			// urlDefault
-			// 
-			this.urlDefault.AutoSize = true;
-			this.urlDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.urlDefault.Location = new System.Drawing.Point(12, 19);
-			this.urlDefault.Name = "urlDefault";
-			this.urlDefault.Size = new System.Drawing.Size(192, 16);
-			this.urlDefault.TabIndex = 3;
-			this.urlDefault.TabStop = true;
-			this.urlDefault.Text = "Show Default Exception Report";
-			// 
-			// urlConfigured
-			// 
-			this.urlConfigured.AutoSize = true;
-			this.urlConfigured.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.urlConfigured.Location = new System.Drawing.Point(12, 54);
-			this.urlConfigured.Name = "urlConfigured";
-			this.urlConfigured.Size = new System.Drawing.Size(215, 16);
-			this.urlConfigured.TabIndex = 4;
-			this.urlConfigured.TabStop = true;
-			this.urlConfigured.Text = "Show Configured Exception Report";
-			// 
-			// DemoAppView
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(298, 132);
-			this.Controls.Add(this.urlConfigured);
-			this.Controls.Add(this.urlDefault);
-			this.Name = "DemoAppView";
-			this.Text = "Exception Reporter Demo";
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.urlDefault = new System.Windows.Forms.LinkLabel();
+            this.urlConfigured = new System.Windows.Forms.LinkLabel();
+            this.urlCustomMessage = new System.Windows.Forms.LinkLabel();
+            this.SuspendLayout();
+            // 
+            // urlDefault
+            // 
+            this.urlDefault.AutoSize = true;
+            this.urlDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.urlDefault.Location = new System.Drawing.Point(12, 19);
+            this.urlDefault.Name = "urlDefault";
+            this.urlDefault.Size = new System.Drawing.Size(192, 16);
+            this.urlDefault.TabIndex = 3;
+            this.urlDefault.TabStop = true;
+            this.urlDefault.Text = "Show Default Exception Report";
+            // 
+            // urlConfigured
+            // 
+            this.urlConfigured.AutoSize = true;
+            this.urlConfigured.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.urlConfigured.Location = new System.Drawing.Point(12, 54);
+            this.urlConfigured.Name = "urlConfigured";
+            this.urlConfigured.Size = new System.Drawing.Size(215, 16);
+            this.urlConfigured.TabIndex = 4;
+            this.urlConfigured.TabStop = true;
+            this.urlConfigured.Text = "Show Configured Exception Report";
+            // 
+            // urlCustomMessage
+            // 
+            this.urlCustomMessage.AutoSize = true;
+            this.urlCustomMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.urlCustomMessage.Location = new System.Drawing.Point(12, 92);
+            this.urlCustomMessage.Name = "urlCustomMessage";
+            this.urlCustomMessage.Size = new System.Drawing.Size(149, 16);
+            this.urlCustomMessage.TabIndex = 5;
+            this.urlCustomMessage.TabStop = true;
+            this.urlCustomMessage.Text = "Show Custom Message";
+            // 
+            // DemoAppView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(298, 132);
+            this.Controls.Add(this.urlCustomMessage);
+            this.Controls.Add(this.urlConfigured);
+            this.Controls.Add(this.urlDefault);
+            this.Name = "DemoAppView";
+            this.Text = "Exception Reporter Demo";
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
@@ -72,6 +85,7 @@ namespace ExceptionReporting.DemoApp
 
 		private System.Windows.Forms.LinkLabel urlDefault;
 		private System.Windows.Forms.LinkLabel urlConfigured;
+        private System.Windows.Forms.LinkLabel urlCustomMessage;
 
 	}
 }

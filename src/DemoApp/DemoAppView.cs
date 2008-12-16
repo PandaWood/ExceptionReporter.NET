@@ -12,6 +12,7 @@ namespace ExceptionReporting.DemoApp
 
 			urlConfigured.Click += Throw_Configured_Click;
 			urlDefault.Click += Throw_NonConfigured_Click;
+		    urlCustomMessage.Click += Throw_CustomMessage_Click;
 		}
 
 		private static void Throw_NonConfigured_Click(object sender, EventArgs e)
@@ -23,6 +24,19 @@ namespace ExceptionReporting.DemoApp
 		{
 			ShowExceptionReporter(true);
 		}
+
+        private static void Throw_CustomMessage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SomeMethod();
+            }
+            catch (Exception exception)
+            {
+                var exceptionReporter = new ExceptionReporter();
+                exceptionReporter.Show("This is a custom message", exception);
+            }
+        }
 
 		private static void ShowExceptionReporter(bool useConfig) 
 		{
