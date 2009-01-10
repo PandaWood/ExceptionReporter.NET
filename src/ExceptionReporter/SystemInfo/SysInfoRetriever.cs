@@ -13,23 +13,32 @@ namespace ExceptionReporting.SystemInfo
 
 			foreach (ManagementObject mgtObject in objectSearcher.Get())
 			{
-				string propertyValue = mgtObject.GetPropertyValue(sysInfoQuery.DisplayField).ToString().Trim();
-				result.Nodes.Add(propertyValue);
-
-				SysInfoResult childResult = null;
-				foreach (PropertyData propertyData in mgtObject.Properties)
-				{
-					if (childResult == null)
-					{
-						childResult = new SysInfoResult(sysInfoQuery.Name + "_Child");
-						result.ChildResults.Add(childResult);
-					}
-
-					string nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
-					childResult.Nodes.Add(nodeValue);
-				}
+				AddPropertyValue(sysInfoQuery, mgtObject, result);
+				AddChildren(sysInfoQuery, mgtObject, result);
 			}
 			return result;
+		}
+
+		private static void AddChildren(SysInfoQuery sysInfoQuery, ManagementBaseObject mgtObject, SysInfoResult result) 
+		{
+			SysInfoResult childResult = null;
+			foreach (PropertyData propertyData in mgtObject.Properties)
+			{
+				if (childResult == null)
+				{
+					childResult = new SysInfoResult(sysInfoQuery.Name + "_Child");
+					result.ChildResults.Add(childResult);
+				}
+
+				string nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
+				childResult.Nodes.Add(nodeValue);
+			}
+		}
+
+		private static void AddPropertyValue(SysInfoQuery sysInfoQuery, ManagementBaseObject mgtObject, SysInfoResult result) 
+		{
+			string propertyValue = mgtObject.GetPropertyValue(sysInfoQuery.DisplayField).ToString().Trim();
+			result.Nodes.Add(propertyValue);
 		}
 	}
 }

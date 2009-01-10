@@ -7,13 +7,12 @@ using NUnit.Framework.SyntaxHelpers;
 namespace Test.ExceptionReporter
 {
 	[TestFixture]
-	public class ConfigReaderTest
+	public class ConfigReader_Tests
 	{
 		[Test]
 		public void CanCreate_ConfigStringList_With_1()
 		{
 			// using ConfigurationManager.AppSettings in a UnitTest works, although brittle (and could cause issues)
-			// because the settings added are compounded for each test (you can't erase a config key once you've added it)
 			ConfigurationManager.AppSettings["AKey"] = "AValue";
 
 			IList<string> stringList = ConfigReader.GetConfigKeyValuePairsToString();

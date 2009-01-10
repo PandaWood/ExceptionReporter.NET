@@ -5,7 +5,7 @@ using NUnit.Framework.SyntaxHelpers;
 namespace Test.ExceptionReporter
 {
 	[TestFixture]
-	public class ExtensionsTest
+	public class Extensions_Test
 	{
 		[Test]
 		public void CanAssign_IfNotNullOrEmpty()

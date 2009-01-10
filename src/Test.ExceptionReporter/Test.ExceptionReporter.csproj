@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigReaderTest.cs" />
-    <Compile Include="ExtensionsTest.cs" />
-    <Compile Include="ExceptionStringBuilderTest.cs" />
+    <Compile Include="ConfigReader_Tests.cs" />
+    <Compile Include="Extensions_Test.cs" />
+    <Compile Include="ExceptionStringBuilder_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemInfoRetrieverTest.cs" />
+    <Compile Include="SystemInfoRetriever_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.csproj">

@@ -6,12 +6,12 @@ using System.Linq;
 namespace Test.ExceptionReporter
 {
 	/// <summary>
-	/// these are probably best labelled "integration tests"
-	/// I've left the code actually querying the system, but tried to keep the tests generic enough 
-	/// to pass on anyone's machine - not a great idea, long term
+	/// These are really "integration tests"
+	/// The code queryies the system on which it's running, so testing is kept "generic"
+	/// Not great, but better than nothing
 	/// </summary>
 	[TestFixture]
-	public class SystemInfoRetrieverTest
+	public class SystemInfoRetriever_Tests
 	{
 		private readonly SysInfoRetriever _retriever = new SysInfoRetriever();
 
