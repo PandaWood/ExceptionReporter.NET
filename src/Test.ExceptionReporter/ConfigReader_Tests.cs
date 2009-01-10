@@ -12,7 +12,7 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanCreate_ConfigStringList_With_1()
 		{
-			// using ConfigurationManager.AppSettings in a UnitTest works, although brittle (and could cause issues)
+			// using ConfigurationManager.AppSettings in a UnitTest works, although brittle
 			ConfigurationManager.AppSettings["AKey"] = "AValue";
 
 			IList<string> stringList = ConfigReader.GetConfigKeyValuePairsToString();

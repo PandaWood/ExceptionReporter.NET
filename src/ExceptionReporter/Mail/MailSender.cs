@@ -62,7 +62,8 @@ namespace ExceptionReporting.Mail
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
 
 			if (_reportInfo.ScreenshotAvailable)
-				mailMessage.Attachments.Add(new Attachment(ScreenshotHelper.GetBitmapAsFile(_reportInfo.ScreenshotBitmap), "image/bmp"));
+				mailMessage.Attachments.Add(
+					new Attachment(ScreenshotHelper.GetBitmapAsFile(_reportInfo.ScreenshotBitmap), "image/bmp"));
 
 			return mailMessage;
 		}

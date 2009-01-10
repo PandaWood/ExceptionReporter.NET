@@ -5,40 +5,44 @@ namespace ExceptionReporting.SystemInfo
 {
 	public class SysInfoRetriever
 	{
+		private ManagementObjectSearcher _sysInfoSearcher;
+		private SysInfoResult _sysInfo;
+		private SysInfoQuery _sysInfoQuery;
+
 		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
 		{
-			var result = new SysInfoResult(sysInfoQuery.Name);
+			_sysInfoQuery = sysInfoQuery;
+			_sysInfoSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", _sysInfoQuery.QueryText));
+			_sysInfo = new SysInfoResult(_sysInfoQuery.Name);
 
-			var objectSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", sysInfoQuery.QueryText));
-
-			foreach (ManagementObject mgtObject in objectSearcher.Get())
+			foreach (ManagementObject managementObject in _sysInfoSearcher.Get())
 			{
-				AddPropertyValue(sysInfoQuery, mgtObject, result);
-				AddChildren(sysInfoQuery, mgtObject, result);
+				AddPropertyValue(managementObject);
+				AddChildren(managementObject);
 			}
-			return result;
+			return _sysInfo;
 		}
 
-		private static void AddChildren(SysInfoQuery sysInfoQuery, ManagementBaseObject mgtObject, SysInfoResult result) 
+		private void AddPropertyValue(ManagementBaseObject managementObject) 
+		{
+			string propertyValue = managementObject.GetPropertyValue(_sysInfoQuery.DisplayField).ToString().Trim();
+			_sysInfo.Nodes.Add(propertyValue);
+		}
+
+		private void AddChildren(ManagementBaseObject managementObject) 
 		{
 			SysInfoResult childResult = null;
-			foreach (PropertyData propertyData in mgtObject.Properties)
+			foreach (PropertyData propertyData in managementObject.Properties)
 			{
 				if (childResult == null)
 				{
-					childResult = new SysInfoResult(sysInfoQuery.Name + "_Child");
-					result.ChildResults.Add(childResult);
+					childResult = new SysInfoResult(_sysInfoQuery.Name + "_Child");
+					_sysInfo.ChildResults.Add(childResult);
 				}
 
 				string nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
 				childResult.Nodes.Add(nodeValue);
 			}
-		}
-
-		private static void AddPropertyValue(SysInfoQuery sysInfoQuery, ManagementBaseObject mgtObject, SysInfoResult result) 
-		{
-			string propertyValue = mgtObject.GetPropertyValue(sysInfoQuery.DisplayField).ToString().Trim();
-			result.Nodes.Add(propertyValue);
 		}
 	}
 }
