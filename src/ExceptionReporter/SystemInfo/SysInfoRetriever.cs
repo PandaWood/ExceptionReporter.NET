@@ -25,7 +25,7 @@ namespace ExceptionReporting.SystemInfo
 						result.ChildResults.Add(childResult);
 					}
 
-					string nodeValue = propertyData.Name + " = " + Convert.ToString(propertyData.Value);
+					string nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
 					childResult.Nodes.Add(nodeValue);
 				}
 			}

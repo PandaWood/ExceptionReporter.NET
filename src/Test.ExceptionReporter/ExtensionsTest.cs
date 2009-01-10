@@ -77,7 +77,6 @@ namespace Test.ExceptionReporter
 			Assert.That(newValue, Is.False);
 		}
 
-
 		[Test]
 		public void CanNotAssign_False_If_Null()
 		{

@@ -13,7 +13,6 @@ namespace ExceptionReporting
 	public class ExceptionReporter //: Component
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-	    private string _customMessage;
 
 		/// <summary>
 		/// initialise the ExceptionReporter

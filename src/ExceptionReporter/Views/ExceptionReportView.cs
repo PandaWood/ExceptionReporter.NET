@@ -119,7 +119,7 @@ namespace ExceptionReporting.Views
 		{
 			set
 			{
-				lblProgressMessage.Visible = true;	// force visibility
+				lblProgressMessage.Visible = true;
 				lblProgressMessage.Text = value;
 			}
 		}

@@ -13,7 +13,7 @@ namespace ExceptionReporting.SystemInfo
 			_name = name;
 		}
 
-		public List<string> Nodes
+		public IList<string> Nodes
 		{
 			get { return _nodes; }
 		}

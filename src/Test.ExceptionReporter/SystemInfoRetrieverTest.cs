@@ -1,13 +1,14 @@
 using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
+using System.Linq;
 
 namespace Test.ExceptionReporter
 {
 	/// <summary>
 	/// these are probably best labelled "integration tests"
 	/// I've left the code actually querying the system, but tried to keep the tests generic enough 
-	/// to pass on anyone's machine - maybe not a great idea long term
+	/// to pass on anyone's machine - not a great idea, long term
 	/// </summary>
 	[TestFixture]
 	public class SystemInfoRetrieverTest
@@ -21,7 +22,7 @@ namespace Test.ExceptionReporter
 
 			Assert.That(result.Nodes.Count, Is.EqualTo(1));		// at least 1 machine name
 			Assert.That(result.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
-			Assert.That(result.ChildResults[0].Nodes.Find(x => x.Contains("CurrentTimeZone")), Is.Not.Null);
+			Assert.That(result.ChildResults[0].Nodes.Where(r => r.Contains("CurrentTimeZone")).Count(), Is.GreaterThan(0));
 		}
 
 		[Test]
