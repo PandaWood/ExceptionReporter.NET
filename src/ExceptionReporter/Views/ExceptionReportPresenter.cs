@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Xsl;
 using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
@@ -19,6 +23,7 @@ namespace ExceptionReporting.Views
 		string ProgressMessage { set; }
 		bool EnableEmailButton { set; }
 		bool ShowProgressBar { set; }
+        bool ShowFullDetail { get; set; }
 		int ProgressValue { get;  set; }
 		string UserExplanation { get; }
 		void ShowErrorDialog(string message, Exception exception);
@@ -26,7 +31,7 @@ namespace ExceptionReporting.Views
 		void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage);
 		void ShowExceptionReport();
 		void SetInProgressState();
-		void PopulateConfigTab(TreeNode rootNode);
+		void PopulateConfigTab(string filePath);
 		void PopulateExceptionTab(Exception exception);
 		void PopulateAssembliesTab();
 		void PopulateSysInfoTab(TreeNode rootNode);
@@ -109,6 +114,11 @@ namespace ExceptionReporting.Views
 			_view.ProgressMessage = string.Format("{0} copied to clipboard", _reportInfo.TitleText);
 		}
 
+		public void ToggleDetail()
+		{
+		    _view.ShowFullDetail = !_view.ShowFullDetail;
+		}
+
 		private void SendSmtpMail()
 		{
 			string exceptionString = BuildExceptionString();
@@ -155,17 +165,27 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public TreeNode CreateConfigTree()
+		public string GetConfigAsHtml()
 		{
-			//TODO there's a case to be made, that this should be done by another class/mapper (not the presenter)
-			var rootNode = new TreeNode("Configuration Settings");
+            //TODO there's a case to be made, that this should be done by another class/mapper (not the presenter)
+		    string configFilePath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
+            using (Stream stream = GetType().Assembly.GetManifestResourceStream("ExceptionReporting.XmlToHtml.xslt"))
+            {
+                using (XmlReader reader = XmlReader.Create(stream))
+                {
+                    XslCompiledTransform xslCompiledTransform = new XslCompiledTransform();
+                    xslCompiledTransform.Load(reader);
 
-			foreach (string configString in ConfigReader.GetConfigKeyValuePairsToString())
-			{
-				rootNode.Nodes.Add(new TreeNode(configString));
-			}
 
-			return rootNode;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder))
+                    {
+                        xslCompiledTransform.Transform(configFilePath, xmlWriter);
+                    }
+
+                    return stringBuilder.ToString();
+                }
+            }
 		}
 
 		public TreeNode CreateSysInfoTree()
@@ -217,7 +237,7 @@ namespace ExceptionReporting.Views
 
 				_view.PopulateExceptionTab(TheException);
 				_view.PopulateAssembliesTab();
-				_view.PopulateConfigTab(CreateConfigTree());
+				_view.PopulateConfigTab(GetConfigAsHtml());
 				_view.PopulateSysInfoTab(CreateSysInfoTree());
 			}
 			finally

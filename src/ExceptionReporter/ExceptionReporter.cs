@@ -30,7 +30,7 @@ namespace ExceptionReporting
 			    AppName = Application.ProductName,
 			    RegionInfo = Application.CurrentCulture.DisplayName,
 			    AppVersion = Application.ProductVersion,
-			    AppAssembly = Assembly.GetCallingAssembly(),
+			    AppAssembly = Assembly.GetCallingAssembly()
 			};
 		}
 
@@ -39,7 +39,7 @@ namespace ExceptionReporting
 			get { return _reportInfo; }
 		}
 
-		/// <summary>
+	    /// <summary>
 		/// Show the ExceptionReporter dialog
 		/// </summary>
 		/// <remarks>The ExceptionReporter will analyze the exception and create and show the report dialog</remarks>

@@ -45,7 +45,8 @@ namespace ExceptionReporting.Config
 
 		private static string GetConfigSetting(string sectionName, string configName)
 		{
-			NameValueCollection sections = ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
+			NameValueCollection sections = 
+				ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
 			if (sections == null) return string.Empty;
 
 			string setting = sections[configName];
@@ -99,7 +100,9 @@ namespace ExceptionReporting.Config
 			string mailMethod = GetMailSetting("method");
 			if (string.IsNullOrEmpty(mailMethod)) return;
 
-			_info.MailMethod = mailMethod.Equals(SMTP) ? ExceptionReportInfo.EmailMethod.SMTP : ExceptionReportInfo.EmailMethod.SimpleMAPI;
+			_info.MailMethod = mailMethod.Equals(SMTP) ? 
+				ExceptionReportInfo.EmailMethod.SMTP : 
+				ExceptionReportInfo.EmailMethod.SimpleMAPI;
 		}
 
 		private void ReadLabelSettings()
@@ -113,7 +116,8 @@ namespace ExceptionReporting.Config
 			_info.ShowFlatButtons = GetUserInterfaceSetting("ShowFlatButtons").ReturnBoolfNotNull_Else(_info.ShowFlatButtons);
 			_info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").ReturnBoolfNotNull_Else(_info.ShowButtonIcons);
 			_info.TitleText = GetUserInterfaceSetting("TitleText").ReturnStringIfNotNull_Else(_info.TitleText);
-			_info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").ReturnBoolfNotNull_Else(_info.TakeScreenshot);
+            _info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").ReturnBoolfNotNull_Else(_info.TakeScreenshot);
+            _info.ShowFullDetail = GetUserInterfaceSetting("ShowFullDetail").ReturnBoolfNotNull_Else(_info.ShowFullDetail);
 
 			float fontSize;
 			string fontSizeAsString = GetUserInterfaceSetting("UserExplanationFontSize");
@@ -125,7 +129,8 @@ namespace ExceptionReporting.Config
 
 		public static IList<string> GetConfigKeyValuePairsToString()
 		{
-			var configList = new List<string>();
+		    
+		    var configList = new List<string>();
 			foreach (var configKey in ConfigurationManager.AppSettings.AllKeys)
 			{
 				string configValue = ConfigurationManager.AppSettings[configKey];

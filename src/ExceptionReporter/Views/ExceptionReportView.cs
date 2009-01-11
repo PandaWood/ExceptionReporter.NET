@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Xsl;
 using ExceptionReporting.Core;
 using TreeNode=System.Windows.Forms.TreeNode;
 
@@ -12,8 +18,9 @@ namespace ExceptionReporting.Views
 	{
 		private bool _isDataRefreshRequired;
 		private readonly ExceptionReportPresenter _presenter;
+	    private bool showFullDetail = true;
 
-		public ExceptionReportView(ExceptionReportInfo reportInfo)
+	    public ExceptionReportView(ExceptionReportInfo reportInfo)
 		{
 			InitializeComponent();
 
@@ -31,7 +38,9 @@ namespace ExceptionReporting.Views
 			txtPhone.Text = reportInfo.Phone;
 			urlWeb.Text = reportInfo.WebUrl;
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
-
+		    showFullDetail = reportInfo.ShowFullDetail;
+		    ToggleShowFullDetail();
+		    txtExceptionMessageLarge.Text = 
 		    txtExceptionMessage.Text = 
                 !string.IsNullOrEmpty(reportInfo.CustomMessage) ?
                     reportInfo.CustomMessage : reportInfo.Exception.Message;
@@ -44,6 +53,7 @@ namespace ExceptionReporting.Views
 			txtApplicationName.Text = reportInfo.AppName;
 			txtVersion.Text = reportInfo.AppVersion;
 
+			btnDetailToggle.FlatStyle = 
 			btnCopy.FlatStyle = 
 				btnEmail.FlatStyle = 
 				btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
@@ -61,6 +71,7 @@ namespace ExceptionReporting.Views
 				txtVersion.BackColor =
 				txtApplicationName.BackColor =
 				txtDate.BackColor =
+				txtExceptionMessageLarge.BackColor =
 				txtExceptionMessage.BackColor =
 				txtExceptionTabMessage.BackColor = reportInfo.BackgroundColor;
 
@@ -69,21 +80,35 @@ namespace ExceptionReporting.Views
 				RemoveButtonIcons();
 			}
 
-			this.Text = reportInfo.TitleText;
+			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 
 			if (reportInfo.TakeScreenshot)
 				reportInfo.ScreenshotBitmap = ScreenshotHelper.ScreenShot();
 		}
 
-		private void RemoveButtonIcons() 
+	    private void ToggleShowFullDetail()
+	    {
+	        if (showFullDetail)
+	        {
+	            btnDetailToggle.Text = "Less Detail";
+                tabControl.Visible = true;
+	        }
+            else
+	        {
+                btnDetailToggle.Text = "More Detail";
+                tabControl.Visible = false;
+	        }
+	    }
+
+	    private void RemoveButtonIcons() 
 		{
 			// removing the icons, requires a bit of reshuffling of positions
 			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
-			btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
-			btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
-			btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
-			ShiftDown3Pixels(new[] { btnCopy, btnEmail, btnSave });
+			btnDetailToggle.Height = btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
+            btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
+			btnDetailToggle.Font = btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
+			ShiftDown3Pixels(new[] { btnDetailToggle, btnCopy, btnEmail, btnSave });
 		}
 
 		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
@@ -102,17 +127,18 @@ namespace ExceptionReporting.Views
 			btnEmail.Click += Email_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			btnCopy.Click += Copy_Click;
+			btnDetailToggle.Click += Detail_Click;
 			urlEmail.LinkClicked += EmailLink_Clicked;
 			btnSave.Click += Save_Click;
 			urlWeb.LinkClicked += UrlLink_Clicked;
 			KeyPreview = true;
-			this.KeyDown += ExceptionReportView_KeyDown;
+			KeyDown += ExceptionReportView_KeyDown;
 		}
 
 		void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
-				this.Close();
+				Close();
 		}
 
 		public string ProgressMessage
@@ -143,6 +169,14 @@ namespace ExceptionReporting.Views
 		{
 			get { return progressBar.Value; }
 			set { progressBar.Value = value; }
+		}
+
+
+		public bool ShowFullDetail
+		{
+			get { return showFullDetail; }
+            set { showFullDetail = value; 
+            ToggleShowFullDetail();}
 		}
 
 		public string UserExplanation
@@ -238,11 +272,16 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public void PopulateConfigTab(TreeNode rootNode)
-		{
-			treeviewSettings.Nodes.Add(rootNode);
-			rootNode.Expand();
-		}
+        public void PopulateConfigTab(string configFileAsXml)
+        {
+            webBrowser1.DocumentText = configFileAsXml;
+        }
+
+	    protected override void OnClosing(CancelEventArgs e)
+        {
+            webBrowser1.Dispose();
+            base.OnClosing(e);
+        }
 
 		public void PopulateSysInfoTab(TreeNode rootNode)
 		{
@@ -292,6 +331,11 @@ namespace ExceptionReporting.Views
 		private void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
+		}
+
+		private void Detail_Click(object sender, EventArgs e)
+		{
+			_presenter.ToggleDetail();
 		}
 
 		private void Email_Click(object sender, EventArgs e)
