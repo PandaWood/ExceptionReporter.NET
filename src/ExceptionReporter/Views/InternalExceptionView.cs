@@ -35,162 +35,162 @@ namespace ExceptionReporting.Views
 
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InternalExceptionView));
-			this.pictureBox = new System.Windows.Forms.PictureBox();
-			this.txtExceptionType = new System.Windows.Forms.TextBox();
-			this.txtExceptionDetails = new System.Windows.Forms.TextBox();
-			this.lblExceptionType = new System.Windows.Forms.Label();
-			this.tpException = new System.Windows.Forms.TabPage();
-			this.tpGeneral = new System.Windows.Forms.TabPage();
-			this.txtExceptionMessage = new System.Windows.Forms.TextBox();
-			this.lblExceptionMessage = new System.Windows.Forms.Label();
-			this.lblGeneralMessage = new System.Windows.Forms.Label();
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.cmdOK = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-			this.tpException.SuspendLayout();
-			this.tpGeneral.SuspendLayout();
-			this.tabControl.SuspendLayout();
-			this.SuspendLayout();
+			ComponentResourceManager resources = new ComponentResourceManager(typeof(InternalExceptionView));
+			pictureBox = new PictureBox();
+			txtExceptionType = new TextBox();
+			txtExceptionDetails = new TextBox();
+			lblExceptionType = new Label();
+			tpException = new TabPage();
+			tpGeneral = new TabPage();
+			txtExceptionMessage = new TextBox();
+			lblExceptionMessage = new Label();
+			lblGeneralMessage = new Label();
+			tabControl = new TabControl();
+			cmdOK = new Button();
+			((ISupportInitialize)(pictureBox)).BeginInit();
+			tpException.SuspendLayout();
+			tpGeneral.SuspendLayout();
+			tabControl.SuspendLayout();
+			SuspendLayout();
 			// 
 			// pictureBox
 			// 
-			this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
-			this.pictureBox.Location = new System.Drawing.Point(3, 3);
-			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.Size = new System.Drawing.Size(68, 86);
-			this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-			this.pictureBox.TabIndex = 0;
-			this.pictureBox.TabStop = false;
+			pictureBox.Image = ((Image)(resources.GetObject("pictureBox.Image")));
+			pictureBox.Location = new Point(3, 3);
+			pictureBox.Name = "pictureBox";
+			pictureBox.Size = new Size(68, 86);
+			pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+			pictureBox.TabIndex = 0;
+			pictureBox.TabStop = false;
 			// 
 			// txtExceptionType
 			// 
-			this.txtExceptionType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.txtExceptionType.Location = new System.Drawing.Point(77, 74);
-			this.txtExceptionType.Name = "txtExceptionType";
-			this.txtExceptionType.ReadOnly = true;
-			this.txtExceptionType.Size = new System.Drawing.Size(306, 20);
-			this.txtExceptionType.TabIndex = 3;
+			txtExceptionType.Anchor = (AnchorStyles.Top | AnchorStyles.Left)
+			                               | AnchorStyles.Right;
+			txtExceptionType.Location = new Point(77, 74);
+			txtExceptionType.Name = "txtExceptionType";
+			txtExceptionType.ReadOnly = true;
+			txtExceptionType.Size = new Size(306, 20);
+			txtExceptionType.TabIndex = 3;
 			// 
 			// txtExceptionDetails
 			// 
-			this.txtExceptionDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtExceptionDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtExceptionDetails.Location = new System.Drawing.Point(0, 0);
-			this.txtExceptionDetails.Multiline = true;
-			this.txtExceptionDetails.Name = "txtExceptionDetails";
-			this.txtExceptionDetails.ReadOnly = true;
-			this.txtExceptionDetails.Size = new System.Drawing.Size(386, 175);
-			this.txtExceptionDetails.TabIndex = 6;
+			txtExceptionDetails.BorderStyle = BorderStyle.None;
+			txtExceptionDetails.Dock = DockStyle.Fill;
+			txtExceptionDetails.Location = new Point(0, 0);
+			txtExceptionDetails.Multiline = true;
+			txtExceptionDetails.Name = "txtExceptionDetails";
+			txtExceptionDetails.ReadOnly = true;
+			txtExceptionDetails.Size = new Size(386, 175);
+			txtExceptionDetails.TabIndex = 6;
 			// 
 			// lblExceptionType
 			// 
-			this.lblExceptionType.Location = new System.Drawing.Point(8, 74);
-			this.lblExceptionType.Name = "lblExceptionType";
-			this.lblExceptionType.Size = new System.Drawing.Size(40, 15);
-			this.lblExceptionType.TabIndex = 2;
-			this.lblExceptionType.Text = "Type:";
+			lblExceptionType.Location = new Point(8, 74);
+			lblExceptionType.Name = "lblExceptionType";
+			lblExceptionType.Size = new Size(40, 15);
+			lblExceptionType.TabIndex = 2;
+			lblExceptionType.Text = "Type:";
 			// 
 			// tpException
 			// 
-			this.tpException.Controls.Add(this.txtExceptionDetails);
-			this.tpException.Location = new System.Drawing.Point(4, 22);
-			this.tpException.Name = "tpException";
-			this.tpException.Size = new System.Drawing.Size(386, 175);
-			this.tpException.TabIndex = 1;
-			this.tpException.Text = "Exception";
-			this.tpException.ToolTipText = "Displays detailed information about the error that occurred";
+			tpException.Controls.Add(txtExceptionDetails);
+			tpException.Location = new Point(4, 22);
+			tpException.Name = "tpException";
+			tpException.Size = new Size(386, 175);
+			tpException.TabIndex = 1;
+			tpException.Text = "Exception";
+			tpException.ToolTipText = "Displays detailed information about the error that occurred";
 			// 
 			// tpGeneral
 			// 
-			this.tpGeneral.Controls.Add(this.pictureBox);
-			this.tpGeneral.Controls.Add(this.txtExceptionMessage);
-			this.tpGeneral.Controls.Add(this.txtExceptionType);
-			this.tpGeneral.Controls.Add(this.lblExceptionType);
-			this.tpGeneral.Controls.Add(this.lblExceptionMessage);
-			this.tpGeneral.Controls.Add(this.lblGeneralMessage);
-			this.tpGeneral.Location = new System.Drawing.Point(4, 22);
-			this.tpGeneral.Name = "tpGeneral";
-			this.tpGeneral.Size = new System.Drawing.Size(386, 175);
-			this.tpGeneral.TabIndex = 0;
-			this.tpGeneral.Text = "General";
-			this.tpGeneral.ToolTipText = "Displays general information about the error that occurred";
+			tpGeneral.Controls.Add(pictureBox);
+			tpGeneral.Controls.Add(txtExceptionMessage);
+			tpGeneral.Controls.Add(txtExceptionType);
+			tpGeneral.Controls.Add(lblExceptionType);
+			tpGeneral.Controls.Add(lblExceptionMessage);
+			tpGeneral.Controls.Add(lblGeneralMessage);
+			tpGeneral.Location = new Point(4, 22);
+			tpGeneral.Name = "tpGeneral";
+			tpGeneral.Size = new Size(386, 175);
+			tpGeneral.TabIndex = 0;
+			tpGeneral.Text = "General";
+			tpGeneral.ToolTipText = "Displays general information about the error that occurred";
 			// 
 			// txtExceptionMessage
 			// 
-			this.txtExceptionMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.txtExceptionMessage.Location = new System.Drawing.Point(77, 100);
-			this.txtExceptionMessage.Multiline = true;
-			this.txtExceptionMessage.Name = "txtExceptionMessage";
-			this.txtExceptionMessage.ReadOnly = true;
-			this.txtExceptionMessage.Size = new System.Drawing.Size(306, 71);
-			this.txtExceptionMessage.TabIndex = 5;
+			txtExceptionMessage.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom)
+			                                   | AnchorStyles.Left)
+			                                  | AnchorStyles.Right;
+			txtExceptionMessage.Location = new Point(77, 100);
+			txtExceptionMessage.Multiline = true;
+			txtExceptionMessage.Name = "txtExceptionMessage";
+			txtExceptionMessage.ReadOnly = true;
+			txtExceptionMessage.Size = new Size(306, 71);
+			txtExceptionMessage.TabIndex = 5;
 			// 
 			// lblExceptionMessage
 			// 
-			this.lblExceptionMessage.Location = new System.Drawing.Point(15, 100);
-			this.lblExceptionMessage.Name = "lblExceptionMessage";
-			this.lblExceptionMessage.Size = new System.Drawing.Size(56, 14);
-			this.lblExceptionMessage.TabIndex = 4;
-			this.lblExceptionMessage.Text = "Message";
+			lblExceptionMessage.Location = new Point(15, 100);
+			lblExceptionMessage.Name = "lblExceptionMessage";
+			lblExceptionMessage.Size = new Size(56, 14);
+			lblExceptionMessage.TabIndex = 4;
+			lblExceptionMessage.Text = "Message";
 			// 
 			// lblGeneralMessage
 			// 
-			this.lblGeneralMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.lblGeneralMessage.Location = new System.Drawing.Point(77, 7);
-			this.lblGeneralMessage.Name = "lblGeneralMessage";
-			this.lblGeneralMessage.Size = new System.Drawing.Size(306, 60);
-			this.lblGeneralMessage.TabIndex = 1;
-			this.lblGeneralMessage.Text = "An internal exception has occurred within Exception Reporter";
+			lblGeneralMessage.Anchor = (AnchorStyles.Top | AnchorStyles.Left)
+			                                | AnchorStyles.Right;
+			lblGeneralMessage.Location = new Point(77, 7);
+			lblGeneralMessage.Name = "lblGeneralMessage";
+			lblGeneralMessage.Size = new Size(306, 60);
+			lblGeneralMessage.TabIndex = 1;
+			lblGeneralMessage.Text = "An internal exception has occurred within Exception Reporter";
 			// 
 			// tabControl
 			// 
-			this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl.Controls.Add(this.tpGeneral);
-			this.tabControl.Controls.Add(this.tpException);
-			this.tabControl.HotTrack = true;
-			this.tabControl.Location = new System.Drawing.Point(8, 7);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.ShowToolTips = true;
-			this.tabControl.Size = new System.Drawing.Size(394, 201);
-			this.tabControl.TabIndex = 0;
+			tabControl.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom)
+			                          | AnchorStyles.Left)
+			                         | AnchorStyles.Right;
+			tabControl.Controls.Add(tpGeneral);
+			tabControl.Controls.Add(tpException);
+			tabControl.HotTrack = true;
+			tabControl.Location = new Point(8, 7);
+			tabControl.Name = "tabControl";
+			tabControl.SelectedIndex = 0;
+			tabControl.ShowToolTips = true;
+			tabControl.Size = new Size(394, 201);
+			tabControl.TabIndex = 0;
 			// 
 			// cmdOK
 			// 
-			this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.cmdOK.Location = new System.Drawing.Point(320, 212);
-			this.cmdOK.Name = "cmdOK";
-			this.cmdOK.Size = new System.Drawing.Size(80, 25);
-			this.cmdOK.TabIndex = 7;
-			this.cmdOK.Text = "OK";
+			cmdOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			cmdOK.ImageAlign = ContentAlignment.MiddleLeft;
+			cmdOK.Location = new Point(320, 212);
+			cmdOK.Name = "cmdOK";
+			cmdOK.Size = new Size(80, 25);
+			cmdOK.TabIndex = 7;
+			cmdOK.Text = "OK";
 			// 
 			// InternalExceptionView
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(407, 241);
-			this.Controls.Add(this.tabControl);
-			this.Controls.Add(this.cmdOK);
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "InternalExceptionView";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Exception Reporter: Problem Occurred";
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-			this.tpException.ResumeLayout(false);
-			this.tpException.PerformLayout();
-			this.tpGeneral.ResumeLayout(false);
-			this.tpGeneral.PerformLayout();
-			this.tabControl.ResumeLayout(false);
-			this.ResumeLayout(false);
+			AutoScaleBaseSize = new Size(5, 13);
+			ClientSize = new Size(407, 241);
+			Controls.Add(tabControl);
+			Controls.Add(cmdOK);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "InternalExceptionView";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Exception Reporter: Problem Occurred";
+			((ISupportInitialize)(pictureBox)).EndInit();
+			tpException.ResumeLayout(false);
+			tpException.PerformLayout();
+			tpGeneral.ResumeLayout(false);
+			tpGeneral.PerformLayout();
+			tabControl.ResumeLayout(false);
+			ResumeLayout(false);
 
 		}
 
@@ -211,32 +211,33 @@ namespace ExceptionReporting.Views
 
 		private static string exceptionHeirarchyToString(Exception ex)
 		{
-			var sb = new StringBuilder();
-			var swWriter = new StringWriter(sb);
+			var stringBuilder = new StringBuilder();
+		    using (var stringWriter = new StringWriter(stringBuilder))
+		    {
+		        Int32 intCount = 0;
+		        Exception current = ex;
 
-			Int32 intCount = 0;
-			Exception current = ex;
+		        while (current != null)
+		        {
+		            if (intCount == 0)
+		            {
+		                stringWriter.WriteLine("Top Level Exception");
+		            }
+		            else
+		            {
+		                stringWriter.WriteLine("Inner Exception " + intCount);
+		            }
+		            stringWriter.WriteLine("Type:        " + current.GetType());
+		            stringWriter.WriteLine("Message:     " + current.Message);
+		            stringWriter.WriteLine("Source:      " + current.Source);
+		            stringWriter.WriteLine("Stack Trace: " + current.StackTrace.Trim());
+		            stringWriter.WriteLine((String) null);
 
-			while (current != null)
-			{
-				if (intCount == 0)
-				{
-					swWriter.WriteLine("Top Level Exception");
-				}
-				else
-				{
-					swWriter.WriteLine("Inner Exception " + intCount);
-				}
-				swWriter.WriteLine("Type:        " + current.GetType());
-				swWriter.WriteLine("Message:     " + current.Message);
-				swWriter.WriteLine("Source:      " + current.Source);
-				swWriter.WriteLine("Stack Trace: " + current.StackTrace.Trim());
-				swWriter.WriteLine((String) null);
-
-				current = current.InnerException;
-				intCount++;
-			}
-			return sb.ToString();
+		            current = current.InnerException;
+		            intCount++;
+		        }
+		    }
+		    return stringBuilder.ToString();
 		}
 
 		private void cmdOK_Click(object sender, EventArgs e)

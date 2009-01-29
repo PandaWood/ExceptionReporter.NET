@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Globalization;
@@ -49,8 +48,7 @@ namespace ExceptionReporting.Config
 				ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
 			if (sections == null) return string.Empty;
 
-			string setting = sections[configName];
-			return setting;
+			return sections[configName];
 		}
 
 		/// <summary>Read all settings from the application config file</summary>
@@ -127,17 +125,9 @@ namespace ExceptionReporting.Config
 			}
 		}
 
-		public static IList<string> GetConfigKeyValuePairsToString()
-		{
-		    
-		    var configList = new List<string>();
-			foreach (var configKey in ConfigurationManager.AppSettings.AllKeys)
-			{
-				string configValue = ConfigurationManager.AppSettings[configKey];
-				string keyValueString = string.Format("{0} = {1}", configKey, configValue);
-				configList.Add(keyValueString);
-			}
-			return configList.AsReadOnly();
-		}
+        public static string GetConfigFilePath()
+        {
+            return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
+        }
 	}
 }

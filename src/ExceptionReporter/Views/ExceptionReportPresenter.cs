@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -16,60 +15,32 @@ using ExceptionReporting.SystemInfo;
 namespace ExceptionReporting.Views
 {
 	/// <summary>
-	/// The interface (contract) for an ExceptionReportView
-	/// </summary>
-	internal interface IExceptionReportView
-	{
-		string ProgressMessage { set; }
-		bool EnableEmailButton { set; }
-		bool ShowProgressBar { set; }
-        bool ShowFullDetail { get; set; }
-		int ProgressValue { get;  set; }
-		string UserExplanation { get; }
-		void ShowErrorDialog(string message, Exception exception);
-		void SetEmailCompletedState(bool success);
-		void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage);
-		void ShowExceptionReport();
-		void SetInProgressState();
-		void PopulateConfigTab(string filePath);
-		void PopulateExceptionTab(Exception exception);
-		void PopulateAssembliesTab();
-		void PopulateSysInfoTab(TreeNode rootNode);
-		void PopulateTabs();
-		void SetProgressCompleteState();
-	}
-
-	/// <summary>
 	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view
 	/// </summary>
 	internal class ExceptionReportPresenter
 	{
 		private readonly IExceptionReportView _view;
-		private readonly ExceptionReportInfo _reportInfo;
 		private readonly ICollection<SysInfoResult> _results = new List<SysInfoResult>();
 
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
-			_reportInfo = info;
+			ReportInfo = info;
 		}
 
 		public Exception TheException
 		{
-			get { return _reportInfo.Exception; }
+			get { return ReportInfo.Exception; }
 		}
 
 		public Assembly AppAssembly
 		{
-			get { return _reportInfo.AppAssembly; }
+			get { return ReportInfo.AppAssembly; }
 		}
 
-		public ExceptionReportInfo ReportInfo
-		{
-			get { return _reportInfo; }
-		}
+		public ExceptionReportInfo ReportInfo { get; private set; }
 
-		public string BuildExceptionString()
+		private string BuildExceptionString()
 		{
 			ReportInfo.UserExplanation = _view.UserExplanation;
 			var stringBuilder = new ExceptionStringBuilder(ReportInfo, _results);
@@ -79,7 +50,9 @@ namespace ExceptionReporting.Views
 		public void SaveReportToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName))
+			{
 				return;
+			}
 
 			string exceptionString = BuildExceptionString();
 
@@ -111,17 +84,38 @@ namespace ExceptionReporting.Views
 		{
 			string exceptionString = BuildExceptionString();
 			Clipboard.SetDataObject(exceptionString, true);
-			_view.ProgressMessage = string.Format("{0} copied to clipboard", _reportInfo.TitleText);
+			_view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
 		}
 
 		public void ToggleDetail()
 		{
-		    _view.ShowFullDetail = !_view.ShowFullDetail;
+			_view.ShowFullDetail = !_view.ShowFullDetail;
 		}
+
+		private string BuildEmailExceptionString()
+		{
+			var stringBuilder = new StringBuilder()
+				.AppendLine(
+				@"The message is ready to be sent. 
+					To help diagnose the problem information about your machine and the exception is included in this email.
+					Please feel free to add any helpful information at the top of this email or attach any files.")
+				.AppendLine()
+				.AppendLine();
+
+			if (ReportInfo.TakeScreenshot)
+			{
+				stringBuilder.AppendFormat(
+					"The message contains a screen shot of your machine taken at the time the exception occurred.\r\nIf you do not want this screenshot included please delete it from the email.\r\n\r\n");
+			}
+			stringBuilder.Append(BuildExceptionString());
+
+			return stringBuilder.ToString();
+		}
+
 
 		private void SendSmtpMail()
 		{
-			string exceptionString = BuildExceptionString();
+			string exceptionString = BuildEmailExceptionString();
 
 			_view.ProgressMessage = "Sending email via SMTP...";
 			_view.EnableEmailButton = false;
@@ -141,7 +135,7 @@ namespace ExceptionReporting.Views
 
 		private void SendMapiEmail(IntPtr windowHandle)
 		{
-			string exceptionString = BuildExceptionString();
+			string exceptionString = BuildEmailExceptionString();
 
 			_view.ProgressMessage = "Launching email program...";
 			_view.EnableEmailButton = false;
@@ -167,25 +161,24 @@ namespace ExceptionReporting.Views
 
 		public string GetConfigAsHtml()
 		{
-            //TODO there's a case to be made, that this should be done by another class/mapper (not the presenter)
-		    string configFilePath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
-            using (Stream stream = GetType().Assembly.GetManifestResourceStream("ExceptionReporting.XmlToHtml.xslt"))
-            {
-                using (XmlReader reader = XmlReader.Create(stream))
-                {
-                    XslCompiledTransform xslCompiledTransform = new XslCompiledTransform();
-                    xslCompiledTransform.Load(reader);
+			//TODO there's a case to be made, that this should be done by another class/mapper (not the presenter)
+			using (Stream stream = GetType().Assembly.GetManifestResourceStream("ExceptionReporting.XmlToHtml.xslt"))
+			{
+				using (XmlReader reader = XmlReader.Create(stream))
+				{
+					var xslCompiledTransform = new XslCompiledTransform();
+					xslCompiledTransform.Load(reader);
 
 
-                    StringBuilder stringBuilder = new StringBuilder();
-                    using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder))
-                    {
-                        xslCompiledTransform.Transform(configFilePath, xmlWriter);
-                    }
+					var stringBuilder = new StringBuilder();
+					using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder))
+					{
+						xslCompiledTransform.Transform(ConfigReader.GetConfigFilePath(), xmlWriter);
+					}
 
-                    return stringBuilder.ToString();
-                }
-            }
+					return stringBuilder.ToString();
+				}
+			}
 		}
 
 		public TreeNode CreateSysInfoTree()
@@ -200,9 +193,9 @@ namespace ExceptionReporting.Views
 			mapper.AddTreeViewNode(rootNode, osResult);
 			mapper.AddTreeViewNode(rootNode, machineResult);
 
-			_results.Add(osResult);		// store the result for later (TODO I'm not liking how this separate concern is 'dropped' in here)
+			_results.Add(osResult); // store the result for later (TODO I'm not liking how this separate concern is 'dropped' in here)
 			_results.Add(machineResult);
-			
+
 			return rootNode;
 		}
 
@@ -220,7 +213,10 @@ namespace ExceptionReporting.Views
 		{
 			try
 			{
-				var psi = new ProcessStartInfo(executeString) { UseShellExecute = true };
+				var psi = new ProcessStartInfo(executeString)
+				          {
+				          	UseShellExecute = true
+				          };
 				Process.Start(psi);
 			}
 			catch (Exception exception)

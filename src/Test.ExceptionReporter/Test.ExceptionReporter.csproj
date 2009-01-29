@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigReader_Tests.cs" />
     <Compile Include="Extensions_Test.cs" />
     <Compile Include="ExceptionStringBuilder_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

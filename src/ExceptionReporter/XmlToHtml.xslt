@@ -90,30 +90,30 @@
           </xsl:comment>
         </SCRIPT>
         <STYLE>
-          BODY {font:x-small 'Verdana'; margin-right:1.5em}
-          .c  {cursor:hand}
-          .b  {color:red; font-family:'Courier New'; font-weight:bold;
-          text-decoration:none}
-          .e  {margin-left:1em; text-indent:-1em; margin-right:1em}
-          .k  {margin-left:1em; text-indent:-1em; margin-right:1em}
-          .t  {color:#990000}
-          .xt {color:#990099}
-          .ns {color:red}
-          .dt {color:green}
-          .m  {color:blue}
-          .tx {font-weight:bold}
-          .db {text-indent:0px; margin-left:1em; margin-top:0px;
-          margin-bottom:0px;padding-left:.3em;
-          border-left:1px solid #CCCCCC; font:small Courier}
-          .di {font:small Courier}
-          .d  {color:blue}
-          .pi {color:blue}
-          .cb {text-indent:0px; margin-left:1em; margin-top:0px;
-          margin-bottom:0px;padding-left:.3em; font:small Courier;
-          color:#888888}
-          .ci {font:small Courier; color:#888888}
-          PRE {margin:0px; display:inline}
-        </STYLE>
+			BODY {font:x-small 'Courier New'; margin-right:1.5em}
+			.c  {cursor:hand}
+			.b  {color:black; font-family:'Courier New';
+			text-decoration:none}
+			.e  {margin-left:1em; text-indent:-1em; margin-right:1em}
+			.k  {margin-left:1em; text-indent:-1em; margin-right:1em}
+			.t  {color:#990000}
+			.xt {color:#990099}
+			.ns {color:red}
+			.dt {color:green}
+			.m  {color:blue}
+			.tx {font-weight:bold}
+			.db {text-indent:0px; margin-left:1em; margin-top:0px;
+			margin-bottom:0px;padding-left:.3em;
+			border-left:1px solid #CCCCCC; font:small 'Courier New'}
+			.di {font:small 'Courier New'}
+			.d  {color:blue}
+			.pi {color:blue}
+			.cb {text-indent:0px; margin-left:1em; margin-top:0px;
+			margin-bottom:0px;padding-left:.3em; font:small 'Courier New';
+			color:#888888}
+			.ci {font:small 'Courier New'; color:#888888}
+			PRE {margin:0px; display:inline}
+		</STYLE>
       </HEAD>
       <BODY class="st">
         <xsl:apply-templates/>

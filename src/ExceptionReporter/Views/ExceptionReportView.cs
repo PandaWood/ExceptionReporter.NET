@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Xsl;
 using ExceptionReporting.Core;
-using TreeNode=System.Windows.Forms.TreeNode;
 
 namespace ExceptionReporting.Views
 {
@@ -53,6 +47,7 @@ namespace ExceptionReporting.Views
 			txtApplicationName.Text = reportInfo.AppName;
 			txtVersion.Text = reportInfo.AppVersion;
 
+			btnClose.FlatStyle = 
 			btnDetailToggle.FlatStyle = 
 			btnCopy.FlatStyle = 
 				btnEmail.FlatStyle = 
@@ -105,10 +100,10 @@ namespace ExceptionReporting.Views
 		{
 			// removing the icons, requires a bit of reshuffling of positions
 			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
-			btnDetailToggle.Height = btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
-            btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
-			btnDetailToggle.Font = btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
-			ShiftDown3Pixels(new[] { btnDetailToggle, btnCopy, btnEmail, btnSave });
+			btnClose.Height =btnDetailToggle.Height = btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
+            btnClose.TextAlign =btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
+			btnClose.Font = btnDetailToggle.Font = btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
+			ShiftDown3Pixels(new[] { btnClose, btnDetailToggle, btnCopy, btnEmail, btnSave });
 		}
 
 		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
@@ -127,6 +122,7 @@ namespace ExceptionReporting.Views
 			btnEmail.Click += Email_Click;
 			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			btnCopy.Click += Copy_Click;
+			btnClose.Click += Close_Click;
 			btnDetailToggle.Click += Detail_Click;
 			urlEmail.LinkClicked += EmailLink_Clicked;
 			btnSave.Click += Save_Click;
@@ -264,7 +260,9 @@ namespace ExceptionReporting.Views
 			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
 			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 
-			foreach (AssemblyName assemblyName in _presenter.AppAssembly.GetReferencedAssemblies())
+		    List<AssemblyName> assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies());
+            assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
+		    foreach (AssemblyName assemblyName in assemblies)
 			{
 				var listViewItem = new ListViewItem {Text = assemblyName.Name};
 				listViewItem.SubItems.Add(assemblyName.Version.ToString());
@@ -272,14 +270,14 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-        public void PopulateConfigTab(string configFileAsXml)
+	    public void PopulateConfigTab(string configFileAsXml)
         {
-            webBrowser1.DocumentText = configFileAsXml;
+            webBrowserConfig.DocumentText = configFileAsXml;
         }
 
 	    protected override void OnClosing(CancelEventArgs e)
         {
-            webBrowser1.Dispose();
+            webBrowserConfig.Dispose();
             base.OnClosing(e);
         }
 
@@ -331,6 +329,10 @@ namespace ExceptionReporting.Views
 		private void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
+		}
+		private void Close_Click(object sender, EventArgs e)
+		{
+			Close();
 		}
 
 		private void Detail_Click(object sender, EventArgs e)

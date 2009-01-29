@@ -6,7 +6,8 @@ using System.Windows.Forms;
 namespace ExceptionReporting.Core
 {
 	public static class ScreenshotHelper
-	{
+    {
+        public const string ScreenshotFileName = "ExceptionReport_Screenshot.gif";
 		public static Bitmap ScreenShot()
 		{
 			Rectangle rectangle = Rectangle.Empty;
@@ -28,8 +29,8 @@ namespace ExceptionReporting.Core
 
 		public static string GetBitmapAsFile(Bitmap bitmap)
 		{
-			string tempFileName = Path.GetTempPath() + "ExceptionReport_Screenshot.bmp";
-			bitmap.Save(tempFileName);
+		    string tempFileName = Path.GetTempPath() + ScreenshotFileName;
+			bitmap.Save(tempFileName,ImageFormat.Gif);
 			return tempFileName;
 		}
 	}

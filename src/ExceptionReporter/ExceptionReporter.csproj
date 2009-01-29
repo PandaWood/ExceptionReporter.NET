@@ -71,6 +71,7 @@
     <Compile Include="Views\ExceptionReportView.Designer.cs">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IExceptionReportView.cs" />
     <Compile Include="Views\InternalExceptionView.cs">
       <SubType>Form</SubType>
     </Compile>

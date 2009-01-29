@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -99,10 +100,7 @@ namespace ExceptionReporting.Core
 
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
 
-			foreach (string configString in ConfigReader.GetConfigKeyValuePairsToString())
-			{
-				_stringBuilder.AppendLine(configString);
-			}
+                _stringBuilder.AppendLine(File.ReadAllText(ConfigReader.GetConfigFilePath()));
 
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
