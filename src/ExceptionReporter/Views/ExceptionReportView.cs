@@ -79,7 +79,7 @@ namespace ExceptionReporting.Views
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 
 			if (reportInfo.TakeScreenshot)
-				reportInfo.ScreenshotBitmap = ScreenshotHelper.ScreenShot();
+				reportInfo.ScreenshotImage = ScreenshotHelper.ScreenShot();
 		}
 
 	    private void ToggleShowFullDetail()

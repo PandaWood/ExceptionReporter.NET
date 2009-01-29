@@ -18,10 +18,10 @@ namespace ExceptionReporting.Mail
 		/// <summary>
 		/// Send SMTP email
 		/// </summary>
-		public void SendSmtp(string exceptionString, CompletedMethodDelegate setEmailCompletedState)
+		public void SendSmtp(string exceptionReport, CompletedMethodDelegate setEmailCompletedState)
 		{
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
-			MailMessage mailMessage = CreateMailMessage(exceptionString);
+			MailMessage mailMessage = CreateMailMessage(exceptionReport);
 
 			smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
 			smtpClient.SendAsync(mailMessage, null);
@@ -30,7 +30,7 @@ namespace ExceptionReporting.Mail
 		/// <summary>
 		/// Send SimpleMAPI email
 		/// </summary>
-		public void SendMapi(string exceptionString, IntPtr windowHandle)
+		public void SendMapi(string exceptionReport, IntPtr windowHandle)
 		{
 			var mapi = new Mapi();
 			mapi.Logon(windowHandle);
@@ -41,39 +41,45 @@ namespace ExceptionReporting.Mail
 			                      	: _reportInfo.EmailReportAddress;
 
 			mapi.AddRecipient(emailAddress, null, false);
-
-			if (_reportInfo.ScreenshotAvailable)
-				mapi.Attach(ScreenshotHelper.GetBitmapAsFile(_reportInfo.ScreenshotBitmap));
-
-			mapi.Send(CreateSubject(), exceptionString, true);
+			AttachMapiScreenshotIfRequired(mapi);
+			mapi.Send(EmailSubject, exceptionReport, true);
 			mapi.Logoff();
 		}
 
-		private MailMessage CreateMailMessage(string exceptionString)
+		private void AttachMapiScreenshotIfRequired(Mapi mapi)
+		{
+			if (_reportInfo.ScreenshotAvailable)
+				mapi.Attach(ScreenshotHelper.GetImageAsFile(_reportInfo.ScreenshotImage));
+		}
+
+		private MailMessage CreateMailMessage(string exceptionReport)
 		{
 			var mailMessage = new MailMessage
-			                  	{
-			                  		From = new MailAddress(_reportInfo.SmtpFromAddress, null),
-			                  		ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
-			                  		Body = exceptionString,
-									Subject = CreateSubject() 
-			                  	};
+          	{
+          		From = new MailAddress(_reportInfo.SmtpFromAddress, null),
+          		ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
+          		Body = exceptionReport,
+				Subject = EmailSubject
+          	};
 
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
-
-			if (_reportInfo.ScreenshotAvailable)
-				mailMessage.Attachments.Add(
-					new Attachment(ScreenshotHelper.GetBitmapAsFile(_reportInfo.ScreenshotBitmap), ScreenshotHelper.ScreenshotMimeType));
+			AttachSmtpScreenshotIfRequired(mailMessage);
 
 			return mailMessage;
 		}
 
-		/// <summary>
-		/// Create the subject (in a separate method to avoid duplication)
-		/// </summary>
-		private string CreateSubject()
+		private void AttachSmtpScreenshotIfRequired(MailMessage mailMessage)
 		{
-			return string.Format(_reportInfo.TitleText + " for {0} v{1}", _reportInfo.AppName, _reportInfo.AppVersion);
+			if (_reportInfo.ScreenshotAvailable)
+				mailMessage.Attachments.Add(
+					new Attachment(ScreenshotHelper.GetImageAsFile(_reportInfo.ScreenshotImage), 
+						ScreenshotHelper.ScreenshotMimeType));
+		}
+
+		private string EmailSubject
+		{
+			get { return string.Format(_reportInfo.TitleText + " for {0} v{1}", 
+				_reportInfo.AppName, _reportInfo.AppVersion); }
 		}
 	}
 }

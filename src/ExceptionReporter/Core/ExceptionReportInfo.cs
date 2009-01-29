@@ -53,11 +53,11 @@ namespace ExceptionReporting.Core
 		public float UserExplanationFontSize { get; set; }
 
 		public bool TakeScreenshot { get; set; }
-		public Bitmap ScreenshotBitmap { get; set; }
+		public Bitmap ScreenshotImage { get; set; }
 
 		public bool ScreenshotAvailable 
 		{ 
-			get { return TakeScreenshot && ScreenshotBitmap != null; }
+			get { return TakeScreenshot && ScreenshotImage != null; }
 		}
 
 		public ExceptionReportInfo()

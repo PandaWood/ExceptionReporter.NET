@@ -29,7 +29,7 @@ namespace ExceptionReporting.Core
 			return bitmap;
 		}
 
-		public static string GetBitmapAsFile(Bitmap bitmap)
+		public static string GetImageAsFile(Bitmap bitmap)
 		{
 		    string tempFileName = Path.GetTempPath() + ScreenshotFileName;
 			bitmap.Save(tempFileName, ImageFormat.Jpeg);
