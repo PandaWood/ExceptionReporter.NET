@@ -4,6 +4,8 @@ using System.Windows.Forms;
 
 namespace ExceptionReporting.SystemInfo
 {
+	//TODO reduce the size of these methods (split and clarify)
+
 	public class SysInfoResultMapper
 	{
 		public void AddTreeViewNode(TreeNode parentNode, SysInfoResult result)
@@ -26,7 +28,7 @@ namespace ExceptionReporting.SystemInfo
 			parentNode.Nodes.Add(nodeRoot);
 		}
 
-		public string CreateStringList(ICollection<SysInfoResult> results)
+		public string CreateStringList(IEnumerable<SysInfoResult> results)
 		{
 			var stringBuilder = new StringBuilder();
 

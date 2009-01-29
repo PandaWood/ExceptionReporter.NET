@@ -96,17 +96,18 @@ namespace ExceptionReporting.Views
 		{
 			var stringBuilder = new StringBuilder()
 				.AppendLine(
-				@"The message is ready to be sent. 
-					To help diagnose the problem information about your machine and the exception is included in this email.
-					Please feel free to add any helpful information at the top of this email or attach any files.")
-				.AppendLine()
-				.AppendLine();
+				@"The email is ready to be sent. 
+					Information about your machine and the exception is included.
+					Please feel free to add any relevant information or attach any files.")
+				.AppendLine().AppendLine();
 
 			if (ReportInfo.TakeScreenshot)
 			{
-				stringBuilder.AppendFormat(
-					"The message contains a screen shot of your machine taken at the time the exception occurred.\r\nIf you do not want this screenshot included please delete it from the email.\r\n\r\n");
+				stringBuilder.AppendFormat("This email contains a screenshot taken when the exception occurred.")
+		                     .AppendLine("If you do not want the screenshot to be sent, you may delete it before sending.")
+							 .AppendLine().AppendLine();
 			}
+
 			stringBuilder.Append(BuildExceptionString());
 
 			return stringBuilder.ToString();
@@ -168,7 +169,6 @@ namespace ExceptionReporting.Views
 				{
 					var xslCompiledTransform = new XslCompiledTransform();
 					xslCompiledTransform.Load(reader);
-
 
 					var stringBuilder = new StringBuilder();
 					using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder))

@@ -27,7 +27,7 @@ namespace Test.ExceptionReporter
 
 			Assert.That(exceptionReport, Text.Contains("nunit"));	// coupled to NUnit, but better than nothing
 			Assert.That(exceptionReport, Text.Contains("ExceptionReporter, Version="));
-			Assert.That(exceptionReport, Text.Contains("System, Version="));
+			Assert.That(exceptionReport, Text.Contains("System.Core, Version="));
 			Assert.That(exceptionReport, Text.Contains(Environment.NewLine));
 		}
 

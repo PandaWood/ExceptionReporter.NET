@@ -2,21 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using ExceptionReporting.Config;
 using ExceptionReporting.Extensions;
 using ExceptionReporting.SystemInfo;
 
-[assembly: InternalsVisibleTo("Test.ExceptionReporter")]
-
 namespace ExceptionReporting.Core
 {
-	internal class ExceptionStringBuilder
+	public class ExceptionStringBuilder
 	{
 		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
-		private readonly ICollection<SysInfoResult> _sysInfoResults;
+		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
 
 		/// <summary>
 		/// the non-SysInfo constructor
@@ -30,14 +27,14 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// constructor that includes support for SysInfo
 		/// </summary>
-		public ExceptionStringBuilder(ExceptionReportInfo reportInfo, ICollection<SysInfoResult> sysInfoResults)
+		public ExceptionStringBuilder(ExceptionReportInfo reportInfo, IEnumerable<SysInfoResult> sysInfoResults)
 			: this(reportInfo)
 		{
 			_sysInfoResults = sysInfoResults;
 		}
 
 		/// <summary>
-		/// Build the exception string
+		/// Build the exception report string
 		/// </summary>
 		public string Build()
 		{
@@ -99,9 +96,7 @@ namespace ExceptionReporting.Core
 			if (!_reportInfo.ShowConfigTab) return;
 
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
-
-                _stringBuilder.AppendLine(File.ReadAllText(ConfigReader.GetConfigFilePath()));
-
+            _stringBuilder.AppendLine(File.ReadAllText(ConfigReader.GetConfigFilePath()));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
@@ -110,7 +105,6 @@ namespace ExceptionReporting.Core
 			if (!_reportInfo.ShowSysInfoTab) return;
 
 			_stringBuilder.AppendLine("[System Info]").AppendLine();
-
 			_stringBuilder.Append(new SysInfoResultMapper().CreateStringList(_sysInfoResults));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}

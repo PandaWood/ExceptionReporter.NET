@@ -9,6 +9,7 @@ namespace ExceptionReporting.Core
 		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
 		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
 	}
+
 	/// <summary>
 	/// a bag of information (partly config) that is passed around and used in the Exception Report
 	/// </summary>
@@ -75,7 +76,7 @@ namespace ExceptionReporting.Core
 			ShowGeneralTab = true;
 			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
 			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-			EmailReportAddress = "support@sampleemail.com";		// the SimpleMAPI won't work if this is blank, so make one up
+			EmailReportAddress = "support@email.com";		// the SimpleMAPI won't work if this is blank, so make one up
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
 			TakeScreenshot = false;

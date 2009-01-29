@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="Core\ExceptionReportController.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
     <Compile Include="ExceptionReporter.cs">
     </Compile>
