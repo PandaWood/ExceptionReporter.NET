@@ -17,7 +17,7 @@ namespace ExceptionReporting.Views
 	/// <summary>
 	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view
 	/// </summary>
-	internal class ExceptionReportPresenter
+    internal class ExceptionReportPresenter : Disposable
 	{
 		private readonly IExceptionReportView _view;
 		private readonly ICollection<SysInfoResult> _results = new List<SysInfoResult>();
@@ -47,6 +47,14 @@ namespace ExceptionReporting.Views
 			return stringBuilder.Build();
 		}
 
+        protected override void DisposeManagedResources()
+        {
+            if (ReportInfo != null)
+            {
+                ReportInfo.Dispose();
+            }
+            base.DisposeManagedResources();
+        }
 		public void SaveReportToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName))

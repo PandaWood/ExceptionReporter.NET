@@ -95,7 +95,7 @@ namespace ExceptionReporting.Views
                 tabControl.Visible = false;
 	        }
 	    }
-
+        
 	    private void RemoveButtonIcons() 
 		{
 			// removing the icons, requires a bit of reshuffling of positions
@@ -277,6 +277,7 @@ namespace ExceptionReporting.Views
 
 	    protected override void OnClosing(CancelEventArgs e)
         {
+            _presenter.Dispose();
             webBrowserConfig.Dispose();
             base.OnClosing(e);
         }
@@ -327,12 +328,12 @@ namespace ExceptionReporting.Views
 			txtExceptionTabMessage.Text = rootException.Message;
 		}
 
-	    private static void AddTargetSite(ListViewItem listViewItem, Exception rootException)
+	    private static void AddTargetSite(ListViewItem listViewItem, Exception exception)
 	    {
             //TargetSite can be null (http://msdn.microsoft.com/en-us/library/system.exception.targetsite.aspx)
-	        if (rootException.TargetSite != null)
+	        if (exception.TargetSite != null)
 	        {
-	            listViewItem.SubItems.Add(rootException.TargetSite.ToString());
+	            listViewItem.SubItems.Add(exception.TargetSite.ToString());
 	        }
 	    }
 

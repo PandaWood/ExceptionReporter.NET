@@ -4,7 +4,8 @@ using System.Reflection;
 
 namespace ExceptionReporting.Core
 {
-	public class DefaultLabelMessages
+  
+    public class DefaultLabelMessages
 	{
 		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
 		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
@@ -13,7 +14,7 @@ namespace ExceptionReporting.Core
 	/// <summary>
 	/// a bag of information (partly config) that is passed around and used in the Exception Report
 	/// </summary>
-	public class ExceptionReportInfo
+    public class ExceptionReportInfo : Disposable
 	{
         public string CustomMessage { get; set; }
 	    public string SmtpUsername { get; set; }
@@ -55,6 +56,7 @@ namespace ExceptionReporting.Core
 
 		public bool TakeScreenshot { get; set; }
 		public Bitmap ScreenshotImage { get; set; }
+		public EmailMethod MailMethod { get; set; }
 
 		public bool ScreenshotAvailable 
 		{ 
@@ -91,6 +93,14 @@ namespace ExceptionReporting.Core
 			SMTP
 		};
 
-		public EmailMethod MailMethod { get; set; }
+        protected override void DisposeManagedResources()
+        {
+            if (ScreenshotImage != null)
+            {
+                ScreenshotImage.Dispose();
+            }
+            base.DisposeManagedResources();
+        }
+
 	}
 }
