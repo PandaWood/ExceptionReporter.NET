@@ -295,38 +295,48 @@ namespace ExceptionReporting.Views
 			listviewExceptions.Columns.Add("Exception Type", 150, HorizontalAlignment.Left);
 			listviewExceptions.Columns.Add("Target Site / Method", 150, HorizontalAlignment.Left);
 
-			var listViewItem = new ListViewItem {Text = "Top Level"};
+			var listViewItem = new ListViewItem
+			                       {
+			                           Text = "Top Level"
+			                       };
 			listViewItem.SubItems.Add(rootException.GetType().ToString());
-			listViewItem.SubItems.Add(rootException.TargetSite.ToString());
-			listViewItem.Tag = "0";
+
+		    AddTargetSite(listViewItem, rootException);
+		    listViewItem.Tag = "0";
 			listviewExceptions.Items.Add(listViewItem);
 			listViewItem.Selected = true;
 
 			int index = 0;
 			Exception currentException = rootException;
-			bool shouldContinue = (currentException.InnerException != null);
 
-			while (shouldContinue)
+			while (currentException.InnerException != null)
 			{
 				index++;
 				currentException = currentException.InnerException;
-				listViewItem = new ListViewItem {Text = ("Inner Exception " + index)};
+				listViewItem = new ListViewItem
+				                   {
+				                       Text = "Inner Exception " + index
+				                   };
 				listViewItem.SubItems.Add(currentException.GetType().ToString());
-
-				if (currentException.TargetSite != null)
-					listViewItem.SubItems.Add(currentException.TargetSite.ToString());
-
+                AddTargetSite(listViewItem, currentException);
 				listViewItem.Tag = index.ToString();
 				listviewExceptions.Items.Add(listViewItem);
-
-				shouldContinue = (currentException.InnerException != null);
 			}
 
 			txtExceptionTabStackTrace.Text = rootException.StackTrace;
 			txtExceptionTabMessage.Text = rootException.Message;
 		}
 
-		private void Copy_Click(object sender, EventArgs e)
+	    private static void AddTargetSite(ListViewItem listViewItem, Exception rootException)
+	    {
+            //TargetSite can be null (http://msdn.microsoft.com/en-us/library/system.exception.targetsite.aspx)
+	        if (rootException.TargetSite != null)
+	        {
+	            listViewItem.SubItems.Add(rootException.TargetSite.ToString());
+	        }
+	    }
+
+	    private void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
 		}
@@ -355,7 +365,9 @@ namespace ExceptionReporting.Views
 			              	};
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
-				_presenter.SaveReportToFile(saveDialog.FileName);
+			{
+			    _presenter.SaveReportToFile(saveDialog.FileName);
+			}
 		}
 
 		private void ExceptionsSelectedIndexChanged(object sender, EventArgs e)
