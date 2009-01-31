@@ -1,6 +1,4 @@
 using System;
-using System.Reflection;
-using System.Windows.Forms;
 using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Views;
@@ -22,16 +20,7 @@ namespace ExceptionReporting
 		{
 			InitializeComponent();
 
-			_reportInfo = new ExceptionReportInfo
-			{
-				ExceptionDate = DateTime.Now,
-			    UserName = Environment.UserName,
-			    MachineName = Environment.MachineName,
-			    AppName = Application.ProductName,
-			    RegionInfo = Application.CurrentCulture.DisplayName,
-			    AppVersion = Application.ProductVersion,
-			    AppAssembly = Assembly.GetCallingAssembly()
-			};
+			_reportInfo = new ExceptionReportInfo();
 		}
 
 		public ExceptionReportInfo Config

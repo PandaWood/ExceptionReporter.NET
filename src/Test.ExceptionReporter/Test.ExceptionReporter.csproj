@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config_Tests.cs" />
-    <Compile Include="ExceptionController_Tests.cs" />
+    <Compile Include="ReportGenerator_Tests.cs" />
     <Compile Include="Extensions_Test.cs" />
     <Compile Include="ExceptionStringBuilder_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

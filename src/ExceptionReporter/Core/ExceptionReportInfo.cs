@@ -4,7 +4,6 @@ using System.Reflection;
 
 namespace ExceptionReporting.Core
 {
-  
     public class DefaultLabelMessages
 	{
 		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";

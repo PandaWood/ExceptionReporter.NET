@@ -6,12 +6,12 @@ using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
 {
-	//note this is a spike to determine how to get the exception report without using the form/dialog
-	public class ExceptionReportController
+	public class ExceptionReportGenerator
 	{
 		private readonly ExceptionReportInfo _reportInfo;
+		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
-		public ExceptionReportController(ExceptionReportInfo reportInfo)
+		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
 			_reportInfo = reportInfo;
 
@@ -24,9 +24,17 @@ namespace ExceptionReporting.Core
 			reportInfo.AppAssembly = Assembly.GetCallingAssembly();
 		}
 
+		public IList<SysInfoResult> GetOrFetchSysInfoResults()
+		{
+			if (_sysInfoResults.Count == 0)
+				_sysInfoResults.AddRange(CreateSysInfoResults());
+
+			return _sysInfoResults.AsReadOnly();
+		}
+
 		public string CreateExceptionReport()
 		{
-			var stringBuilder = new ExceptionStringBuilder(_reportInfo, CreateSysInfoResults());
+			var stringBuilder = new ExceptionStringBuilder(_reportInfo, GetOrFetchSysInfoResults());
 			return stringBuilder.Build();
 		}
 

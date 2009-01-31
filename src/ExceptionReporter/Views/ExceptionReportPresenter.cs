@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -18,12 +17,13 @@ namespace ExceptionReporting.Views
     internal class ExceptionReportPresenter : Disposable
 	{
 		private readonly IExceptionReportView _view;
-		private readonly ICollection<SysInfoResult> _results = new List<SysInfoResult>();
+		private readonly ExceptionReportGenerator _reportGenerator;
 
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
 			ReportInfo = info;
+			_reportGenerator = new ExceptionReportGenerator(ReportInfo);
 		}
 
 		public Exception TheException
@@ -38,11 +38,10 @@ namespace ExceptionReporting.Views
 
 		public ExceptionReportInfo ReportInfo { get; private set; }
 
-		private string BuildExceptionString()
+		private string CreateExceptionReport()
 		{
 			ReportInfo.UserExplanation = _view.UserExplanation;
-			var stringBuilder = new ExceptionStringBuilder(ReportInfo, _results);
-			return stringBuilder.Build();
+			return _reportGenerator.CreateExceptionReport();
 		}
 
         protected override void DisposeManagedResources()
@@ -53,14 +52,12 @@ namespace ExceptionReporting.Views
             }
             base.DisposeManagedResources();
         }
+
 		public void SaveReportToFile(string fileName)
 		{
-			if (string.IsNullOrEmpty(fileName))
-			{
-				return;
-			}
+			if (string.IsNullOrEmpty(fileName)) return;
 
-			string exceptionString = BuildExceptionString();
+			string exceptionString = CreateExceptionReport();
 
 			try
 			{
@@ -88,8 +85,8 @@ namespace ExceptionReporting.Views
 
 		public void CopyReportToClipboard()
 		{
-			string exceptionString = BuildExceptionString();
-			Clipboard.SetDataObject(exceptionString, true);
+			string exceptionReport = CreateExceptionReport();
+			Clipboard.SetDataObject(exceptionReport, true);
 			_view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
 		}
 
@@ -114,7 +111,7 @@ namespace ExceptionReporting.Views
 							 .AppendLine().AppendLine();
 			}
 
-			stringBuilder.Append(BuildExceptionString());
+			stringBuilder.Append(CreateExceptionReport());
 
 			return stringBuilder.ToString();
 		}
@@ -166,26 +163,21 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		public string GetConfigAsHtml()
+		private static string GetConfigAsHtml()
 		{
 			var converter = new ConfigHtmlConverter();
 			return converter.Convert();
 		}
 
-		public TreeNode CreateSysInfoTree()
+		private TreeNode CreateSysInfoTree()
 		{
-			var retriever = new SysInfoRetriever();
 			var mapper = new SysInfoResultMapper();
 			var rootNode = new TreeNode("System");
 
-			SysInfoResult osResult = retriever.Retrieve(SysInfoQueries.OperatingSystem);
-			SysInfoResult machineResult = retriever.Retrieve(SysInfoQueries.Machine);
-
-			mapper.AddTreeViewNode(rootNode, osResult);
-			mapper.AddTreeViewNode(rootNode, machineResult);
-
-			_results.Add(osResult); // store the result for later (TODO I'm not liking how this separate concern is 'dropped' in here)
-			_results.Add(machineResult);
+			foreach (var sysInfoResult in _reportGenerator.GetOrFetchSysInfoResults())
+			{
+				mapper.AddTreeViewNode(rootNode, sysInfoResult);
+			}
 
 			return rootNode;
 		}
@@ -204,10 +196,7 @@ namespace ExceptionReporting.Views
 		{
 			try
 			{
-				var psi = new ProcessStartInfo(executeString)
-				          {
-				          	UseShellExecute = true
-				          };
+				var psi = new ProcessStartInfo(executeString) { UseShellExecute = true };
 				Process.Start(psi);
 			}
 			catch (Exception exception)

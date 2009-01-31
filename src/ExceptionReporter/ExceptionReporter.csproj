@@ -53,7 +53,7 @@
     <Compile Include="Config\ConfigHtmlConverter.cs" />
     <Compile Include="Config\ConfigReader.cs" />
     <Compile Include="Core\Disposable.cs" />
-    <Compile Include="Core\ExceptionReportController.cs" />
+    <Compile Include="Core\ExceptionReportGenerator.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
     <Compile Include="ExceptionReporter.cs">
     </Compile>

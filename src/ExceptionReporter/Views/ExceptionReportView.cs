@@ -19,6 +19,7 @@ namespace ExceptionReporting.Views
 			InitializeComponent();
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo);
+
 			WireUpEvents();
 			PopulateTabs();
 			PopulateReportInfo(reportInfo);
@@ -260,7 +261,7 @@ namespace ExceptionReporting.Views
 			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
 			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 
-		    List<AssemblyName> assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies());
+		    var assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies());
             assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
 		    foreach (AssemblyName assemblyName in assemblies)
 			{
