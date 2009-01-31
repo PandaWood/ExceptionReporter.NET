@@ -47,7 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config_Tests.cs" />
+    <Compile Include="Disposable_Tests.cs" />
+    <Compile Include="FailTrackingListener.cs" />
     <Compile Include="ReportGenerator_Tests.cs" />
     <Compile Include="Extensions_Test.cs" />
     <Compile Include="ExceptionStringBuilder_Tests.cs" />
