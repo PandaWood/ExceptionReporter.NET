@@ -8,6 +8,12 @@ using System.Diagnostics;
 
 namespace ExceptionReporting.Core
 {
+    /// <summary>
+    /// Base class for all classes wanting to impliment <see cref="IDisposable"/>.
+    /// </summary>
+    /// <remarks>
+    /// Base on an article by Davy Brion <see cref="http://davybrion.com/blog/2008/06/disposing-of-the-idisposable-implementation/"/>.
+    /// </remarks>
     public abstract class Disposable : IDisposable
     {
 
