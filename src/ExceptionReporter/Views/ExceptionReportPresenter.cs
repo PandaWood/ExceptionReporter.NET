@@ -5,8 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Xsl;
 using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
@@ -170,23 +168,8 @@ namespace ExceptionReporting.Views
 
 		public string GetConfigAsHtml()
 		{
-			//TODO there's a case to be made, that this should be done by another class/mapper (not the presenter)
-			using (Stream stream = GetType().Assembly.GetManifestResourceStream("ExceptionReporting.XmlToHtml.xslt"))
-			{
-				using (XmlReader reader = XmlReader.Create(stream))
-				{
-					var xslCompiledTransform = new XslCompiledTransform();
-					xslCompiledTransform.Load(reader);
-
-					var stringBuilder = new StringBuilder();
-					using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder))
-					{
-						xslCompiledTransform.Transform(ConfigReader.GetConfigFilePath(), xmlWriter);
-					}
-
-					return stringBuilder.ToString();
-				}
-			}
+			var converter = new ConfigHtmlConverter();
+			return converter.Convert();
 		}
 
 		public TreeNode CreateSysInfoTree()

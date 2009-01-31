@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ConfigHtmlConverter.cs" />
     <Compile Include="Config\ConfigReader.cs" />
     <Compile Include="Core\Disposable.cs" />
     <Compile Include="Core\ExceptionReportController.cs" />
