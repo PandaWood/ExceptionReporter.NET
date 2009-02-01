@@ -46,6 +46,7 @@ namespace ExceptionReporting.Core
 		public string ContactMessageTop { get; set; }
 
 		public bool ShowFlatButtons { get; set; }
+		public bool ShowLessMoreDetailButton{ get; set; }
 		public bool ShowFullDetail { get; set; }
 		public bool ShowButtonIcons { get; set; }
 		public string TitleText { get; set; }

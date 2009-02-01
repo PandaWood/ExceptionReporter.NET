@@ -35,10 +35,9 @@ namespace ExceptionReporting.Views
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
 		    showFullDetail = reportInfo.ShowFullDetail;
 		    ToggleShowFullDetail();
-		    txtExceptionMessageLarge.Text = 
-		    txtExceptionMessage.Text = 
-                !string.IsNullOrEmpty(reportInfo.CustomMessage) ?
-                    reportInfo.CustomMessage : reportInfo.Exception.Message;
+			btnDetailToggle.Visible = reportInfo.ShowLessMoreDetailButton;
+		    txtExceptionMessageLarge.Text = txtExceptionMessage.Text = 
+					!string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exception.Message;
 
 		    txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
 			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
@@ -49,8 +48,8 @@ namespace ExceptionReporting.Views
 			txtVersion.Text = reportInfo.AppVersion;
 
 			btnClose.FlatStyle = 
-			btnDetailToggle.FlatStyle = 
-			btnCopy.FlatStyle = 
+				btnDetailToggle.FlatStyle = 
+				btnCopy.FlatStyle = 
 				btnEmail.FlatStyle = 
 				btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
 
@@ -87,8 +86,8 @@ namespace ExceptionReporting.Views
 		{
 			// removing the icons, requires a bit of reshuffling of positions
 			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
-			btnClose.Height =btnDetailToggle.Height = btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
-            btnClose.TextAlign =btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
+			btnClose.Height = btnDetailToggle.Height = btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
+            btnClose.TextAlign = btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
 			btnClose.Font = btnDetailToggle.Font = btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
 			ShiftDown3Pixels(new[] { btnClose, btnDetailToggle, btnCopy, btnEmail, btnSave });
 		}

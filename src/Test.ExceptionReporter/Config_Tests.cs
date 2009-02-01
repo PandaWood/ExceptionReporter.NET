@@ -1,5 +1,6 @@
 using System;
 using ExceptionReporting.Config;
+using ExceptionReporting.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -31,6 +32,19 @@ namespace Test.ExceptionReporter
 			Assert.That(html, Text.Contains("LabelMessages"));
 			Assert.That(html, Text.Contains("UserInterface"));
 		}
+
+		// NB this test relies on the app.config being as it is at the time of writing - which makes it an integration test
+		[Test]
+		public void CanReadConfig()
+		{
+			var info = new ExceptionReportInfo();
+			var configReader = new ConfigReader(info);
+			configReader.ReadConfig();
+
+			Assert.That(info.ContactEmail, Is.EqualTo("test@test.com"));
+			Assert.That(info.ShowLessMoreDetailButton, Is.False);
+		}
+
 
 		[Test][Ignore("Need to be able to simulate the resource not existing")]
 		[ExpectedException(typeof(Exception), ExpectedMessage = "File not found in manifest: ExceptionReporting.XmlToHtml.xslt")]
