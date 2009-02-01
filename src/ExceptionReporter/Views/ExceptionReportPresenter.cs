@@ -57,14 +57,14 @@ namespace ExceptionReporting.Views
 		{
 			if (string.IsNullOrEmpty(fileName)) return;
 
-			string exceptionString = CreateExceptionReport();
+			string exceptionReport = CreateExceptionReport();
 
 			try
 			{
 				using (FileStream stream = File.OpenWrite(fileName))
 				{
 					var writer = new StreamWriter(stream);
-					writer.Write(exceptionString);
+					writer.Write(exceptionReport);
 					writer.Flush();
 				}
 			}

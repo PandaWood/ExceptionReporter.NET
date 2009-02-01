@@ -1,9 +1,7 @@
 Exception Reporter
 ------------------
 
-Version 1
-
-Welcome to Release 1 of the ExceptionReporter project on CodePlex.
+Welcome to the new, refvitalised ExceptionReporter project on CodePlex (moved from SourceForge)
 The project has changed a bit since it was moved onto CodePlex, an explanation of the changes follows:
 
 [FUNCTIONALITY CHANGES]
@@ -40,3 +38,4 @@ This is not part of this release, but hopefully will be ready for the next relea
 Contributors:
 phillippettit (original SourceForge project author)
 PandaWood (Peter van der Woude - spurrymoses@gmail.com)
+SimonCropp

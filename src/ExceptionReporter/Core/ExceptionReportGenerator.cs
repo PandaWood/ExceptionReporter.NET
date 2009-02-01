@@ -24,18 +24,18 @@ namespace ExceptionReporting.Core
 			reportInfo.AppAssembly = Assembly.GetCallingAssembly();
 		}
 
+		public string CreateExceptionReport()
+		{
+			var stringBuilder = new ExceptionStringBuilder(_reportInfo, GetOrFetchSysInfoResults());
+			return stringBuilder.Build();
+		}
+
 		public IList<SysInfoResult> GetOrFetchSysInfoResults()
 		{
 			if (_sysInfoResults.Count == 0)
 				_sysInfoResults.AddRange(CreateSysInfoResults());
 
 			return _sysInfoResults.AsReadOnly();
-		}
-
-		public string CreateExceptionReport()
-		{
-			var stringBuilder = new ExceptionStringBuilder(_reportInfo, GetOrFetchSysInfoResults());
-			return stringBuilder.Build();
 		}
 
 		private static IEnumerable<SysInfoResult> CreateSysInfoResults()
