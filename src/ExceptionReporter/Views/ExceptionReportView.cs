@@ -80,23 +80,9 @@ namespace ExceptionReporting.Views
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 
 			if (reportInfo.TakeScreenshot)
-				reportInfo.ScreenshotImage = ScreenshotHelper.ScreenShot();
+				reportInfo.ScreenshotImage = ScreenshotHelper.TakeScreenShot();
 		}
 
-	    private void ToggleShowFullDetail()
-	    {
-	        if (showFullDetail)
-	        {
-	            btnDetailToggle.Text = "Less Detail";
-                tabControl.Visible = true;
-	        }
-            else
-	        {
-                btnDetailToggle.Text = "More Detail";
-                tabControl.Visible = false;
-	        }
-	    }
-        
 	    private void RemoveButtonIcons() 
 		{
 			// removing the icons, requires a bit of reshuffling of positions
@@ -168,12 +154,24 @@ namespace ExceptionReporting.Views
 			set { progressBar.Value = value; }
 		}
 
-
 		public bool ShowFullDetail
 		{
 			get { return showFullDetail; }
-            set { showFullDetail = value; 
-            ToggleShowFullDetail();}
+			set { showFullDetail = value; }
+		}
+
+		public void ToggleShowFullDetail()
+		{
+			if (showFullDetail)
+			{
+				btnDetailToggle.Text = "Less Detail";
+				tabControl.Visible = true;
+			}
+			else
+			{
+				btnDetailToggle.Text = "More Detail";
+				tabControl.Visible = false;
+			}
 		}
 
 		public string UserExplanation

@@ -26,5 +26,6 @@ namespace ExceptionReporting.Views
         void PopulateSysInfoTab(TreeNode rootNode);
         void PopulateTabs();
         void SetProgressCompleteState();
+    	void ToggleShowFullDetail();
     }
 }

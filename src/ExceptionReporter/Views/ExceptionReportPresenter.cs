@@ -93,6 +93,7 @@ namespace ExceptionReporting.Views
 		public void ToggleDetail()
 		{
 			_view.ShowFullDetail = !_view.ShowFullDetail;
+			_view.ToggleShowFullDetail();
 		}
 
 		private string BuildEmailExceptionString()

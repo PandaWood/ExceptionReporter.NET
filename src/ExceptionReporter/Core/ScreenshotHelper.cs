@@ -10,7 +10,7 @@ namespace ExceptionReporting.Core
         public const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
 		public const string ScreenshotMimeType = "image/jpeg";
 
-		public static Bitmap ScreenShot()
+		public static Bitmap TakeScreenShot()
 		{
 			Rectangle rectangle = Rectangle.Empty;
 
