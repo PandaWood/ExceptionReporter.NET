@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Views;
@@ -43,7 +42,7 @@ namespace ExceptionReporting
 
 	        try
 			{
-				_reportInfo.Exceptions = new List<Exception>(exceptions);
+				_reportInfo.AddExceptions(exceptions);
 
                 var reportView = new ExceptionReportView(_reportInfo);
 				reportView.ShowExceptionReport();

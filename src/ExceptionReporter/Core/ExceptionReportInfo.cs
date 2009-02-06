@@ -16,12 +16,23 @@ namespace ExceptionReporting.Core
 	/// </summary>
     public class ExceptionReportInfo : Disposable
 	{
+		private readonly List<Exception> _exceptions = new List<Exception>();
+
+		public IList<Exception> Exceptions
+		{
+			get { return _exceptions.AsReadOnly(); }
+		}
+
+		public void AddExceptions(IEnumerable<Exception> exceptions)
+		{
+			_exceptions.AddRange(exceptions);
+		}
+
         public string CustomMessage { get; set; }
 	    public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
-		public List<Exception> Exceptions { get; set; }
 		public string ContactEmail { get; set; }
 		public string AppName { get; set; }
 		public string AppVersion { get; set; }
@@ -102,6 +113,5 @@ namespace ExceptionReporting.Core
             }
             base.DisposeManagedResources();
         }
-
 	}
 }

@@ -15,6 +15,7 @@ namespace Test.ExceptionReporter
 			var converter = new ConfigHtmlConverter();
 			string html = converter.Convert();
 
+			//TODO create a Regex to test this more thoroughly
 			Assert.That(html.StartsWith("<?xml"));
 			Assert.That(html, Text.Contains("<HTML>"));
 			Assert.That(html, Text.Contains("</HTML>"));
@@ -33,7 +34,7 @@ namespace Test.ExceptionReporter
 			Assert.That(html, Text.Contains("UserInterface"));
 		}
 
-		// NB this test relies on the app.config being as it is at the time of writing - which makes it an integration test
+		// NB this test relies on the app.config being as it is at the time of writing - it's an integration test
 		[Test]
 		public void CanReadConfig()
 		{
@@ -44,7 +45,6 @@ namespace Test.ExceptionReporter
 			Assert.That(info.ContactEmail, Is.EqualTo("test@test.com"));
 			Assert.That(info.ShowLessMoreDetailButton, Is.False);
 		}
-
 
 		[Test][Ignore("Need to be able to simulate the resource not existing")]
 		[ExpectedException(typeof(Exception), ExpectedMessage = "File not found in manifest: ExceptionReporting.XmlToHtml.xslt")]

@@ -15,13 +15,13 @@ namespace ExceptionReporting.Core
 		{
 			_reportInfo = reportInfo;
 
-			reportInfo.ExceptionDate = DateTime.Now;
-			reportInfo.UserName = Environment.UserName;
-			reportInfo.MachineName = Environment.MachineName;
-			reportInfo.AppName = Application.ProductName;
-			reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
-			reportInfo.AppVersion = Application.ProductVersion;
-			reportInfo.AppAssembly = Assembly.GetEntryAssembly();
+			_reportInfo.ExceptionDate = DateTime.Now;
+			_reportInfo.UserName = Environment.UserName;
+			_reportInfo.MachineName = Environment.MachineName;
+			_reportInfo.AppName = Application.ProductName;
+			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
+			_reportInfo.AppVersion = Application.ProductVersion;
+			_reportInfo.AppAssembly = Assembly.GetEntryAssembly();
 		}
 
 		public string CreateExceptionReport()
