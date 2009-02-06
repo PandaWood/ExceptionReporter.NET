@@ -21,7 +21,7 @@ namespace ExceptionReporting.Core
 			reportInfo.AppName = Application.ProductName;
 			reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 			reportInfo.AppVersion = Application.ProductVersion;
-			reportInfo.AppAssembly = Assembly.GetCallingAssembly();
+			reportInfo.AppAssembly = Assembly.GetEntryAssembly();
 		}
 
 		public string CreateExceptionReport()

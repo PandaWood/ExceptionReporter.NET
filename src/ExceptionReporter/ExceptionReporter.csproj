@@ -55,6 +55,12 @@
     <Compile Include="Core\Disposable.cs" />
     <Compile Include="Core\ExceptionReportGenerator.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
+    <Compile Include="Views\ExceptionDetailControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ExceptionDetailControl.Designer.cs">
+      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionReporter.cs">
     </Compile>
     <Compile Include="Core\ExceptionReportInfo.cs" />
@@ -97,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
+    <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
+      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XmlToHtml.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

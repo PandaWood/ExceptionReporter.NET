@@ -112,11 +112,17 @@ namespace ExceptionReporting.Config
 		private void ReadUserInterfaceSettings()
 		{
 			_info.ShowFlatButtons = GetUserInterfaceSetting("ShowFlatButtons").ReturnBoolfNotNull_Else(_info.ShowFlatButtons);
+            _info.ShowFullDetail = GetUserInterfaceSetting("ShowFullDetail").ReturnBoolfNotNull_Else(_info.ShowFullDetail);
+
+            if (!_info.ShowFullDetail)
+            {
+                //defaul ShowLessMoreDetailButton to shown
+                _info.ShowLessMoreDetailButton = true;
+            }
 			_info.ShowLessMoreDetailButton = GetUserInterfaceSetting("ShowLessMoreDetailButton").ReturnBoolfNotNull_Else(_info.ShowLessMoreDetailButton);
 			_info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").ReturnBoolfNotNull_Else(_info.ShowButtonIcons);
 			_info.TitleText = GetUserInterfaceSetting("TitleText").ReturnStringIfNotNull_Else(_info.TitleText);
             _info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").ReturnBoolfNotNull_Else(_info.TakeScreenshot);
-            _info.ShowFullDetail = GetUserInterfaceSetting("ShowFullDetail").ReturnBoolfNotNull_Else(_info.ShowFullDetail);
 
 			float fontSize;
 			string fontSizeAsString = GetUserInterfaceSetting("UserExplanationFontSize");

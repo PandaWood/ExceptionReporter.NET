@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Views;
@@ -29,17 +30,20 @@ namespace ExceptionReporting
 		}
 
 	    /// <summary>
-		/// Show the ExceptionReporter dialog
+		/// Show the <see cref="ExceptionReportView"/> dialog
 		/// </summary>
-		/// <remarks>The ExceptionReporter will analyze the exception and create and show the report dialog</remarks>
-		/// <param name="exception">the exception to show</param>
-		public void Show(Exception exception)
+		/// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and create and show the report dialog.</remarks>
+		/// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
+		public void Show(params Exception[] exceptions)
 		{
-			if (exception == null) return;		//TODO consider what is best to do here
+            if (exceptions == null)
+            {
+                return; //TODO consider what is best to do here
+            }
 
-			try
+	        try
 			{
-				_reportInfo.Exception = exception;
+				_reportInfo.Exceptions = new List<Exception>(exceptions);
 
                 var reportView = new ExceptionReportView(_reportInfo);
 				reportView.ShowExceptionReport();
@@ -50,10 +54,10 @@ namespace ExceptionReporting
 			}
 		}
 
-        public void Show(string customMessage, Exception exception)
+        public void Show(string customMessage, params Exception[] exceptions)
         {
             _reportInfo.CustomMessage = customMessage;
-            Show(exception);
+            Show(exceptions);
         }
 
 		/// <summary>

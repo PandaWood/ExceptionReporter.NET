@@ -73,15 +73,19 @@ namespace ExceptionReporting.Core
 
 		private void BuildExceptionInfo()
 		{
-			if (!_reportInfo.ShowExceptionsTab) return;
+		    if (!_reportInfo.ShowExceptionsTab) return;
 
-			_stringBuilder.AppendLine("[Exception Info]")
-				.AppendLine()
-				.AppendLine(ExceptionHierarchyToString(_reportInfo.Exception))
-				.AppendLine().AppendDottedLine().AppendLine();
+		    for (int index = 0; index < _reportInfo.Exceptions.Count; index++)
+		    {
+		        var exception = _reportInfo.Exceptions[index];
+		        _stringBuilder.AppendLine(string.Format("[Exception Info {0}]", index+1))
+		            .AppendLine()
+		            .AppendLine(ExceptionHierarchyToString(exception))
+		            .AppendLine().AppendDottedLine().AppendLine();
+		    }
 		}
 
-		private void BuildAssemblyInfo()
+	    private void BuildAssemblyInfo()
 		{
 			if (!_reportInfo.ShowAssembliesTab) return;
 

@@ -2,10 +2,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Height="400" Width="500">
-    <Canvas Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" >
+            <TabItem Header="General">
+                <Grid>
+                    <Grid.ColumnDefinitions>
 
-        <TabControl>
-            <TabItem Header="General"></TabItem>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+
+                    </Grid.RowDefinitions>
+                </Grid>
+            </TabItem>
             <TabItem Header="Exceptions">
                 <ListView>
                     <ListView.View>
@@ -15,9 +27,6 @@
                             <GridViewColumn Header="Target Site / Method" Width="155" DisplayMemberBinding="{Binding Method}"/>
                         </GridView>
                     </ListView.View>
-
-                    <ListViewItem></ListViewItem>
-
                 </ListView>
             </TabItem>
             <TabItem Header="Assemblies">
@@ -28,15 +37,59 @@
                             <GridViewColumn Header="Version" Width="80" DisplayMemberBinding="{Binding Version}"/>
                         </GridView>
                     </ListView.View>
-
-                    <ListViewItem></ListViewItem>
-
                 </ListView>
             </TabItem>
             <TabItem Header="Configuration"></TabItem>
             <TabItem Header="System"></TabItem>
-            <TabItem Header="Contact"></TabItem>
+            <TabItem Header="Contact">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">The following details can be used to obtain support for this application.</TextBlock>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center">Email:</TextBlock>                    
+                    <TextBox  Grid.Column="1" Grid.Row="2" IsReadOnly="True"  TextDecorations="Underline" BorderThickness="0" Foreground="DarkBlue">NA</TextBox>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Web:</TextBlock>
+                    <TextBox  Grid.Column="1" Grid.Row="3" IsReadOnly="True" TextDecorations="Underline" BorderThickness="0" Foreground="DarkBlue">NA</TextBox>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center">Phone:</TextBlock>
+                    <TextBox  Grid.Column="1" Grid.Row="4" IsReadOnly="True" BorderThickness="0"/>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center">Fax:</TextBlock>
+                    <TextBox  Grid.Column="1" Grid.Row="5" IsReadOnly="True" BorderThickness="0"/>
+                </Grid>
+            </TabItem>
         </TabControl>
+        <Grid Grid.Row="1">
 
-    </Canvas>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0">Loading system information...</TextBlock>
+            <ProgressBar Visibility="Hidden" Grid.Column="0" Grid.Row="1" Height="15"/>
+                <WrapPanel Grid.Column="1" FlowDirection="RightToLeft" >
+                <Button>Close</Button>
+                <Button>Email</Button>
+                <Button>Save</Button>
+                <Button>Copy</Button>
+                <Button>Less Detail</Button>
+            </WrapPanel>
+        </Grid>
+    </Grid>
 </UserControl>

@@ -54,7 +54,10 @@ namespace Test.ExceptionReporter
             using (ExceptionReportInfo reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowExceptionsTab = true;
-                reportInfo.Exception = new ArgumentOutOfRangeException("OuterException", new ArgumentNullException("Inner" + "Exception"));
+                reportInfo.Exceptions = new List<Exception>
+                                            {
+                                                new ArgumentOutOfRangeException("OuterException", new ArgumentNullException("Inner" + "Exception"))
+                                            };
 
                 StringBuilder expectedExceptionReport = new StringBuilder().AppendDottedLine()
                     .AppendLine("[Exception Info]").AppendLine()

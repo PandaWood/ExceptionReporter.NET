@@ -13,6 +13,7 @@ namespace ExceptionReporting.DemoApp
 			urlConfigured.Click += Throw_Configured_Click;
 			urlDefault.Click += Throw_NonConfigured_Click;
 		    urlCustomMessage.Click += Throw_CustomMessage_Click;
+		    urlConfiguredMultiple.Click += Throw_ConfiguredMultiple_Click;
 		}
 
 		private static void Throw_NonConfigured_Click(object sender, EventArgs e)
@@ -23,6 +24,10 @@ namespace ExceptionReporting.DemoApp
 		private static void Throw_Configured_Click(object sender, EventArgs e)
 		{
 			ShowExceptionReporter(true);
+		}
+		private static void Throw_ConfiguredMultiple_Click(object sender, EventArgs e)
+		{
+			ShowMultipleExceptionReporter();
 		}
 
         private static void Throw_CustomMessage_Click(object sender, EventArgs e)
@@ -38,7 +43,35 @@ namespace ExceptionReporting.DemoApp
             }
         }
 
-		private static void ShowExceptionReporter(bool useConfig) 
+
+        private static void ShowMultipleExceptionReporter()
+        {
+            Exception exception1 = null;
+            Exception exception2 = null;
+            try
+            {
+                SomeMethod();
+            }
+            catch (Exception exception)
+            {
+                exception1 = exception;
+            }
+            try
+            {
+                CallAnotherMethod();
+            }
+            catch (Exception exception)
+            {
+                exception2 = exception;
+            }
+            var exceptionReporter = new ExceptionReporter();
+
+            exceptionReporter.ReadConfig();
+
+            exceptionReporter.Show(exception1, exception2);
+        }
+
+	    private static void ShowExceptionReporter(bool useConfig) 
 		{
 			try
 			{

@@ -12,11 +12,11 @@ namespace ExceptionReporting.Views
 	{
 		private bool _isDataRefreshRequired;
 		private readonly ExceptionReportPresenter _presenter;
-	    private bool showFullDetail = true;
 
 	    public ExceptionReportView(ExceptionReportInfo reportInfo)
 		{
-			InitializeComponent();
+	        ShowFullDetail = true;
+	        InitializeComponent();
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo);
 
@@ -25,62 +25,62 @@ namespace ExceptionReporting.Views
 			PopulateReportInfo(reportInfo);
 		}
 
-		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
-		{
-			urlEmail.Text = reportInfo.ContactEmail;
-			txtFax.Text = reportInfo.Fax;
-			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
-			txtPhone.Text = reportInfo.Phone;
-			urlWeb.Text = reportInfo.WebUrl;
-			lblExplanation.Text = reportInfo.UserExplanationLabel;
-		    showFullDetail = reportInfo.ShowFullDetail;
-		    ToggleShowFullDetail();
-			btnDetailToggle.Visible = reportInfo.ShowLessMoreDetailButton;
-		    txtExceptionMessageLarge.Text = txtExceptionMessage.Text = 
-					!string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exception.Message;
+        private void PopulateReportInfo(ExceptionReportInfo reportInfo)
+        {
+            urlEmail.Text = reportInfo.ContactEmail;
+            txtFax.Text = reportInfo.Fax;
+            lblContactMessageTop.Text = reportInfo.ContactMessageTop;
+            txtPhone.Text = reportInfo.Phone;
+            urlWeb.Text = reportInfo.WebUrl;
+            lblExplanation.Text = reportInfo.UserExplanationLabel;
+            ShowFullDetail = reportInfo.ShowFullDetail;
+            ToggleShowFullDetail();
+            btnDetailToggle.Visible = reportInfo.ShowLessMoreDetailButton;
+            //TODO: show all exception messages
+            txtExceptionMessageLarge.Text = txtExceptionMessage.Text =
+                                            !string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions[0].Message;
 
-		    txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
-			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
-			txtUserName.Text = reportInfo.UserName;
-			txtMachine.Text = reportInfo.MachineName;
-			txtRegion.Text = reportInfo.RegionInfo;
-			txtApplicationName.Text = reportInfo.AppName;
-			txtVersion.Text = reportInfo.AppVersion;
+            txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
+            txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
+            txtUserName.Text = reportInfo.UserName;
+            txtMachine.Text = reportInfo.MachineName;
+            txtRegion.Text = reportInfo.RegionInfo;
+            txtApplicationName.Text = reportInfo.AppName;
+            txtVersion.Text = reportInfo.AppVersion;
 
-			btnClose.FlatStyle = 
-				btnDetailToggle.FlatStyle = 
-				btnCopy.FlatStyle = 
-				btnEmail.FlatStyle = 
-				btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
+            btnClose.FlatStyle =
+                btnDetailToggle.FlatStyle =
+                btnCopy.FlatStyle =
+                btnEmail.FlatStyle =
+                btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
 
-			listviewExceptions.BackColor = 
-				listviewAssemblies.BackColor =
-				txtExceptionTabStackTrace.BackColor = 
-				txtFax.BackColor = 
-				txtMachine.BackColor =
-				txtPhone.BackColor =
-				txtRegion.BackColor =
-				txtTime.BackColor =
-				txtTime.BackColor =
-				txtUserName.BackColor =
-				txtVersion.BackColor =
-				txtApplicationName.BackColor =
-				txtDate.BackColor =
-				txtExceptionMessageLarge.BackColor =
-				txtExceptionMessage.BackColor =
-				txtExceptionTabMessage.BackColor = reportInfo.BackgroundColor;
+            listviewAssemblies.BackColor =
+                txtFax.BackColor =
+                txtMachine.BackColor =
+                txtPhone.BackColor =
+                txtRegion.BackColor =
+                txtTime.BackColor =
+                txtTime.BackColor =
+                txtUserName.BackColor =
+                txtVersion.BackColor =
+                txtApplicationName.BackColor =
+                txtDate.BackColor =
+                txtExceptionMessageLarge.BackColor =
+                txtExceptionMessage.BackColor = reportInfo.BackgroundColor;
 
-			if (!reportInfo.ShowButtonIcons)
-			{	
-				RemoveButtonIcons();
-			}
+            if (!reportInfo.ShowButtonIcons)
+            {
+                RemoveButtonIcons();
+            }
 
-			Text = reportInfo.TitleText;
-			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
+            Text = reportInfo.TitleText;
+            txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 
-			if (reportInfo.TakeScreenshot)
-				reportInfo.ScreenshotImage = ScreenshotHelper.TakeScreenShot();
-		}
+            if (reportInfo.TakeScreenshot)
+            {
+                reportInfo.ScreenshotImage = ScreenshotHelper.TakeScreenShot();
+            }
+        }
 
 	    private void RemoveButtonIcons() 
 		{
@@ -95,7 +95,9 @@ namespace ExceptionReporting.Views
 		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
 		{
 			foreach (var button in buttons)
-				button.Location = Point.Add(button.Location, new Size(new Point(0, 3)));
+			{
+			    button.Location = Point.Add(button.Location, new Size(new Point(0, 3)));
+			}
 		}
 
 		~ExceptionReportView()
@@ -106,7 +108,6 @@ namespace ExceptionReporting.Views
 		private void WireUpEvents()
 		{
 			btnEmail.Click += Email_Click;
-			listviewExceptions.SelectedIndexChanged += ExceptionsSelectedIndexChanged;
 			btnCopy.Click += Copy_Click;
 			btnClose.Click += Close_Click;
 			btnDetailToggle.Click += Detail_Click;
@@ -120,7 +121,9 @@ namespace ExceptionReporting.Views
 		void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
-				Close();
+			{
+			    Close();
+			}
 		}
 
 		public string ProgressMessage
@@ -134,34 +137,45 @@ namespace ExceptionReporting.Views
 
 		public bool EnableEmailButton
 		{
-			set { btnEmail.Enabled = value; }
+			set
+			{
+			    btnEmail.Enabled = value;
+			}
 		}
 
 		public bool ShowProgressBar
 		{
-			set { progressBar.Visible = value; }
+			set
+			{
+			    progressBar.Visible = value;
+			}
 		}
 
 		public bool ShowProgressLabel
 		{
-			set { lblProgressMessage.Visible = value; }
+			set
+			{
+			    lblProgressMessage.Visible = value;
+			}
 		}
 
 		public int ProgressValue
 		{
-			get { return progressBar.Value; }
-			set { progressBar.Value = value; }
+			get
+			{
+			    return progressBar.Value;
+			}
+			set
+			{
+			    progressBar.Value = value;
+			}
 		}
 
-		public bool ShowFullDetail
-		{
-			get { return showFullDetail; }
-			set { showFullDetail = value; }
-		}
+	    public bool ShowFullDetail { get; set; }
 
-		public void ToggleShowFullDetail()
+	    public void ToggleShowFullDetail()
 		{
-			if (showFullDetail)
+			if (ShowFullDetail)
 			{
 				btnDetailToggle.Text = "Less Detail";
 				tabControl.Visible = true;
@@ -175,7 +189,10 @@ namespace ExceptionReporting.Views
 
 		public string UserExplanation
 		{
-			get { return txtUserExplanation.Text; }
+			get
+			{
+			    return txtUserExplanation.Text;
+			}
 		}
 
 		public void SetEmailCompletedState(bool success)
@@ -190,7 +207,9 @@ namespace ExceptionReporting.Views
 			SetEmailCompletedState(success);
 
 			if (success)
-				ProgressMessage = successMessage;
+			{
+			    ProgressMessage = successMessage;
+			}
 		}
 
 		public void PopulateTabs()
@@ -252,21 +271,69 @@ namespace ExceptionReporting.Views
 			Application.DoEvents();
 		}
 
-		public void PopulateAssembliesTab()
+	    public void PopulateExceptionTab(IList<Exception> exceptions)
+	    {
+
+            if (exceptions.Count == 1)
+            {
+                Exception exception = exceptions[0];
+                AddExceptionControl(tabExceptions, exception);
+            }
+            else
+            {
+                TabControl innerTabControl = new TabControl
+                                            {
+                                                Dock = DockStyle.Fill
+                                            };
+                tabExceptions.Controls.Add(innerTabControl);
+                for (int index = 0; index < exceptions.Count; index++)
+                {
+                    var exception = exceptions[index];
+                    TabPage tabPage = new TabPage
+                                          {
+                                              Text = string.Format("Excepton {0}", index+1)
+                                          };
+                    innerTabControl.TabPages.Add(tabPage);
+                    AddExceptionControl(tabPage, exception);
+                }
+            }
+	    }
+
+	    private void AddExceptionControl(Control control, Exception exception)
+	    {
+	        ExceptionDetailControl exceptionDetailControl = new ExceptionDetailControl();
+	        exceptionDetailControl.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
+	        exceptionDetailControl.PopulateExceptionTab(exception);
+	        exceptionDetailControl.Dock = DockStyle.Fill;
+            control.Controls.Add(exceptionDetailControl);
+	    }
+
+	    public void PopulateAssembliesTab()
 		{
 			listviewAssemblies.Clear();
 			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
 			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 
-		    var assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies());
-            assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
+		    var assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies())
+		                         {
+		                             _presenter.AppAssembly.GetName()
+		                         };
+	        assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
 		    foreach (AssemblyName assemblyName in assemblies)
 			{
-				var listViewItem = new ListViewItem {Text = assemblyName.Name};
-				listViewItem.SubItems.Add(assemblyName.Version.ToString());
-				listviewAssemblies.Items.Add(listViewItem);
+				AddAssembly(assemblyName);
 			}
 		}
+
+	    private void AddAssembly(AssemblyName assemblyName)
+	    {
+	        var listViewItem = new ListViewItem
+	                               {
+	                                   Text = assemblyName.Name
+	                               };
+	        listViewItem.SubItems.Add(assemblyName.Version.ToString());
+	        listviewAssemblies.Items.Add(listViewItem);
+	    }
 
 	    public void PopulateConfigTab(string configFileAsXml)
         {
@@ -286,54 +353,8 @@ namespace ExceptionReporting.Views
 			rootNode.Expand();
 		}
 
-		//TODO Label='EH' - move this logic out (is duplicated almost entirely (without ListView) in ExceptionStringBuilder)
-		public void PopulateExceptionTab(Exception rootException)
-		{
-			listviewExceptions.Clear();
-			listviewExceptions.Columns.Add("Level", 100, HorizontalAlignment.Left);
-			listviewExceptions.Columns.Add("Exception Type", 150, HorizontalAlignment.Left);
-			listviewExceptions.Columns.Add("Target Site / Method", 150, HorizontalAlignment.Left);
 
-			var listViewItem = new ListViewItem
-			                       {
-			                           Text = "Top Level"
-			                       };
-			listViewItem.SubItems.Add(rootException.GetType().ToString());
-
-		    AddTargetSite(listViewItem, rootException);
-		    listViewItem.Tag = "0";
-			listviewExceptions.Items.Add(listViewItem);
-			listViewItem.Selected = true;
-
-			int index = 0;
-			Exception currentException = rootException;
-
-			while (currentException.InnerException != null)
-			{
-				index++;
-				currentException = currentException.InnerException;
-				listViewItem = new ListViewItem
-				                   {
-				                       Text = "Inner Exception " + index
-				                   };
-				listViewItem.SubItems.Add(currentException.GetType().ToString());
-                AddTargetSite(listViewItem, currentException);
-				listViewItem.Tag = index.ToString();
-				listviewExceptions.Items.Add(listViewItem);
-			}
-
-			txtExceptionTabStackTrace.Text = rootException.StackTrace;
-			txtExceptionTabMessage.Text = rootException.Message;
-		}
-
-	    private static void AddTargetSite(ListViewItem listViewItem, Exception exception)
-	    {
-            //TargetSite can be null (http://msdn.microsoft.com/en-us/library/system.exception.targetsite.aspx)
-	        if (exception.TargetSite != null)
-	        {
-	            listViewItem.SubItems.Add(exception.TargetSite.ToString());
-	        }
-	    }
+	
 
 	    private void Copy_Click(object sender, EventArgs e)
 		{
@@ -369,27 +390,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void ExceptionsSelectedIndexChanged(object sender, EventArgs e)
-		{
-			Exception displayException = _presenter.TheException;
-			foreach (ListViewItem listViewItem in listviewExceptions.Items)
-			{
-				if (!listViewItem.Selected) continue;
-				for (int count = 0; count < int.Parse(listViewItem.Tag.ToString()); count++)
-				{
-					displayException = displayException.InnerException;
-				}
-			}
-
-			txtExceptionTabStackTrace.Text = string.Empty;
-			txtExceptionTabMessage.Text = string.Empty;
-
-			if (displayException == null) displayException = _presenter.TheException;
-			if (displayException == null) return;
-
-			txtExceptionTabStackTrace.Text = displayException.StackTrace;
-			txtExceptionTabMessage.Text = displayException.Message;
-		}
+	
 
 		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{

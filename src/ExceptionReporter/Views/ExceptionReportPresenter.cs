@@ -26,10 +26,7 @@ namespace ExceptionReporting.Views
 			_reportGenerator = new ExceptionReportGenerator(ReportInfo);
 		}
 
-		public Exception TheException
-		{
-			get { return ReportInfo.Exception; }
-		}
+	
 
 		public Assembly AppAssembly
 		{
@@ -77,10 +74,14 @@ namespace ExceptionReporting.Views
 		public void SendReportByEmail(IntPtr handle)
 		{
 			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
-				SendMapiEmail(handle);
+			{
+			    SendMapiEmail(handle);
+			}
 
 			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
-				SendSmtpMail();
+			{
+			    SendSmtpMail();
+			}
 		}
 
 		public void CopyReportToClipboard()
@@ -212,7 +213,7 @@ namespace ExceptionReporting.Views
 			{
 				_view.SetInProgressState();
 
-				_view.PopulateExceptionTab(TheException);
+				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
 				_view.PopulateConfigTab(GetConfigAsHtml());
 				_view.PopulateSysInfoTab(CreateSysInfoTree());

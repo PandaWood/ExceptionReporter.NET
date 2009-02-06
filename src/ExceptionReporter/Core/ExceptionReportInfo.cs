@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 
@@ -20,7 +21,7 @@ namespace ExceptionReporting.Core
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
-		public Exception Exception { get; set; }
+		public List<Exception> Exceptions { get; set; }
 		public string ContactEmail { get; set; }
 		public string AppName { get; set; }
 		public string AppVersion { get; set; }
