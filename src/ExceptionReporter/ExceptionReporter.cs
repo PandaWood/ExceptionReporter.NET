@@ -37,12 +37,12 @@ namespace ExceptionReporting
 		{
             if (exceptions == null)
             {
-                return; //TODO consider what is best to do here
+                return; //TODO reconsider what is best to do here
             }
 
 	        try
 			{
-				_reportInfo.AddExceptions(exceptions);
+				_reportInfo.SetExceptions(exceptions);
 
                 var reportView = new ExceptionReportView(_reportInfo);
 				reportView.ShowExceptionReport();

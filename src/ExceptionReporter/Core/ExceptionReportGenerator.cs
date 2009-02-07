@@ -6,13 +6,16 @@ using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
 {
-	public class ExceptionReportGenerator
+	public class ExceptionReportGenerator : Disposable
 	{
 		private readonly ExceptionReportInfo _reportInfo;
 		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
+			if (reportInfo == null)
+				throw new ExceptionReportGeneratorException("reportInfo cannot be null");
+
 			_reportInfo = reportInfo;
 
 			_reportInfo.ExceptionDate = DateTime.Now;
@@ -48,5 +51,17 @@ namespace ExceptionReporting.Core
 			};
 			return results;
 		}
+
+		protected override void DisposeManagedResources()
+		{
+			_reportInfo.Dispose();
+			base.DisposeManagedResources();
+		}
+	}
+
+	public class ExceptionReportGeneratorException : Exception
+	{
+		public ExceptionReportGeneratorException(string message) : base(message)
+		{ }
 	}
 }

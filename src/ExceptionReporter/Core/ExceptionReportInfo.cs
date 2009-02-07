@@ -5,35 +5,57 @@ using System.Reflection;
 
 namespace ExceptionReporting.Core
 {
-    public class DefaultLabelMessages
-	{
-		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
-		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
-	}
-
 	/// <summary>
-	/// a bag of information (partly config) that is passed around and used in the Exception Report
+	/// a bag of information (some of which is stored and retrieved from config)
 	/// </summary>
     public class ExceptionReportInfo : Disposable
 	{
 		private readonly List<Exception> _exceptions = new List<Exception>();
+
+		/// <summary>
+		/// The Main (ostensibly 'only') exception
+		/// Setting this property will clear any other exceptions
+		/// <remarks>If multiple top-level exceptions are required, use SetExceptions instead</remarks>
+		/// </summary>
+		public Exception MainException
+		{
+			get { return _exceptions.Count > 0 ? _exceptions[0] : null; }
+			set
+			{
+				_exceptions.Clear();
+				_exceptions.Add(value);
+			}
+		}
 
 		public IList<Exception> Exceptions
 		{
 			get { return _exceptions.AsReadOnly(); }
 		}
 
-		public void AddExceptions(IEnumerable<Exception> exceptions)
+		/// <summary>
+		/// Add multiple exceptions to be shown (each in a separate tab if shown in dialog)
+		/// <remarks>
+		/// Note: Showing multiple exceptions is a special-case requirement - for only 1 top-level exception
+		/// use the MainException property instead
+		/// </remarks>
+		/// </summary>
+		public void SetExceptions(IEnumerable<Exception> exceptions)
 		{
+			_exceptions.Clear();
 			_exceptions.AddRange(exceptions);
 		}
 
-        public string CustomMessage { get; set; }
+		public string CustomMessage { get; set; }
 	    public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
+
+		/// <summary>
+		/// an email that is displayed in the 'Contact Information' (see EmailReportAddress for the email used to actually send)
+		/// </summary>
 		public string ContactEmail { get; set; }
+
 		public string AppName { get; set; }
 		public string AppVersion { get; set; }
 		public string RegionInfo { get; set; }
@@ -53,7 +75,11 @@ namespace ExceptionReporting.Core
 		public bool ShowSysInfoTab { get; set; }
 		public bool ShowAssembliesTab { get; set; }
 
+		/// <summary>
+		/// address that is used to send an email (eg appears in the 'to:' field in the default email client if simpleMAPI)
+		/// </summary>
 		public string EmailReportAddress { get; set; }
+
 		public string UserExplanationLabel { get; set; }
 		public string ContactMessageTop { get; set; }
 
@@ -77,7 +103,11 @@ namespace ExceptionReporting.Core
 
 		public ExceptionReportInfo()
 		{
-			// defaults
+			SetDefaultValues();
+		}
+
+		private void SetDefaultValues()
+		{
 			ShowFlatButtons = true;
 			ShowFullDetail = true;
 			ShowButtonIcons = true;
@@ -90,7 +120,7 @@ namespace ExceptionReporting.Core
 			ShowGeneralTab = true;
 			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
 			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-			EmailReportAddress = "support@email.com";		// the SimpleMAPI won't work if this is blank, so make one up
+			EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show a place-holder
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
 			TakeScreenshot = false;
@@ -113,5 +143,11 @@ namespace ExceptionReporting.Core
             }
             base.DisposeManagedResources();
         }
+	}
+
+	public class DefaultLabelMessages
+	{
+		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
+		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
 	}
 }

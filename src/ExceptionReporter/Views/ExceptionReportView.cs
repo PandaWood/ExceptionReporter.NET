@@ -13,10 +13,10 @@ namespace ExceptionReporting.Views
 		private bool _isDataRefreshRequired;
 		private readonly ExceptionReportPresenter _presenter;
 
-	    public ExceptionReportView(ExceptionReportInfo reportInfo)
+		public ExceptionReportView(ExceptionReportInfo reportInfo)
 		{
-	        ShowFullDetail = true;
-	        InitializeComponent();
+			ShowFullDetail = true;
+			InitializeComponent();
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo);
 
@@ -25,78 +25,80 @@ namespace ExceptionReporting.Views
 			PopulateReportInfo(reportInfo);
 		}
 
-        private void PopulateReportInfo(ExceptionReportInfo reportInfo)
-        {
-            urlEmail.Text = reportInfo.ContactEmail;
-            txtFax.Text = reportInfo.Fax;
-            lblContactMessageTop.Text = reportInfo.ContactMessageTop;
-            txtPhone.Text = reportInfo.Phone;
-            urlWeb.Text = reportInfo.WebUrl;
-            lblExplanation.Text = reportInfo.UserExplanationLabel;
-            ShowFullDetail = reportInfo.ShowFullDetail;
-            ToggleShowFullDetail();
-            btnDetailToggle.Visible = reportInfo.ShowLessMoreDetailButton;
-            //TODO: show all exception messages
-            txtExceptionMessageLarge.Text = txtExceptionMessage.Text =
-                                            !string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions[0].Message;
+		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
+		{
+			urlEmail.Text = reportInfo.ContactEmail;
+			txtFax.Text = reportInfo.Fax;
+			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
+			txtPhone.Text = reportInfo.Phone;
+			urlWeb.Text = reportInfo.WebUrl;
+			lblExplanation.Text = reportInfo.UserExplanationLabel;
+			ShowFullDetail = reportInfo.ShowFullDetail;
+			ToggleShowFullDetail();
+			btnDetailToggle.Visible = reportInfo.ShowLessMoreDetailButton;
 
-            txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
-            txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
-            txtUserName.Text = reportInfo.UserName;
-            txtMachine.Text = reportInfo.MachineName;
-            txtRegion.Text = reportInfo.RegionInfo;
-            txtApplicationName.Text = reportInfo.AppName;
-            txtVersion.Text = reportInfo.AppVersion;
+			//TODO: show all exception messages
+			txtExceptionMessageLarge.Text = 
+				txtExceptionMessage.Text =
+					!string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions[0].Message;
 
-            btnClose.FlatStyle =
-                btnDetailToggle.FlatStyle =
-                btnCopy.FlatStyle =
-                btnEmail.FlatStyle =
-                btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
+			txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
+			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
+			txtUserName.Text = reportInfo.UserName;
+			txtMachine.Text = reportInfo.MachineName;
+			txtRegion.Text = reportInfo.RegionInfo;
+			txtApplicationName.Text = reportInfo.AppName;
+			txtVersion.Text = reportInfo.AppVersion;
 
-            listviewAssemblies.BackColor =
-                txtFax.BackColor =
-                txtMachine.BackColor =
-                txtPhone.BackColor =
-                txtRegion.BackColor =
-                txtTime.BackColor =
-                txtTime.BackColor =
-                txtUserName.BackColor =
-                txtVersion.BackColor =
-                txtApplicationName.BackColor =
-                txtDate.BackColor =
-                txtExceptionMessageLarge.BackColor =
-                txtExceptionMessage.BackColor = reportInfo.BackgroundColor;
+			btnClose.FlatStyle =
+				btnDetailToggle.FlatStyle =
+				btnCopy.FlatStyle =
+				btnEmail.FlatStyle =
+				btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
 
-            if (!reportInfo.ShowButtonIcons)
-            {
-                RemoveButtonIcons();
-            }
+			listviewAssemblies.BackColor =
+				txtFax.BackColor =
+				txtMachine.BackColor =
+				txtPhone.BackColor =
+				txtRegion.BackColor =
+				txtTime.BackColor =
+				txtTime.BackColor =
+				txtUserName.BackColor =
+				txtVersion.BackColor =
+				txtApplicationName.BackColor =
+				txtDate.BackColor =
+				txtExceptionMessageLarge.BackColor =
+				txtExceptionMessage.BackColor = reportInfo.BackgroundColor;
 
-            Text = reportInfo.TitleText;
-            txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
+			if (!reportInfo.ShowButtonIcons)
+			{
+				RemoveButtonIcons();
+			}
 
-            if (reportInfo.TakeScreenshot)
-            {
-                reportInfo.ScreenshotImage = ScreenshotHelper.TakeScreenShot();
-            }
-        }
+			Text = reportInfo.TitleText;
+			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 
-	    private void RemoveButtonIcons() 
+			if (reportInfo.TakeScreenshot)
+			{
+				reportInfo.ScreenshotImage = ScreenshotHelper.TakeScreenShot();
+			}
+		}
+
+		private void RemoveButtonIcons()
 		{
 			// removing the icons, requires a bit of reshuffling of positions
 			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
 			btnClose.Height = btnDetailToggle.Height = btnCopy.Height = btnEmail.Height = btnSave.Height = 27;
-            btnClose.TextAlign = btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
+			btnClose.TextAlign = btnDetailToggle.TextAlign = btnCopy.TextAlign = btnEmail.TextAlign = btnSave.TextAlign = ContentAlignment.MiddleCenter;
 			btnClose.Font = btnDetailToggle.Font = btnSave.Font = btnEmail.Font = btnCopy.Font = new Font(btnCopy.Font.FontFamily, 8.25f);
-			ShiftDown3Pixels(new[] { btnClose, btnDetailToggle, btnCopy, btnEmail, btnSave });
+			ShiftDown3Pixels(new[] {btnClose, btnDetailToggle, btnCopy, btnEmail, btnSave});
 		}
 
 		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
 		{
-			foreach (var button in buttons)
+			foreach (Control button in buttons)
 			{
-			    button.Location = Point.Add(button.Location, new Size(new Point(0, 3)));
+				button.Location = Point.Add(button.Location, new Size(new Point(0, 3)));
 			}
 		}
 
@@ -118,11 +120,11 @@ namespace ExceptionReporting.Views
 			KeyDown += ExceptionReportView_KeyDown;
 		}
 
-		void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
+		private void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
-			    Close();
+				Close();
 			}
 		}
 
@@ -137,43 +139,28 @@ namespace ExceptionReporting.Views
 
 		public bool EnableEmailButton
 		{
-			set
-			{
-			    btnEmail.Enabled = value;
-			}
+			set { btnEmail.Enabled = value; }
 		}
 
 		public bool ShowProgressBar
 		{
-			set
-			{
-			    progressBar.Visible = value;
-			}
+			set { progressBar.Visible = value; }
 		}
 
 		public bool ShowProgressLabel
 		{
-			set
-			{
-			    lblProgressMessage.Visible = value;
-			}
+			set { lblProgressMessage.Visible = value; }
 		}
 
 		public int ProgressValue
 		{
-			get
-			{
-			    return progressBar.Value;
-			}
-			set
-			{
-			    progressBar.Value = value;
-			}
+			get { return progressBar.Value; }
+			set { progressBar.Value = value; }
 		}
 
-	    public bool ShowFullDetail { get; set; }
+		public bool ShowFullDetail { get; set; }
 
-	    public void ToggleShowFullDetail()
+		public void ToggleShowFullDetail()
 		{
 			if (ShowFullDetail)
 			{
@@ -189,10 +176,7 @@ namespace ExceptionReporting.Views
 
 		public string UserExplanation
 		{
-			get
-			{
-			    return txtUserExplanation.Text;
-			}
+			get { return txtUserExplanation.Text; }
 		}
 
 		public void SetEmailCompletedState(bool success)
@@ -208,7 +192,7 @@ namespace ExceptionReporting.Views
 
 			if (success)
 			{
-			    ProgressMessage = successMessage;
+				ProgressMessage = successMessage;
 			}
 		}
 
@@ -267,85 +251,81 @@ namespace ExceptionReporting.Views
 		{
 			Cursor = Cursors.WaitCursor;
 			ShowProgressLabel = true;
-			ShowProgressBar = true;		//TODO this is redundant until we place the work on a separate thread
+			ShowProgressBar = true; //TODO this is redundant until we place the work on a separate thread
 			Application.DoEvents();
 		}
 
-	    public void PopulateExceptionTab(IList<Exception> exceptions)
-	    {
+		public void PopulateExceptionTab(IList<Exception> exceptions)
+		{
+			if (exceptions.Count == 1)
+			{
+				Exception exception = exceptions[0];
+				AddExceptionControl(tabExceptions, exception);
+			}
+			else
+			{
+				var innerTabControl = new TabControl
+				                      {
+				                      	Dock = DockStyle.Fill
+				                      };
+				tabExceptions.Controls.Add(innerTabControl);
+				for (int index = 0; index < exceptions.Count; index++)
+				{
+					Exception exception = exceptions[index];
+					var tabPage = new TabPage
+					              {
+					              	Text = string.Format("Excepton {0}", index + 1)
+					              };
+					innerTabControl.TabPages.Add(tabPage);
+					AddExceptionControl(tabPage, exception);
+				}
+			}
+		}
 
-            if (exceptions.Count == 1)
-            {
-                Exception exception = exceptions[0];
-                AddExceptionControl(tabExceptions, exception);
-            }
-            else
-            {
-                TabControl innerTabControl = new TabControl
-                                            {
-                                                Dock = DockStyle.Fill
-                                            };
-                tabExceptions.Controls.Add(innerTabControl);
-                for (int index = 0; index < exceptions.Count; index++)
-                {
-                    var exception = exceptions[index];
-                    TabPage tabPage = new TabPage
-                                          {
-                                              Text = string.Format("Excepton {0}", index+1)
-                                          };
-                    innerTabControl.TabPages.Add(tabPage);
-                    AddExceptionControl(tabPage, exception);
-                }
-            }
-	    }
+		private void AddExceptionControl(Control control, Exception exception)
+		{
+			var exceptionDetailControl = new ExceptionDetailControl();
+			exceptionDetailControl.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
+			exceptionDetailControl.PopulateExceptionTab(exception);
+			exceptionDetailControl.Dock = DockStyle.Fill;
+			control.Controls.Add(exceptionDetailControl);
+		}
 
-	    private void AddExceptionControl(Control control, Exception exception)
-	    {
-	        ExceptionDetailControl exceptionDetailControl = new ExceptionDetailControl();
-	        exceptionDetailControl.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
-	        exceptionDetailControl.PopulateExceptionTab(exception);
-	        exceptionDetailControl.Dock = DockStyle.Fill;
-            control.Controls.Add(exceptionDetailControl);
-	    }
-
-	    public void PopulateAssembliesTab()
+		public void PopulateAssembliesTab()
 		{
 			listviewAssemblies.Clear();
 			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
 			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 
-		    var assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies())
-		                         {
-		                             _presenter.AppAssembly.GetName()
-		                         };
-	        assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
-		    foreach (AssemblyName assemblyName in assemblies)
+			var assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies())
+			                 {
+			                 	_presenter.AppAssembly.GetName()
+			                 };
+			assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
+			foreach (AssemblyName assemblyName in assemblies)
 			{
 				AddAssembly(assemblyName);
 			}
 		}
 
-	    private void AddAssembly(AssemblyName assemblyName)
-	    {
-	        var listViewItem = new ListViewItem
-	                               {
-	                                   Text = assemblyName.Name
-	                               };
-	        listViewItem.SubItems.Add(assemblyName.Version.ToString());
-	        listviewAssemblies.Items.Add(listViewItem);
-	    }
+		private void AddAssembly(AssemblyName assemblyName)
+		{
+			var listViewItem = new ListViewItem { Text = assemblyName.Name };
+			listViewItem.SubItems.Add(assemblyName.Version.ToString());
+			listviewAssemblies.Items.Add(listViewItem);
+		}
 
-	    public void PopulateConfigTab(string configFileAsXml)
-        {
-            webBrowserConfig.DocumentText = configFileAsXml;
-        }
+		public void PopulateConfigTab(string configFileAsXml)
+		{
+			webBrowserConfig.DocumentText = configFileAsXml;
+		}
 
-	    protected override void OnClosing(CancelEventArgs e)
-        {
-            _presenter.Dispose();
-            webBrowserConfig.Dispose();
-            base.OnClosing(e);
-        }
+		protected override void OnClosing(CancelEventArgs e)
+		{
+			_presenter.Close();
+			webBrowserConfig.Dispose();
+			base.OnClosing(e);
+		}
 
 		public void PopulateSysInfoTab(TreeNode rootNode)
 		{
@@ -353,13 +333,11 @@ namespace ExceptionReporting.Views
 			rootNode.Expand();
 		}
 
-
-	
-
-	    private void Copy_Click(object sender, EventArgs e)
+		private void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
 		}
+
 		private void Close_Click(object sender, EventArgs e)
 		{
 			Close();
@@ -378,19 +356,18 @@ namespace ExceptionReporting.Views
 		private void Save_Click(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
-			              	{
-			              		Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
-			              		FilterIndex = 1,
-			              		RestoreDirectory = true
-			              	};
+			                 {
+			                 	Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
+			                 	FilterIndex = 1,
+			                 	RestoreDirectory = true
+			                 };
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
-			    _presenter.SaveReportToFile(saveDialog.FileName);
+				_presenter.SaveReportToFile(saveDialog.FileName);
 			}
 		}
 
-	
 
 		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{

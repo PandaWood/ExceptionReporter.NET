@@ -14,7 +14,7 @@ namespace ExceptionReporting.Views
 	/// <summary>
 	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view
 	/// </summary>
-    internal class ExceptionReportPresenter : Disposable
+    internal class ExceptionReportPresenter
 	{
 		private readonly IExceptionReportView _view;
 		private readonly ExceptionReportGenerator _reportGenerator;
@@ -25,8 +25,6 @@ namespace ExceptionReporting.Views
 			ReportInfo = info;
 			_reportGenerator = new ExceptionReportGenerator(ReportInfo);
 		}
-
-	
 
 		public Assembly AppAssembly
 		{
@@ -40,15 +38,6 @@ namespace ExceptionReporting.Views
 			ReportInfo.UserExplanation = _view.UserExplanation;
 			return _reportGenerator.CreateExceptionReport();
 		}
-
-        protected override void DisposeManagedResources()
-        {
-            if (ReportInfo != null)
-            {
-                ReportInfo.Dispose();
-            }
-            base.DisposeManagedResources();
-        }
 
 		public void SaveReportToFile(string fileName)
 		{
@@ -222,6 +211,11 @@ namespace ExceptionReporting.Views
 			{
 				_view.SetProgressCompleteState();
 			}
+		}
+
+		public void Close()
+		{
+			_reportGenerator.Dispose();
 		}
 	}
 }
