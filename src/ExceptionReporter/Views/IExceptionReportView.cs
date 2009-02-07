@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace ExceptionReporting.Views
 {
@@ -24,7 +22,7 @@ namespace ExceptionReporting.Views
         void PopulateConfigTab(string filePath);
         void PopulateExceptionTab(IList<Exception> exceptions);
         void PopulateAssembliesTab();
-        void PopulateSysInfoTab(TreeNode rootNode);
+        void PopulateSysInfoTab();
         void PopulateTabs();
         void SetProgressCompleteState();
     	void ToggleShowFullDetail();

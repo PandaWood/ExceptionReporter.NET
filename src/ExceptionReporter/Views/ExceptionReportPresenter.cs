@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
 using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
@@ -16,6 +16,7 @@ namespace ExceptionReporting.Views
 	/// </summary>
     internal class ExceptionReportPresenter
 	{
+		private IClipboard _clipboard;
 		private readonly IExceptionReportView _view;
 		private readonly ExceptionReportGenerator _reportGenerator;
 
@@ -32,6 +33,11 @@ namespace ExceptionReporting.Views
 		}
 
 		public ExceptionReportInfo ReportInfo { get; private set; }
+
+		public IClipboard Clipboard
+		{
+			set { _clipboard = value; }
+		}
 
 		private string CreateExceptionReport()
 		{
@@ -76,7 +82,7 @@ namespace ExceptionReporting.Views
 		public void CopyReportToClipboard()
 		{
 			string exceptionReport = CreateExceptionReport();
-			Clipboard.SetDataObject(exceptionReport, true);
+			_clipboard.CopyTo(exceptionReport);
 			_view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
 		}
 
@@ -97,7 +103,7 @@ namespace ExceptionReporting.Views
 
 			if (ReportInfo.TakeScreenshot)
 			{
-				stringBuilder.AppendFormat("This email contains a screenshot taken when the exception occurred.")
+				stringBuilder.AppendFormat("This email contains a screenshot that was taken when the exception occurred.")
 		                     .AppendLine("If you do not want the screenshot to be sent, you may delete it before sending.")
 							 .AppendLine().AppendLine();
 			}
@@ -160,17 +166,9 @@ namespace ExceptionReporting.Views
 			return converter.Convert();
 		}
 
-		private TreeNode CreateSysInfoTree()
+		public IEnumerable<SysInfoResult> GetSysInfoResults()
 		{
-			var mapper = new SysInfoResultMapper();
-			var rootNode = new TreeNode("System");
-
-			foreach (var sysInfoResult in _reportGenerator.GetOrFetchSysInfoResults())
-			{
-				mapper.AddTreeViewNode(rootNode, sysInfoResult);
-			}
-
-			return rootNode;
+			return _reportGenerator.GetOrFetchSysInfoResults();
 		}
 
 		public void SendContactEmail()
@@ -205,7 +203,7 @@ namespace ExceptionReporting.Views
 				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
 				_view.PopulateConfigTab(GetConfigAsHtml());
-				_view.PopulateSysInfoTab(CreateSysInfoTree());
+				_view.PopulateSysInfoTab();
 			}
 			finally
 			{

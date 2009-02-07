@@ -54,7 +54,9 @@
     <Compile Include="Config\ConfigReader.cs" />
     <Compile Include="Core\Disposable.cs" />
     <Compile Include="Core\ExceptionReportGenerator.cs" />
+    <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
+    <Compile Include="Core\WindowsClipboard.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
+using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Views
 {
@@ -18,7 +19,10 @@ namespace ExceptionReporting.Views
 			ShowFullDetail = true;
 			InitializeComponent();
 
-			_presenter = new ExceptionReportPresenter(this, reportInfo);
+			_presenter = new ExceptionReportPresenter(this, reportInfo)
+			             {
+			             	Clipboard = new WindowsClipboard()
+			             };
 
 			WireUpEvents();
 			PopulateTabs();
@@ -327,8 +331,22 @@ namespace ExceptionReporting.Views
 			base.OnClosing(e);
 		}
 
-		public void PopulateSysInfoTab(TreeNode rootNode)
+		private TreeNode CreateSysInfoTree()
 		{
+			var mapper = new SysInfoResultMapper();
+			var rootNode = new TreeNode("System");
+
+			foreach (var sysInfoResult in _presenter.GetSysInfoResults())
+			{
+				mapper.AddTreeViewNode(rootNode, sysInfoResult);
+			}
+
+			return rootNode;
+		}
+
+		public void PopulateSysInfoTab()
+		{
+			var rootNode = CreateSysInfoTree();
 			treeEnvironment.Nodes.Add(rootNode);
 			rootNode.Expand();
 		}

@@ -35,10 +35,7 @@ namespace ExceptionReporting
 		/// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
 		public void Show(params Exception[] exceptions)
 		{
-            if (exceptions == null)
-            {
-                return; //TODO reconsider what is best to do here
-            }
+            if (exceptions == null) return;
 
 	        try
 			{

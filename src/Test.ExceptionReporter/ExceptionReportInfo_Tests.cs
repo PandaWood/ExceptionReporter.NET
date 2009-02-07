@@ -34,7 +34,7 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		public void Exceptions_Property_ShowsSameException_SetBy_MainException_Property()
+		public void ExceptionsProperty_ShowsSameException_SetBy_MainExceptionProperty()
 		{
 			_info.MainException = _exception;
 
