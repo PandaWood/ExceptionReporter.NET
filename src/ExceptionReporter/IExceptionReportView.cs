@@ -6,7 +6,7 @@ namespace ExceptionReporting.Views
     /// <summary>
     /// The interface (contract) for an ExceptionReportView
     /// </summary>
-    internal interface IExceptionReportView
+    public interface IExceptionReportView
     {
         string ProgressMessage { set; }
         bool EnableEmailButton { set; }

@@ -8,10 +8,11 @@ using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
+using ExceptionReporting.Views;
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporting
 {
-    internal class ExceptionReportPresenter
+	public class ExceptionReportPresenter
 	{
 		private IClipboard _clipboard;
 		private readonly IExceptionReportView _view;
@@ -67,12 +68,12 @@ namespace ExceptionReporting.Views
 		{
 			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
 			{
-			    SendMapiEmail(handle);
+				SendMapiEmail(handle);
 			}
 
 			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
 			{
-			    SendSmtpMail();
+				SendSmtpMail();
 			}
 		}
 
@@ -101,8 +102,8 @@ namespace ExceptionReporting.Views
 			if (ReportInfo.TakeScreenshot)
 			{
 				stringBuilder.AppendFormat("This email contains a screenshot that was taken when the exception occurred.")
-		                     .AppendLine("If you do not want the screenshot to be sent, you may delete it before sending.")
-							 .AppendLine().AppendLine();
+					.AppendLine("If you do not want the screenshot to be sent, you may delete it before sending.")
+					.AppendLine().AppendLine();
 			}
 
 			stringBuilder.Append(CreateExceptionReport());

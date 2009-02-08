@@ -58,48 +58,22 @@
     <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
     <Compile Include="Core\WindowsClipboard.cs" />
-    <Compile Include="Views\ExceptionDetailControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ExceptionDetailControl.Designer.cs">
-      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ExceptionReporter.cs">
-    </Compile>
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\ExceptionReportBuilder.cs" />
     <Compile Include="Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="IExceptionReportView.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
     <Compile Include="SystemInfo\SysInfoQuery.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="Views\ExceptionReportPresenter.cs" />
-    <Compile Include="Views\ExceptionReportView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ExceptionReportView.Designer.cs">
-      <DependentUpon>ExceptionReportView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\IExceptionReportView.cs" />
-    <Compile Include="Views\InternalExceptionView.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Views\ExceptionReportView.resx">
-      <DependentUpon>ExceptionReportView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\InternalExceptionView.resx">
-      <DependentUpon>InternalExceptionView.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="Mail\Win32Mapi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
-    <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
-      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="XmlToHtml.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

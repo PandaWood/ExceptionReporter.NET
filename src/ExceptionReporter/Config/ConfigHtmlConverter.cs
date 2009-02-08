@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
+using ExceptionReporting.Core;
 
 namespace ExceptionReporting.Config
 {
@@ -17,7 +18,7 @@ namespace ExceptionReporting.Config
 		{
 			_xslCompiledTransform = new XslCompiledTransform();
 			_stringBuilder = new StringBuilder();
-			_assembly = typeof(ExceptionReporter).Assembly;
+			_assembly = typeof(ExceptionReport).Assembly;
 		}
 
 		public string Convert()
