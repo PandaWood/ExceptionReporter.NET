@@ -11,9 +11,6 @@ using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Views
 {
-	/// <summary>
-	/// ExceptionReportPresenter - the 'Presenter' in this implementation of M-V-P (Model-View-Presenter), passive-view
-	/// </summary>
     internal class ExceptionReportPresenter
 	{
 		private IClipboard _clipboard;
@@ -39,7 +36,7 @@ namespace ExceptionReporting.Views
 			set { _clipboard = value; }
 		}
 
-		private string CreateExceptionReport()
+		private ExceptionReport CreateExceptionReport()
 		{
 			ReportInfo.UserExplanation = _view.UserExplanation;
 			return _reportGenerator.CreateExceptionReport();
@@ -49,7 +46,7 @@ namespace ExceptionReporting.Views
 		{
 			if (string.IsNullOrEmpty(fileName)) return;
 
-			string exceptionReport = CreateExceptionReport();
+			ExceptionReport exceptionReport = CreateExceptionReport();
 
 			try
 			{
@@ -81,8 +78,8 @@ namespace ExceptionReporting.Views
 
 		public void CopyReportToClipboard()
 		{
-			string exceptionReport = CreateExceptionReport();
-			_clipboard.CopyTo(exceptionReport);
+			ExceptionReport exceptionReport = CreateExceptionReport();
+			_clipboard.CopyTo(exceptionReport.ToString());
 			_view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
 		}
 

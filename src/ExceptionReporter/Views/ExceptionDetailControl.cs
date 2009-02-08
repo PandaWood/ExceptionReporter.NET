@@ -13,15 +13,14 @@ namespace ExceptionReporting.Views
             WireUpEvents();
         }
 
-
         public void SetControlBackgrounds(Color color)
         {
-
             listviewExceptions.BackColor =
                 txtExceptionTabMessage.BackColor =
                 txtExceptionTabStackTrace.BackColor = color;
         }
-        //TODO Label='EH' - move this logic out (is duplicated almost entirely (without ListView) in ExceptionStringBuilder)
+
+        //TODO Label='EH' - move this logic out (is duplicated almost entirely (without ListView) in ExceptionReportBuilder)
         public void PopulateExceptionTab(Exception rootException)
         {
             TheException = rootException;
@@ -70,7 +69,6 @@ namespace ExceptionReporting.Views
                 listViewItem.SubItems.Add(exception.TargetSite.ToString());
             }
         }
-
 
         private void WireUpEvents()
         {

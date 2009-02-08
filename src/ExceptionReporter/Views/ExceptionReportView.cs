@@ -255,7 +255,7 @@ namespace ExceptionReporting.Views
 		{
 			Cursor = Cursors.WaitCursor;
 			ShowProgressLabel = true;
-			ShowProgressBar = true; //TODO this is redundant until we place the work on a separate thread
+			ShowProgressBar = true;
 			Application.DoEvents();
 		}
 
@@ -268,18 +268,12 @@ namespace ExceptionReporting.Views
 			}
 			else
 			{
-				var innerTabControl = new TabControl
-				                      {
-				                      	Dock = DockStyle.Fill
-				                      };
+				var innerTabControl = new TabControl { Dock = DockStyle.Fill };
 				tabExceptions.Controls.Add(innerTabControl);
 				for (int index = 0; index < exceptions.Count; index++)
 				{
 					Exception exception = exceptions[index];
-					var tabPage = new TabPage
-					              {
-					              	Text = string.Format("Excepton {0}", index + 1)
-					              };
+					var tabPage = new TabPage { Text = string.Format("Excepton {0}", index + 1) };
 					innerTabControl.TabPages.Add(tabPage);
 					AddExceptionControl(tabPage, exception);
 				}

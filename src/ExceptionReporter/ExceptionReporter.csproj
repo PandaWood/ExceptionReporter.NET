@@ -53,6 +53,7 @@
     <Compile Include="Config\ConfigHtmlConverter.cs" />
     <Compile Include="Config\ConfigReader.cs" />
     <Compile Include="Core\Disposable.cs" />
+    <Compile Include="Core\ExceptionReport.cs" />
     <Compile Include="Core\ExceptionReportGenerator.cs" />
     <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
@@ -66,7 +67,7 @@
     <Compile Include="ExceptionReporter.cs">
     </Compile>
     <Compile Include="Core\ExceptionReportInfo.cs" />
-    <Compile Include="Core\ExceptionStringBuilder.cs" />
+    <Compile Include="Core\ExceptionReportBuilder.cs" />
     <Compile Include="Core\ExceptionReporterExtensions.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="SystemInfo\SysInfoResult.cs" />

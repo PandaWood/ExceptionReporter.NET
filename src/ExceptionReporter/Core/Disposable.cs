@@ -1,9 +1,5 @@
 using System;
-using System.Diagnostics;
 using System.Threading;
-#if DEBUG
-
-#endif
 
 namespace ExceptionReporting.Core
 {
@@ -17,7 +13,6 @@ namespace ExceptionReporting.Core
 	public abstract class Disposable : IDisposable
 	{
 		private int disposed;
-		private bool failOnFinalize = true;
 
 		protected Disposable()
 		{
@@ -39,20 +34,11 @@ namespace ExceptionReporting.Core
 		{
 			if (Interlocked.CompareExchange(ref disposed, 1, 0) == 0)
 			{
-				try
+				if (disposing)
 				{
-					if (disposing)
-					{
-						DisposeManagedResources();
-					}
-					DisposeUnmanagedResources();
+					DisposeManagedResources();
 				}
-				catch (Exception)
-				{
-					//Exception already occurred dont bother with the Assert.Fail in the finalize
-					failOnFinalize = false;
-					throw;
-				}
+				DisposeUnmanagedResources();
 			}
 		}
 
@@ -68,19 +54,11 @@ namespace ExceptionReporting.Core
 		}
 
 		protected virtual void DisposeManagedResources() {}
-
-
 		protected virtual void DisposeUnmanagedResources() {}
 
 		~Disposable()
 		{
 			Dispose(false);
-#if DEBUG
-			if (failOnFinalize)
-			{
-				Debug.Fail(string.Format("Not disposed: {0}", GetType().Name));
-			}
-#endif
 		}
 	}
 }

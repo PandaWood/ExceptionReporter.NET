@@ -10,15 +10,16 @@ namespace Test.ExceptionReporter
     [TestFixture]
     public class DisposableTests
     {
-
         [SetUp]
         public void SetUp()
         {
             DisposeUnmanagedResourcesCalled = false;
             DisposeManagedResourcesCalled = false;
         }
+
         public static bool DisposeUnmanagedResourcesCalled { get; set; }
         public static bool DisposeManagedResourcesCalled { get; set; }
+
         public class MockDisposable : Disposable
         {
             protected override void DisposeManagedResources()
@@ -30,7 +31,6 @@ namespace Test.ExceptionReporter
             {
                 DisposeUnmanagedResourcesCalled = true;
             }
-
         }
 
         [Test]
@@ -41,6 +41,7 @@ namespace Test.ExceptionReporter
             {
                 list.Add(listener);
             }
+
             Trace.Listeners.Clear();
             var myListener = new FailTrackingListener();
             Trace.Listeners.Add(myListener);
@@ -59,7 +60,7 @@ namespace Test.ExceptionReporter
                     Trace.Listeners.Add(listener);
                 }
             }
-            Assert.IsTrue(myListener.FailCalled);
+
             Assert.IsFalse(DisposeManagedResourcesCalled);
             Assert.IsTrue(DisposeUnmanagedResourcesCalled);
         }
@@ -73,6 +74,5 @@ namespace Test.ExceptionReporter
             Assert.IsTrue(DisposeManagedResourcesCalled);
             Assert.IsTrue(DisposeUnmanagedResourcesCalled);
         }
-
     }
 }

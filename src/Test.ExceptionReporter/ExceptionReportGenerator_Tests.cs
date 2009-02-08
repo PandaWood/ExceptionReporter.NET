@@ -30,21 +30,21 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		public void Generator_CanCreateExceptionReport_WithACoupleOfVagueBitsOfTextThatShouldBeThere()
+		public void Generator_CanCreateExceptionReport_WithACoupleOfMinmal_NotTooSpecificBits_ThatShouldExist()
 		{
-			string report = _reportGenerator.CreateExceptionReport();
+			ExceptionReport report = _reportGenerator.CreateExceptionReport();
 
-			Assert.That(report, Text.StartsWith("-"));
-			Assert.That(report, Text.Contains("Application:"));
-			Assert.That(report, Text.Contains("NumberOfUsers ="));
-			Assert.That(report, Text.Contains("TotalPhysicalMemory ="));
+			Assert.That(report.ToString(), Text.StartsWith("-"));
+			Assert.That(report.ToString(), Text.Contains("Application:"));
+			Assert.That(report.ToString(), Text.Contains("NumberOfUsers ="));
+			Assert.That(report.ToString(), Text.Contains("TotalPhysicalMemory ="));
 		}
 
 		[Test]
 		public void Generator_CanCreateExceptionReport_WithSameResult_IfCalledTwice()
 		{
-			string report1 = _reportGenerator.CreateExceptionReport();
-			string report2 = _reportGenerator.CreateExceptionReport();
+			ExceptionReport report1 = _reportGenerator.CreateExceptionReport();
+			ExceptionReport report2 = _reportGenerator.CreateExceptionReport();
 
 			Assert.That(report1, Is.EqualTo(report2));
 		}

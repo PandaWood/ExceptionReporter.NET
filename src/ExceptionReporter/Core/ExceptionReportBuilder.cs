@@ -9,7 +9,7 @@ using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
 {
-	public class ExceptionStringBuilder
+	public class ExceptionReportBuilder
 	{
 		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
@@ -19,7 +19,7 @@ namespace ExceptionReporting.Core
 		/// the non-SysInfo constructor
 		/// </summary>
 		/// <param name="reportInfo">ExceptionReportInfo </param>
-		public ExceptionStringBuilder(ExceptionReportInfo reportInfo)
+		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
 			_reportInfo = reportInfo;
 		}
@@ -27,16 +27,16 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// constructor that includes support for SysInfo
 		/// </summary>
-		public ExceptionStringBuilder(ExceptionReportInfo reportInfo, IEnumerable<SysInfoResult> sysInfoResults)
+		public ExceptionReportBuilder(ExceptionReportInfo reportInfo, IEnumerable<SysInfoResult> sysInfoResults)
 			: this(reportInfo)
 		{
 			_sysInfoResults = sysInfoResults;
 		}
 
 		/// <summary>
-		/// Build the exception report string
+		/// Build the exception report
 		/// </summary>
-		public string Build()
+		public ExceptionReport Build()
 		{
 			_stringBuilder = new StringBuilder().AppendDottedLine();
 
@@ -47,7 +47,7 @@ namespace ExceptionReporting.Core
 			BuildSysInfo();
 			BuildContactInfo();
 
-			return _stringBuilder.ToString();
+			return new ExceptionReport(_stringBuilder);
 		}
 
 		private void BuildGeneralInfo()
@@ -78,6 +78,8 @@ namespace ExceptionReporting.Core
 		    for (int index = 0; index < _reportInfo.Exceptions.Count; index++)
 		    {
 		        var exception = _reportInfo.Exceptions[index];
+
+				//TODO maybe omit a number when there's only 1 exception
 		        _stringBuilder.AppendLine(string.Format("[Exception Info {0}]", index+1))
 		            .AppendLine()
 		            .AppendLine(ExceptionHierarchyToString(exception))

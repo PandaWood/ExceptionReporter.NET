@@ -21,15 +21,15 @@ namespace Test.ExceptionReporter
                 reportInfo.ShowAssembliesTab = true;
                 reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
-                string exceptionReport = new ExceptionStringBuilder(reportInfo).Build();
+                ExceptionReport exceptionReport = new ExceptionReportBuilder(reportInfo).Build();
 
                 Assert.That(exceptionReport, Is.Not.Null);
-                Assert.That(exceptionReport.Length, Is.GreaterThan(0));
+                Assert.That(exceptionReport.ToString().Length, Is.GreaterThan(0));
 
-                Assert.That(exceptionReport, Text.Contains("nunit")); // coupled to NUnit, but better than nothing
-                Assert.That(exceptionReport, Text.Contains("ExceptionReporter, Version="));
-                Assert.That(exceptionReport, Text.Contains("System.Core, Version="));
-                Assert.That(exceptionReport, Text.Contains(Environment.NewLine));
+				Assert.That(exceptionReport.ToString(), Text.Contains("nunit")); // coupled to NUnit, but better than nothing
+				Assert.That(exceptionReport.ToString(), Text.Contains("ExceptionReporter, Version="));
+				Assert.That(exceptionReport.ToString(), Text.Contains("System.Core, Version="));
+				Assert.That(exceptionReport.ToString(), Text.Contains(Environment.NewLine));
             }
 		}
 
@@ -42,9 +42,9 @@ namespace Test.ExceptionReporter
             {
                 reportInfo.ShowSysInfoTab = true;
 
-                string exceptionReport = new ExceptionStringBuilder(reportInfo, sysInfoResults).Build();
+                ExceptionReport exceptionReport = new ExceptionReportBuilder(reportInfo, sysInfoResults).Build();
 
-                Assert.That(exceptionReport, Is.EqualTo(expectedExceptionReport.ToString()));
+				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
             }
 		}
 
@@ -60,7 +60,7 @@ namespace Test.ExceptionReporter
 												new ArgumentNullException("Inner" + "Exception"))
                                             });
 
-                StringBuilder expectedExceptionReport = new StringBuilder().AppendDottedLine()
+                StringBuilder expectedExceptionReportString = new StringBuilder().AppendDottedLine()
                     .AppendLine("[Exception Info 1]").AppendLine()
                     .AppendLine("Top-level Exception")
                     .AppendLine("Type:        System.ArgumentOutOfRangeException")
@@ -74,9 +74,9 @@ namespace Test.ExceptionReporter
                     .AppendLine("Source:")
                     .AppendLine().AppendDottedLine().AppendLine();
 
-                string exceptionReport = new ExceptionStringBuilder(reportInfo).Build();
+                ExceptionReport exceptionReport = new ExceptionReportBuilder(reportInfo).Build();
 
-                Assert.That(exceptionReport, Is.EqualTo(expectedExceptionReport.ToString()));
+				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
             }
 		}
 
