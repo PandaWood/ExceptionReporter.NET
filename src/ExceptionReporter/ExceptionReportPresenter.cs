@@ -8,7 +8,6 @@ using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
-using ExceptionReporting.Views;
 
 namespace ExceptionReporting
 {

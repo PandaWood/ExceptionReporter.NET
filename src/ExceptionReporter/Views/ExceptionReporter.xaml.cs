@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WpfExceptionReporter
+namespace ExceptionReporter.Views
 {
 	/// <summary>
 	/// Interaction logic for UserControl1.xaml

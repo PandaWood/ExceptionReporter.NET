@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporting
 {
     /// <summary>
     /// The interface (contract) for an ExceptionReportView

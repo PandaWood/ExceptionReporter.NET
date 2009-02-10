@@ -8,8 +8,8 @@
     <ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WinFormsExceptionReporter</RootNamespace>
-    <AssemblyName>WinFormsExceptionReporter</AssemblyName>
+    <RootNamespace>ExceptionReporting</RootNamespace>
+    <AssemblyName>ExceptionReporter.WinForms</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkSubset>
@@ -37,13 +37,35 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ConfigHtmlConverter.cs" />
+    <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="Core\Disposable.cs" />
+    <Compile Include="Core\ExceptionReport.cs" />
+    <Compile Include="Core\ExceptionReportBuilder.cs" />
+    <Compile Include="Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="Core\ExceptionReportGenerator.cs" />
+    <Compile Include="Core\ExceptionReportInfo.cs" />
+    <Compile Include="Core\IClipboard.cs" />
+    <Compile Include="Core\ScreenshotHelper.cs" />
+    <Compile Include="Core\WindowsClipboard.cs" />
     <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="ExceptionReportPresenter.cs" />
+    <Compile Include="IExceptionReportView.cs" />
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Mail\Win32Mapi.cs" />
+    <Compile Include="SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SysInfoResult.cs" />
+    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
+    <Compile Include="SystemInfo\SysInfoRetriever.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -71,13 +93,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.csproj">
-      <Project>{F9133E79-D0C7-4A08-A4B8-75DD06314270}</Project>
-      <Name>ExceptionReporter</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="ExceptionWarning.ico" />
     <Content Include="warning.ico" />
+    <EmbeddedResource Include="XmlToHtml.xslt">
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

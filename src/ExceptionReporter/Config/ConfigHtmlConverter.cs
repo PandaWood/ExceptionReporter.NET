@@ -23,10 +23,8 @@ namespace ExceptionReporting.Config
 
 		public string Convert()
 		{
-			using (Stream stream = _assembly.GetManifestResourceStream(XsltFileName))
+		    using (Stream stream = _assembly.GetManifestResourceStream(XsltFileName))
 			{
-				if (stream == null) return string.Empty;
-
 				using (XmlReader reader = XmlReader.Create(stream))
 				{
 					_xslCompiledTransform.Load(reader);
