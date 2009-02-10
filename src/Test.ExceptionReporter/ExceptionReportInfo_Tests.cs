@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using ExceptionReporting.Core;
+using ExceptionReporter.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 

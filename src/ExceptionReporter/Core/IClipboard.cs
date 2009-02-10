@@ -1,7 +1,7 @@
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
-	public interface IClipboard
-	{
-		void CopyTo(string text);
-	}
+    public interface IClipboard
+    {
+        void CopyTo(string text);
+    }
 }

@@ -1,4 +1,4 @@
-﻿using ExceptionReporting.Extensions;
+﻿using ExceptionReporter.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 

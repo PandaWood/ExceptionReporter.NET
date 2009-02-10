@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using ExceptionReporting.Core;
+using ExceptionReporter.Core;
 using NUnit.Framework;
 
 namespace Test.ExceptionReporter

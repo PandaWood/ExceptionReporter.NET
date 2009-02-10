@@ -1,8 +1,8 @@
-namespace ExceptionReporting.SystemInfo
+namespace ExceptionReporter.SystemInfo
 {
-	public class SysInfoQueries
-	{
-		public static SysInfoQuery OperatingSystem = new SysInfoQuery("Operating System", "Win32_OperatingSystem", false);
-		public static SysInfoQuery Machine = new SysInfoQuery("Machine", "Win32_ComputerSystem", true);
-	}
+    public class SysInfoQueries
+    {
+        public static SysInfoQuery OperatingSystem = new SysInfoQuery("Operating System", "Win32_OperatingSystem", false);
+        public static SysInfoQuery Machine = new SysInfoQuery("Machine", "Win32_ComputerSystem", true);
+    }
 }

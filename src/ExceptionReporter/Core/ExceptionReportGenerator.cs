@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.SystemInfo;
+using ExceptionReporter.SystemInfo;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
 	/// <summary>
 	/// ExceptionReportGenerator gathers up all the stuff that needs to happen to generate an ExceptionReport

@@ -12,7 +12,7 @@
     <AssemblyName>WinFormsDemoApp</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>ExceptionReporting.DemoApp.Program</StartupObject>
+    <StartupObject>WinFormsDemoApp.Program</StartupObject>
     <ApplicationIcon>
     </ApplicationIcon>
     <TargetFrameworkSubset>

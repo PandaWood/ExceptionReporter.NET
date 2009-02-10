@@ -1,6 +1,6 @@
 using System;
-using ExceptionReporting.Config;
-using ExceptionReporting.Core;
+using ExceptionReporter.Config;
+using ExceptionReporter.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -47,7 +47,7 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test][Ignore("Need to be able to simulate the resource not existing")]
-		[ExpectedException(typeof(Exception), ExpectedMessage = "File not found in manifest: ExceptionReporting.XmlToHtml.xslt")]
+		[ExpectedException(typeof(Exception), ExpectedMessage = "File not found in manifest: ExceptionReporter.XmlToHtml.xslt")]
 		public void CanThrow_ADecentException_IfManifestResourceNotFound()
 		{
 			new ConfigHtmlConverter().Convert();

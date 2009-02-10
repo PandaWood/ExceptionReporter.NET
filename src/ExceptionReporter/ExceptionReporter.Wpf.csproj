@@ -34,9 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -50,6 +54,21 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ConfigHtmlConverter.cs" />
+    <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="Core\Disposable.cs" />
+    <Compile Include="Core\ExceptionReport.cs" />
+    <Compile Include="Core\ExceptionReportBuilder.cs" />
+    <Compile Include="Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="Core\ExceptionReportGenerator.cs" />
+    <Compile Include="Core\ExceptionReportInfo.cs" />
+    <Compile Include="Core\IClipboard.cs" />
+    <Compile Include="Core\ScreenshotHelper.cs" />
+    <Compile Include="Core\WindowsClipboard.cs" />
+    <Compile Include="ExceptionReportPresenter.cs" />
+    <Compile Include="IExceptionReportView.cs" />
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Mail\Win32Mapi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +82,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SysInfoResult.cs" />
+    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
+    <Compile Include="SystemInfo\SysInfoRetriever.cs" />
     <Compile Include="Views\ExceptionReporter.xaml.cs">
       <DependentUpon>ExceptionReporter.xaml</DependentUpon>
     </Compile>
@@ -81,6 +105,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ExceptionWarning.ico" />
+    <Resource Include="warning.ico" />
+    <Resource Include="XmlToHtml.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

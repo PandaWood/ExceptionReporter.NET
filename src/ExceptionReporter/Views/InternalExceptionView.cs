@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporter.Views
 {
 	internal class InternalExceptionView : Form
 	{

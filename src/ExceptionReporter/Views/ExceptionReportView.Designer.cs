@@ -1,33 +1,33 @@
-﻿namespace ExceptionReporting.Views
+﻿namespace ExceptionReporter.Views
 {
-	internal partial class ExceptionReportView
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    internal partial class ExceptionReportView
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExceptionReportView));
             this.listviewAssemblies = new System.Windows.Forms.ListView();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -100,8 +100,8 @@
             // tabControl
             // 
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                            | System.Windows.Forms.AnchorStyles.Left)
+                                                                           | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Controls.Add(this.tabExceptions);
             this.tabControl.Controls.Add(this.tabAssemblies);
@@ -154,7 +154,7 @@
             // txtExceptionMessage
             // 
             this.txtExceptionMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                                    | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExceptionMessage.BackColor = System.Drawing.Color.White;
             this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtExceptionMessage.Location = new System.Drawing.Point(78, 7);
@@ -178,8 +178,8 @@
             // txtUserExplanation
             // 
             this.txtUserExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                                    | System.Windows.Forms.AnchorStyles.Left)
+                                                                                   | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUserExplanation.BackColor = System.Drawing.Color.Cornsilk;
             this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserExplanation.Location = new System.Drawing.Point(8, 210);
@@ -254,7 +254,7 @@
             // txtApplicationName
             // 
             this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                                   | System.Windows.Forms.AnchorStyles.Right)));
             this.txtApplicationName.BackColor = System.Drawing.Color.Snow;
             this.txtApplicationName.Location = new System.Drawing.Point(78, 92);
             this.txtApplicationName.Name = "txtApplicationName";
@@ -347,7 +347,7 @@
             // txtMachine
             // 
             this.txtMachine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                           | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMachine.BackColor = System.Drawing.SystemColors.Control;
             this.txtMachine.Location = new System.Drawing.Point(59, 12);
             this.txtMachine.Name = "txtMachine";
@@ -378,8 +378,8 @@
             // treeEnvironment
             // 
             this.treeEnvironment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                                 | System.Windows.Forms.AnchorStyles.Left)
+                                                                                | System.Windows.Forms.AnchorStyles.Right)));
             this.treeEnvironment.BackColor = System.Drawing.SystemColors.Window;
             this.treeEnvironment.HotTracking = true;
             this.treeEnvironment.Location = new System.Drawing.Point(8, 40);
@@ -408,7 +408,7 @@
             // lblContactMessageTop
             // 
             this.lblContactMessageTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                                     | System.Windows.Forms.AnchorStyles.Right)));
             this.lblContactMessageTop.Location = new System.Drawing.Point(8, 24);
             this.lblContactMessageTop.MinimumSize = new System.Drawing.Size(200, 0);
             this.lblContactMessageTop.Name = "lblContactMessageTop";
@@ -466,7 +466,7 @@
             // 
             this.urlWeb.ActiveLinkColor = System.Drawing.Color.Orange;
             this.urlWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                       | System.Windows.Forms.AnchorStyles.Right)));
             this.urlWeb.AutoSize = true;
             this.urlWeb.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlWeb.Location = new System.Drawing.Point(72, 77);
@@ -491,7 +491,7 @@
             // 
             this.urlEmail.ActiveLinkColor = System.Drawing.Color.Orange;
             this.urlEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                         | System.Windows.Forms.AnchorStyles.Right)));
             this.urlEmail.AutoSize = true;
             this.urlEmail.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlEmail.Location = new System.Drawing.Point(72, 53);
@@ -576,8 +576,8 @@
             // txtExceptionMessageLarge
             // 
             this.txtExceptionMessageLarge.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+                                                                                          | System.Windows.Forms.AnchorStyles.Left)
+                                                                                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExceptionMessageLarge.BackColor = System.Drawing.Color.White;
             this.txtExceptionMessageLarge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtExceptionMessageLarge.Location = new System.Drawing.Point(6, 6);
@@ -629,54 +629,54 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ListView listviewAssemblies;
-		private System.Windows.Forms.TabControl tabControl;
-		private System.Windows.Forms.TabPage tabGeneral;
-		private System.Windows.Forms.Label lblExplanation;
-		private System.Windows.Forms.TextBox txtUserExplanation;
-		private System.Windows.Forms.Label lblRegion;
-		private System.Windows.Forms.TextBox txtRegion;
-		private System.Windows.Forms.Label lblDate;
-		private System.Windows.Forms.TextBox txtDate;
-		private System.Windows.Forms.Label lblTime;
-		private System.Windows.Forms.TextBox txtTime;
-		private System.Windows.Forms.Label lblApplication;
-		private System.Windows.Forms.TextBox txtApplicationName;
-		private System.Windows.Forms.Label lblVersion;
-		private System.Windows.Forms.TextBox txtVersion;
+        private System.Windows.Forms.ListView listviewAssemblies;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabGeneral;
+        private System.Windows.Forms.Label lblExplanation;
+        private System.Windows.Forms.TextBox txtUserExplanation;
+        private System.Windows.Forms.Label lblRegion;
+        private System.Windows.Forms.TextBox txtRegion;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.TextBox txtTime;
+        private System.Windows.Forms.Label lblApplication;
+        private System.Windows.Forms.TextBox txtApplicationName;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.TextBox txtVersion;
         private System.Windows.Forms.TabPage tabExceptions;
-		private System.Windows.Forms.TabPage tabAssemblies;
-		private System.Windows.Forms.TabPage tabConfig;
-		private System.Windows.Forms.TabPage tabSysInfo;
-		private System.Windows.Forms.Label lblMachine;
-		private System.Windows.Forms.TextBox txtMachine;
-		private System.Windows.Forms.Label lblUsername;
-		private System.Windows.Forms.TextBox txtUserName;
-		private System.Windows.Forms.TreeView treeEnvironment;
-		private System.Windows.Forms.TabPage tabContact;
-		private System.Windows.Forms.Label lblContactMessageTop;
-		private System.Windows.Forms.TextBox txtFax;
-		private System.Windows.Forms.Label lblFax;
-		private System.Windows.Forms.TextBox txtPhone;
-		private System.Windows.Forms.Label lblPhone;
-		private System.Windows.Forms.Label lblWebSite;
-		private System.Windows.Forms.LinkLabel urlWeb;
-		private System.Windows.Forms.Label lblEmail;
-		private System.Windows.Forms.LinkLabel urlEmail;
-		private System.Windows.Forms.Button btnSave;
-		private System.Windows.Forms.ProgressBar progressBar;
-		private System.Windows.Forms.Button btnEmail;
-		private System.Windows.Forms.Label lblProgressMessage;
-		private System.Windows.Forms.Button btnCopy;
-		private System.Windows.Forms.TextBox txtExceptionMessage;
+        private System.Windows.Forms.TabPage tabAssemblies;
+        private System.Windows.Forms.TabPage tabConfig;
+        private System.Windows.Forms.TabPage tabSysInfo;
+        private System.Windows.Forms.Label lblMachine;
+        private System.Windows.Forms.TextBox txtMachine;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.TextBox txtUserName;
+        private System.Windows.Forms.TreeView treeEnvironment;
+        private System.Windows.Forms.TabPage tabContact;
+        private System.Windows.Forms.Label lblContactMessageTop;
+        private System.Windows.Forms.TextBox txtFax;
+        private System.Windows.Forms.Label lblFax;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.Label lblPhone;
+        private System.Windows.Forms.Label lblWebSite;
+        private System.Windows.Forms.LinkLabel urlWeb;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.LinkLabel urlEmail;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Label lblProgressMessage;
+        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.TextBox txtExceptionMessage;
         private System.Windows.Forms.PictureBox picGeneral;
         private System.Windows.Forms.Button btnDetailToggle;
         private System.Windows.Forms.TextBox txtExceptionMessageLarge;
         private System.Windows.Forms.WebBrowser webBrowserConfig;
         private System.Windows.Forms.Button btnClose;
-	}
+    }
 }

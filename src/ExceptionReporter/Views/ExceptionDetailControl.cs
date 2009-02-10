@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporter.Views
 {
     public partial class ExceptionDetailControl : UserControl
     {

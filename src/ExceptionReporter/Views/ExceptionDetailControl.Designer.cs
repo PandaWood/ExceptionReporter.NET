@@ -1,4 +1,4 @@
-﻿namespace ExceptionReporting.Views
+﻿namespace ExceptionReporter.Views
 {
     partial class ExceptionDetailControl
     {

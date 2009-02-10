@@ -1,4 +1,4 @@
-using ExceptionReporting.SystemInfo;
+using ExceptionReporter.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using System.Linq;

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using ExceptionReporting.Config;
-using ExceptionReporting.Extensions;
-using ExceptionReporting.SystemInfo;
+using ExceptionReporter.Config;
+using ExceptionReporter.Extensions;
+using ExceptionReporter.SystemInfo;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
 	public class ExceptionReportBuilder
 	{

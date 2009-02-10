@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ExceptionReporting
+namespace ExceptionReporter
 {
     /// <summary>
     /// The interface (contract) for an ExceptionReportView
@@ -25,6 +25,6 @@ namespace ExceptionReporting
         void PopulateSysInfoTab();
         void PopulateTabs();
         void SetProgressCompleteState();
-    	void ToggleShowFullDetail();
+        void ToggleShowFullDetail();
     }
 }

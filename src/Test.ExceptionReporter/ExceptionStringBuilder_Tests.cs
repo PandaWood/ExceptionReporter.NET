@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using ExceptionReporting.Core;
-using ExceptionReporting.Extensions;
-using ExceptionReporting.SystemInfo;
+using ExceptionReporter.Core;
+using ExceptionReporter.Extensions;
+using ExceptionReporter.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
