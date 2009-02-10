@@ -11,7 +11,7 @@ using NUnit.Framework.SyntaxHelpers;
 namespace Test.ExceptionReporter
 {
 	[TestFixture]
-	public class ExceptionStringBuilder_Tests
+	public class ExceptionReportBuilder_Tests
 	{
 		[Test]
 		public void CanBuild_ReferencedAssemblies_Section()
@@ -27,7 +27,7 @@ namespace Test.ExceptionReporter
                 Assert.That(exceptionReport.ToString().Length, Is.GreaterThan(0));
 
 				Assert.That(exceptionReport.ToString(), Text.Contains("nunit")); // coupled to NUnit, but better than nothing
-				Assert.That(exceptionReport.ToString(), Text.Contains("ExceptionReporter, Version="));
+				Assert.That(exceptionReport.ToString(), Text.Contains("ExceptionReporter"));
 				Assert.That(exceptionReport.ToString(), Text.Contains("System.Core, Version="));
 				Assert.That(exceptionReport.ToString(), Text.Contains(Environment.NewLine));
             }
