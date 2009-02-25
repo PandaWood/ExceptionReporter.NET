@@ -7,7 +7,7 @@ namespace ExceptionReporter.Core
 {
     public static class ScreenshotHelper
     {
-        public const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
+    	private const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
         public const string ScreenshotMimeType = "image/jpeg";
 
         public static Bitmap TakeScreenShot()

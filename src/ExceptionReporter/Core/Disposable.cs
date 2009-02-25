@@ -4,7 +4,7 @@ using System.Threading;
 namespace ExceptionReporter.Core
 {
     /// <summary>
-    /// Base class for all classes wanting to impliment <see cref="IDisposable"/>.
+    /// Base class for all classes wanting to implement <see cref="IDisposable"/>.
     /// </summary>
     /// <remarks>
     /// Base on an article by Davy Brion 
@@ -42,18 +42,7 @@ namespace ExceptionReporter.Core
             }
         }
 
-        /// <summary>
-        /// Helper method so subclasses can easily throw if disposed
-        /// </summary>
-        protected void ThrowIfDisposed()
-        {
-            if (IsDisposed)
-            {
-                throw new ObjectDisposedException(GetType().FullName);
-            }
-        }
-
-        protected virtual void DisposeManagedResources() {}
+    	protected virtual void DisposeManagedResources() {}
         protected virtual void DisposeUnmanagedResources() {}
 
         ~Disposable()

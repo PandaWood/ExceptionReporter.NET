@@ -49,9 +49,18 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigHtmlConverter.cs" />
@@ -65,6 +74,7 @@
     <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
     <Compile Include="Core\WindowsClipboard.cs" />
+    <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="IExceptionReportView.cs" />
     <Compile Include="Mail\MailSender.cs" />
@@ -87,8 +97,11 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="Views\ExceptionReporter.xaml.cs">
-      <DependentUpon>ExceptionReporter.xaml</DependentUpon>
+    <Compile Include="Views\ExceptionReportView.xaml.cs">
+      <DependentUpon>ExceptionReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InternalExceptionView.xaml.cs">
+      <DependentUpon>InternalExceptionView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,9 +114,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\ExceptionReporter.xaml">
+    <Page Include="Views\ExceptionReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InternalExceptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

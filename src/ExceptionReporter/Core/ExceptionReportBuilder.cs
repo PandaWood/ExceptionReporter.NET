@@ -40,20 +40,18 @@ namespace ExceptionReporter.Core
 		{
 			_stringBuilder = new StringBuilder().AppendDottedLine();
 
-			BuildGeneralInfo();
-			BuildExceptionInfo();
-			BuildAssemblyInfo();
-			BuildConfigInfo();
-			BuildSysInfo();
-			BuildContactInfo();
+			if (_reportInfo.ShowGeneralTab) BuildGeneralInfo();
+			if (_reportInfo.ShowExceptionsTab) BuildExceptionInfo();
+			if (_reportInfo.ShowAssembliesTab) BuildAssemblyInfo();
+			if (_reportInfo.ShowConfigTab) BuildConfigInfo();
+			if (_reportInfo.ShowSysInfoTab) BuildSysInfo();
+			if (_reportInfo.ShowContactTab) BuildContactInfo();
 
 			return new ExceptionReport(_stringBuilder);
 		}
 
 		private void BuildGeneralInfo()
 		{
-			if (!_reportInfo.ShowGeneralTab) return;
-
 			_stringBuilder.AppendLine("[General Info]")
 				.AppendLine()
 				.AppendLine("Application: " + _reportInfo.AppName)
@@ -73,8 +71,6 @@ namespace ExceptionReporter.Core
 
 		private void BuildExceptionInfo()
 		{
-		    if (!_reportInfo.ShowExceptionsTab) return;
-
 		    for (int index = 0; index < _reportInfo.Exceptions.Count; index++)
 		    {
 		        var exception = _reportInfo.Exceptions[index];
@@ -89,8 +85,6 @@ namespace ExceptionReporter.Core
 
 	    private void BuildAssemblyInfo()
 		{
-			if (!_reportInfo.ShowAssembliesTab) return;
-
 			_stringBuilder.AppendLine("[Assembly Info]")
 				.AppendLine()
 				.AppendLine(ReferencedAssembliesToString(_reportInfo.AppAssembly))
@@ -99,8 +93,6 @@ namespace ExceptionReporter.Core
 
 		private void BuildConfigInfo()
 		{
-			if (!_reportInfo.ShowConfigTab) return;
-
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
             _stringBuilder.AppendLine(File.ReadAllText(ConfigReader.GetConfigFilePath()));
 			_stringBuilder.AppendDottedLine().AppendLine();
@@ -108,8 +100,6 @@ namespace ExceptionReporter.Core
 
 		private void BuildSysInfo()
 		{
-			if (!_reportInfo.ShowSysInfoTab) return;
-
 			_stringBuilder.AppendLine("[System Info]").AppendLine();
 			_stringBuilder.Append(new SysInfoResultMapper().CreateStringList(_sysInfoResults));
 			_stringBuilder.AppendDottedLine().AppendLine();
@@ -117,8 +107,6 @@ namespace ExceptionReporter.Core
 
 		private void BuildContactInfo()
 		{
-			if (!_reportInfo.ShowContactTab) return;
-
 			_stringBuilder.AppendLine("[Contact Info]")
 				.AppendLine()
 				.AppendLine("Email:  " + _reportInfo.ContactEmail)

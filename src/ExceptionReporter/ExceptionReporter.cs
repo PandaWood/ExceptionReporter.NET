@@ -15,8 +15,6 @@ namespace ExceptionReporter
         /// </summary>
         public ExceptionReporter()
         {
-            InitializeComponent();
-
             _reportInfo = new ExceptionReportInfo();
         }
 
@@ -78,18 +76,5 @@ namespace ExceptionReporter
             var exceptionView = new InternalExceptionView();
             exceptionView.ShowException(message, ex);
         }
-
-        #region Component Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            new System.ComponentModel.Container();
-        }
-
-        #endregion
     }
 }

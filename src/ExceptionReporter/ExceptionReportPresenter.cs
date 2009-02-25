@@ -100,8 +100,8 @@ namespace ExceptionReporter
 
             if (ReportInfo.TakeScreenshot)
             {
-                stringBuilder.AppendFormat("This email contains a screenshot that was taken when the exception occurred.")
-                    .AppendLine("If you do not want the screenshot to be sent, you may delete it before sending.")
+                stringBuilder.AppendFormat("This email has attached a screenshot taken at the time of the exception.")
+                    .AppendLine("If you do not want the screenshot to be sent, you may delete the attachment before sending.")
                     .AppendLine().AppendLine();
             }
 
