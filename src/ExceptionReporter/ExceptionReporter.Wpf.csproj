@@ -8,12 +8,13 @@
     <ProjectGuid>{ECB0D268-98B5-4303-AC89-FC4B0F90A472}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExceptionReporter</RootNamespace>
-    <AssemblyName>ExceptionReporter.Wfp</AssemblyName>
+    <RootNamespace>ExceptionReporter.Wpf</RootNamespace>
+    <AssemblyName>ExceptionReporter.Wpf</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkSubset>Full</TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,6 +80,7 @@
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="IExceptionReportView.cs" />
+    <Compile Include="IInternalExceptionView.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Mail\Win32Mapi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -89,16 +91,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
     <Compile Include="SystemInfo\SysInfoQuery.cs" />
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
+    <Compile Include="ViewInjector.cs" />
     <Compile Include="Views\ExceptionReportView.xaml.cs">
       <DependentUpon>ExceptionReportView.xaml</DependentUpon>
     </Compile>
@@ -109,10 +107,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +120,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ExceptionWarning.ico" />
     <Resource Include="warning.ico" />
     <Resource Include="XmlToHtml.xslt" />
   </ItemGroup>

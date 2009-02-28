@@ -13,8 +13,8 @@ namespace ExceptionReporter.Core
         private readonly List<Exception> _exceptions = new List<Exception>();
 
         /// <summary>
-        /// The Main (ostensibly 'only') exception
-        /// Setting this property will clear any other exceptions
+        /// The Main (ostensibly 'only') exception, which is the subject of this exception 'report'
+        /// Setting this property will clear any previously set exceptions
         /// <remarks>If multiple top-level exceptions are required, use SetExceptions instead</remarks>
         /// </summary>
         public Exception MainException
@@ -145,7 +145,7 @@ namespace ExceptionReporter.Core
         }
     }
 
-    public class DefaultLabelMessages
+    public static class DefaultLabelMessages
     {
         public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
         public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";

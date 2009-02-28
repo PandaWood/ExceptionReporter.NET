@@ -23,5 +23,6 @@ namespace ExceptionReporter
         void PopulateSysInfoTab();
     	void SetProgressCompleteState();
         void ToggleShowFullDetail();
+    	void ShowExceptionReport();
     }
 }

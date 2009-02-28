@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using ExceptionReporter.Core;
 
-namespace ExceptionReporter.Views
+namespace ExceptionReporter.Wpf.Views
 {
 	/// <summary>
 	/// Interaction logic for UserControl1.xaml

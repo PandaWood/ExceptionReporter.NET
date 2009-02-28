@@ -61,6 +61,7 @@
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="IExceptionReportView.cs" />
+    <Compile Include="IInternalExceptionView.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Mail\Win32Mapi.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
+    <Compile Include="ViewInjector.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -95,7 +97,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExceptionWarning.ico" />
     <Content Include="warning.ico" />
     <EmbeddedResource Include="XmlToHtml.xslt">
     </EmbeddedResource>

@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Exception Reporter")]
+[assembly: InternalsVisibleTo("ExceptionReporter.Tests")]
+[assembly: AssemblyTitle("Exception Reporter Wpf")]
 [assembly: AssemblyDescription("Displays exception details and system information")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.codeplex.com/ExceptionReporter")]

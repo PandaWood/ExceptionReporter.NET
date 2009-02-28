@@ -3,7 +3,7 @@ using System.Text;
 namespace ExceptionReporter.Core
 {
     /// <summary>
-    /// Encapsulates the concept of an ExceptionReport, although just a wrapper around a StringBuilder, at the moment
+    /// Encapsulates the concept of an ExceptionReport
     /// </summary>
     public class ExceptionReport
     {
@@ -19,7 +19,7 @@ namespace ExceptionReporter.Core
             return _reportString.ToString();
         }
 
-        public bool Equals(ExceptionReport obj)
+    	private bool Equals(ExceptionReport obj)
         {
             return Equals(obj._reportString.ToString(), _reportString.ToString());
         }

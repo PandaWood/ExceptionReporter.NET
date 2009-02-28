@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ExceptionReporter.Views
 {
-	internal class InternalExceptionView : Form
+	public class InternalExceptionView : Form, IInternalExceptionView
 	{
 		private Button cmdOK;
 		private TextBox txtExceptionMessage;
@@ -191,7 +191,6 @@ namespace ExceptionReporter.Views
 			tpGeneral.PerformLayout();
 			tabControl.ResumeLayout(false);
 			ResumeLayout(false);
-
 		}
 
 		public void ShowException(string message, Exception ex)
@@ -202,14 +201,14 @@ namespace ExceptionReporter.Views
 			{
 				txtExceptionType.Text = ex.GetType().ToString();
 				txtExceptionMessage.Text = ex.Message;
-				txtExceptionDetails.Text = exceptionHeirarchyToString(ex);
+				txtExceptionDetails.Text = ExceptionHeirarchyToString(ex);
 			}
 
 			ShowDialog();
 		}
 
 
-		private static string exceptionHeirarchyToString(Exception ex)
+		private static string ExceptionHeirarchyToString(Exception ex)
 		{
 			var stringBuilder = new StringBuilder();
 		    using (var stringWriter = new StringWriter(stringBuilder))

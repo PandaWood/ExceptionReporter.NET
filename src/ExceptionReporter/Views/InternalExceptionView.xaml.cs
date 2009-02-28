@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows;
 
-namespace ExceptionReporter.Views
+namespace ExceptionReporter.Wpf.Views
 {
 	/// <summary>
 	/// Interaction logic for InternalExceptionView.xaml
 	/// </summary>
-	public partial class InternalExceptionView : Window
+	public partial class InternalExceptionView : Window, IInternalExceptionView
 	{
 		public InternalExceptionView()
 		{

@@ -7,7 +7,7 @@ using ExceptionReporter.Core;
 
 namespace ExceptionReporter.Config
 {
-    public class ConfigHtmlConverter
+    internal class ConfigHtmlConverter
     {
         private const string XsltFileName = "ExceptionReporter.XmlToHtml.xslt";
         private readonly XslCompiledTransform _xslCompiledTransform;

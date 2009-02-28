@@ -98,9 +98,8 @@ namespace ExceptionReporter.Config
             string mailMethod = GetMailSetting("method");
             if (string.IsNullOrEmpty(mailMethod)) return;
 
-            _info.MailMethod = mailMethod.Equals(SMTP) ? 
-                                                           ExceptionReportInfo.EmailMethod.SMTP : 
-                                                                                                    ExceptionReportInfo.EmailMethod.SimpleMAPI;
+            _info.MailMethod = mailMethod.Equals(SMTP) ? ExceptionReportInfo.EmailMethod.SMTP : 
+														 ExceptionReportInfo.EmailMethod.SimpleMAPI;
         }
 
         private void ReadLabelSettings()
