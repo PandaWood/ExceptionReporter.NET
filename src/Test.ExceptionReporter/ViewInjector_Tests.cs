@@ -9,26 +9,32 @@ namespace Test.ExceptionReporter
 	[TestFixture]
 	public class ViewInjector_Tests
 	{
-		//NB Resharper isn't able to run this test, however TestMatrix because it has an option for 'Apartment State=STA'
+		private Assembly _assembly;
+		private ViewInjector _viewInjector;
+		// NB Resharper isn't able to run this test, however TestMatrix can, because it has an option for 'Apartment State=STA'
 		// We can't have a reference to both Wpf and WinForms in the test project, so we only test one of them (currently)
 		// NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or even the Wpf/WinForms assembly
+
+// ReSharper disable UnusedMember.Global
+		[SetUp]
+		public void SetUp()
+		{
+			_assembly = Assembly.Load(new AssemblyName("ExceptionReporter.Wpf"));
+			_viewInjector = new ViewInjector(_assembly);
+		}
+// ReSharper restore UnusedMember.Global
+
 		[Test]
 		public void CanResolve_Wpf_InternalExceptionView()
 		{
-			Assembly assembly = Assembly.Load(new AssemblyName("ExceptionReporter.Wpf"));
-			var viewInjector = new ViewInjector(assembly);
-
-			Assert.That(viewInjector.Resolve<IInternalExceptionView>(null).ToString(), 
+			Assert.That(_viewInjector.Resolve<IInternalExceptionView>(null).ToString(), 
 				Is.EqualTo("ExceptionReporter.Wpf.Views.InternalExceptionView"));
 		}
 
 		[Test]
 		public void CanResolve_Wpf_ExceptionReportView()
 		{
-			Assembly assembly = Assembly.Load(new AssemblyName("ExceptionReporter.Wpf"));
-			var viewInjector = new ViewInjector(assembly);
-
-			var exceptionReportView = viewInjector.Resolve<IExceptionReportView>(new ExceptionReportInfo());
+			var exceptionReportView = _viewInjector.Resolve<IExceptionReportView>(new ExceptionReportInfo());
 
 			Assert.That(exceptionReportView.ToString(), Is.EqualTo("ExceptionReporter.Wpf.Views.ExceptionReportView"));
 		}
