@@ -62,9 +62,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.Wpf.csproj">
-      <Project>{ECB0D268-98B5-4303-AC89-FC4B0F90A472}</Project>
-      <Name>ExceptionReporter.Wpf</Name>
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.WinForms.csproj">
+      <Project>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</Project>
+      <Name>ExceptionReporter.WinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

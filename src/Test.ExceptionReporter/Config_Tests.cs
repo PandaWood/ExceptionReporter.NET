@@ -1,4 +1,3 @@
-using System;
 using ExceptionReporter.Config;
 using ExceptionReporter.Core;
 using NUnit.Framework;
@@ -9,13 +8,19 @@ namespace Test.ExceptionReporter
 	[TestFixture]
 	public class Config_Tests
 	{
+		private ConfigHtmlConverter _converter;
+
+		[SetUp]
+		public void SetUp() 
+		{
+			_converter = new ConfigHtmlConverter("ExceptionReporter.WinForms");
+		}
+
 		[Test]
 		public void CanConvert_Config_ToHtml()
 		{
-			var converter = new ConfigHtmlConverter();
-			string html = converter.Convert();
+			var html = _converter.Convert();
 
-			//TODO create a Regex to test this more thoroughly
 			Assert.That(html.StartsWith("<?xml"));
 			Assert.That(html, Text.Contains("<HTML>"));
 			Assert.That(html, Text.Contains("</HTML>"));
@@ -24,8 +29,7 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanConvert_Config_ToHtml_ThatIncludes_ConfigSectionNames()
 		{
-			var converter = new ConfigHtmlConverter();
-			string html = converter.Convert();
+			var html = _converter.Convert();
 
 			Assert.That(html, Text.Contains("Contact"));
 			Assert.That(html, Text.Contains("TabsToShow"));
@@ -34,8 +38,15 @@ namespace Test.ExceptionReporter
 			Assert.That(html, Text.Contains("UserInterface"));
 		}
 
-		// NB this test relies on the app.config being as it is at the time of writing - it's an integration test
 		[Test]
+		[ExpectedException(typeof(XsltFileNotFoundException))]
+		public void CanThrow_Exception_IfManifestResource_NotFound()
+		{
+			_converter.XsltFilename = "SomeDodgyFilename";
+			_converter.Convert();
+		}
+
+		[Test]  // NB this test relies on the app.config being as it is at the time of writing - it's really an integration test
 		public void CanReadConfig()
 		{
 			var info = new ExceptionReportInfo();
@@ -44,13 +55,6 @@ namespace Test.ExceptionReporter
 
 			Assert.That(info.ContactEmail, Is.EqualTo("test@test.com"));
 			Assert.That(info.ShowLessMoreDetailButton, Is.False);
-		}
-
-		[Test][Ignore("Need to be able to simulate the resource not existing")]
-		[ExpectedException(typeof(Exception), ExpectedMessage = "File not found in manifest: ExceptionReporter.XmlToHtml.xslt")]
-		public void CanThrow_ADecentException_IfManifestResourceNotFound()
-		{
-			new ConfigHtmlConverter().Convert();
 		}
 	}
 }

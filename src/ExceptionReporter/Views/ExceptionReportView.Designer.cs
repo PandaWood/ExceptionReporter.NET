@@ -1,4 +1,4 @@
-﻿namespace ExceptionReporter.Views
+﻿namespace ExceptionReporter.WinForms.Views
 {
     internal partial class ExceptionReportView
     {

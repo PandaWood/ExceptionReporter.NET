@@ -21,10 +21,10 @@ namespace ExceptionReporter
 		}
 
 		/// <summary>
-		/// Resolve an interface to a concrete view class, limited to 2 particular expected view classes in ExceptionReporter
+		/// Resolve an interface to a concrete view class, limited to 2 particular expected 'View' classes in ExceptionReporter
 		/// </summary>
 		/// <typeparam name="T">The interface type (currenty just IExceptionReportView or IInternalExceptionView)</typeparam>
-		/// <param name="reportInfo">ExceptionReportInfo instance T is IExceptionReportView, otherwise null</param>
+		/// <param name="reportInfo">ExceptionReportInfo if instance T is IExceptionReportView, otherwise null</param>
 		/// <returns>An instance of a type that implements the interface (T) in the given assembly (see constructor)</returns>
 		public T Resolve<T>(ExceptionReportInfo reportInfo) where T : class
 		{
@@ -56,8 +56,6 @@ namespace ExceptionReporter
 			return Resolve<T>(null);
 		}
 
-// ReSharper disable RedundantIfElseBlock
-
 		private static T CreateInstance<T>(Type currentType, ExceptionReportInfo reportInfo) where T : class
 		{
 			if (reportInfo == null)
@@ -71,7 +69,5 @@ namespace ExceptionReporter
 				return newInstance as T;
 			}
 		}
-
-// ReSharper restore RedundantIfElseBlock
 	}
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 
-namespace ExceptionReporter.Core
-{
 #pragma warning disable 1591
 
+namespace ExceptionReporter.Core
+{
 	/// <summary>
     /// a bag of information (some of which is stored and retrieved from config)
     /// </summary>
@@ -123,7 +123,7 @@ namespace ExceptionReporter.Core
             ShowGeneralTab = true;
             UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
             ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-            EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show a place-holder
+            EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show dummy place-holder
             TitleText = "Exception Report";
             UserExplanationFontSize = 12f;
             TakeScreenshot = false;
@@ -153,5 +153,5 @@ namespace ExceptionReporter.Core
         public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
         public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
 	}
-#pragma warning restore 1591
 }
+#pragma warning restore 1591

@@ -5,9 +5,9 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExceptionReporter.Views
+namespace ExceptionReporter.WinForms.Views
 {
-	public class InternalExceptionView : Form, IInternalExceptionView
+	internal class InternalExceptionView : Form, IInternalExceptionView
 	{
 		private Button cmdOK;
 		private TextBox txtExceptionMessage;

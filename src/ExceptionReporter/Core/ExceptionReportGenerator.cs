@@ -7,11 +7,9 @@ using ExceptionReporter.SystemInfo;
 namespace ExceptionReporter.Core
 {
 	/// <summary>
-	/// ExceptionReportGenerator gathers up all the stuff that needs to happen to generate an ExceptionReport
+	/// ExceptionReportGenerator does everything that needs to happen to generate an ExceptionReport
 	/// Hence this class is also the entry point to use 'ExceptionReporter' as a general-purpose exception string
 	/// maker (ie use this class to create an exception report without showing a GUI/dialog)
-	/// eg usage
-	/// var reportGenerator = new ExceptionReportGenerator(new ExceptionReportInfo());
 	/// </summary>
 	public class ExceptionReportGenerator : Disposable
 	{
@@ -19,10 +17,10 @@ namespace ExceptionReporter.Core
 		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
 		/// <summary>
-		/// Create an ExceptionReportGenerator
+		/// Create an ExceptionReportGenerator, initialises some ExceptionReportInfo properties related to the application/system
 		/// </summary>
-		/// <param name="reportInfo">and ExceptionReportInfo, can be prepopulated with config, 
-		/// however the base properties such as MachineName, and AppAssembly are always overwritten</param>
+		/// <param name="reportInfo">an ExceptionReportInfo, can be pre-populated with config
+		/// however base properties such as MachineName and AppAssembly are always overwritten here</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
 			if (reportInfo == null)
@@ -39,8 +37,6 @@ namespace ExceptionReporter.Core
 			_reportInfo.AppAssembly = Assembly.GetEntryAssembly();
 		}
 
-		/// <summary>  Create the exception report  </summary>
-		/// <returns>The resulting ExceptionReport</returns>
 		public ExceptionReport CreateExceptionReport()
 		{
 			IList<SysInfoResult> sysInfoResults = GetOrFetchSysInfoResults();

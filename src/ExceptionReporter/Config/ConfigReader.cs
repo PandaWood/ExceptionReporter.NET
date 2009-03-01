@@ -7,7 +7,7 @@ using ExceptionReporter.Extensions;
 namespace ExceptionReporter.Config
 {
 	/// <summary>
-	/// Read configuration from the app config file, for our custom configuration properties
+	/// Read ExceptionReport configuration from the main application's (ie not this assembly's) config file
 	/// </summary>
     public class ConfigReader
     {
@@ -15,6 +15,7 @@ namespace ExceptionReporter.Config
 
         private readonly ExceptionReportInfo _info;
 
+		/// <param name="reportInfo">the ExceptionReportInfo object to fill with configuration information</param>
         public ConfigReader(ExceptionReportInfo reportInfo)
         {
             _info = reportInfo;
@@ -117,10 +118,8 @@ namespace ExceptionReporter.Config
             _info.ShowFullDetail = GetUserInterfaceSetting("ShowFullDetail").ReturnBoolfNotNull_Else(_info.ShowFullDetail);
 
             if (!_info.ShowFullDetail)
-            {
-                //defaul ShowLessMoreDetailButton to shown
-                _info.ShowLessMoreDetailButton = true;
-            }
+				_info.ShowLessMoreDetailButton = true;	// prevent seeing only the simplified view, position of this line is important
+
             _info.ShowLessMoreDetailButton = GetUserInterfaceSetting("ShowLessMoreDetailButton").ReturnBoolfNotNull_Else(_info.ShowLessMoreDetailButton);
             _info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").ReturnBoolfNotNull_Else(_info.ShowButtonIcons);
             _info.TitleText = GetUserInterfaceSetting("TitleText").ReturnStringIfNotNull_Else(_info.TitleText);
@@ -134,7 +133,7 @@ namespace ExceptionReporter.Config
             }
         }
 
-        public static string GetConfigFilePath()
+		internal static string GetConfigFilePath()
         {
             return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
         }

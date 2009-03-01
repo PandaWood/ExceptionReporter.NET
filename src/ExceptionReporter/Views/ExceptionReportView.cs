@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using ExceptionReporter.Core;
 using ExceptionReporter.SystemInfo;
 
-namespace ExceptionReporter.Views
+namespace ExceptionReporter.WinForms.Views
 {
     internal partial class ExceptionReportView : Form, IExceptionReportView
     {
