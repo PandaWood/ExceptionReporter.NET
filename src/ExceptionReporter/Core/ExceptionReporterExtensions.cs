@@ -9,14 +9,22 @@ namespace System.Runtime.CompilerServices
 
 namespace ExceptionReporter.Extensions
 {
+	/// <summary>
+	/// All extension methods for ExceptionReporter
+	/// </summary>
 	public static class ExceptionReporterExtensions
 	{
+		/// <summary>
+		/// Append a dotted line to the given string
+		/// </summary>
 		public static StringBuilder AppendDottedLine(this StringBuilder stringBuilder)
 		{
 			return stringBuilder.AppendLine("-----------------------------");
 		}
 
-		// TODO this is probably a dodgy use of extension methods, consider refactoring
+		/// <summary>
+		/// Return a string if not null, else the current value
+		/// </summary>
 		public static string ReturnStringIfNotNull_Else(this string newString, string currentString)
 		{
 			return string.IsNullOrEmpty(newString) ? currentString : newString.Trim();

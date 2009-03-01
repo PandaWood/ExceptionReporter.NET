@@ -9,6 +9,9 @@ namespace ExceptionReporter.Core
     {
         private readonly StringBuilder _reportString;
 
+		/// <summary>
+		/// Construct an ExceptionReport from a StringBuilder
+		/// </summary>
         public ExceptionReport(StringBuilder stringBuilder)
         {
             _reportString = stringBuilder;

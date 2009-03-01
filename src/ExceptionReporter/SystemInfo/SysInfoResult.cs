@@ -2,7 +2,10 @@ using System.Collections.Generic;
 
 namespace ExceptionReporter.SystemInfo
 {
-    public class SysInfoResult
+	/// <summary>
+	/// SysInfoResult holds results from a (ultimately WMI) query into system information
+	/// </summary>
+	public class SysInfoResult
     {
         private readonly string _name;
         private readonly List<string> _nodes = new List<string>();

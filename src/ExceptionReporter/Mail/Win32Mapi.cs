@@ -19,6 +19,8 @@ using System.Text;
 
 namespace Win32Mapi
 {
+#pragma warning disable 1591
+
 	internal class Mapi
 	{
 		private const int MAPI_DIALOG = 8;
@@ -529,4 +531,5 @@ namespace Win32Mapi
 		public string path;
 		public string name;
 	}
+#pragma warning restore 1591
 }

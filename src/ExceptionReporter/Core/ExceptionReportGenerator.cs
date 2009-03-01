@@ -9,13 +9,17 @@ namespace ExceptionReporter.Core
 	/// <summary>
 	/// ExceptionReportGenerator gathers up all the stuff that needs to happen to generate an ExceptionReport
 	/// Hence this class is also the entry point to use 'ExceptionReporter' as a general-purpose exception string
-	/// maker (ie use this class to create an exception report without even needing to show a GUI/dialog)
+	/// maker (ie use this class to create an exception report without showing a GUI/dialog)
 	/// </summary>
 	public class ExceptionReportGenerator : Disposable
 	{
 		private readonly ExceptionReportInfo _reportInfo;
 		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="reportInfo"></param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
 			if (reportInfo == null)
@@ -65,7 +69,7 @@ namespace ExceptionReporter.Core
 		}
 	}
 
-	public class ExceptionReportGeneratorException : Exception
+	internal class ExceptionReportGeneratorException : Exception
 	{
 		public ExceptionReportGeneratorException(string message) : base(message)
 		{ }

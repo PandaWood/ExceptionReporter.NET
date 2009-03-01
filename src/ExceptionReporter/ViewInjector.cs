@@ -21,13 +21,11 @@ namespace ExceptionReporter
 		}
 
 		/// <summary>
-		/// Resolve an interface to a concrete class, written especially for 2 particular expected cases 
-		/// (the 2 'View' classes in ExceptionReporter)
+		/// Resolve an interface to a concrete view class, limited to 2 particular expected view classes in ExceptionReporter
 		/// </summary>
-		/// <typeparam name="T">The interface type</typeparam>
-		/// <param name="reportInfo">ExceptionReportInfo instance if ExceptionReportView, otherwise null</param>
+		/// <typeparam name="T">The interface type (currenty just IExceptionReportView or IInternalExceptionView)</typeparam>
+		/// <param name="reportInfo">ExceptionReportInfo instance T is IExceptionReportView, otherwise null</param>
 		/// <returns>An instance of a type that implements the interface (T) in the given assembly (see constructor)</returns>
-		// ReSharper disable RedundantIfElseBlock
 		public T Resolve<T>(ExceptionReportInfo reportInfo) where T : class
 		{
 			Type viewType = typeof(T);
@@ -38,26 +36,42 @@ namespace ExceptionReporter
 
 				if (viewType.IsAssignableFrom(currentType))
 				{
-					if (reportInfo == null)
-					{
-						return Activator.CreateInstance(currentType) as T;
-					}
-					else
-					{
-						ConstructorInfo constructor = currentType.GetConstructor(new[] { typeof(ExceptionReportInfo) });
-						var newInstance = constructor.Invoke(new object[] { reportInfo });
-						return newInstance as T;
-					}
+					return CreateInstance<T>(currentType, reportInfo);
 				}
 			}
 
 			throw new ApplicationException(string.Format("Invalid ExceptionReporter assembly - type {0} not found", viewType));
 		}
-		// ReSharper restore RedundantIfElseBlock
 
+		/// <summary>
+		/// Resolve an interface to a concrete view class
+		/// The interface must be implemented by only 1 class and have a public no arg-constructor
+		/// Although written for 1 particular case, this is functionally generic (within the limitations specified)
+		/// </summary>
+		/// <typeparam name="T">an instance of the first class found, that implements the interface specified (T), 
+		/// using it's default constructor</typeparam>
+		/// <returns></returns>
 		public T Resolve<T>() where T : class
 		{
 			return Resolve<T>(null);
 		}
+
+// ReSharper disable RedundantIfElseBlock
+
+		private static T CreateInstance<T>(Type currentType, ExceptionReportInfo reportInfo) where T : class
+		{
+			if (reportInfo == null)
+			{
+				return Activator.CreateInstance(currentType) as T;
+			}
+			else
+			{
+				ConstructorInfo constructor = currentType.GetConstructor(new[] { typeof(ExceptionReportInfo) });
+				var newInstance = constructor.Invoke(new object[] { reportInfo });
+				return newInstance as T;
+			}
+		}
+
+// ReSharper restore RedundantIfElseBlock
 	}
 }

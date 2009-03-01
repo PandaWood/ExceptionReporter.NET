@@ -5,6 +5,11 @@ using ExceptionReporter.Core;
 
 namespace ExceptionReporter
 {
+	/// <summary>
+	/// The entry-point class to invoking an ExceptionReporter dialog
+	/// eg usage var r = new ExceptionReporter(); 
+	/// r.Show();
+	/// </summary>
     public class ExceptionReporter
     {
         private readonly ExceptionReportInfo _reportInfo;
@@ -23,7 +28,7 @@ namespace ExceptionReporter
     		_internalExceptionView = _viewInjector.Resolve<IInternalExceptionView>();
         }
 
-		// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedMember.Global
 		/// <summary>
 		/// public access to configuration
 		/// </summary>
@@ -31,12 +36,13 @@ namespace ExceptionReporter
         {
             get { return _reportInfo; }
         }
-    	// ReSharper restore UnusedMember.Global
+// ReSharper restore UnusedMember.Global
 
         /// <summary>
-        /// Show the <see cref="IExceptionReportView"/> dialog
+        /// Show the ExceptionReport dialog
         /// </summary>
-        /// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and create and show the report dialog.</remarks>
+        /// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and 
+        /// create and show the report dialog.</remarks>
         /// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
         public void Show(params Exception[] exceptions)
         {
@@ -54,6 +60,11 @@ namespace ExceptionReporter
             }
         }
 
+		/// <summary>
+		/// Show the ExceptionReport dialog with a custom message instead of the Exception property's 'Message'
+		/// </summary>
+		/// <param name="customMessage"></param>
+		/// <param name="exceptions"></param>
         public void Show(string customMessage, params Exception[] exceptions)
         {
             _reportInfo.CustomMessage = customMessage;

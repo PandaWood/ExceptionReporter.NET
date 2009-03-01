@@ -11,7 +11,7 @@ using ExceptionReporter.SystemInfo;
 
 namespace ExceptionReporter
 {
-    public class ExceptionReportPresenter
+	internal class ExceptionReportPresenter
     {
         private IClipboard _clipboard;
         private readonly IExceptionReportView _view;

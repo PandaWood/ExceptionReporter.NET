@@ -6,6 +6,9 @@ using ExceptionReporter.Extensions;
 
 namespace ExceptionReporter.Config
 {
+	/// <summary>
+	/// Read configuration from the app config file, for our custom configuration properties
+	/// </summary>
     public class ConfigReader
     {
         const string SMTP = "SMTP";

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace ExceptionReporter
 {
-    /// <summary>
+#pragma warning disable 1591
+
+	/// <summary>
     /// The interface (contract) for an ExceptionReportView
     /// </summary>
     public interface IExceptionReportView
@@ -24,5 +26,7 @@ namespace ExceptionReporter
     	void SetProgressCompleteState();
         void ToggleShowFullDetail();
     	void ShowExceptionReport();
-    }
+	}
+
+#pragma warning restore 1591
 }

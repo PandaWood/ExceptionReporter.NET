@@ -3,12 +3,20 @@ using System.Management;
 
 namespace ExceptionReporter.SystemInfo
 {
+	/// <summary>
+	/// Retrieves system information using WMI
+	/// </summary>
     public class SysInfoRetriever
     {
         private ManagementObjectSearcher _sysInfoSearcher;
         private SysInfoResult _sysInfoResult;
         private SysInfoQuery _sysInfoQuery;
 
+		/// <summary>
+		/// Retrieve system information, using the given SysInfoQuery to determine what information to retrieve
+		/// </summary>
+		/// <param name="sysInfoQuery">the query to determine what information to retrieve</param>
+		/// <returns>a SysInfoResult containing the results</returns>
         public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
         {
             _sysInfoQuery = sysInfoQuery;

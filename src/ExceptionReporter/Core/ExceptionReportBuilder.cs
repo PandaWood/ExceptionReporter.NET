@@ -9,7 +9,7 @@ using ExceptionReporter.SystemInfo;
 
 namespace ExceptionReporter.Core
 {
-	public class ExceptionReportBuilder
+	internal class ExceptionReportBuilder
 	{
 		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;

@@ -5,12 +5,15 @@ using System.Reflection;
 
 namespace ExceptionReporter.Core
 {
-    /// <summary>
+#pragma warning disable 1591
+
+	/// <summary>
     /// a bag of information (some of which is stored and retrieved from config)
     /// </summary>
     public class ExceptionReportInfo : Disposable
-    {
-        private readonly List<Exception> _exceptions = new List<Exception>();
+	{
+
+		private readonly List<Exception> _exceptions = new List<Exception>();
 
         /// <summary>
         /// The Main (ostensibly 'only') exception, which is the subject of this exception 'report'
@@ -149,5 +152,6 @@ namespace ExceptionReporter.Core
     {
         public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
         public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
-    }
+	}
+#pragma warning restore 1591
 }

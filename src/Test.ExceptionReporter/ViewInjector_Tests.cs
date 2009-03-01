@@ -6,14 +6,17 @@ using NUnit.Framework.SyntaxHelpers;
 
 namespace Test.ExceptionReporter
 {
+	// - NB Resharper's test runner addin can't run these tests, however TestMatrix can (if option 'Apartment State=STA')
+	// - We can't have a reference to both Wpf and WinForms in the test project (won't compile, amiguous references would result)
+	//   so only Wpf, currently only that is explicitly tested here (consequently if anyone changes it, these tests will fail)
+	// - NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or even the Wpf/WinForms assembly
+	//   (eg do not reference ExceptionReportView) hence the ignored test below, we need to find WinForms assembly and then test it
 	[TestFixture]
 	public class ViewInjector_Tests
 	{
 		private Assembly _assembly;
 		private ViewInjector _viewInjector;
-		// NB Resharper isn't able to run this test, however TestMatrix can, because it has an option for 'Apartment State=STA'
-		// We can't have a reference to both Wpf and WinForms in the test project, so we only test one of them (currently)
-		// NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or even the Wpf/WinForms assembly
+		
 
 // ReSharper disable UnusedMember.Global
 		[SetUp]
@@ -27,7 +30,7 @@ namespace Test.ExceptionReporter
 		[Test]
 		public void CanResolve_Wpf_InternalExceptionView()
 		{
-			Assert.That(_viewInjector.Resolve<IInternalExceptionView>(null).ToString(), 
+			Assert.That(_viewInjector.Resolve<IInternalExceptionView>().ToString(), 
 				Is.EqualTo("ExceptionReporter.Wpf.Views.InternalExceptionView"));
 		}
 
@@ -46,7 +49,7 @@ namespace Test.ExceptionReporter
 			Assembly assembly = Assembly.LoadFile(@"S:\Projects\ExceptionReporter\src\ExceptionReporter\bin\Debug\ExceptionReporter.WinForms.dll");
 			var viewInjector = new ViewInjector(assembly);
 
-			Assert.That(viewInjector.Resolve<IInternalExceptionView>(null).ToString(),
+			Assert.That(viewInjector.Resolve<IInternalExceptionView>().ToString(),
 				Is.EqualTo("ExceptionReporter.WinForms.Views.InternalExceptionView"));
 		}
 	}
