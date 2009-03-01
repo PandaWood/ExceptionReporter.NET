@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using ExceptionReporter.Core;
 
-namespace ExceptionReporter.Wpf.Views
-{
 #pragma warning disable 1591
 
+namespace ExceptionReporter.Wpf.Views
+{
 	/// <summary>
 	/// Interaction logic for UserControl1.xaml
 	/// </summary>
@@ -105,6 +105,6 @@ namespace ExceptionReporter.Wpf.Views
 			throw new NotImplementedException();
 		}
 	}
-#pragma warning restore 1591
-
 }
+
+#pragma warning restore 1591

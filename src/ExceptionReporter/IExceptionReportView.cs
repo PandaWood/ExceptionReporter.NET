@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace ExceptionReporter
-{
 #pragma warning disable 1591
 
+namespace ExceptionReporter
+{
 	/// <summary>
     /// The interface (contract) for an ExceptionReportView
     /// </summary>
@@ -27,6 +27,6 @@ namespace ExceptionReporter
         void ToggleShowFullDetail();
     	void ShowExceptionReport();
 	}
+}
 
 #pragma warning restore 1591
-}
