@@ -1,6 +1,5 @@
 using System.Reflection;
 using ExceptionReporter;
-using ExceptionReporter.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -11,45 +10,59 @@ namespace Test.ExceptionReporter
 	//   so only WinForms, currently only that is explicitly tested here (consequently if anyone changes it, these tests will fail)
 	// - NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or even the Wpf/WinForms assembly here
 	[TestFixture]
-	public class ViewInjector_Tests
+	public class ViewCreator_Tests
 	{
 		private Assembly _assembly;
-		private ViewInjector _viewInjector;
-		
+		private ViewResolver _viewResolver;
 
 // ReSharper disable UnusedMember.Global
 		[SetUp]
 		public void SetUp()
 		{
 			_assembly = Assembly.Load(new AssemblyName("ExceptionReporter.WinForms"));
-			_viewInjector = new ViewInjector(_assembly);
+			_viewResolver = new ViewResolver(_assembly);
 		}
 // ReSharper restore UnusedMember.Global
 
 		[Test]
 		public void CanResolve_WinForms_InternalExceptionView()
 		{
-			Assert.That(_viewInjector.Resolve<IInternalExceptionView>().ToString(),
+			Assert.That(_viewResolver.Resolve<IInternalExceptionView>().ToString(),
+				Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
+		}
+
+		[Test]
+		public void CanCreate_WinForms_InternalExceptionView()
+		{
+			Assert.That(ViewCreator.Create<IInternalExceptionView>(_viewResolver, null).ToString(),
 				Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
 		}
 
 		[Test]
 		public void CanResolve_WinForms_ExceptionReportView()
 		{
-			var exceptionReportView = _viewInjector.Resolve<IExceptionReportView>(new ExceptionReportInfo());
+			var exceptionReportView = _viewResolver.Resolve<IExceptionReportView>();
 
 			Assert.That(exceptionReportView.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.ExceptionReportView"));
 		}
 
 		[Test]
-		[Ignore("test WinForms explicitly (have to find the assembly because we can't include both wpf and winforms)")]
+		[Ignore("Looks like the WebControl on the form, prevents us from instantiating the class here")]
+		public void CanCreate_WinForms_ExceptionReportView()
+		{
+			Assert.That(ViewCreator.Create<IExceptionReportView>(_viewResolver, null).ToString(),
+				Text.StartsWith("ExceptionReporter.WinForms.Views.ExceptionReportView"));
+		}
+
+		[Test]
+		[Ignore("this should pass if the LoadFile path is correct, haven't decided the best way to make the dll findable")]
 		public void CanResolve_Wpf_InternalExceptionView()
 		{
 			Assembly assembly = Assembly.LoadFile(@"S:\Projects\ExceptionReporter\src\ExceptionReporter\bin\Debug\ExceptionReporter.Wpf.dll");
-			var viewInjector = new ViewInjector(assembly);
+			var viewInjector = new ViewResolver(assembly);
 
-			Assert.That(viewInjector.Resolve<IInternalExceptionView>().ToString(),
-				Is.EqualTo("ExceptionReporter.WinForms.Views.InternalExceptionView"));
+			Assert.That(viewInjector.Resolve<IExceptionReportView>().ToString(),
+				Is.EqualTo("ExceptionReporter.Wpf.Views.ExceptionReportView"));
 		}
 	}
 }

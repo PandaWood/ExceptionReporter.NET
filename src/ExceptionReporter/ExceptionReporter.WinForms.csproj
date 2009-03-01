@@ -57,11 +57,12 @@
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
-    <Compile Include="Core\WindowsClipboard.cs" />
+    <Compile Include="Core\WinFormsClipboard.cs" />
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="IExceptionReportView.cs" />
     <Compile Include="IInternalExceptionView.cs" />
+    <Compile Include="ViewCreator.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Mail\Win32Mapi.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="ViewInjector.cs" />
+    <Compile Include="ViewResolver.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

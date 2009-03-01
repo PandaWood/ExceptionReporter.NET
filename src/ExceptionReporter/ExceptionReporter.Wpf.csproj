@@ -76,7 +76,6 @@
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotHelper.cs" />
-    <Compile Include="Core\WindowsClipboard.cs" />
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="IExceptionReportView.cs" />
@@ -96,7 +95,8 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="ViewInjector.cs" />
+    <Compile Include="ViewCreator.cs" />
+    <Compile Include="ViewResolver.cs" />
     <Compile Include="Views\ExceptionReportView.xaml.cs">
       <DependentUpon>ExceptionReportView.xaml</DependentUpon>
     </Compile>
@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="warning.ico" />
-    <Resource Include="XmlToHtml.xslt" />
+    <EmbeddedResource Include="XmlToHtml.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

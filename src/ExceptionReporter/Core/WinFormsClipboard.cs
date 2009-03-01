@@ -3,9 +3,9 @@ using System.Windows.Forms;
 namespace ExceptionReporter.Core
 {
     /// <summary>
-    /// WindowsClipboard exists to shift a dependency from Windows.Forms assembly to IClipboard
+    /// WinFormsClipboard exists to shift a dependency from Windows.Forms assembly to IClipboard
     /// </summary>
-    public class WindowsClipboard: IClipboard
+    public class WinFormsClipboard: IClipboard
     {
         public void CopyTo(string text)
         {

@@ -1,6 +1,6 @@
 ﻿namespace ExceptionReporter.WinForms.Views
 {
-    internal partial class ExceptionReportView
+	internal partial class ExceptionReportView
     {
         /// <summary>
         /// Required designer variable.

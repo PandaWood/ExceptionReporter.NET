@@ -7,13 +7,22 @@ using System.Windows.Forms;
 using ExceptionReporter.Core;
 using ExceptionReporter.SystemInfo;
 
+#pragma warning disable 1591
+
 namespace ExceptionReporter.WinForms.Views
 {
-    internal partial class ExceptionReportView : Form, IExceptionReportView
+	/// <summary>
+	/// The main ExceptionReporter dialog
+	/// </summary>
+	internal partial class ExceptionReportView : Form, IExceptionReportView
     {
         private bool _isDataRefreshRequired;
         private readonly ExceptionReportPresenter _presenter;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="reportInfo"></param>
         public ExceptionReportView(ExceptionReportInfo reportInfo)
         {
             ShowFullDetail = true;
@@ -21,7 +30,7 @@ namespace ExceptionReporter.WinForms.Views
 
             _presenter = new ExceptionReportPresenter(this, reportInfo)
                              {
-                                 Clipboard = new WindowsClipboard()
+                                 Clipboard = new WinFormsClipboard()
                              };
 
             WireUpEvents();
@@ -151,18 +160,12 @@ namespace ExceptionReporter.WinForms.Views
             set { progressBar.Visible = value; }
         }
 
-        public bool ShowProgressLabel
+    	private bool ShowProgressLabel
         {
             set { lblProgressMessage.Visible = value; }
         }
 
-        public int ProgressValue
-        {
-            get { return progressBar.Value; }
-            set { progressBar.Value = value; }
-        }
-
-        public bool ShowFullDetail { get; set; }
+    	public bool ShowFullDetail { get; set; }
 
         public void ToggleShowFullDetail()
         {
@@ -200,7 +203,7 @@ namespace ExceptionReporter.WinForms.Views
             }
         }
 
-        public void PopulateTabs()
+    	private void PopulateTabs()
         {
             if (!_presenter.ReportInfo.ShowGeneralTab)
             {
@@ -398,3 +401,5 @@ namespace ExceptionReporter.WinForms.Views
         }
     }
 }
+
+#pragma warning restore 1591

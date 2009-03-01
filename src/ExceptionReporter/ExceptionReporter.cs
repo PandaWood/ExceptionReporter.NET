@@ -7,15 +7,14 @@ namespace ExceptionReporter
 {
 	/// <summary>
 	/// The entry-point class to invoking an ExceptionReporter dialog
-	/// eg usage var r = new ExceptionReporter(); 
-	/// r.Show();
+	/// eg new ExceptionReporter().Show();
 	/// </summary>
     public class ExceptionReporter
     {
         private readonly ExceptionReportInfo _reportInfo;
         private IExceptionReportView _reportView;
         private readonly IInternalExceptionView _internalExceptionView;
-    	private readonly ViewInjector _viewInjector;
+    	private readonly ViewResolver _viewResolver;
 
     	/// <summary>
         /// initialise the ExceptionReporter
@@ -24,8 +23,8 @@ namespace ExceptionReporter
         public ExceptionReporter()
         {
             _reportInfo = new ExceptionReportInfo();
-    		_viewInjector = new ViewInjector(Assembly.GetExecutingAssembly());
-    		_internalExceptionView = _viewInjector.Resolve<IInternalExceptionView>();
+    		_viewResolver = new ViewResolver(Assembly.GetExecutingAssembly());
+    		_internalExceptionView = ViewCreator.Create<IInternalExceptionView>(_viewResolver, null);
         }
 
 // ReSharper disable UnusedMember.Global
@@ -51,7 +50,7 @@ namespace ExceptionReporter
             try
             {
                 _reportInfo.SetExceptions(exceptions);
-				_reportView = _viewInjector.Resolve<IExceptionReportView>(_reportInfo);
+				_reportView = ViewCreator.Create<IExceptionReportView>(_viewResolver, _reportInfo);
                 _reportView.ShowExceptionReport();
             }
             catch (Exception internalException)
