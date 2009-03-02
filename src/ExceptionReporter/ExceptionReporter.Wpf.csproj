@@ -95,7 +95,7 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="ViewCreator.cs" />
+    <Compile Include="ViewFactory.cs" />
     <Compile Include="ViewResolver.cs" />
     <Compile Include="Views\ExceptionReportView.xaml.cs">
       <DependentUpon>ExceptionReportView.xaml</DependentUpon>

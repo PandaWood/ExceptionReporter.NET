@@ -24,7 +24,7 @@ namespace ExceptionReporter
         {
             _reportInfo = new ExceptionReportInfo();
     		_viewResolver = new ViewResolver(Assembly.GetExecutingAssembly());
-    		_internalExceptionView = ViewCreator.Create<IInternalExceptionView>(_viewResolver, null);
+    		_internalExceptionView = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
         }
 
 // ReSharper disable UnusedMember.Global
@@ -50,7 +50,7 @@ namespace ExceptionReporter
             try
             {
                 _reportInfo.SetExceptions(exceptions);
-				_reportView = ViewCreator.Create<IExceptionReportView>(_viewResolver, _reportInfo);
+				_reportView = ViewFactory.Create<IExceptionReportView>(_viewResolver, _reportInfo);
                 _reportView.ShowExceptionReport();
             }
             catch (Exception internalException)

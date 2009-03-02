@@ -1,5 +1,7 @@
+using System;
 using System.Reflection;
 using ExceptionReporter;
+using ExceptionReporter.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -10,7 +12,7 @@ namespace Test.ExceptionReporter
 	//   so only WinForms, currently only that is explicitly tested here (consequently if anyone changes it, these tests will fail)
 	// - NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or even the Wpf/WinForms assembly here
 	[TestFixture]
-	public class ViewCreator_Tests
+	public class ViewFactory_Tests
 	{
 		private Assembly _assembly;
 		private ViewResolver _viewResolver;
@@ -25,21 +27,21 @@ namespace Test.ExceptionReporter
 // ReSharper restore UnusedMember.Global
 
 		[Test]
-		public void CanResolve_WinForms_InternalExceptionView()
+		public void CanResolve_WinForms_IInternalExceptionView_Interface()
 		{
-			Assert.That(_viewResolver.Resolve<IInternalExceptionView>().ToString(),
-				Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
+			Type view = _viewResolver.Resolve<IInternalExceptionView>();
+			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
 		}
 
 		[Test]
 		public void CanCreate_WinForms_InternalExceptionView()
 		{
-			Assert.That(ViewCreator.Create<IInternalExceptionView>(_viewResolver, null).ToString(),
-				Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
+			var view = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
+			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
 		}
 
 		[Test]
-		public void CanResolve_WinForms_ExceptionReportView()
+		public void CanResolve_WinForms_IExceptionReportView_Interface()
 		{
 			var exceptionReportView = _viewResolver.Resolve<IExceptionReportView>();
 
@@ -50,8 +52,9 @@ namespace Test.ExceptionReporter
 		[Ignore("Looks like the WebControl on the form, prevents us from instantiating the class here")]
 		public void CanCreate_WinForms_ExceptionReportView()
 		{
-			Assert.That(ViewCreator.Create<IExceptionReportView>(_viewResolver, null).ToString(),
-				Text.StartsWith("ExceptionReporter.WinForms.Views.ExceptionReportView"));
+			var view = ViewFactory.Create<IExceptionReportView>(_viewResolver, new ExceptionReportInfo());
+
+			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.ExceptionReportView"));
 		}
 
 		[Test]
