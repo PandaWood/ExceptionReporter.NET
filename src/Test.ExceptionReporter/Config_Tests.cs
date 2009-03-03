@@ -13,7 +13,7 @@ namespace Test.ExceptionReporter
 		[SetUp]
 		public void SetUp() 
 		{
-			_converter = new ConfigHtmlConverter("ExceptionReporter.WinForms");
+			_converter = new ConfigHtmlConverter("ExceptionReporter.Core");
 		}
 
 		[Test]

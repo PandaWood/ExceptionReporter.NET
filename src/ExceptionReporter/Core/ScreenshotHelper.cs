@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace ExceptionReporter.Core
 {
-	internal static class ScreenshotHelper
+	public static class ScreenshotHelper
     {
     	private const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
         public const string ScreenshotMimeType = "image/jpeg";

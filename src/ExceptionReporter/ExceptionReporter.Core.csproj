@@ -1,15 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
+    <ProjectGuid>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExceptionReporter</RootNamespace>
-    <AssemblyName>ExceptionReporter.WinForms</AssemblyName>
+    <AssemblyName>ExceptionReporter.Core</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkSubset>
@@ -26,7 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\ExceptionReporter.Core.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\ExceptionReporter.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -47,40 +47,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\ExceptionDetailControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ExceptionDetailControl.Designer.cs">
-      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExceptionReportView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ExceptionReportView.Designer.cs">
-      <DependentUpon>ExceptionReportView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\InternalExceptionView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
-      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ExceptionReportView.resx">
-      <DependentUpon>ExceptionReportView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\InternalExceptionView.resx">
-      <DependentUpon>InternalExceptionView.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Config\ConfigHtmlConverter.cs" />
+    <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="Core\Disposable.cs" />
+    <Compile Include="Core\ExceptionReport.cs" />
+    <Compile Include="Core\ExceptionReportBuilder.cs" />
+    <Compile Include="Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="Core\ExceptionReportGenerator.cs" />
+    <Compile Include="Core\ExceptionReportInfo.cs" />
+    <Compile Include="Core\IClipboard.cs" />
+    <Compile Include="Core\ScreenshotHelper.cs" />
+    <Compile Include="Core\WinFormsClipboard.cs" />
+    <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="ExceptionReportPresenter.cs" />
+    <Compile Include="IExceptionReportView.cs" />
+    <Compile Include="IInternalExceptionView.cs" />
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Mail\Win32Mapi.cs" />
+    <Compile Include="SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SysInfoResult.cs" />
+    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
+    <Compile Include="SystemInfo\SysInfoRetriever.cs" />
+    <Compile Include="ViewFactory.cs" />
+    <Compile Include="ViewResolver.cs" />    
+    <Compile Include="Properties\AssemblyInfo.cs" />    
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="ExceptionReporter.Core.csproj">
-      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
-      <Name>ExceptionReporter.Core</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="XmlToHtml.xslt">
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -90,7 +86,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)ExceptionReporter.Core.dll</PostBuildEvent>
-  </PropertyGroup>
 </Project>

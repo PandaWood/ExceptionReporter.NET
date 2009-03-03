@@ -28,6 +28,7 @@ namespace ExceptionReporter
         }
 
 // ReSharper disable UnusedMember.Global
+
 		/// <summary>
 		/// public access to configuration
 		/// </summary>
@@ -35,6 +36,7 @@ namespace ExceptionReporter
         {
             get { return _reportInfo; }
         }
+
 // ReSharper restore UnusedMember.Global
 
         /// <summary>

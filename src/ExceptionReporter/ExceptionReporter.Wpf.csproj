@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkSubset>Full</TargetFrameworkSubset>
+    <TargetFrameworkSubset>Client</TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,22 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigHtmlConverter.cs" />
-    <Compile Include="Config\ConfigReader.cs" />
-    <Compile Include="Core\Disposable.cs" />
-    <Compile Include="Core\ExceptionReport.cs" />
-    <Compile Include="Core\ExceptionReportBuilder.cs" />
-    <Compile Include="Core\ExceptionReporterExtensions.cs" />
-    <Compile Include="Core\ExceptionReportGenerator.cs" />
-    <Compile Include="Core\ExceptionReportInfo.cs" />
-    <Compile Include="Core\IClipboard.cs" />
-    <Compile Include="Core\ScreenshotHelper.cs" />
-    <Compile Include="ExceptionReporter.cs" />
-    <Compile Include="ExceptionReportPresenter.cs" />
-    <Compile Include="IExceptionReportView.cs" />
-    <Compile Include="IInternalExceptionView.cs" />
-    <Compile Include="Mail\MailSender.cs" />
-    <Compile Include="Mail\Win32Mapi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -90,13 +74,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SystemInfo\SysInfoQueries.cs" />
-    <Compile Include="SystemInfo\SysInfoQuery.cs" />
-    <Compile Include="SystemInfo\SysInfoResult.cs" />
-    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
-    <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="ViewFactory.cs" />
-    <Compile Include="ViewResolver.cs" />
     <Compile Include="Views\ExceptionReportView.xaml.cs">
       <DependentUpon>ExceptionReportView.xaml</DependentUpon>
     </Compile>
@@ -121,7 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="warning.ico" />
-    <EmbeddedResource Include="XmlToHtml.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ExceptionReporter.Core.csproj">
+      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
+      <Name>ExceptionReporter.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -131,4 +113,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)\release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)ExceptionReporter.Core.dll</PostBuildEvent>
+  </PropertyGroup>
 </Project>

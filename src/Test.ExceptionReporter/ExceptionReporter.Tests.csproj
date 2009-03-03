@@ -62,6 +62,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.Core.csproj">
+      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
+      <Name>ExceptionReporter.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.WinForms.csproj">
       <Project>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</Project>
       <Name>ExceptionReporter.WinForms</Name>

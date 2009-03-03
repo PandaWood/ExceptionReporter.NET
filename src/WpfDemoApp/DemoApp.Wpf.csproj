@@ -91,6 +91,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.Wpf.csproj">
+      <Project>{ECB0D268-98B5-4303-AC89-FC4B0F90A472}</Project>
+      <Name>ExceptionReporter.Wpf</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

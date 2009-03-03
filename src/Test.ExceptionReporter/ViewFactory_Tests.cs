@@ -9,8 +9,8 @@ namespace Test.ExceptionReporter
 {
 	// - NB Resharper's test runner addin can't run these tests, however TestMatrix can (if option 'Apartment State=STA')
 	// - We can't have a reference to both Wpf and WinForms in the test project (won't compile, amiguous references would result)
-	//   so only WinForms, currently only that is explicitly tested here (consequently if anyone changes it, these tests will fail)
-	// - NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or even the Wpf/WinForms assembly here
+	//   so only WinForms, currently only is explicitly tested here (if anyone changes it to include Wpf, these tests will fail)
+	// - NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or InternalExceptionView here
 	[TestFixture]
 	public class ViewFactory_Tests
 	{
@@ -18,12 +18,14 @@ namespace Test.ExceptionReporter
 		private ViewResolver _viewResolver;
 
 // ReSharper disable UnusedMember.Global
+
 		[SetUp]
 		public void SetUp()
 		{
 			_assembly = Assembly.Load(new AssemblyName("ExceptionReporter.WinForms"));
 			_viewResolver = new ViewResolver(_assembly);
 		}
+
 // ReSharper restore UnusedMember.Global
 
 		[Test]
@@ -49,7 +51,7 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		[Ignore("Looks like the WebControl on the form, prevents us from instantiating the class here")]
+		[Ignore("Looks like the IE WebControl thingy on the form, prevents us from instantiating the class here")]
 		public void CanCreate_WinForms_ExceptionReportView()
 		{
 			var view = ViewFactory.Create<IExceptionReportView>(_viewResolver, new ExceptionReportInfo());
@@ -58,14 +60,14 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		[Ignore("this should pass if the LoadFile path is correct, haven't decided the best way to make the dll findable")]
+//		[Ignore("this should pass if the LoadFile path is correct, haven't decided the best way to make the dll findable")]
 		public void CanResolve_Wpf_InternalExceptionView()
 		{
-			Assembly assembly = Assembly.LoadFile(@"S:\Projects\ExceptionReporter\src\ExceptionReporter\bin\Debug\ExceptionReporter.Wpf.dll");
-			var viewInjector = new ViewResolver(assembly);
+			_assembly = Assembly.Load(new AssemblyName("ExceptionReporter.WinForms"));
+			_viewResolver = new ViewResolver(_assembly);
 
-			Assert.That(viewInjector.Resolve<IExceptionReportView>().ToString(),
-				Is.EqualTo("ExceptionReporter.Wpf.Views.ExceptionReportView"));
+			Assert.That(_viewResolver.Resolve<IExceptionReportView>().ToString(),
+				Is.EqualTo("ExceptionReporter.WinForms.Views.ExceptionReportView"));
 		}
 	}
 }

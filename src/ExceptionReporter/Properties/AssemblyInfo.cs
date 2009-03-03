@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("ExceptionReporter.Tests")]
-[assembly: AssemblyTitle("Exception Reporter Wpf")]
+[assembly: AssemblyTitle("Exception Reporter WPF")]
 [assembly: AssemblyDescription("Displays exception details and system information")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.codeplex.com/ExceptionReporter")]
