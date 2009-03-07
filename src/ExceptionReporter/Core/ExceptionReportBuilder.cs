@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using ExceptionReporter.Config;
@@ -14,6 +13,7 @@ namespace ExceptionReporter.Core
 		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
 		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
+		private IConfigParser _configParser = new ConfigParser();
 
 		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
@@ -24,6 +24,11 @@ namespace ExceptionReporter.Core
 			: this(reportInfo)
 		{
 			_sysInfoResults = sysInfoResults;
+		}
+
+		public IConfigParser ConfigParser
+		{
+			set { _configParser = value; }
 		}
 
 		/// <summary>
@@ -87,7 +92,7 @@ namespace ExceptionReporter.Core
 		private void BuildConfigInfo()
 		{
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
-            _stringBuilder.AppendLine(File.ReadAllText(ConfigReader.GetConfigFilePath()));
+			_stringBuilder.AppendLine(_configParser.ToString(ConfigReader.GetConfigFilePath()));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 

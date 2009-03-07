@@ -11,14 +11,6 @@ using ExceptionReporter.SystemInfo;
 
 namespace ExceptionReporter.WinForms.Views
 {
-	public class WinFormsClipboard : IClipboard
-	{
-		public void CopyTo(string text)
-		{
-			Clipboard.SetDataObject(text, true);
-		}
-	}
-
 	/// <summary>
 	/// The main ExceptionReporter dialog
 	/// </summary>
@@ -409,6 +401,15 @@ namespace ExceptionReporter.WinForms.Views
             internalExceptionView.ShowException(message, exception);
         }
     }
+
+	public class WinFormsClipboard : IClipboard
+	{
+		public void CopyTo(string text)
+		{
+			Clipboard.SetDataObject(text, true);
+		}
+	}
+
 }
 
 #pragma warning restore 1591

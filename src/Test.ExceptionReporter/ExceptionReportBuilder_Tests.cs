@@ -2,17 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using ExceptionReporter.Config;
 using ExceptionReporter.Core;
 using ExceptionReporter.Extensions;
 using ExceptionReporter.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
+using Rhino.Mocks;
 
 namespace ExceptionReporter.Tests
 {
 	[TestFixture]
 	public class ExceptionReportBuilder_Tests
 	{
+		private IConfigParser _configParser;
+
+		[SetUp]
+		public void SetUp()
+		{
+			_configParser = MockRepository.GenerateStub<IConfigParser>();
+			_configParser.Stub(c => c.ToString("")).IgnoreArguments().Return("");
+		}
+
 		[Test]
 		public void CanBuild_ReferencedAssemblies_Section()
 		{
@@ -21,7 +32,12 @@ namespace ExceptionReporter.Tests
                 reportInfo.ShowAssembliesTab = true;
                 reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
-                ExceptionReport exceptionReport = new ExceptionReportBuilder(reportInfo).Build();
+            	var builder = new ExceptionReportBuilder(reportInfo)
+            	              {
+								  ConfigParser = _configParser
+            	              };
+
+            	ExceptionReport exceptionReport = builder.Build();
 
                 Assert.That(exceptionReport, Is.Not.Null);
                 Assert.That(exceptionReport.ToString().Length, Is.GreaterThan(0));
@@ -42,7 +58,11 @@ namespace ExceptionReporter.Tests
             {
                 reportInfo.ShowSysInfoTab = true;
 
-                ExceptionReport exceptionReport = new ExceptionReportBuilder(reportInfo, sysInfoResults).Build();
+				var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults)
+				{
+					ConfigParser = _configParser
+				};
+            	ExceptionReport exceptionReport = builder.Build();
 
 				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
             }
@@ -74,7 +94,11 @@ namespace ExceptionReporter.Tests
                     .AppendLine("Source:")
                     .AppendLine().AppendDottedLine().AppendLine();
 
-                ExceptionReport exceptionReport = new ExceptionReportBuilder(reportInfo).Build();
+				var builder = new ExceptionReportBuilder(reportInfo)
+				{
+					ConfigParser = _configParser
+				};
+            	ExceptionReport exceptionReport = builder.Build();
 
 				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
             }
