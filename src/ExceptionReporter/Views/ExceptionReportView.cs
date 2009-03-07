@@ -11,18 +11,24 @@ using ExceptionReporter.SystemInfo;
 
 namespace ExceptionReporter.WinForms.Views
 {
+	public class WinFormsClipboard : IClipboard
+	{
+		public void CopyTo(string text)
+		{
+			Clipboard.SetDataObject(text, true);
+		}
+	}
+
 	/// <summary>
 	/// The main ExceptionReporter dialog
 	/// </summary>
+// ReSharper disable UnusedMember.Global
 	internal partial class ExceptionReportView : Form, IExceptionReportView
+// ReSharper restore UnusedMember.Global
     {
         private bool _isDataRefreshRequired;
         private readonly ExceptionReportPresenter _presenter;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="reportInfo"></param>
         public ExceptionReportView(ExceptionReportInfo reportInfo)
         {
             ShowFullDetail = true;
@@ -93,7 +99,7 @@ namespace ExceptionReporter.WinForms.Views
 
             if (reportInfo.TakeScreenshot)
             {
-                reportInfo.ScreenshotImage = ScreenshotHelper.TakeScreenShot();
+                reportInfo.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
             }
         }
 
@@ -203,6 +209,9 @@ namespace ExceptionReporter.WinForms.Views
             }
         }
 
+		/// <summary>
+		/// starts with all tabs visible, and removes ones that aren't configured to show
+		/// </summary>
     	private void PopulateTabs()
         {
             if (!_presenter.ReportInfo.ShowGeneralTab)

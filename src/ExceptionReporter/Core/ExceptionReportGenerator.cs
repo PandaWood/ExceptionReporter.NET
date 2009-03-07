@@ -8,7 +8,7 @@ namespace ExceptionReporter.Core
 {
 	/// <summary>
 	/// ExceptionReportGenerator does everything that needs to happen to generate an ExceptionReport
-	/// Hence this class is also the entry point to use 'ExceptionReporter' as a general-purpose exception string
+	/// Hence this class is also the entry point to use 'ExceptionReporter' as a general-purpose exception report
 	/// maker (ie use this class to create an exception report without showing a GUI/dialog)
 	/// </summary>
 	public class ExceptionReportGenerator : Disposable
@@ -20,7 +20,7 @@ namespace ExceptionReporter.Core
 		/// Create an ExceptionReportGenerator, initialises some ExceptionReportInfo properties related to the application/system
 		/// </summary>
 		/// <param name="reportInfo">an ExceptionReportInfo, can be pre-populated with config
-		/// however base properties such as MachineName and AppAssembly are always overwritten here</param>
+		/// however 'base' properties such as MachineName and AppAssembly are always overwritten here</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
 			if (reportInfo == null)
@@ -37,6 +37,12 @@ namespace ExceptionReporter.Core
 			_reportInfo.AppAssembly = Assembly.GetEntryAssembly();
 		}
 
+		/// <summary>
+		/// Create an exception report 
+		/// NB This method re-uses the same information retrieved from the system on subsequent calls
+		/// Create a new ExceptionReportGenerator if you need to refresh system information from the computer
+		/// </summary>
+		/// <returns></returns>
 		public ExceptionReport CreateExceptionReport()
 		{
 			IList<SysInfoResult> sysInfoResults = GetOrFetchSysInfoResults();

@@ -1,16 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
+using System.Windows;
 using ExceptionReporter.Core;
 
 #pragma warning disable 1591
 
 namespace ExceptionReporter.Wpf.Views
 {
+	public class WpfClipboard : IClipboard
+	{
+		public void CopyTo(string text)
+		{
+			Clipboard.SetData(DataFormats.Text, text);
+		}
+	}
+
 	/// <summary>
-	/// Interaction logic for UserControl1.xaml
+	/// Interaction logic for ExceptionReportView.xaml
 	/// </summary>
-	public partial class ExceptionReportView : UserControl, IExceptionReportView
+// ReSharper disable UnusedMember.Global
+	public partial class ExceptionReportView : IExceptionReportView
+// ReSharper restore UnusedMember.Global
 	{
 		private ExceptionReportPresenter _presenter;
 
@@ -19,9 +29,9 @@ namespace ExceptionReporter.Wpf.Views
 			InitializeComponent();
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo)
-			{
-//				Clipboard = new WindowsClipboard()
-			};
+			             {
+			             	Clipboard = new WpfClipboard()
+			             };
 		}
 
 		public string ProgressMessage

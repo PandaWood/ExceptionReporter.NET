@@ -57,8 +57,7 @@
     <Compile Include="Core\ExceptionReportGenerator.cs" />
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\IClipboard.cs" />
-    <Compile Include="Core\ScreenshotHelper.cs" />
-    <Compile Include="Core\WinFormsClipboard.cs" />
+    <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
     <Compile Include="IExceptionReportView.cs" />

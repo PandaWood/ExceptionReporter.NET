@@ -49,7 +49,7 @@ namespace ExceptionReporter.Mail
         private void AttachMapiScreenshotIfRequired(Mapi mapi)
         {
             if (_reportInfo.ScreenshotAvailable)
-                mapi.Attach(ScreenshotHelper.GetImageAsFile(_reportInfo.ScreenshotImage));
+                mapi.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
         }
 
         private MailMessage CreateMailMessage(string exceptionReport)
@@ -72,8 +72,8 @@ namespace ExceptionReporter.Mail
         {
             if (_reportInfo.ScreenshotAvailable)
                 mailMessage.Attachments.Add(
-                    new Attachment(ScreenshotHelper.GetImageAsFile(_reportInfo.ScreenshotImage), 
-                                   ScreenshotHelper.ScreenshotMimeType));
+                    new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), 
+                                   ScreenshotTaker.ScreenshotMimeType));
         }
 
         private string EmailSubject

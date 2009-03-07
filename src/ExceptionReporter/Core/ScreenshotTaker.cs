@@ -8,7 +8,7 @@ namespace ExceptionReporter.Core
 	/// <summary>
 	/// utility to take a screenshot and return as a file 
 	/// </summary>
-	public static class ScreenshotHelper
+	public static class ScreenshotTaker
     {
     	private const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
         public const string ScreenshotMimeType = "image/jpeg";
@@ -16,7 +16,7 @@ namespace ExceptionReporter.Core
 		/// <summary>
 		/// Take a screenshot (supports multiple monitors)
 		/// </summary>
-		/// <returns>Bitmap of the screen as at the time called</returns>
+		/// <returns>Bitmap of the screen, as at the time called</returns>
         public static Bitmap TakeScreenShot()
         {
             Rectangle rectangle = Rectangle.Empty;
@@ -37,7 +37,7 @@ namespace ExceptionReporter.Core
         }
 
 		/// <summary>
-		/// Return the supplied Bitmap as a file on the system as JPEG
+		/// Return the supplied Bitmap, as a file on the system, as JPEG
 		/// </summary>
 		/// <param name="bitmap">The Bitmap to save (most likely one created using TakeScreenshot()</param>
 		/// <returns></returns>
