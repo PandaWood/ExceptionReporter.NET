@@ -15,13 +15,13 @@ namespace ExceptionReporter.Tests
 	[TestFixture]
 	public class ExceptionReportBuilder_Tests
 	{
-		private IConfigParser _configParser;
+		private IFileReader _fileReader;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_configParser = MockRepository.GenerateStub<IConfigParser>();
-			_configParser.Stub(c => c.ToString("")).IgnoreArguments().Return("");
+			_fileReader = MockRepository.GenerateStub<IFileReader>();
+			_fileReader.Stub(c => c.ReadAll("")).IgnoreArguments().Return("");
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace ExceptionReporter.Tests
 
             	var builder = new ExceptionReportBuilder(reportInfo)
             	              {
-								  ConfigParser = _configParser
+								  FileReader = _fileReader
             	              };
 
             	ExceptionReport exceptionReport = builder.Build();
@@ -60,7 +60,7 @@ namespace ExceptionReporter.Tests
 
 				var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults)
 				{
-					ConfigParser = _configParser
+					FileReader = _fileReader
 				};
             	ExceptionReport exceptionReport = builder.Build();
 
@@ -96,7 +96,7 @@ namespace ExceptionReporter.Tests
 
 				var builder = new ExceptionReportBuilder(reportInfo)
 				{
-					ConfigParser = _configParser
+					FileReader = _fileReader
 				};
             	ExceptionReport exceptionReport = builder.Build();
 

@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Config\ConfigHtmlConverter.cs" />
     <Compile Include="Config\ConfigReader.cs" />
-    <Compile Include="Config\ConfigParser.cs" />
+    <Compile Include="Config\FileReader.cs" />
     <Compile Include="Core\Disposable.cs" />
     <Compile Include="Core\ExceptionReport.cs" />
     <Compile Include="Core\ExceptionReportBuilder.cs" />

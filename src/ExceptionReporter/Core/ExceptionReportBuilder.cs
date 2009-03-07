@@ -13,7 +13,7 @@ namespace ExceptionReporter.Core
 		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
 		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
-		private IConfigParser _configParser = new ConfigParser();
+		private IFileReader _fileReader = new FileReader();
 
 		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
@@ -26,9 +26,9 @@ namespace ExceptionReporter.Core
 			_sysInfoResults = sysInfoResults;
 		}
 
-		public IConfigParser ConfigParser
+		public IFileReader FileReader
 		{
-			set { _configParser = value; }
+			set { _fileReader = value; }
 		}
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace ExceptionReporter.Core
 		private void BuildConfigInfo()
 		{
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
-			_stringBuilder.AppendLine(_configParser.ToString(ConfigReader.GetConfigFilePath()));
+			_stringBuilder.AppendLine(_fileReader.ReadAll(ConfigReader.GetConfigFilePath()));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
