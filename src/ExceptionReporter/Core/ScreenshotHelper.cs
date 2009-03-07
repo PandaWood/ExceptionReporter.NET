@@ -5,11 +5,18 @@ using System.Windows.Forms;
 
 namespace ExceptionReporter.Core
 {
+	/// <summary>
+	/// utility to take a screenshot and return as a file 
+	/// </summary>
 	public static class ScreenshotHelper
     {
     	private const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
         public const string ScreenshotMimeType = "image/jpeg";
 
+		/// <summary>
+		/// Take a screenshot (supports multiple monitors)
+		/// </summary>
+		/// <returns>Bitmap of the screen as at the time called</returns>
         public static Bitmap TakeScreenShot()
         {
             Rectangle rectangle = Rectangle.Empty;
@@ -29,6 +36,11 @@ namespace ExceptionReporter.Core
             return bitmap;
         }
 
+		/// <summary>
+		/// Return the supplied Bitmap as a file on the system as JPEG
+		/// </summary>
+		/// <param name="bitmap">The Bitmap to save (most likely one created using TakeScreenshot()</param>
+		/// <returns></returns>
         public static string GetImageAsFile(Bitmap bitmap)
         {
             string tempFileName = Path.GetTempPath() + ScreenshotFileName;

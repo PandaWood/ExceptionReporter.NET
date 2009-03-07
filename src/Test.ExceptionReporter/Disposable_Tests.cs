@@ -5,7 +5,7 @@ using System.Threading;
 using ExceptionReporter.Core;
 using NUnit.Framework;
 
-namespace Test.ExceptionReporter
+namespace ExceptionReporter.Tests
 {
     [TestFixture]
     public class DisposableTests

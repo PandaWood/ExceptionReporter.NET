@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Test.ExceptionReporter
+namespace ExceptionReporter.Tests
 {
     internal class FailTrackingListener : DefaultTraceListener
     {

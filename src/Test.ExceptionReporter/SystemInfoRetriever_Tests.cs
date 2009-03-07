@@ -3,7 +3,7 @@ using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using System.Linq;
 
-namespace Test.ExceptionReporter
+namespace ExceptionReporter.Tests
 {
 	/// <summary>
 	/// These are really "integration tests"

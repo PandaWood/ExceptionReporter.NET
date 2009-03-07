@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigToString_Tests.cs" />
     <Compile Include="Config_Tests.cs" />
     <Compile Include="Disposable_Tests.cs" />
     <Compile Include="ExceptionReportInfo_Tests.cs" />
@@ -69,6 +70,10 @@
     <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.WinForms.csproj">
       <Project>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</Project>
       <Name>ExceptionReporter.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.Wpf.csproj">
+      <Project>{ECB0D268-98B5-4303-AC89-FC4B0F90A472}</Project>
+      <Name>ExceptionReporter.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

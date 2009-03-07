@@ -4,7 +4,7 @@ using ExceptionReporter.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace Test.ExceptionReporter
+namespace ExceptionReporter.Tests
 {
 	[TestFixture]
 	public class ExceptionReportGenerator_Tests

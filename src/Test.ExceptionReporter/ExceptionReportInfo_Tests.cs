@@ -4,7 +4,7 @@ using ExceptionReporter.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace Test.ExceptionReporter
+namespace ExceptionReporter.Tests
 {
 	[TestFixture]
 	public class ExceptionReportInfo_Tests
@@ -43,7 +43,7 @@ namespace Test.ExceptionReporter
 		}
 
 		[Test]
-		public void OnSetExceptions_MainException_ShowsMainOrFirstException()
+		public void OnSetExceptions_MainException_ShowsFirstException()
 		{
 			_info.SetExceptions(new List<Exception>
 			                    {

@@ -15,18 +15,11 @@ namespace ExceptionReporter.Core
 		private StringBuilder _stringBuilder;
 		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
 
-		/// <summary>
-		/// the non-SysInfo constructor
-		/// </summary>
-		/// <param name="reportInfo">ExceptionReportInfo </param>
 		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
 			_reportInfo = reportInfo;
 		}
 
-		/// <summary>
-		/// constructor that includes support for SysInfo
-		/// </summary>
 		public ExceptionReportBuilder(ExceptionReportInfo reportInfo, IEnumerable<SysInfoResult> sysInfoResults)
 			: this(reportInfo)
 		{
