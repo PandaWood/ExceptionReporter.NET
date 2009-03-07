@@ -91,6 +91,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)ExceptionReporter.Core.dll</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)ExceptionReporter.Core.dll $(TargetDir)Win32Mapi.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>

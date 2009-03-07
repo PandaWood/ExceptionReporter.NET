@@ -64,7 +64,6 @@
     <Compile Include="IExceptionReportView.cs" />
     <Compile Include="IInternalExceptionView.cs" />
     <Compile Include="Mail\MailSender.cs" />
-    <Compile Include="Mail\Win32Mapi.cs" />
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
     <Compile Include="SystemInfo\SysInfoQuery.cs" />
     <Compile Include="SystemInfo\SysInfoResult.cs" />
@@ -78,6 +77,12 @@
     <Content Include="warning.ico" />
     <EmbeddedResource Include="XmlToHtml.xslt">
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Win32Mapi\Win32Mapi.csproj">
+      <Project>{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}</Project>
+      <Name>Win32Mapi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,10 +17,10 @@ namespace ExceptionReporter.Tests
             DisposeManagedResourcesCalled = false;
         }
 
-        public static bool DisposeUnmanagedResourcesCalled { get; set; }
-        public static bool DisposeManagedResourcesCalled { get; set; }
+    	private static bool DisposeUnmanagedResourcesCalled { get; set; }
+    	private static bool DisposeManagedResourcesCalled { get; set; }
 
-        public class MockDisposable : Disposable
+    	private class MockDisposable : Disposable
         {
             protected override void DisposeManagedResources()
             {
@@ -43,15 +43,13 @@ namespace ExceptionReporter.Tests
             }
 
             Trace.Listeners.Clear();
-            var myListener = new FailTrackingListener();
-            Trace.Listeners.Add(myListener);
 
             try
             {
                 new MockDisposable();
                 GC.Collect();
                 //Wait for finalize
-                Thread.Sleep(1000);
+                Thread.Sleep(1000);		//TODO this should be removed, the test more abstracted, we should never sleep in unit tests
             }
             finally
             {

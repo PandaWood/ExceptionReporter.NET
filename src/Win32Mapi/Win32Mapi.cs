@@ -4,11 +4,13 @@
 This class is based on code from www.codeproject.com
 the resource contributing this class was contributed
 by netmaster@swissonline.ch
- 
-ExceptionReporter codeplex project comment: I cannot
-find the source code for this online, so this is an
-untouchable black-box
-*******************************************************/
+ *******************************************************/
+
+/*
+ * ExceptionReporter codeplex project comment: I cannot
+ * find the source code for this online, so this is an
+ * untouchable black-box
+*/
 
 using System;
 using System.Collections;
@@ -21,7 +23,7 @@ namespace Win32Mapi
 {
 #pragma warning disable 1591
 
-	internal class Mapi
+	public class Mapi
 	{
 		private const int MAPI_DIALOG = 8;
 

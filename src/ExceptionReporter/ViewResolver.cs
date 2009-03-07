@@ -5,6 +5,7 @@ namespace ExceptionReporter
 {
 	/// <summary>
 	/// Resolve view's from the current assembly (limited to only ExceptionReportView and InternalExceptionView)
+	/// This is required to be able to load either WPF or WinForms versions of particular view classes, depending on environment
 	/// </summary>
 	public class ViewResolver
 	{
@@ -30,7 +31,7 @@ namespace ExceptionReporter
 
 			foreach (var currentType in _assembly.GetTypes())
 			{
-				if (currentType.FullName.StartsWith("System.") || currentType.IsInterface) continue;
+				if (currentType.FullName.StartsWith("System.") || currentType.IsInterface) continue;	// an optimisation
 
 				if (viewType.IsAssignableFrom(currentType))
 					return currentType;
