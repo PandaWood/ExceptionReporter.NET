@@ -159,7 +159,7 @@ namespace ExceptionReporter
 
         private static string GetConfigAsHtml()
         {
-            var converter = new ConfigHtmlConverter();
+            var converter = new ConfigHtmlConverter(Assembly.GetExecutingAssembly());
             return converter.Convert();
         }
 

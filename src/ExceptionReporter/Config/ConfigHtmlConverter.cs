@@ -10,24 +10,15 @@ namespace ExceptionReporter.Config
     internal class ConfigHtmlConverter
     {
         private const string EmbeddedXsltFileName = "ExceptionReporter.XmlToHtml.xslt";
+		private string _xsltFilename = EmbeddedXsltFileName;
 
-        private readonly XslCompiledTransform _xslCompiledTransform;
-        private readonly StringBuilder _stringBuilder;
+		private readonly XslCompiledTransform _xslCompiledTransform = new XslCompiledTransform();
+        private readonly StringBuilder _stringBuilder = new StringBuilder();
         private readonly Assembly _assembly;
-    	private string _xsltFilename = EmbeddedXsltFileName;
 
-    	public ConfigHtmlConverter()
+		public ConfigHtmlConverter(Assembly assembly)
 		{
-			_xslCompiledTransform = new XslCompiledTransform();
-			_stringBuilder = new StringBuilder();
-			_assembly = Assembly.GetExecutingAssembly();
-		}
-
-		public ConfigHtmlConverter(string assemblyName)
-		{
-			_xslCompiledTransform = new XslCompiledTransform();
-			_stringBuilder = new StringBuilder();
-			_assembly = Assembly.Load(new AssemblyName(assemblyName));
+			_assembly = assembly;
 		}
 
     	public string XsltFilename
@@ -40,8 +31,7 @@ namespace ExceptionReporter.Config
 			using (Stream stream = _assembly.GetManifestResourceStream(_xsltFilename))
     		{
     			if (stream == null) 
-					throw new XsltFileNotFoundException(string.Format("Xslt file not found ({0}) in {1}",
-						_xsltFilename, _assembly.FullName));
+					throw new XsltFileNotFoundException(string.Format("Xslt file not found ({0}) in {1}", _xsltFilename, _assembly.FullName));
 
     			using (XmlReader reader = XmlReader.Create(stream))
     			{

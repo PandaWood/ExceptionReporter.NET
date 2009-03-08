@@ -15,6 +15,7 @@ namespace ExceptionReporter.Tests
 			var references = digger.CreateReferencesString();
 
 			Assert.That(references, Text.Contains("ExceptionReporter.Core, Version="));
+			Assert.That(references, Text.Contains("PresentationCore, Version="));
 		}
 	}
 }

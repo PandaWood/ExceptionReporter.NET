@@ -3,9 +3,6 @@ using System.Text;
 
 namespace ExceptionReporter.Core
 {
-	/// <summary>
-	/// 
-	/// </summary>
 	public class AssemblyReferenceDigger
 	{
 		private readonly Assembly _assembly;
@@ -16,10 +13,8 @@ namespace ExceptionReporter.Core
 			_assembly = assembly;
 		}
 
-		/// <summary>
-		/// Finds all assemblies references by the given assembly and return a string
-		/// </summary>
-		/// <returns>a string, delimited by newlines, displaying all referenced assemblies</returns>
+		/// <summary> Finds all assemblies referenced and return a string </summary>
+		/// <returns>line-delimited string of referenced assemblies</returns>
 		public string CreateReferencesString()
 		{
 			var stringBuilder = new StringBuilder();

@@ -1,3 +1,4 @@
+using System.Reflection;
 using ExceptionReporter.Config;
 using ExceptionReporter.Core;
 using NUnit.Framework;
@@ -13,7 +14,7 @@ namespace ExceptionReporter.Tests
 		[SetUp]
 		public void SetUp() 
 		{
-			_converter = new ConfigHtmlConverter("ExceptionReporter.Core");
+			_converter = new ConfigHtmlConverter(Assembly.Load("ExceptionReporter.Core"));
 		}
 
 		[Test]
