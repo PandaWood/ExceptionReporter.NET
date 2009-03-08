@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Test.ExceptionReporter")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ExceptionReporter.Tests")]
+[assembly: AssemblyDescription("Unit Tests which test ExceptionReporter.core")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Test.ExceptionReporter")]
+[assembly: AssemblyProduct("ExceptionReporter")]
 [assembly: AssemblyCopyright("Copyright ©  2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

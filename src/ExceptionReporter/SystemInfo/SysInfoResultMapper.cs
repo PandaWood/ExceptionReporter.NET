@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace ExceptionReporter.SystemInfo
 {
+    ///<summary>
+    /// Map SysInfoResults to human-readable formats
+    ///</summary>
     public class SysInfoResultMapper
     {
         public void AddTreeViewNode(TreeNode parentNode, SysInfoResult result)

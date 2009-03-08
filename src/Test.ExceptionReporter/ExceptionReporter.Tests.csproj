@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyReferenceDigger_Tests.cs" />
     <Compile Include="ConfigToString_Tests.cs" />
     <Compile Include="Config_Tests.cs" />
     <Compile Include="Disposable_Tests.cs" />

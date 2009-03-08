@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 using ExceptionReporter.Config;
 using ExceptionReporter.Extensions;
@@ -82,10 +81,12 @@ namespace ExceptionReporter.Core
 		}
 
 	    private void BuildAssemblyInfo()
-		{
+	    {
+	    	var digger = new AssemblyReferenceDigger(_reportInfo.AppAssembly);
+	    
 			_stringBuilder.AppendLine("[Assembly Info]")
 				.AppendLine()
-				.AppendLine(ReferencedAssembliesToString(_reportInfo.AppAssembly))
+				.AppendLine(digger.CreateReferencesString())
 				.AppendDottedLine().AppendLine();
 		}
 
@@ -115,7 +116,8 @@ namespace ExceptionReporter.Core
 		}
 
 		/// <summary>
-		/// Create a line-delimited string of the exception hierarchy //TODO see Label='EH' in View
+		/// Create a line-delimited string of the exception hierarchy 
+		/// //TODO see Label='EH' in View, this is doing too much and is duplicated
 		/// </summary>
 		private static string ExceptionHierarchyToString(Exception exception)
 		{
@@ -143,21 +145,6 @@ namespace ExceptionReporter.Core
 
 			string exceptionString = stringBuilder.ToString();
 			return exceptionString.TrimEnd();
-		}
-
-		/// <summary>
-		/// Create a line-delimited string of all the assemblies that are referenced by the given assembly
-		/// </summary>
-		private static string ReferencedAssembliesToString(Assembly assembly)
-		{
-			var stringBuilder = new StringBuilder();
-
-			foreach (AssemblyName assemblyName in assembly.GetReferencedAssemblies())
-			{
-				stringBuilder.AppendLine(string.Format("{0}, Version={1}", assemblyName.Name, assemblyName.Version));
-			}
-
-			return stringBuilder.ToString();
 		}
 	}
 }
