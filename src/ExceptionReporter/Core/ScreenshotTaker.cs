@@ -13,9 +13,7 @@ namespace ExceptionReporter.Core
     	private const string ScreenshotFileName = "ExceptionReport_Screenshot.jpg";
         public const string ScreenshotMimeType = "image/jpeg";
 
-		/// <summary>
-		/// Take a screenshot (supports multiple monitors)
-		/// </summary>
+		/// <summary> Take a screenshot (supports multiple monitors) </summary>
 		/// <returns>Bitmap of the screen, as at the time called</returns>
         public static Bitmap TakeScreenShot()
         {
@@ -37,7 +35,7 @@ namespace ExceptionReporter.Core
         }
 
 		/// <summary>
-		/// Return the supplied Bitmap, as a file on the system, as JPEG
+		/// Return the supplied Bitmap, as a file on the system, in JPEG format
 		/// </summary>
 		/// <param name="bitmap">The Bitmap to save (most likely one created using TakeScreenshot()</param>
 		/// <returns></returns>

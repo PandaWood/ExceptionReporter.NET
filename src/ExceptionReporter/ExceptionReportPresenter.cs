@@ -11,12 +11,18 @@ using ExceptionReporter.SystemInfo;
 
 namespace ExceptionReporter
 {
+	/// <summary>
+	/// The Presenter in this MVP (Model-View-Presenter) implementation 
+	/// </summary>
 	public class ExceptionReportPresenter
     {
         private IClipboard _clipboard;
         private readonly IExceptionReportView _view;
         private readonly ExceptionReportGenerator _reportGenerator;
 
+		/// <summary>
+		/// 
+		/// </summary>
         public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
         {
             _view = view;
@@ -24,6 +30,9 @@ namespace ExceptionReporter
             _reportGenerator = new ExceptionReportGenerator(ReportInfo);
         }
 
+		/// <summary>
+		/// The application assembly which is (the main application) using the exception reporter assembly
+		/// </summary>
         public Assembly AppAssembly
         {
             get { return ReportInfo.AppAssembly; }
@@ -31,6 +40,9 @@ namespace ExceptionReporter
 
         public ExceptionReportInfo ReportInfo { get; private set; }
 
+		/// <summary>
+		/// Clipboard, the setter is currently only used in testing/mocking
+		/// </summary>
         public IClipboard Clipboard
         {
             set { _clipboard = value; }
@@ -42,6 +54,10 @@ namespace ExceptionReporter
             return _reportGenerator.CreateExceptionReport();
         }
 
+		/// <summary>
+		/// Save the exception report to file/disk
+		/// </summary>
+		/// <param name="fileName">the filename to save</param>
         public void SaveReportToFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName)) return;
@@ -63,6 +79,10 @@ namespace ExceptionReporter
             }
         }
 
+		/// <summary>
+		/// Send the exception report via email, using the configured email method/type
+		/// </summary>
+		/// <param name="handle">The handle of the window to use in sending the email</param>
         public void SendReportByEmail(IntPtr handle)
         {
             if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
@@ -76,6 +96,9 @@ namespace ExceptionReporter
             }
         }
 
+		/// <summary>
+		/// copy the report to the clipboard, using the clipboard implementation supplied
+		/// </summary>
         public void CopyReportToClipboard()
         {
             ExceptionReport exceptionReport = CreateExceptionReport();
@@ -83,6 +106,9 @@ namespace ExceptionReporter
             _view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
         }
 
+		/// <summary>
+		/// toggle the detail between 'simple' (just messsage) and showFullDetail (ie normal)
+		/// </summary>
         public void ToggleDetail()
         {
             _view.ShowFullDetail = !_view.ShowFullDetail;
@@ -163,16 +189,25 @@ namespace ExceptionReporter
             return converter.Convert();
         }
 
+		/// <summary>
+		/// Get the system information results
+		/// </summary>
         public IEnumerable<SysInfoResult> GetSysInfoResults()
         {
             return _reportGenerator.GetOrFetchSysInfoResults();
         }
 
+		/// <summary>
+		/// Send email (using ShellExecute) to the configured contact email address
+		/// </summary>
         public void SendContactEmail()
         {
             ShellExecute(string.Format("mailto:{0}", ReportInfo.ContactEmail));
         }
 
+		/// <summary>
+		/// Navigate to the website configured
+		/// </summary>
         public void NavigateToWebsite()
         {
             ShellExecute(ReportInfo.WebUrl);
@@ -191,6 +226,9 @@ namespace ExceptionReporter
             }
         }
 
+		/// <summary>
+		/// The main entry point, populate the report with everything it needs
+		/// </summary>
         public void PopulateReport()
         {
             try
@@ -208,6 +246,9 @@ namespace ExceptionReporter
             }
         }
 
+		/// <summary>
+		/// Close/cleanup
+		/// </summary>
         public void Close()
         {
             _reportGenerator.Dispose();

@@ -3,6 +3,8 @@ using System.Reflection;
 using ExceptionReporter.Config;
 using ExceptionReporter.Core;
 
+// ReSharper disable UnusedMember.Global
+
 namespace ExceptionReporter
 {
 	/// <summary>
@@ -27,8 +29,6 @@ namespace ExceptionReporter
     		_internalExceptionView = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
         }
 
-// ReSharper disable UnusedMember.Global
-
 		/// <summary>
 		/// public access to configuration
 		/// </summary>
@@ -36,8 +36,6 @@ namespace ExceptionReporter
         {
             get { return _reportInfo; }
         }
-
-// ReSharper restore UnusedMember.Global
 
         /// <summary>
         /// Show the ExceptionReport dialog
@@ -91,3 +89,5 @@ namespace ExceptionReporter
         }
     }
 }
+
+// ReSharper restore UnusedMember.Global
