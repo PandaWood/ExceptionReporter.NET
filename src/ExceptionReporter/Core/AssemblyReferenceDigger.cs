@@ -3,6 +3,9 @@ using System.Text;
 
 namespace ExceptionReporter.Core
 {
+	/// <summary>
+	/// Used to find and do things with referenced assemblies
+	/// </summary>
 	public class AssemblyReferenceDigger
 	{
 		private readonly Assembly _assembly;

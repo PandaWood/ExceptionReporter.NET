@@ -19,7 +19,7 @@ namespace ExceptionReporter
     	private readonly ViewResolver _viewResolver;
 
     	/// <summary>
-        /// initialise the ExceptionReporter
+        /// Initialise the ExceptionReporter
         /// <remarks>readConfig() should be called (explicitly) if you need to override default config</remarks>
         /// </summary>
         public ExceptionReporter()
@@ -30,7 +30,7 @@ namespace ExceptionReporter
         }
 
 		/// <summary>
-		/// public access to configuration
+		/// Public access to configuration
 		/// </summary>
         public ExceptionReportInfo Config
         {
@@ -43,6 +43,7 @@ namespace ExceptionReporter
         /// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and 
         /// create and show the report dialog.</remarks>
         /// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
+		// ReSharper disable MemberCanBePrivate.Global
         public void Show(params Exception[] exceptions)
         {
             if (exceptions == null) return;		//TODO perhaps show a dialog that says "No exception to show" ?
@@ -58,6 +59,7 @@ namespace ExceptionReporter
 				_internalExceptionView.ShowException("Unable to show Exception Report", internalException);
             }
         }
+		// ReSharper restore MemberCanBePrivate.Global
 
 		/// <summary>
 		/// Show the ExceptionReport dialog with a custom message instead of the Exception property's 'Message'

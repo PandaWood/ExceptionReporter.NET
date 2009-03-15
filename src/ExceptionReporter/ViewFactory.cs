@@ -4,6 +4,11 @@ using ExceptionReporter.Core;
 
 namespace ExceptionReporter
 {
+	/// <summary>
+	/// Create views by finding them (using the ViewResolver) and then instantiating it, using reflection
+	/// All this is necessary because the calling code honestly does't know what the implementing class 
+	/// they're supposed to use is going to be, ViewFactory finds it and gives it to them
+	/// </summary>
 	internal static class ViewFactory
 	{
 		public static T Create<T>(ViewResolver viewResolver, ExceptionReportInfo reportInfo) where T : class

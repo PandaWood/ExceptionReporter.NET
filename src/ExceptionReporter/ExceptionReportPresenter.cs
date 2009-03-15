@@ -20,9 +20,6 @@ namespace ExceptionReporter
         private readonly IExceptionReportView _view;
         private readonly ExceptionReportGenerator _reportGenerator;
 
-		/// <summary>
-		/// 
-		/// </summary>
         public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
         {
             _view = view;
@@ -31,7 +28,7 @@ namespace ExceptionReporter
         }
 
 		/// <summary>
-		/// The application assembly which is (the main application) using the exception reporter assembly
+		/// The application assembly - ie the main application using the exception reporter assembly
 		/// </summary>
         public Assembly AppAssembly
         {
@@ -41,7 +38,7 @@ namespace ExceptionReporter
         public ExceptionReportInfo ReportInfo { get; private set; }
 
 		/// <summary>
-		/// Clipboard, the setter is currently only used in testing/mocking
+		/// An IClipboard needs to be set by the calling View before copying to clipboard (see IClipboard for info)
 		/// </summary>
         public IClipboard Clipboard
         {
