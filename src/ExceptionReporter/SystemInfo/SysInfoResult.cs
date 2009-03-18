@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+#pragma warning disable 1591
+
 namespace ExceptionReporter.SystemInfo
 {
 	/// <summary>
@@ -9,12 +11,22 @@ namespace ExceptionReporter.SystemInfo
     {
         private readonly string _name;
         private readonly List<string> _nodes = new List<string>();
-        private readonly IList<SysInfoResult> _childResults = new List<SysInfoResult>();
+        private readonly List<SysInfoResult> _childResults = new List<SysInfoResult>();
 
         public SysInfoResult(string name)
         {
             _name = name;
         }
+
+		public void AddNode(string node)
+		{
+			_nodes.Add(node);
+		}
+
+		public void AddChildren(IEnumerable<SysInfoResult> children)
+		{
+			ChildResults.AddRange(children);
+		}
 
         public IList<string> Nodes
         {
@@ -26,9 +38,10 @@ namespace ExceptionReporter.SystemInfo
             get { return _name; }
         }
 
-        public IList<SysInfoResult> ChildResults
+        public List<SysInfoResult> ChildResults
         {
             get { return _childResults; }
         }
     }
 }
+#pragma warning restore 1591

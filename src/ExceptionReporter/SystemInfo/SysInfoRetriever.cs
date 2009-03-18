@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Management;
 
 namespace ExceptionReporter.SystemInfo
@@ -6,7 +7,7 @@ namespace ExceptionReporter.SystemInfo
 	/// <summary>
 	/// Retrieves system information using WMI
 	/// </summary>
-    public class SysInfoRetriever
+	internal class SysInfoRetriever
     {
         private ManagementObjectSearcher _sysInfoSearcher;
         private SysInfoResult _sysInfoResult;
@@ -17,7 +18,7 @@ namespace ExceptionReporter.SystemInfo
 		/// </summary>
 		/// <param name="sysInfoQuery">the query to determine what information to retrieve</param>
 		/// <returns>a SysInfoResult containing the results</returns>
-        public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
+		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
         {
             _sysInfoQuery = sysInfoQuery;
             _sysInfoSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", _sysInfoQuery.QueryText));
@@ -25,32 +26,30 @@ namespace ExceptionReporter.SystemInfo
 
             foreach (ManagementObject managementObject in _sysInfoSearcher.Get())
             {
-                AddPropertyValue(managementObject);
-                AddChildren(managementObject);
+				_sysInfoResult.AddNode(managementObject.GetPropertyValue(_sysInfoQuery.DisplayField).ToString().Trim());
+				_sysInfoResult.AddChildren(GetChildren(managementObject));
             }
             return _sysInfoResult;
         }
 
-        private void AddPropertyValue(ManagementBaseObject managementObject) 
-        {
-            string propertyValue = managementObject.GetPropertyValue(_sysInfoQuery.DisplayField).ToString().Trim();
-            _sysInfoResult.Nodes.Add(propertyValue);
-        }
-
-        private void AddChildren(ManagementBaseObject managementObject) 
+		private IEnumerable<SysInfoResult> GetChildren(ManagementBaseObject managementObject) 
         {
             SysInfoResult childResult = null;
+			ICollection<SysInfoResult> childList = new List<SysInfoResult>();
+
             foreach (PropertyData propertyData in managementObject.Properties)
             {
                 if (childResult == null)
                 {
                     childResult = new SysInfoResult(_sysInfoQuery.Name + "_Child");
-                    _sysInfoResult.ChildResults.Add(childResult);
+					childList.Add(childResult);
                 }
 
                 string nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
                 childResult.Nodes.Add(nodeValue);
             }
+
+			return childList;
         }
     }
 }

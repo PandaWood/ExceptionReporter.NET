@@ -8,8 +8,8 @@ using ExceptionReporter.Core;
 namespace ExceptionReporter
 {
 	/// <summary>
-	/// The entry-point class to invoking an ExceptionReporter dialog
-	/// eg new ExceptionReporter().Show();
+	/// The entry-point (class) to invoking an ExceptionReporter dialog
+	/// eg new ExceptionReporter().Show()
 	/// </summary>
     public class ExceptionReporter
     {
@@ -20,7 +20,7 @@ namespace ExceptionReporter
 
     	/// <summary>
         /// Initialise the ExceptionReporter
-        /// <remarks>readConfig() should be called (explicitly) if you need to override default config</remarks>
+        /// <remarks>readConfig() should be called (explicitly) if you need to override default config settings</remarks>
         /// </summary>
         public ExceptionReporter()
         {
@@ -62,10 +62,10 @@ namespace ExceptionReporter
 		// ReSharper restore MemberCanBePrivate.Global
 
 		/// <summary>
-		/// Show the ExceptionReport dialog with a custom message instead of the Exception property's 'Message'
+		/// Show the ExceptionReport dialog with a custom message instead of the Exception's Message property
 		/// </summary>
-		/// <param name="customMessage"></param>
-		/// <param name="exceptions"></param>
+		/// <param name="customMessage">custom (exception) message</param>
+		/// <param name="exceptions">The exception/s to display in the exception report</param>
         public void Show(string customMessage, params Exception[] exceptions)
         {
             _reportInfo.CustomMessage = customMessage;

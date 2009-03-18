@@ -3,7 +3,7 @@ namespace ExceptionReporter.SystemInfo
     /// <summary>
     /// describes a query to SysInfo (more precisely, the Windows 'WMI' ManagementObjectSearcher)
     /// </summary>
-    public class SysInfoQuery
+    internal class SysInfoQuery
     {
         private readonly string _name;
         private readonly bool _useNameAsDisplayField;
