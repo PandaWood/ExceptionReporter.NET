@@ -2,7 +2,7 @@ using System.IO;
 
 namespace ExceptionReporting.Config
 {
-	internal class FileReader : IFileReader
+	public class FileReader : IFileReader
 	{
 		public string ReadAll(string fileName)
 		{
@@ -10,7 +10,7 @@ namespace ExceptionReporting.Config
 		}
 	}
 
-	internal interface IFileReader
+	public interface IFileReader
 	{
 		string ReadAll(string fileName);
 	}

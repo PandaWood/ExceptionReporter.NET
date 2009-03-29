@@ -28,7 +28,7 @@ namespace ExceptionReporting.Tests
 		public void CanResolve_WinForms_IInternalExceptionView_Interface()
 		{
 			Type viewType = _winformsViewResolver.Resolve<IInternalExceptionView>();
-			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
+			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporting.WinForms.Views.InternalExceptionView"));
 			Assert.That(viewType.Assembly.FullName, Text.StartsWith("ExceptionReporter.WinForms"));
 		}
 
@@ -36,7 +36,7 @@ namespace ExceptionReporting.Tests
 		public void CanCreate_WinForms_InternalExceptionView()
 		{
 			var view = ViewFactory.Create<IInternalExceptionView>(_winformsViewResolver);
-			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.InternalExceptionView"));
+			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporting.WinForms.Views.InternalExceptionView"));
 		}
 
 		[Test]
@@ -44,7 +44,7 @@ namespace ExceptionReporting.Tests
 		{
 			var viewType = _winformsViewResolver.Resolve<IExceptionReportView>();
 
-			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.ExceptionReportView"));
+			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporting.WinForms.Views.ExceptionReportView"));
 			Assert.That(viewType.Assembly.FullName, Text.StartsWith("ExceptionReporter.WinForms"));
 		}
 
@@ -54,7 +54,7 @@ namespace ExceptionReporting.Tests
 		{
 			var view = ViewFactory.Create<IExceptionReportView>(_winformsViewResolver, new ExceptionReportInfo());
 
-			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporter.WinForms.Views.ExceptionReportView"));
+			Assert.That(view.ToString(), Text.StartsWith("ExceptionReporting.WinForms.Views.ExceptionReportView"));
 		}
 
 		[Test]
@@ -62,7 +62,7 @@ namespace ExceptionReporting.Tests
 		{
 			var viewType = _wpfViewResolver.Resolve<IInternalExceptionView>();
 
-			Assert.That(viewType.ToString(), Is.EqualTo("ExceptionReporter.Wpf.Views.InternalExceptionView"));
+			Assert.That(viewType.ToString(), Is.EqualTo("ExceptionReporting.Wpf.Views.InternalExceptionView"));
 			Assert.That(viewType.Assembly.FullName, Text.StartsWith("ExceptionReporter.Wpf"));
 		}
 
@@ -71,7 +71,7 @@ namespace ExceptionReporting.Tests
 		{
 			var viewType = _wpfViewResolver.Resolve<IExceptionReportView>();
 
-			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporter.Wpf.Views.ExceptionReportView"));
+			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporting.Wpf.Views.ExceptionReportView"));
 			Assert.That(viewType.Assembly.FullName, Text.StartsWith("ExceptionReporter.Wpf"));
 		}
 	}
