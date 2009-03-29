@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using ExceptionReporter.Core;
+using ExceptionReporting.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
 	// - NB Resharper's test runner addin can't run these tests, however TestMatrix can (if option 'Apartment State=STA')
 	[TestFixture]

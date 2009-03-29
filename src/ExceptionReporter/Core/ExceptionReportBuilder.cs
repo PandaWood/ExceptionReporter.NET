@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ExceptionReporter.Config;
-using ExceptionReporter.Extensions;
-using ExceptionReporter.SystemInfo;
+using ExceptionReporting.Extensions;
+using ExceptionReporting.Config;
+using ExceptionReporting.SystemInfo;
 
-namespace ExceptionReporter.Core
+namespace ExceptionReporting.Core
 {
 	internal class ExceptionReportBuilder
 	{

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Management;
 
-namespace ExceptionReporter.SystemInfo
+namespace ExceptionReporting.SystemInfo
 {
 	/// <summary>
 	/// Retrieves system information using WMI

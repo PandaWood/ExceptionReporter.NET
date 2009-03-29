@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace ExceptionReporter
+namespace ExceptionReporting
 {
 	/// <summary>
 	/// Resolve view's from the current assembly (limited to only ExceptionReportView and InternalExceptionView)

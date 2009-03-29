@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace ExceptionReporter.Config
+namespace ExceptionReporting.Config
 {
 	internal class FileReader : IFileReader
 	{

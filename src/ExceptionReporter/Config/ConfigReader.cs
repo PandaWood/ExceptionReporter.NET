@@ -1,10 +1,10 @@
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Globalization;
-using ExceptionReporter.Core;
-using ExceptionReporter.Extensions;
+using ExceptionReporting.Extensions;
+using ExceptionReporting.Core;
 
-namespace ExceptionReporter.Config
+namespace ExceptionReporting.Config
 {
 	/// <summary>
 	/// Read ExceptionReport configuration from the main application's (ie not this assembly's) config file

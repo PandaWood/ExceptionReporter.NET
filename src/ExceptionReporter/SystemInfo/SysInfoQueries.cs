@@ -1,4 +1,4 @@
-namespace ExceptionReporter.SystemInfo
+namespace ExceptionReporting.SystemInfo
 {
 	internal static class SysInfoQueries
     {

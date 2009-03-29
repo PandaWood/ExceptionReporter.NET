@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 
-namespace ExceptionReporter.Core
+namespace ExceptionReporting.Core
 {
     /// <summary>
     /// Base class for all classes wanting to implement <see cref="IDisposable"/>.

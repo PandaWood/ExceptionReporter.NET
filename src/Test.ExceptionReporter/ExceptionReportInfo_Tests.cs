@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using ExceptionReporter.Core;
+using ExceptionReporting.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
 	[TestFixture]
 	public class ExceptionReportInfo_Tests

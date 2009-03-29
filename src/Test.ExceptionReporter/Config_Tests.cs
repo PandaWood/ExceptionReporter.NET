@@ -1,10 +1,10 @@
 using System.Reflection;
-using ExceptionReporter.Config;
-using ExceptionReporter.Core;
+using ExceptionReporting.Config;
+using ExceptionReporting.Core;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
 	[TestFixture]
 	public class Config_Tests

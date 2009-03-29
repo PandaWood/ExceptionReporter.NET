@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using ExceptionReporter.Core;
+using ExceptionReporting.Core;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporter.Wpf.Views
+namespace ExceptionReporting.Wpf.Views
 {
 	public class WpfClipboard : IClipboard
 	{

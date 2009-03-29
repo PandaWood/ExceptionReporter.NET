@@ -1,9 +1,9 @@
-using ExceptionReporter.SystemInfo;
+using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using System.Linq;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
 	/// <summary>
 	/// These are really "integration tests"

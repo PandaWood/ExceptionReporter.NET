@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporter
+namespace ExceptionReporting
 {
 	/// <summary>
     /// The interface (contract) for an ExceptionReportView

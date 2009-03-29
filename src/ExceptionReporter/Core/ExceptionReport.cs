@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace ExceptionReporter.Core
+namespace ExceptionReporting.Core
 {
     /// <summary>
     /// Encapsulates the concept of an ExceptionReport

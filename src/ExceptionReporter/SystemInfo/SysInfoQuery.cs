@@ -1,4 +1,4 @@
-namespace ExceptionReporter.SystemInfo
+namespace ExceptionReporting.SystemInfo
 {
     /// <summary>
     /// describes a query to SysInfo (more precisely, the Windows 'WMI' ManagementObjectSearcher)

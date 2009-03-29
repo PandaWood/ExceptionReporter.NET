@@ -5,7 +5,7 @@ using System.Reflection;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporter.Core
+namespace ExceptionReporting.Core
 {
 	/// <summary>
     /// a bag of information (some of which is stored and retrieved from config)

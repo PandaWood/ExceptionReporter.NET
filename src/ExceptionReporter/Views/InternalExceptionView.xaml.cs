@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace ExceptionReporter.Wpf.Views
+namespace ExceptionReporting.Wpf.Views
 {
 	/// <summary>
 	/// Interaction logic for InternalExceptionView.xaml

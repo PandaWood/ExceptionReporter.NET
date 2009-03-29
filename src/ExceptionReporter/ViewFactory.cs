@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using ExceptionReporter.Core;
+using ExceptionReporting.Core;
 
-namespace ExceptionReporter
+namespace ExceptionReporting
 {
 	/// <summary>
 	/// ViewFactory inspects the assembly and retrieves the appropriate class

@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using ExceptionReporter.Config;
-using ExceptionReporter.Core;
-using ExceptionReporter.Extensions;
-using ExceptionReporter.SystemInfo;
+using ExceptionReporting.Extensions;
+using ExceptionReporting.Config;
+using ExceptionReporting.Core;
+using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
 	[TestFixture]
 	public class ExceptionReportBuilder_Tests

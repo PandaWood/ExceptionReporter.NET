@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using ExceptionReporter.Core;
+using ExceptionReporting.Core;
 using NUnit.Framework;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
     [TestFixture]
     public class DisposableTests

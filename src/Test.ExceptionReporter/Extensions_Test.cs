@@ -1,8 +1,8 @@
-﻿using ExceptionReporter.Extensions;
+﻿using ExceptionReporting.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace ExceptionReporter.Tests
+namespace ExceptionReporting.Tests
 {
 	[TestFixture]
 	public class Extensions_Test

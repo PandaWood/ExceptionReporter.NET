@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExceptionReporter.Wpf.Properties {
+namespace ExceptionReporting.Wpf.Properties {
     using System;
     
     

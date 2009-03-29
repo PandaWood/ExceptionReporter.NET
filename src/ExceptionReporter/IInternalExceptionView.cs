@@ -1,6 +1,6 @@
 using System;
 
-namespace ExceptionReporter
+namespace ExceptionReporting
 {
 	/// <summary>
 	/// An interface that represents the presentation of an internal exception

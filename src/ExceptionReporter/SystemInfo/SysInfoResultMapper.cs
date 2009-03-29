@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExceptionReporter.SystemInfo
+namespace ExceptionReporting.SystemInfo
 {
     ///<summary>
     /// Map SysInfoResults to human-readable formats
