@@ -5,9 +5,7 @@ using ExceptionReporter.Core;
 namespace ExceptionReporter
 {
 	/// <summary>
-	/// Create views by finding them (using the ViewResolver) and then instantiating it, using reflection
-	/// All this is necessary because the calling code honestly does't know what the implementing class 
-	/// is going to be; ViewFactory finds it and gives it to them
+	/// ViewFactory inspects the assembly and retrieves the appropriate class
 	/// </summary>
 	internal static class ViewFactory
 	{

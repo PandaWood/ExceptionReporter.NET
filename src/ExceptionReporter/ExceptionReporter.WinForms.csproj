@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinFormsProperties\AssemblyInfo.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -62,7 +63,6 @@
     <Compile Include="Views\InternalExceptionView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
       <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
     </EmbeddedResource>

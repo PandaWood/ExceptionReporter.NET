@@ -62,6 +62,12 @@
       <DependentUpon>DemoAppView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.Core.csproj">
+      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
+      <Name>ExceptionReporter.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

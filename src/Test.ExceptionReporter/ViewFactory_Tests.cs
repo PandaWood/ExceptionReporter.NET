@@ -7,9 +7,6 @@ using NUnit.Framework.SyntaxHelpers;
 namespace ExceptionReporter.Tests
 {
 	// - NB Resharper's test runner addin can't run these tests, however TestMatrix can (if option 'Apartment State=STA')
-	// - We can't have a reference to both Wpf and WinForms in the test project (won't compile, amiguous references would result)
-	//   so only WinForms, currently only is explicitly tested here (if anyone changes it to include Wpf, these tests will fail)
-	// - NB we don't/can't/shouldn't make any explicit references to ExceptionReportView or InternalExceptionView here
 	[TestFixture]
 	public class ViewFactory_Tests
 	{

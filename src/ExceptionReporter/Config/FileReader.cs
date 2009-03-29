@@ -1,10 +1,8 @@
 using System.IO;
 
-#pragma warning disable 1591
-
 namespace ExceptionReporter.Config
 {
-	public class FileReader : IFileReader
+	internal class FileReader : IFileReader
 	{
 		public string ReadAll(string fileName)
 		{
@@ -12,10 +10,8 @@ namespace ExceptionReporter.Config
 		}
 	}
 
-	public interface IFileReader
+	internal interface IFileReader
 	{
 		string ReadAll(string fileName);
 	}
 }
-
-#pragma warning restore 1591
