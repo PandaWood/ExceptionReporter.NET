@@ -1,8 +1,8 @@
 namespace ExceptionReporting.Core
 {
     ///<summary>
-    /// interface to abstract the concept of a clipboard - required because of the differenct implementations of clipboard
-    /// (WPF and WinForms)
+    /// interface to abstract the concept of a clipboard - required because of the different implementations 
+    /// of clipboard in windows (ie WPF and WinForms)
     ///</summary>
     public interface IClipboard
     {

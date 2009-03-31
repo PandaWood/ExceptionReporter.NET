@@ -331,12 +331,11 @@ namespace ExceptionReporting.WinForms.Views
 
         private TreeNode CreateSysInfoTree()
         {
-            var mapper = new SysInfoResultMapper();
             var rootNode = new TreeNode("System");
 
             foreach (var sysInfoResult in _presenter.GetSysInfoResults())
             {
-                mapper.AddTreeViewNode(rootNode, sysInfoResult);
+                SysInfoResultMapper.AddTreeViewNode(rootNode, sysInfoResult);
             }
 
             return rootNode;
@@ -409,7 +408,6 @@ namespace ExceptionReporting.WinForms.Views
 			Clipboard.SetDataObject(text, true);
 		}
 	}
-
 }
 
 #pragma warning restore 1591

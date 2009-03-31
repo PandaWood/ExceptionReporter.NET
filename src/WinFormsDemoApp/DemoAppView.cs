@@ -40,6 +40,8 @@ namespace WinFormsDemoApp
             catch (Exception exception)
             {
 				var exceptionReporter = new ExceptionReporter();
+				exceptionReporter.Config.ShowConfigTab = false;
+				exceptionReporter.Config.ShowAssembliesTab = false;
                 exceptionReporter.Show("This is a custom message", exception);
             }
         }

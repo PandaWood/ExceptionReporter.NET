@@ -100,7 +100,7 @@ namespace ExceptionReporting.Core
 		private void BuildSysInfo()
 		{
 			_stringBuilder.AppendLine("[System Info]").AppendLine();
-			_stringBuilder.Append(new SysInfoResultMapper().CreateStringList(_sysInfoResults));
+			_stringBuilder.Append(SysInfoResultMapper.CreateStringList(_sysInfoResults));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 

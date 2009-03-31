@@ -7,9 +7,12 @@ namespace ExceptionReporting.SystemInfo
     ///<summary>
     /// Map SysInfoResults to human-readable formats
     ///</summary>
-    public class SysInfoResultMapper
-    {
-        public void AddTreeViewNode(TreeNode parentNode, SysInfoResult result)
+    public static class SysInfoResultMapper
+	{
+		/// <summary>
+		/// Add a tree node to an existing parentNode, by passing the SyfInfoResult
+		/// </summary>
+        public static void AddTreeViewNode(TreeNode parentNode, SysInfoResult result)
         {
             var nodeRoot = new TreeNode(result.Name);
 
@@ -29,7 +32,10 @@ namespace ExceptionReporting.SystemInfo
             parentNode.Nodes.Add(nodeRoot);
         }
 
-        public string CreateStringList(IEnumerable<SysInfoResult> results)
+		/// <summary>
+		/// create a string representation of a list of SysInfoResults, customised specifically (eg 2-level deep)
+		/// </summary>
+        public static string CreateStringList(IEnumerable<SysInfoResult> results)
         {
             var stringBuilder = new StringBuilder();
 

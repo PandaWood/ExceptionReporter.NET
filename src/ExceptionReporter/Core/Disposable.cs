@@ -8,7 +8,7 @@ namespace ExceptionReporting.Core
     /// </summary>
     /// <remarks>
     /// Base on an article by Davy Brion 
-    /// <see cref="http://davybrion.com/blog/2008/06/disposing-of-the-idisposable-implementation/"/>.
+    /// <see href="http://davybrion.com/blog/2008/06/disposing-of-the-idisposable-implementation/"/>.
     /// </remarks>
     public abstract class Disposable : IDisposable
     {
