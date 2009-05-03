@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 using ExceptionReporting.Core;
 
 namespace ExceptionReporting
@@ -11,9 +10,9 @@ namespace ExceptionReporting
 	{
 		public static T Create<T>(ViewResolver viewResolver, ExceptionReportInfo reportInfo) where T : class
 		{
-			Type view = viewResolver.Resolve<T>();
+			var view = viewResolver.Resolve<T>();
 
-			ConstructorInfo constructor = view.GetConstructor(new[] {typeof (ExceptionReportInfo)});
+			var constructor = view.GetConstructor(new[] {typeof (ExceptionReportInfo)});
 			var newInstance = constructor.Invoke(new object[] {reportInfo});
 			return newInstance as T;
 		}

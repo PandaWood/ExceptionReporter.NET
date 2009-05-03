@@ -16,12 +16,12 @@ namespace ExceptionReporting.SystemInfo
         {
             var nodeRoot = new TreeNode(result.Name);
 
-            foreach (string nodeValueParent in result.Nodes)
+            foreach (var nodeValueParent in result.Nodes)
             {
                 var nodeLeaf = new TreeNode(nodeValueParent);
                 nodeRoot.Nodes.Add(nodeLeaf);
 
-                foreach (SysInfoResult childResult in result.ChildResults)
+                foreach (var childResult in result.ChildResults)
                 {
                     foreach (var nodeValue in childResult.Nodes)
                     {
@@ -39,15 +39,15 @@ namespace ExceptionReporting.SystemInfo
         {
             var stringBuilder = new StringBuilder();
 
-            foreach (SysInfoResult result in results)
+            foreach (var result in results)
             {
                 stringBuilder.AppendLine(result.Name);
 
-                foreach (string nodeValueParent in result.Nodes)
+                foreach (var nodeValueParent in result.Nodes)
                 {
                     stringBuilder.AppendLine("-" + nodeValueParent);
 
-                    foreach (SysInfoResult childResult in result.ChildResults)
+                    foreach (var childResult in result.ChildResults)
                     {
                         foreach (var nodeValue in childResult.Nodes)
                         {

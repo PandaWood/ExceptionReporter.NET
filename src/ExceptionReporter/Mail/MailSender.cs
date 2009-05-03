@@ -21,7 +21,7 @@ namespace ExceptionReporting.Mail
         public void SendSmtp(string exceptionReport, CompletedMethodDelegate setEmailCompletedState)
         {
             var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
-            MailMessage mailMessage = CreateMailMessage(exceptionReport);
+            var mailMessage = CreateMailMessage(exceptionReport);
 
             smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
             smtpClient.SendAsync(mailMessage, null);
@@ -36,7 +36,7 @@ namespace ExceptionReporting.Mail
             mapi.Logon(windowHandle);
             mapi.Reset();
 
-            string emailAddress = (string.IsNullOrEmpty(_reportInfo.EmailReportAddress))
+            var emailAddress = (string.IsNullOrEmpty(_reportInfo.EmailReportAddress))
                                       ? _reportInfo.ContactEmail
                                       : _reportInfo.EmailReportAddress;
 

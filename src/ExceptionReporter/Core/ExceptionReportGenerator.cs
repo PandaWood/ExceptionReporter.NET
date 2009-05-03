@@ -45,7 +45,7 @@ namespace ExceptionReporting.Core
 		/// <returns></returns>
 		public ExceptionReport CreateExceptionReport()
 		{
-			IList<SysInfoResult> sysInfoResults = GetOrFetchSysInfoResults();
+			var sysInfoResults = GetOrFetchSysInfoResults();
 			var reportBuilder = new ExceptionReportBuilder(_reportInfo, sysInfoResults);
 			return reportBuilder.Build();
 		}

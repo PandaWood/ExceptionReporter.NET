@@ -19,16 +19,16 @@ namespace ExceptionReporting.Core
 		/// <returns>Bitmap of the screen, as at the time called</returns>
         public static Bitmap TakeScreenShot()
         {
-            Rectangle rectangle = Rectangle.Empty;
+            var rectangle = Rectangle.Empty;
 
-            foreach (Screen screen in Screen.AllScreens)
+            foreach (var screen in Screen.AllScreens)
             {
                 rectangle = Rectangle.Union(rectangle, screen.Bounds);
             }
 
             var bitmap = new Bitmap(rectangle.Width, rectangle.Height, PixelFormat.Format32bppArgb);
 
-            using (Graphics graphics = Graphics.FromImage(bitmap))
+            using (var graphics = Graphics.FromImage(bitmap))
             {
                 graphics.CopyFromScreen(rectangle.X, rectangle.Y, 0, 0, rectangle.Size, CopyPixelOperation.SourceCopy);
             }
@@ -43,7 +43,7 @@ namespace ExceptionReporting.Core
 		/// <returns></returns>
         public static string GetImageAsFile(Bitmap bitmap)
         {
-            string tempFileName = Path.GetTempPath() + ScreenshotFileName;
+            var tempFileName = Path.GetTempPath() + ScreenshotFileName;
             bitmap.Save(tempFileName, ImageFormat.Jpeg);
             return tempFileName;
         }

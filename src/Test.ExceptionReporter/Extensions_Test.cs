@@ -28,7 +28,7 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanNotAssign_IfNull()
 		{
-			string newString = null;
+			const string newString = null;
 			string oldString = "OldString";
 
 			oldString = newString.ReturnStringIfNotNull_Else(oldString);

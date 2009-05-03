@@ -32,7 +32,7 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void Generator_CanCreateExceptionReport_WithACoupleOfMinmal_NotTooSpecificBits_ThatShouldExist()
 		{
-			ExceptionReport report = _reportGenerator.CreateExceptionReport();
+			var report = _reportGenerator.CreateExceptionReport();
 
 			Assert.That(report.ToString(), Text.StartsWith("-"));
 			Assert.That(report.ToString(), Text.Contains("Application:"));
@@ -43,8 +43,8 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void Generator_CanCreateExceptionReport_WithSameResult_IfCalledTwice()
 		{
-			ExceptionReport report1 = _reportGenerator.CreateExceptionReport();
-			ExceptionReport report2 = _reportGenerator.CreateExceptionReport();
+			var report1 = _reportGenerator.CreateExceptionReport();
+			var report2 = _reportGenerator.CreateExceptionReport();
 
 			Assert.That(report1, Is.EqualTo(report2));
 		}

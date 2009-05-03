@@ -68,7 +68,7 @@ namespace ExceptionReporting.Core
 
 		private void BuildExceptionInfo()
 		{
-		    for (int index = 0; index < _reportInfo.Exceptions.Count; index++)
+		    for (var index = 0; index < _reportInfo.Exceptions.Count; index++)
 		    {
 		        var exception = _reportInfo.Exceptions[index];
 
@@ -121,9 +121,9 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		private static string ExceptionHierarchyToString(Exception exception)
 		{
-			Exception currentException = exception;
+			var currentException = exception;
 			var stringBuilder = new StringBuilder();
-			int count = 0;
+			var count = 0;
 
 			while (currentException != null)
 			{
@@ -143,7 +143,7 @@ namespace ExceptionReporting.Core
 				currentException = currentException.InnerException;
 			}
 
-			string exceptionString = stringBuilder.ToString();
+			var exceptionString = stringBuilder.ToString();
 			return exceptionString.TrimEnd();
 		}
 	}

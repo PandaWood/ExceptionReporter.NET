@@ -37,7 +37,7 @@ namespace ExceptionReporting.SystemInfo
             SysInfoResult childResult = null;
 			ICollection<SysInfoResult> childList = new List<SysInfoResult>();
 
-            foreach (PropertyData propertyData in managementObject.Properties)
+            foreach (var propertyData in managementObject.Properties)
             {
                 if (childResult == null)
                 {
@@ -45,7 +45,7 @@ namespace ExceptionReporting.SystemInfo
 					childList.Add(childResult);
                 }
 
-                string nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
+                var nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
                 childResult.Nodes.Add(nodeValue);
             }
 

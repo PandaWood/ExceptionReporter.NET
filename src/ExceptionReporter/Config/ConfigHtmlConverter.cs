@@ -28,16 +28,16 @@ namespace ExceptionReporting.Config
 
     	public string Convert()
     	{
-			using (Stream stream = _assembly.GetManifestResourceStream(_xsltFilename))
+			using (var stream = _assembly.GetManifestResourceStream(_xsltFilename))
     		{
     			if (stream == null) 
 					throw new XsltFileNotFoundException(string.Format("Xslt file not found ({0}) in {1}", _xsltFilename, _assembly.FullName));
 
-    			using (XmlReader reader = XmlReader.Create(stream))
+    			using (var reader = XmlReader.Create(stream))
     			{
     				_xslCompiledTransform.Load(reader);
 
-    				using (XmlWriter xmlWriter = XmlWriter.Create(_stringBuilder))
+    				using (var xmlWriter = XmlWriter.Create(_stringBuilder))
     				{
     					_xslCompiledTransform.Transform(ConfigReader.GetConfigFilePath(), xmlWriter);
     				}

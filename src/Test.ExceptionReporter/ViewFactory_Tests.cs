@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 using ExceptionReporting.Core;
 using NUnit.Framework;
@@ -6,7 +5,6 @@ using NUnit.Framework.SyntaxHelpers;
 
 namespace ExceptionReporting.Tests
 {
-	// - NB Resharper's test runner addin can't run these tests, however TestMatrix can (if option 'Apartment State=STA')
 	[TestFixture]
 	public class ViewFactory_Tests
 	{
@@ -27,7 +25,7 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanResolve_WinForms_IInternalExceptionView_Interface()
 		{
-			Type viewType = _winformsViewResolver.Resolve<IInternalExceptionView>();
+			var viewType = _winformsViewResolver.Resolve<IInternalExceptionView>();
 			Assert.That(viewType.ToString(), Text.StartsWith("ExceptionReporting.WinForms.Views.InternalExceptionView"));
 			Assert.That(viewType.Assembly.FullName, Text.StartsWith("ExceptionReporter.WinForms"));
 		}

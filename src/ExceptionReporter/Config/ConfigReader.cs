@@ -48,8 +48,7 @@ namespace ExceptionReporting.Config
 
         private static string GetConfigSetting(string sectionName, string configName)
         {
-            NameValueCollection sections = 
-                ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
+            var sections = ConfigurationManager.GetSection(@"ExceptionReporter/" + sectionName) as NameValueCollection;
             if (sections == null) return string.Empty;
 
             return sections[configName];
@@ -99,7 +98,7 @@ namespace ExceptionReporting.Config
 
         private void ReadMailMethod()
         {
-            string mailMethod = GetMailSetting("method");
+            var mailMethod = GetMailSetting("method");
             if (string.IsNullOrEmpty(mailMethod)) return;
 
             _info.MailMethod = mailMethod.Equals(SMTP) ? ExceptionReportInfo.EmailMethod.SMTP : 
@@ -126,7 +125,7 @@ namespace ExceptionReporting.Config
             _info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").ReturnBoolfNotNull_Else(_info.TakeScreenshot);
 
             float fontSize;
-            string fontSizeAsString = GetUserInterfaceSetting("UserExplanationFontSize");
+            var fontSizeAsString = GetUserInterfaceSetting("UserExplanationFontSize");
             if (float.TryParse(fontSizeAsString, NumberStyles.Float, CultureInfo.CurrentCulture.NumberFormat, out fontSize))
             {
                 _info.UserExplanationFontSize = fontSize;

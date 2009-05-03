@@ -22,7 +22,7 @@ namespace ExceptionReporting.Core
 		{
 			var stringBuilder = new StringBuilder();
 
-			foreach (AssemblyName assemblyName in _assembly.GetReferencedAssemblies())
+			foreach (var assemblyName in _assembly.GetReferencedAssemblies())
 			{
 				stringBuilder.AppendLine(string.Format("{0}, Version={1}", assemblyName.Name, assemblyName.Version));
 			}

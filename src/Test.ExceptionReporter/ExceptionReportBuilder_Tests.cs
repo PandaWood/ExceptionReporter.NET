@@ -27,14 +27,14 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanBuild_ReferencedAssemblies_Section()
 		{
-            using (ExceptionReportInfo reportInfo = CreateReportInfo())
+            using (var reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowAssembliesTab = true;
                 reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
             	var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
 
-            	ExceptionReport exceptionReport = builder.Build();
+            	var exceptionReport = builder.Build();
 
                 Assert.That(exceptionReport, Is.Not.Null);
                 Assert.That(exceptionReport.ToString().Length, Is.GreaterThan(0));
@@ -46,15 +46,15 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanBuild_SysInfoSection()
 		{
-			IList<SysInfoResult> sysInfoResults = CreateSysInfoResult();
-			StringBuilder expectedExceptionReport = CreateExpectedReport();
+			var sysInfoResults = CreateSysInfoResult();
+			var expectedExceptionReport = CreateExpectedReport();
 
-            using (ExceptionReportInfo reportInfo = CreateReportInfo())
+            using (var reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowSysInfoTab = true;
 
 				var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults) { FileReader = _fileReader };
-            	ExceptionReport exceptionReport = builder.Build();
+            	var exceptionReport = builder.Build();
 
 				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
             }
@@ -63,7 +63,7 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanBuild_HierarchyString_With_Root_And_InnerException()
 		{
-            using (ExceptionReportInfo reportInfo = CreateReportInfo())
+            using (var reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowExceptionsTab = true;
                 reportInfo.SetExceptions(new List<Exception>
@@ -72,7 +72,7 @@ namespace ExceptionReporting.Tests
 												new ArgumentNullException("Inner" + "Exception"))
                                             });
 
-                StringBuilder expectedExceptionReportString = new StringBuilder().AppendDottedLine()
+                var expectedExceptionReportString = new StringBuilder().AppendDottedLine()
                     .AppendLine("[Exception Info 1]").AppendLine()
                     .AppendLine("Top-level Exception")
                     .AppendLine("Type:        System.ArgumentOutOfRangeException")
@@ -87,7 +87,7 @@ namespace ExceptionReporting.Tests
                     .AppendLine().AppendDottedLine().AppendLine();
 
 				var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
-            	ExceptionReport exceptionReport = builder.Build();
+            	var exceptionReport = builder.Build();
 
 				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
             }
@@ -107,7 +107,7 @@ namespace ExceptionReporting.Tests
 
 		private static StringBuilder CreateExpectedReport() 
 		{
-			StringBuilder expectedString = new StringBuilder().AppendDottedLine();
+			var expectedString = new StringBuilder().AppendDottedLine();
 			expectedString.AppendLine("[System Info]").AppendLine();
 			expectedString.AppendLine("Memory");
 			expectedString.AppendLine("-Physical Memory");

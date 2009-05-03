@@ -27,7 +27,7 @@ namespace ExceptionReporting
 		/// <returns>An instance of a type that implements the interface (T) in the given assembly (see constructor)</returns>
 		public Type Resolve<T>() where T : class
 		{
-			Type viewType = typeof(T);
+			var viewType = typeof(T);
 
 			foreach (var currentType in _assembly.GetTypes())
 			{

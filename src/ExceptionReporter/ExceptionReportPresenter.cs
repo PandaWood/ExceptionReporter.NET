@@ -59,11 +59,11 @@ namespace ExceptionReporting
         {
             if (string.IsNullOrEmpty(fileName)) return;
 
-            ExceptionReport exceptionReport = CreateExceptionReport();
+            var exceptionReport = CreateExceptionReport();
 
             try
             {
-                using (FileStream stream = File.OpenWrite(fileName))
+                using (var stream = File.OpenWrite(fileName))
                 {
                     var writer = new StreamWriter(stream);
                     writer.Write(exceptionReport);
@@ -98,7 +98,7 @@ namespace ExceptionReporting
 		/// </summary>
         public void CopyReportToClipboard()
         {
-            ExceptionReport exceptionReport = CreateExceptionReport();
+            var exceptionReport = CreateExceptionReport();
             _clipboard.CopyTo(exceptionReport.ToString());
             _view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
         }
@@ -136,7 +136,7 @@ namespace ExceptionReporting
 
         private void SendSmtpMail()
         {
-            string exceptionString = BuildEmailExceptionString();
+            var exceptionString = BuildEmailExceptionString();
 
             _view.ProgressMessage = "Sending email via SMTP...";
             _view.EnableEmailButton = false;
@@ -156,12 +156,12 @@ namespace ExceptionReporting
 
         private void SendMapiEmail(IntPtr windowHandle)
         {
-            string exceptionString = BuildEmailExceptionString();
+            var exceptionString = BuildEmailExceptionString();
 
             _view.ProgressMessage = "Launching email program...";
             _view.EnableEmailButton = false;
 
-            bool wasSuccessful = false;
+            var wasSuccessful = false;
 
             try
             {

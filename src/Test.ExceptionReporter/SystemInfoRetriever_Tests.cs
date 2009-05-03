@@ -18,18 +18,18 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanRetrieve_SysInfo_For_CPU()
 		{
-			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.Machine);
+			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.Machine);
 
-			Assert.That(result.Nodes.Count, Is.EqualTo(1));		// at least 1 machine name
-			Assert.That(result.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
-			Assert.That(result.ChildResults[0].Nodes.Where(r => r.Contains("CurrentTimeZone")).Count(), Is.GreaterThan(0));
+			Assert.That(sysInfoResult.Nodes.Count, Is.EqualTo(1));		// at least 1 machine name
+			Assert.That(sysInfoResult.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
+			Assert.That(sysInfoResult.ChildResults[0].Nodes.Where(r => r.Contains("CurrentTimeZone")).Count(), Is.GreaterThan(0));
 		}
 
 		[Test]
 		public void CanRetrieve_SysInfo_For_OS()
 		{
-			SysInfoResult result = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
-			StringAssert.Contains("Windows", result.Nodes[0]);
+			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
+			StringAssert.Contains("Windows", sysInfoResult.Nodes[0]);
 		}
 	}
 }
