@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace ExceptionReporting.Core
 {
 	/// <summary>
-	/// utility to take a screenshot and return as a graphic file 
+	/// Utility to take a screenshot and return as a graphic file 
 	/// </summary>
 	public static class ScreenshotTaker
     {

@@ -1,0 +1,16 @@
+using ExceptionReporting.Core;
+using NUnit.Framework;
+
+namespace ExceptionReporting.Tests
+{
+	[TestFixture]
+	public class ScreenshotTaker_Tests
+	{
+		[Test]
+		public void TestName()
+		{
+			var screenshot = ScreenshotTaker.TakeScreenShot();
+			Assert.IsNotNull(screenshot);
+		}
+	}
+}
