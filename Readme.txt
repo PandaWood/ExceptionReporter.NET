@@ -1,7 +1,7 @@
 Exception Reporter
 ------------------
 
-Welcome to the new, refvitalised ExceptionReporter project on CodePlex (moved from SourceForge)
+Welcome to the new, ExceptionReporter project on CodePlex (moved from SourceForge)
 The project has changed a bit since it was moved onto CodePlex, an explanation of the changes follows:
 
 [FUNCTIONALITY CHANGES]
