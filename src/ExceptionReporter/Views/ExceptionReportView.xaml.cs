@@ -71,47 +71,47 @@ namespace ExceptionReporting.Wpf.Views
 
 		public void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void SetInProgressState()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void PopulateConfigTab(string filePath)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void PopulateExceptionTab(IList<Exception> exceptions)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void PopulateAssembliesTab()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void PopulateSysInfoTab()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void SetProgressCompleteState()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void ToggleShowFullDetail()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void ShowExceptionReport()
 		{
-			throw new NotImplementedException();
+			Show();
 		}
 	}
 }
