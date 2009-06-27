@@ -23,7 +23,7 @@
 
     <StackPanel Name="mainStackPanel" Margin="0,20">
         <TextBlock>
-            <Hyperlink >Default Exception Report</Hyperlink>
+            <Hyperlink Click="ShowDefault">Default Exception Report</Hyperlink>
         </TextBlock>
         <TextBlock>
             <Hyperlink>Custom Exception Report</Hyperlink>

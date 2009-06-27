@@ -36,38 +36,37 @@ namespace ExceptionReporting.Wpf.Views
 
 		public string ProgressMessage
 		{
-			set { throw new NotImplementedException(); }
+			set {  }
 		}
 
 		public bool EnableEmailButton
 		{
-			set { throw new NotImplementedException(); }
+			set {  }
 		}
 
 		public bool ShowProgressBar
 		{
-			set { throw new NotImplementedException(); }
+			set {  }
 		}
 
 		public bool ShowFullDetail
 		{
-			get { throw new NotImplementedException(); }
-			set { throw new NotImplementedException(); }
+			get; set;
 		}
 
 		public string UserExplanation
 		{
-			get { throw new NotImplementedException(); }
+			get { return null;}
 		}
 
 		public void ShowErrorDialog(string message, Exception exception)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void SetEmailCompletedState(bool success)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage)

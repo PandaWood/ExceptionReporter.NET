@@ -29,7 +29,7 @@ namespace ExceptionReporting.Extensions
 		/// <summary>
 		/// Return a string if not null, else the current value
 		/// </summary>
-		public static string ReturnStringIfNotNull_Else(this string newString, string currentString)
+		public static string GetString(this string newString, string currentString)
 		{
 			return string.IsNullOrEmpty(newString) ? currentString : newString.Trim();
 		}
@@ -38,7 +38,7 @@ namespace ExceptionReporting.Extensions
 		/// Returns the boolean value of configString; where configString is null or empty, the current value is returned
 		/// <remarks>all of (case insensitive) 'y' 'n' 'true' or 'false' are accepted as boolean indicators</remarks>
 		/// </summary>
-		public static bool ReturnBoolfNotNull_Else(this string configString, bool currentValue)
+		public static bool GetBool(this string configString, bool currentValue)
 		{
 			if (string.IsNullOrEmpty(configString)) return currentValue;
 

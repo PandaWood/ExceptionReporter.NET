@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
 
 namespace WinFormsDemoApp
 {
@@ -39,7 +38,7 @@ namespace WinFormsDemoApp
             }
             catch (Exception exception)
             {
-				var exceptionReporter = new ExceptionReporter();
+				var exceptionReporter = new ExceptionReporting.Core.ExceptionReporter();
 				exceptionReporter.Config.ShowConfigTab = false;
 				exceptionReporter.Config.ShowAssembliesTab = false;
                 exceptionReporter.Show("This is a custom message", exception);
@@ -67,7 +66,7 @@ namespace WinFormsDemoApp
             {
                 exception2 = exception;
             }
-			var exceptionReporter = new ExceptionReporter();
+			var exceptionReporter = new ExceptionReporting.Core.ExceptionReporter();
 
             exceptionReporter.ReadConfig();
 
@@ -82,7 +81,7 @@ namespace WinFormsDemoApp
             }
             catch (Exception exception)
             {
-				var exceptionReporter = new ExceptionReporter();
+				var exceptionReporter = new ExceptionReporting.Core.ExceptionReporter();
 
                 if (useConfig)
                     exceptionReporter.ReadConfig();

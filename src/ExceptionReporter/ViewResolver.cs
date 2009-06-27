@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace ExceptionReporting
@@ -29,15 +30,22 @@ namespace ExceptionReporting
 		{
 			var viewType = typeof(T);
 
-			foreach (var currentType in _assembly.GetTypes())
-			{
-				if (currentType.FullName.StartsWith("System.") || currentType.IsInterface) continue;	// an optimisation?
+			//TODO this is not covered in unit tests
 
-				if (viewType.IsAssignableFrom(currentType))
-					return currentType;
-			}
+			var matchingTypes =
+				from assemblyName in
+					from assembly in _assembly.GetReferencedAssemblies()
+					where assembly.Name.Contains("ExceptionReporter")
+					select assembly
+				from type in Assembly.Load(assemblyName.Name).GetExportedTypes()
+				where !type.IsInterface
+				where viewType.IsAssignableFrom(type)
+				select type;
 
-			throw new ApplicationException(string.Format("Invalid ExceptionReporter assembly - type {0} not found", viewType));
+			if (matchingTypes.Count() == 1)
+				return matchingTypes.First();
+			
+			throw new ApplicationException(string.Format("Unable to resolve single instance of '{0}'", viewType));
 		}
 	}
 }

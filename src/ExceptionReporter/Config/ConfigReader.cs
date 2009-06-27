@@ -66,19 +66,19 @@ namespace ExceptionReporting.Config
 
         private void ReadContactSettings()
         {
-            _info.ContactEmail = GetContactSetting("email").ReturnStringIfNotNull_Else(_info.ContactEmail);
-            _info.WebUrl = GetContactSetting("web").ReturnStringIfNotNull_Else(_info.WebUrl);
-            _info.Phone = GetContactSetting("phone").ReturnStringIfNotNull_Else(_info.Phone);
-            _info.Fax = GetContactSetting("fax").ReturnStringIfNotNull_Else(_info.Fax);
+            _info.ContactEmail = GetContactSetting("email").GetString(_info.ContactEmail);
+            _info.WebUrl = GetContactSetting("web").GetString(_info.WebUrl);
+            _info.Phone = GetContactSetting("phone").GetString(_info.Phone);
+            _info.Fax = GetContactSetting("fax").GetString(_info.Fax);
         }
 
         private void ReadTabSettings()
         {
-            _info.ShowExceptionsTab = GetTabSetting("exceptions").ReturnBoolfNotNull_Else(_info.ShowExceptionsTab);
-            _info.ShowAssembliesTab = GetTabSetting("assemblies").ReturnBoolfNotNull_Else(_info.ShowAssembliesTab);
-            _info.ShowConfigTab = GetTabSetting("config").ReturnBoolfNotNull_Else(_info.ShowConfigTab);
-            _info.ShowSysInfoTab = GetTabSetting("system").ReturnBoolfNotNull_Else(_info.ShowSysInfoTab);
-            _info.ShowContactTab = GetTabSetting("contact").ReturnBoolfNotNull_Else(_info.ShowContactTab);
+            _info.ShowExceptionsTab = GetTabSetting("exceptions").GetBool(_info.ShowExceptionsTab);
+            _info.ShowAssembliesTab = GetTabSetting("assemblies").GetBool(_info.ShowAssembliesTab);
+            _info.ShowConfigTab = GetTabSetting("config").GetBool(_info.ShowConfigTab);
+            _info.ShowSysInfoTab = GetTabSetting("system").GetBool(_info.ShowSysInfoTab);
+            _info.ShowContactTab = GetTabSetting("contact").GetBool(_info.ShowContactTab);
         }
 
         private void ReadMailSettings()
@@ -89,11 +89,11 @@ namespace ExceptionReporting.Config
 
         private void ReadMailValues()
         {
-            _info.SmtpServer = GetMailSetting("SmtpServer").ReturnStringIfNotNull_Else(_info.SmtpServer);
-            _info.SmtpUsername = GetMailSetting("SmtpUsername").ReturnStringIfNotNull_Else(_info.SmtpUsername);
-            _info.SmtpPassword = GetMailSetting("SmtpPassword").ReturnStringIfNotNull_Else(_info.SmtpPassword);
-            _info.SmtpFromAddress = GetMailSetting("from").ReturnStringIfNotNull_Else(_info.SmtpFromAddress);
-            _info.EmailReportAddress = GetMailSetting("to").ReturnStringIfNotNull_Else(_info.EmailReportAddress);
+            _info.SmtpServer = GetMailSetting("SmtpServer").GetString(_info.SmtpServer);
+            _info.SmtpUsername = GetMailSetting("SmtpUsername").GetString(_info.SmtpUsername);
+            _info.SmtpPassword = GetMailSetting("SmtpPassword").GetString(_info.SmtpPassword);
+            _info.SmtpFromAddress = GetMailSetting("from").GetString(_info.SmtpFromAddress);
+            _info.EmailReportAddress = GetMailSetting("to").GetString(_info.EmailReportAddress);
         }
 
         private void ReadMailMethod()
@@ -107,22 +107,22 @@ namespace ExceptionReporting.Config
 
         private void ReadLabelSettings()
         {
-            _info.UserExplanationLabel = GetLabelSetting("explanation").ReturnStringIfNotNull_Else(_info.UserExplanationLabel);
-            _info.ContactMessageTop = GetLabelSetting("ContactTop").ReturnStringIfNotNull_Else(_info.ContactMessageTop);
+            _info.UserExplanationLabel = GetLabelSetting("explanation").GetString(_info.UserExplanationLabel);
+            _info.ContactMessageTop = GetLabelSetting("ContactTop").GetString(_info.ContactMessageTop);
         }
 
         private void ReadUserInterfaceSettings()
         {
-            _info.ShowFlatButtons = GetUserInterfaceSetting("ShowFlatButtons").ReturnBoolfNotNull_Else(_info.ShowFlatButtons);
-            _info.ShowFullDetail = GetUserInterfaceSetting("ShowFullDetail").ReturnBoolfNotNull_Else(_info.ShowFullDetail);
+            _info.ShowFlatButtons = GetUserInterfaceSetting("ShowFlatButtons").GetBool(_info.ShowFlatButtons);
+            _info.ShowFullDetail = GetUserInterfaceSetting("ShowFullDetail").GetBool(_info.ShowFullDetail);
 
             if (!_info.ShowFullDetail)
 				_info.ShowLessMoreDetailButton = true;	// prevent seeing only the simplified view, position of this line is important
 
-            _info.ShowLessMoreDetailButton = GetUserInterfaceSetting("ShowLessMoreDetailButton").ReturnBoolfNotNull_Else(_info.ShowLessMoreDetailButton);
-            _info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").ReturnBoolfNotNull_Else(_info.ShowButtonIcons);
-            _info.TitleText = GetUserInterfaceSetting("TitleText").ReturnStringIfNotNull_Else(_info.TitleText);
-            _info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").ReturnBoolfNotNull_Else(_info.TakeScreenshot);
+            _info.ShowLessMoreDetailButton = GetUserInterfaceSetting("ShowLessMoreDetailButton").GetBool(_info.ShowLessMoreDetailButton);
+            _info.ShowButtonIcons = GetUserInterfaceSetting("ShowButtonIcons").GetBool(_info.ShowButtonIcons);
+            _info.TitleText = GetUserInterfaceSetting("TitleText").GetString(_info.TitleText);
+            _info.TakeScreenshot = GetUserInterfaceSetting("TakeScreenshot").GetBool(_info.TakeScreenshot);
 
             float fontSize;
             var fontSizeAsString = GetUserInterfaceSetting("UserExplanationFontSize");

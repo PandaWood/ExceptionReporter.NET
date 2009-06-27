@@ -10,18 +10,18 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void CanAssign_IfNotNullOrEmpty()
 		{
-			string oldString = "OldString";
+			var oldString = "OldString";
 
-			oldString = "NewString".ReturnStringIfNotNull_Else(oldString);
+			oldString = "NewString".GetString(oldString);
 			Assert.That(oldString, Is.EqualTo("NewString"));
 		}
 
 		[Test]
 		public void CanNotAssign_IfEmpty()
 		{
-			string oldString = "OldString";
+			var oldString = "OldString";
 
-			oldString = "".ReturnStringIfNotNull_Else(oldString);
+			oldString = "".GetString(oldString);
 			Assert.That(oldString, Is.EqualTo("OldString"));
 		}
 
@@ -29,65 +29,65 @@ namespace ExceptionReporting.Tests
 		public void CanNotAssign_IfNull()
 		{
 			const string newString = null;
-			string oldString = "OldString";
+			var oldString = "OldString";
 
-			oldString = newString.ReturnStringIfNotNull_Else(oldString);
+			oldString = newString.GetString(oldString);
 			Assert.That(oldString, Is.EqualTo("OldString"));
 		}
 
 		[Test]
 		public void CanNotAssign_False_If_N()
 		{
-			bool newValue = "N".ReturnBoolfNotNull_Else(true);
+			var newValue = "N".GetBool(true);
 			Assert.That(newValue, Is.False);
 		}
 
 		[Test]
 		public void CanAssign_True_If_Y()
 		{
-			bool newValue = "Y".ReturnBoolfNotNull_Else(false);
+			var newValue = "Y".GetBool(false);
 			Assert.That(newValue, Is.True);
 		}
 
 		[Test]
 		public void CanAssign_True_If_Y_LowerCase()
 		{
-			bool newValue = "y".ReturnBoolfNotNull_Else(false);
+			var newValue = "y".GetBool(false);
 			Assert.That(newValue, Is.True);
 		}
 
 		[Test]
 		public void CanAssign_False_If_N_LowerCase()
 		{
-			bool newValue = "n".ReturnBoolfNotNull_Else(true);
+			var newValue = "n".GetBool(true);
 			Assert.That(newValue, Is.False);
 		}
 
 		[Test]
 		public void CanAssign_True_If_String_True()
 		{
-			bool newValue = "true".ReturnBoolfNotNull_Else(false);
+			var newValue = "true".GetBool(false);
 			Assert.That(newValue, Is.True);
 		}
 
 		[Test]
 		public void CanAssign_False_If_String_False()
 		{
-			bool newValue = "false".ReturnBoolfNotNull_Else(true);
+			var newValue = "false".GetBool(true);
 			Assert.That(newValue, Is.False);
 		}
 
 		[Test]
 		public void CanNotAssign_False_If_Null()
 		{
-			bool newValue = "".ReturnBoolfNotNull_Else(false);
+			var newValue = "".GetBool(false);
 			Assert.That(newValue, Is.False);
 		}
 
 		[Test]
 		public void CanNotAssign_True_If_Null_And_CurrentValue_Is_True()
 		{
-			bool newValue = "".ReturnBoolfNotNull_Else(true);
+			var newValue = "".GetBool(true);
 			Assert.That(newValue, Is.True);
 		}
 	}

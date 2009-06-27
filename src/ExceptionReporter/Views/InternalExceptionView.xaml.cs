@@ -17,7 +17,7 @@ namespace ExceptionReporting.Wpf.Views
 		///<summary> show the internal exception </summary>
 		public void ShowException(string message, Exception exception)
 		{
-			throw new NotImplementedException();
+			Show();
 		}
 	}
 // ReSharper restore UnusedMember.Global

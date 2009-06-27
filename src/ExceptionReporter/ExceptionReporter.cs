@@ -24,7 +24,7 @@ namespace ExceptionReporting.Core
 		public ExceptionReporter()
 		{
 			_reportInfo = new ExceptionReportInfo();
-			_viewResolver = new ViewResolver(Assembly.GetExecutingAssembly());
+			_viewResolver = new ViewResolver(Assembly.GetCallingAssembly());
 			_internalExceptionView = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
 		}
 
