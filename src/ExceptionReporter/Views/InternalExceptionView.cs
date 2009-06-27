@@ -7,7 +7,10 @@ using System.Windows.Forms;
 
 namespace ExceptionReporting.WinForms.Views
 {
-	internal class InternalExceptionView : Form, IInternalExceptionView
+	/// <summary>
+	/// For exceptions within the ExceptionReporter - considering removing altogether
+	/// </summary>
+	public class InternalExceptionView : Form, IInternalExceptionView
 	{
 		private Button cmdOK;
 		private TextBox txtExceptionMessage;
@@ -35,7 +38,7 @@ namespace ExceptionReporting.WinForms.Views
 
 		private void InitializeComponent()
 		{
-			ComponentResourceManager resources = new ComponentResourceManager(typeof(InternalExceptionView));
+			var resources = new ComponentResourceManager(typeof(InternalExceptionView));
 			pictureBox = new PictureBox();
 			txtExceptionType = new TextBox();
 			txtExceptionDetails = new TextBox();
@@ -208,13 +211,13 @@ namespace ExceptionReporting.WinForms.Views
 		}
 
 
-		private static string ExceptionHeirarchyToString(Exception ex)
+		private static string ExceptionHeirarchyToString(Exception exception)
 		{
 			var stringBuilder = new StringBuilder();
 		    using (var stringWriter = new StringWriter(stringBuilder))
 		    {
-		        Int32 intCount = 0;
-		        Exception current = ex;
+		        var intCount = 0;
+		        var current = exception;
 
 		        while (current != null)
 		        {

@@ -15,7 +15,7 @@ namespace ExceptionReporting.WinForms.Views
 	/// The main ExceptionReporter dialog
 	/// </summary>
 // ReSharper disable UnusedMember.Global
-	internal partial class ExceptionReportView : Form, IExceptionReportView
+	public partial class ExceptionReportView : Form, IExceptionReportView
 // ReSharper restore UnusedMember.Global
     {
         private bool _isDataRefreshRequired;

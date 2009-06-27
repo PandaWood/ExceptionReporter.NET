@@ -30,8 +30,6 @@ namespace ExceptionReporting
 		{
 			var viewType = typeof(T);
 
-			//TODO this is not covered in unit tests
-
 			var matchingTypes =
 				from assemblyName in
 					from assembly in _assembly.GetReferencedAssemblies()

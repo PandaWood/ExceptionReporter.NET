@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinFormsDemoApp</RootNamespace>
     <AssemblyName>WinFormsDemoApp</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>WinFormsDemoApp.Program</StartupObject>
     <ApplicationIcon>
@@ -42,6 +42,9 @@
       <HintPath>..\..\release\ExceptionReporter.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -61,12 +64,6 @@
     <Compile Include="DemoAppView.designer.cs">
       <DependentUpon>DemoAppView.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.Core.csproj">
-      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
-      <Name>ExceptionReporter.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
