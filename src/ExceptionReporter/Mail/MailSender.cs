@@ -20,7 +20,10 @@ namespace ExceptionReporting.Mail
         /// </summary>
         public void SendSmtp(string exceptionReport, CompletedMethodDelegate setEmailCompletedState)
         {
-            var smtpClient = new SmtpClient(_reportInfo.SmtpServer) { DeliveryMethod = SmtpDeliveryMethod.Network };
+            var smtpClient = new SmtpClient(_reportInfo.SmtpServer)
+                                 {
+                                     DeliveryMethod = SmtpDeliveryMethod.Network
+                                 };
             var mailMessage = CreateMailMessage(exceptionReport);
 
             smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
@@ -76,10 +79,9 @@ namespace ExceptionReporting.Mail
                                    ScreenshotTaker.ScreenshotMimeType));
         }
 
-        private string EmailSubject
+        public string EmailSubject
         {
-            get { return string.Format(_reportInfo.TitleText + " for {0} v{1}", 
-                                       _reportInfo.AppName, _reportInfo.AppVersion); }
+            get { return _reportInfo.MainException.Message; }
         }
     }
 }

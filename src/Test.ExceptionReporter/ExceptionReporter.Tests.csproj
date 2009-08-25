@@ -71,6 +71,7 @@
     <Compile Include="ExceptionReportGenerator_Tests.cs" />
     <Compile Include="Extensions_Test.cs" />
     <Compile Include="ExceptionReportBuilder_Tests.cs" />
+    <Compile Include="MailSender_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenshotTaker_Tests.cs" />
     <Compile Include="SystemInfoRetriever_Tests.cs" />

@@ -117,18 +117,20 @@ namespace ExceptionReporting
             var stringBuilder = new StringBuilder()
                 .AppendLine(
                 @"The email is ready to be sent. 
-					Information about your machine and the exception is included.
+					Information about your setup and the exception is included.
 					Please feel free to add any relevant information or attach any files.")
                 .AppendLine().AppendLine();
 
             if (ReportInfo.TakeScreenshot)
             {
-                stringBuilder.AppendFormat("This email has attached a screenshot taken at the time of the exception.")
-                    .AppendLine("If you do not want the screenshot to be sent, you may delete the attachment before sending.")
-                    .AppendLine().AppendLine();
+                stringBuilder.AppendFormat(
+                @"a screenshot, taken at the time of the exception, is attached.
+                    If you prefer the screenshot not included, delete the attachment before sending.")
+                .AppendLine().AppendLine();
             }
 
-            stringBuilder.Append(CreateExceptionReport());
+            var report = CreateExceptionReport();
+            stringBuilder.Append(report);
 
             return stringBuilder.ToString();
         }
