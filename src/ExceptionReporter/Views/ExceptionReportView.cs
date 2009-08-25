@@ -113,11 +113,6 @@ namespace ExceptionReporting.WinForms.Views
             }
         }
 
-        ~ExceptionReportView()
-        {
-            Dispose();
-        }
-
         private void WireUpEvents()
         {
             btnEmail.Click += Email_Click;
