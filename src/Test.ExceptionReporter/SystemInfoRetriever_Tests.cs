@@ -1,13 +1,12 @@
 using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 using System.Linq;
 
 namespace ExceptionReporting.Tests
 {
 	/// <summary>
 	/// These are really "integration tests"
-	/// The code queryies the system on which it's running, so testing is kept "generic"
+	/// The code queries the system on which it's running, so testing is kept "generic"
 	/// Not great, but better than nothing
 	/// </summary>
 	[TestFixture]

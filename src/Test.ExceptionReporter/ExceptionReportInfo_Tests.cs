@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using ExceptionReporting.Core;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ExceptionReporting.Tests
 {

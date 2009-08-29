@@ -1,6 +1,5 @@
 ﻿using ExceptionReporting.Extensions;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ExceptionReporting.Tests
 {
