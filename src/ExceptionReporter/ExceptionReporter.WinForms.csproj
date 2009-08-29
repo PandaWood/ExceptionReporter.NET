@@ -50,6 +50,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ConfigHtmlConverter.cs" />
+    <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="Config\FileReader.cs" />
+    <Compile Include="Core\AssemblyReferenceDigger.cs" />
+    <Compile Include="Core\Disposable.cs" />
+    <Compile Include="Core\ExceptionReport.cs" />
+    <Compile Include="Core\ExceptionReportBuilder.cs" />
+    <Compile Include="Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="Core\ExceptionReportGenerator.cs" />
+    <Compile Include="Core\ExceptionReportInfo.cs" />
+    <Compile Include="Core\IClipboard.cs" />
+    <Compile Include="Core\ScreenshotTaker.cs" />
+    <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="ExceptionReportPresenter.cs" />
+    <Compile Include="IExceptionReportView.cs" />
+    <Compile Include="IInternalExceptionView.cs" />
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SysInfoResult.cs" />
+    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
+    <Compile Include="SystemInfo\SysInfoRetriever.cs" />
+    <Compile Include="ViewFactory.cs" />
+    <Compile Include="ViewResolver.cs" />
     <Compile Include="WinFormsProperties\AssemblyInfo.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
@@ -78,11 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
+    <EmbeddedResource Include="XmlToHtml.xslt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ExceptionReporter.Core.csproj">
-      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
-      <Name>ExceptionReporter.Core</Name>
+    <ProjectReference Include="..\Win32Mapi\Win32Mapi.csproj">
+      <Project>{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}</Project>
+      <Name>Win32Mapi</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -94,6 +119,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)ExceptionReporter.Core.dll $(TargetDir)Win32Mapi.dll</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)Win32Mapi.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>
