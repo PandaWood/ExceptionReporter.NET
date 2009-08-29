@@ -23,8 +23,8 @@ namespace ExceptionReporting.Tests
 			var html = _converter.Convert();
 
 			Assert.That(html.StartsWith("<?xml"));
-			Assert.That(html, Text.Contains("<HTML>"));
-			Assert.That(html, Text.Contains("</HTML>"));
+			Assert.That(html, Is.StringContaining("<HTML>"));
+			Assert.That(html, Is.StringContaining("</HTML>"));
 		}
 
 		[Test]
@@ -32,11 +32,11 @@ namespace ExceptionReporting.Tests
 		{
 			var html = _converter.Convert();
 
-			Assert.That(html, Text.Contains("Contact"));
-			Assert.That(html, Text.Contains("TabsToShow"));
-			Assert.That(html, Text.Contains("Email"));
-			Assert.That(html, Text.Contains("LabelMessages"));
-			Assert.That(html, Text.Contains("UserInterface"));
+			Assert.That(html, Is.StringContaining("Contact"));
+			Assert.That(html, Is.StringContaining("TabsToShow"));
+			Assert.That(html, Is.StringContaining("Email"));
+			Assert.That(html, Is.StringContaining("LabelMessages"));
+			Assert.That(html, Is.StringContaining("UserInterface"));
 		}
 
 		[Test]

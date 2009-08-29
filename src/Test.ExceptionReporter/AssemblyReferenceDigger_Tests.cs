@@ -13,8 +13,8 @@ namespace ExceptionReporting.Tests
 			var digger = new AssemblyReferenceDigger(Assembly.Load("ExceptionReporter.Wpf"));
 			var references = digger.CreateReferencesString();
 
-			Assert.That(references, Text.Contains("ExceptionReporter.Core, Version="));
-			Assert.That(references, Text.Contains("PresentationCore, Version="));
+			Assert.That(references, Is.StringContaining("ExceptionReporter.Core, Version="));
+			Assert.That(references, Is.StringContaining("PresentationCore, Version="));
 		}
 	}
 }

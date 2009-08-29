@@ -36,9 +36,11 @@ namespace ExceptionReporting.Tests
             	var exceptionReport = builder.Build();
 
                 Assert.That(exceptionReport, Is.Not.Null);
-                Assert.That(exceptionReport.ToString().Length, Is.GreaterThan(0));
-				Assert.That(exceptionReport.ToString(), Text.Contains("System.Core, Version="));
-				Assert.That(exceptionReport.ToString(), Text.Contains(Environment.NewLine));
+
+            	var exceptionReportString = exceptionReport.ToString();
+            	Assert.That(exceptionReportString.Length, Is.GreaterThan(0));
+				Assert.That(exceptionReportString, Is.StringContaining("System.Core, Version="));
+				Assert.That(exceptionReportString, Is.StringContaining(Environment.NewLine));
             }
 		}
 

@@ -33,10 +33,10 @@ namespace ExceptionReporting.Tests
 		{
 			var report = _reportGenerator.CreateExceptionReport();
 
-			Assert.That(report.ToString(), Text.StartsWith("-"));
-			Assert.That(report.ToString(), Text.Contains("Application:"));
-			Assert.That(report.ToString(), Text.Contains("NumberOfUsers ="));
-			Assert.That(report.ToString(), Text.Contains("TotalPhysicalMemory ="));
+			Assert.That(report.ToString(), Is.StringStarting("-"));
+			Assert.That(report.ToString(), Is.StringContaining("Application:"));
+			Assert.That(report.ToString(), Is.StringContaining("NumberOfUsers ="));
+			Assert.That(report.ToString(), Is.StringContaining("TotalPhysicalMemory ="));
 		}
 
 		[Test]
