@@ -28,13 +28,13 @@ namespace ExceptionReporting.Core
 
 			_reportInfo = reportInfo;
 
-			_reportInfo.ExceptionDate = DateTime.Now;
+			_reportInfo.ExceptionDate = DateTime.UtcNow;
 			_reportInfo.UserName = Environment.UserName;
 			_reportInfo.MachineName = Environment.MachineName;
 			_reportInfo.AppName = Application.ProductName;		// TODO Application is WPF/WinForm specific, replace
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 			_reportInfo.AppVersion = Application.ProductVersion;
-			_reportInfo.AppAssembly = Assembly.GetEntryAssembly();
+			_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
 		/// <summary>
