@@ -66,11 +66,11 @@ namespace ExceptionReporting.Core
 			              	retriever.Retrieve(SysInfoQueries.OperatingSystem).Filter(
 			              		new[]
 			              		{
-			              			"CodeSet", "CurrenTimeZone", "FreePhysicalMemory", 
-									"OSArchitecture", "OSLanguage", "Version"
+			              			"CodeSet", "CurrentTimeZone", "FreePhysicalMemory",
+			              			"OSArchitecture", "OSLanguage", "Version"
 			              		}),
 			              	retriever.Retrieve(SysInfoQueries.Machine).Filter(
-							new[]
+			              		new[]
 			              		{
 			              			"Machine", "UserName", "TotalPhysicalMemory", "Manufacturer", "Model"
 			              		}),
