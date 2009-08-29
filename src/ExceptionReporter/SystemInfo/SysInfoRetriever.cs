@@ -17,7 +17,7 @@ namespace ExceptionReporting.SystemInfo
 		/// Retrieve system information, using the given SysInfoQuery to determine what information to retrieve
 		/// </summary>
 		/// <param name="sysInfoQuery">the query to determine what information to retrieve</param>
-		/// <returns>a SysInfoResult containing the results</returns>
+		/// <returns>a SysInfoResult ie containing the results of the query</returns>
 		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
         {
             _sysInfoQuery = sysInfoQuery;

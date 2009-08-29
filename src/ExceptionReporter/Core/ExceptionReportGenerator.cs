@@ -63,8 +63,17 @@ namespace ExceptionReporting.Core
 			var retriever = new SysInfoRetriever();
 			var results = new List<SysInfoResult>
 			              {
-			              	retriever.Retrieve(SysInfoQueries.OperatingSystem),
-			              	retriever.Retrieve(SysInfoQueries.Machine)
+			              	retriever.Retrieve(SysInfoQueries.OperatingSystem).Filter(
+			              		new[]
+			              		{
+			              			"CodeSet", "CurrenTimeZone", "FreePhysicalMemory", 
+									"OSArchitecture", "OSLanguage", "Version"
+			              		}),
+			              	retriever.Retrieve(SysInfoQueries.Machine).Filter(
+							new[]
+			              		{
+			              			"Machine", "UserName", "TotalPhysicalMemory", "Manufacturer", "Model"
+			              		}),
 			              };
 			return results;
 		}

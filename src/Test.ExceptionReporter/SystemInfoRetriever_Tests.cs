@@ -28,7 +28,7 @@ namespace ExceptionReporting.Tests
 		public void CanRetrieve_SysInfo_For_OS()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
-			StringAssert.Contains("Windows", sysInfoResult.Nodes[0]);
+			Assert.That(sysInfoResult.Nodes[0], Is.StringContaining("Windows"));
 		}
 	}
 }

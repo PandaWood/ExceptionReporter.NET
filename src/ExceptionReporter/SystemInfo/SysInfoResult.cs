@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #pragma warning disable 1591
 
@@ -10,7 +12,7 @@ namespace ExceptionReporting.SystemInfo
 	public class SysInfoResult
     {
         private readonly string _name;
-        private readonly List<string> _nodes = new List<string>();
+        private List<string> _nodes = new List<string>();
         private readonly List<SysInfoResult> _childResults = new List<SysInfoResult>();
 
         public SysInfoResult(string name)
@@ -28,12 +30,13 @@ namespace ExceptionReporting.SystemInfo
 			ChildResults.AddRange(children);
 		}
 
-        public IList<string> Nodes
+        public List<string> Nodes
         {
-            get { return _nodes; }
+        	get { return _nodes; }
+        	set { _nodes = value; }
         }
 
-        public string Name
+		public string Name
         {
             get { return _name; }
         }
@@ -42,6 +45,18 @@ namespace ExceptionReporting.SystemInfo
         {
             get { return _childResults; }
         }
+
+		public SysInfoResult Filter(string[] filterStrings)
+		{
+			var filteredNodes = (from node in ChildResults[0].Nodes
+								 from filter in filterStrings
+								 where node.Contains(filter)
+			                     select node).ToList();
+
+			ChildResults[0].Nodes.Clear();
+			ChildResults[0].Nodes.AddRange(filteredNodes);
+			return this;
+		}
     }
 }
 #pragma warning restore 1591
