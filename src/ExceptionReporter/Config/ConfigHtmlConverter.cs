@@ -38,7 +38,11 @@ namespace ExceptionReporting.Config
 
     				using (var xmlWriter = XmlWriter.Create(_stringBuilder))
     				{
-    					_xslCompiledTransform.Transform(ConfigReader.GetConfigFilePath(), xmlWriter);
+    					try
+    					{
+    						_xslCompiledTransform.Transform(ConfigReader.GetConfigFilePath(), xmlWriter);
+    					}
+						catch { return ""; }
     				}
 
     				return _stringBuilder.ToString();

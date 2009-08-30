@@ -53,7 +53,7 @@ namespace ExceptionReporting.SystemInfo
 								 where node.Contains(filter + " = ")	//TODO a little too primitive
 			                     select node).ToList();
 
-			ChildResults[0].Nodes.Clear();
+			ChildResults[0].Nodes.Clear();								//TODO doesn't seem like a good idea
 			ChildResults[0].Nodes.AddRange(filteredNodes);
 			return this;
 		}
