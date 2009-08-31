@@ -124,8 +124,8 @@ namespace ExceptionReporting
             if (ReportInfo.TakeScreenshot)
             {
                 stringBuilder.AppendFormat(
-                @"a screenshot, taken at the time of the exception, is attached.
-                    If you prefer the screenshot not included, delete the attachment before sending.")
+                @"A screenshot, taken at the time of the exception, is attached.
+                    You may delete the attachment before sending if you prefer.")
                 .AppendLine().AppendLine();
             }
 

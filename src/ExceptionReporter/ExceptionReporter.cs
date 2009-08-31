@@ -13,7 +13,7 @@ namespace ExceptionReporting.Core
 	public class ExceptionReporter
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-		private IExceptionReportView _reportView;
+		private IExceptionReportView _view;
 		private readonly IInternalExceptionView _internalExceptionView;
 		private readonly ViewResolver _viewResolver;
 
@@ -24,7 +24,8 @@ namespace ExceptionReporting.Core
 		public ExceptionReporter()
 		{
 			_reportInfo = new ExceptionReportInfo();
-			_viewResolver = new ViewResolver(Assembly.GetCallingAssembly());
+		    var assembly = Assembly.GetCallingAssembly();
+		    _viewResolver = new ViewResolver(assembly);
 			_internalExceptionView = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
 		}
 
@@ -50,8 +51,8 @@ namespace ExceptionReporting.Core
 			try
 			{
 				_reportInfo.SetExceptions(exceptions);
-				_reportView = ViewFactory.Create<IExceptionReportView>(_viewResolver, _reportInfo);
-				_reportView.ShowExceptionReport();
+				_view = ViewFactory.Create<IExceptionReportView>(_viewResolver, _reportInfo);
+				_view.ShowExceptionReport();
 			}
 			catch (Exception internalException)
 			{

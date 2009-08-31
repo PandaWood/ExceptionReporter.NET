@@ -20,7 +20,7 @@ namespace ExceptionReporting.Core
 		/// Initialises some ExceptionReportInfo properties related to the application/system
 		/// </summary>
 		/// <param name="reportInfo">an ExceptionReportInfo, can be pre-populated with config
-		/// however 'base' properties such as MachineName and AppAssembly are always overwritten here</param>
+		/// however 'base' properties such as MachineName</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
 			if (reportInfo == null)
@@ -34,7 +34,9 @@ namespace ExceptionReporting.Core
 			_reportInfo.AppName = Application.ProductName;		// TODO Application is WPF/WinForm specific, replace
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 			_reportInfo.AppVersion = Application.ProductVersion;
-			_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+
+            if (_reportInfo.AppAssembly == null)
+			    _reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
 		/// <summary>
