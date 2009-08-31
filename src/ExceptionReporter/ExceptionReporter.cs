@@ -23,9 +23,14 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public ExceptionReporter()
 		{
-			_reportInfo = new ExceptionReportInfo();
-		    var assembly = Assembly.GetCallingAssembly();
-		    _viewResolver = new ViewResolver(assembly);
+		    var callingAssembly = Assembly.GetCallingAssembly();
+
+			_reportInfo = new ExceptionReportInfo
+			              {
+			              	AppAssembly = callingAssembly
+			              };
+
+		    _viewResolver = new ViewResolver(callingAssembly);
 			_internalExceptionView = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
 		}
 

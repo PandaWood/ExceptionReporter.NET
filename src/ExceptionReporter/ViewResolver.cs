@@ -6,8 +6,8 @@ using System.Reflection;
 namespace ExceptionReporting
 {
 	/// <summary>
-	/// Resolve view's from the current assembly (limited to only ExceptionReportView and InternalExceptionView)
-	/// This is required to be able to load either WPF or WinForms versions of the view class
+	/// Resolve a view from an assembly (limited to ExceptionReportView and InternalExceptionView)
+	/// This flexibility is required in order to load either a WPF or WinForms version of the view class
 	/// </summary>
 	public class ViewResolver
 	{
@@ -16,7 +16,7 @@ namespace ExceptionReporting
 		///<summary>
 		/// Initialise the ViewResolver with an assembly to search
 		///</summary>
-		///<param name="assembly">the Assembly to search in subsequent requests to this class</param>
+		///<param name="assembly">the Assembly which contains the desired view</param>
 		public ViewResolver(Assembly assembly)
 		{
 			_assembly = assembly;

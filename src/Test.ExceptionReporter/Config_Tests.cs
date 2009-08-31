@@ -13,7 +13,6 @@ namespace ExceptionReporting.Tests
 		[SetUp]
 		public void SetUp() 
 		{
-			//TODO don't need to pass assembly anymore
 			_converter = new ConfigHtmlConverter(Assembly.Load("ExceptionReporter.WinForms"));
 		}
 

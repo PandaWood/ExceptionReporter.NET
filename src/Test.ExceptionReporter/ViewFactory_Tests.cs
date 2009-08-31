@@ -9,16 +9,16 @@ namespace ExceptionReporting.Tests
 	{
 		private readonly Assembly _winformsAssembly;
 		private readonly ViewResolver _winformsViewResolver;
-		private readonly Assembly _wpfAssembly;
+//		private readonly Assembly _wpfAssembly;
 		private readonly ViewResolver _wpfViewResolver;
 
 		public ViewFactory_Tests()
 		{
-			_winformsAssembly = Assembly.Load(new AssemblyName("ExceptionReporter.WinForms"));
+			_winformsAssembly = Assembly.Load(new AssemblyName("ExceptionReporter.Tests"));
 			_winformsViewResolver = new ViewResolver(_winformsAssembly);
 
-			_wpfAssembly = Assembly.Load(new AssemblyName("ExceptionReporter.Wpf"));
-			_wpfViewResolver = new ViewResolver(_wpfAssembly);
+//			_wpfAssembly = Assembly.Load(new AssemblyName("ExceptionReporter.Wpf"));
+//			_wpfViewResolver = new ViewResolver(_wpfAssembly);
 		}
 
 		[Test]
@@ -54,7 +54,7 @@ namespace ExceptionReporting.Tests
 			Assert.That(view.ToString(), Is.StringStarting("ExceptionReporting.WinForms.Views.ExceptionReportView"));
 		}
 
-		[Test]
+		[Test, Ignore]
 		public void CanResolve_Wpf_IInternalExceptionView_Interface()
 		{
 			var viewType = _wpfViewResolver.Resolve<IInternalExceptionView>();
@@ -63,7 +63,7 @@ namespace ExceptionReporting.Tests
 			Assert.That(viewType.Assembly.FullName, Is.StringStarting("ExceptionReporter.Wpf"));
 		}
 
-		[Test]
+		[Test, Ignore]
 		public void CanResolve_Wpf_IExceptionReportView_Interface()
 		{
 			var viewType = _wpfViewResolver.Resolve<IExceptionReportView>();

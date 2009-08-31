@@ -29,13 +29,12 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void Generator_CanCreateExceptionReport_WithACoupleOfMinmal_NotTooSpecificBits_ThatShouldExist()
+		public void Generator_CanCreateExceptionReport_WithACoupleOfMinimal_NotTooSpecificBits_ThatShouldExist()
 		{
 			var report = _reportGenerator.CreateExceptionReport();
 
 			Assert.That(report.ToString(), Is.StringStarting("-"));
 			Assert.That(report.ToString(), Is.StringContaining("Application:"));
-			Assert.That(report.ToString(), Is.StringContaining("NumberOfUsers ="));
 			Assert.That(report.ToString(), Is.StringContaining("TotalPhysicalMemory ="));
 		}
 

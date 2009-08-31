@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +11,7 @@ namespace ExceptionReporting.SystemInfo
 	public class SysInfoResult
     {
         private readonly string _name;
-        private List<string> _nodes = new List<string>();
+        private readonly List<string> _nodes = new List<string>();
         private readonly List<SysInfoResult> _childResults = new List<SysInfoResult>();
 
         public SysInfoResult(string name)
@@ -33,8 +32,17 @@ namespace ExceptionReporting.SystemInfo
         public List<string> Nodes
         {
         	get { return _nodes; }
-        	set { _nodes = value; }
         }
+
+		private void Clear()
+		{
+			_nodes.Clear();
+		}
+
+		private void AddRange(IEnumerable<string> nodes)
+		{
+			_nodes.AddRange(nodes);
+		}
 
 		public string Name
         {
@@ -53,8 +61,8 @@ namespace ExceptionReporting.SystemInfo
 								 where node.Contains(filter + " = ")	//TODO a little too primitive
 			                     select node).ToList();
 
-			ChildResults[0].Nodes.Clear();								//TODO doesn't seem like a good idea
-			ChildResults[0].Nodes.AddRange(filteredNodes);
+			ChildResults[0].Clear();
+			ChildResults[0].AddRange(filteredNodes);
 			return this;
 		}
     }

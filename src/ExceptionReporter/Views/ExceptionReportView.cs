@@ -262,16 +262,16 @@ namespace ExceptionReporting.WinForms.Views
         {
             if (exceptions.Count == 1)
             {
-                Exception exception = exceptions[0];
+                var exception = exceptions[0];
                 AddExceptionControl(tabExceptions, exception);
             }
             else
             {
                 var innerTabControl = new TabControl { Dock = DockStyle.Fill };
                 tabExceptions.Controls.Add(innerTabControl);
-                for (int index = 0; index < exceptions.Count; index++)
+                for (var index = 0; index < exceptions.Count; index++)
                 {
-                    Exception exception = exceptions[index];
+                    var exception = exceptions[index];
                     var tabPage = new TabPage { Text = string.Format("Excepton {0}", index + 1) };
                     innerTabControl.TabPages.Add(tabPage);
                     AddExceptionControl(tabPage, exception);
@@ -299,7 +299,7 @@ namespace ExceptionReporting.WinForms.Views
                                      _presenter.AppAssembly.GetName()
                                  };
             assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
-            foreach (AssemblyName assemblyName in assemblies)
+            foreach (var assemblyName in assemblies)
             {
                 AddAssembly(assemblyName);
             }
