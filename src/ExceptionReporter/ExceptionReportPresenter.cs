@@ -112,33 +112,21 @@ namespace ExceptionReporting
             _view.ToggleShowFullDetail();
         }
 
-        private string BuildEmailExceptionString()
+        private string BuildEmailText()
         {
-            var stringBuilder = new StringBuilder()
-                .AppendLine(
-                @"The email is ready to be sent. 
-					Information about your setup and the exception is included.
-					Please feel free to add any relevant information or attach any files.")
-                .AppendLine().AppendLine();
-
-            if (ReportInfo.TakeScreenshot)
-            {
-                stringBuilder.AppendFormat(
-                @"A screenshot, taken at the time of the exception, is attached.
-                    You may delete the attachment before sending if you prefer.")
-                .AppendLine().AppendLine();
-            }
+            var emailTextBuilder = new EmailTextBuilder();
+            var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
+            var entireEmailText = new StringBuilder().Append(emailIntroString);
 
             var report = CreateExceptionReport();
-            stringBuilder.Append(report);
+            entireEmailText.Append(report);
 
-            return stringBuilder.ToString();
+            return entireEmailText.ToString();
         }
-
 
         private void SendSmtpMail()
         {
-            var exceptionString = BuildEmailExceptionString();
+            var emailText = BuildEmailText();
 
             _view.ProgressMessage = "Sending email via SMTP...";
             _view.EnableEmailButton = false;
@@ -147,7 +135,7 @@ namespace ExceptionReporting
             try
             {
                 var mailSender = new MailSender(ReportInfo);
-                mailSender.SendSmtp(exceptionString, _view.SetEmailCompletedState);
+                mailSender.SendSmtp(emailText, _view.SetEmailCompletedState);
             }
             catch (Exception exception)
             {
@@ -158,7 +146,7 @@ namespace ExceptionReporting
 
         private void SendMapiEmail(IntPtr windowHandle)
         {
-            var exceptionString = BuildEmailExceptionString();
+            var emailText = BuildEmailText();
 
             _view.ProgressMessage = "Launching email program...";
             _view.EnableEmailButton = false;
@@ -168,7 +156,7 @@ namespace ExceptionReporting
             try
             {
                 var mailSender = new MailSender(ReportInfo);
-                mailSender.SendMapi(exceptionString, windowHandle);
+                mailSender.SendMapi(emailText, windowHandle);
                 wasSuccessful = true;
             }
             catch (Exception exception)

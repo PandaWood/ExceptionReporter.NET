@@ -90,6 +90,7 @@ namespace ExceptionReporting.Core
 			}
 			catch (Exception ex)
 			{	
+                //TODO do we really want to show this?
 				_internalExceptionView.ShowException(
 					"Unable to read ExceptionReporter configuration - default values will be used", ex);
 			}
