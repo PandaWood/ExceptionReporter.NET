@@ -3,7 +3,7 @@ using System.Text;
 namespace ExceptionReporting.Mail
 {
     /// <summary>
-    /// textual content for email introduction
+    /// textual content for email
     /// </summary>
     public class EmailTextBuilder
     {

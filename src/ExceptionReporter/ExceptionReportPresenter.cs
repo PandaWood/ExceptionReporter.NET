@@ -104,7 +104,7 @@ namespace ExceptionReporting
         }
 
 		/// <summary>
-		/// toggle the detail between 'simple' (just messsage) and showFullDetail (ie normal)
+		/// toggle the detail between 'simple' (just message) and showFullDetail (ie normal)
 		/// </summary>
         public void ToggleDetail()
         {
@@ -116,7 +116,7 @@ namespace ExceptionReporting
         {
             var emailTextBuilder = new EmailTextBuilder();
             var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
-            var entireEmailText = new StringBuilder().Append(emailIntroString);
+            var entireEmailText = new StringBuilder(emailIntroString);
 
             var report = CreateExceptionReport();
             entireEmailText.Append(report);

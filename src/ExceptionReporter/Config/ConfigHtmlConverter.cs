@@ -30,7 +30,8 @@ namespace ExceptionReporting.Config
 			using (var stream = _assembly.GetManifestResourceStream(_xsltFilename))
     		{
     			if (stream == null) 
-					throw new XsltFileNotFoundException(string.Format("Xslt file not found ({0}) in {1}", _xsltFilename, _assembly.FullName));
+					throw new XsltFileNotFoundException(
+						string.Format("Xslt file not found ({0}) in {1}", _xsltFilename, _assembly.FullName));
 
     			using (var reader = XmlReader.Create(stream))
     			{

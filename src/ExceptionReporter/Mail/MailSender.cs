@@ -1,6 +1,7 @@
 using System;
 using System.Net.Mail;
 using ExceptionReporting.Core;
+using ExceptionReporting.Extensions;
 using Win32Mapi;
 
 namespace ExceptionReporting.Mail
@@ -39,9 +40,9 @@ namespace ExceptionReporting.Mail
             mapi.Logon(windowHandle);
             mapi.Reset();
 
-            var emailAddress = (string.IsNullOrEmpty(_reportInfo.EmailReportAddress))
-                                      ? _reportInfo.ContactEmail
-                                      : _reportInfo.EmailReportAddress;
+        	var emailAddress = _reportInfo.EmailReportAddress.IsEmpty()
+        	                   	? _reportInfo.ContactEmail
+        	                   	: _reportInfo.EmailReportAddress;
 
             mapi.AddRecipient(emailAddress, null, false);
             AttachMapiScreenshotIfRequired(mapi);
@@ -73,10 +74,9 @@ namespace ExceptionReporting.Mail
 
         private void AttachSmtpScreenshotIfRequired(MailMessage mailMessage)
         {
-            if (_reportInfo.ScreenshotAvailable)
-                mailMessage.Attachments.Add(
-                    new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), 
-                                   ScreenshotTaker.ScreenshotMimeType));
+        	if (_reportInfo.ScreenshotAvailable)
+        		mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage),
+        		                                           ScreenshotTaker.ScreenshotMimeType));
         }
 
         public string EmailSubject

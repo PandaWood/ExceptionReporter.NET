@@ -107,7 +107,7 @@ namespace ExceptionReporting.WinForms.Views
 
         private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
         {
-            foreach (Control button in buttons)
+            foreach (var button in buttons)
             {
                 button.Location = Point.Add(button.Location, new Size(new Point(0, 3)));
             }
@@ -233,9 +233,10 @@ namespace ExceptionReporting.WinForms.Views
             base.OnActivated(e);
 
             if (_isDataRefreshRequired)
-                _presenter.PopulateReport();
-
-            _isDataRefreshRequired = false;
+            {
+				_isDataRefreshRequired = false;
+            	_presenter.PopulateReport();
+            }
         }
 
         public void SetProgressCompleteState()
@@ -281,11 +282,11 @@ namespace ExceptionReporting.WinForms.Views
 
         private void AddExceptionControl(Control control, Exception exception)
         {
-            var exceptionDetailControl = new ExceptionDetailControl();
-            exceptionDetailControl.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
-            exceptionDetailControl.PopulateExceptionTab(exception);
-            exceptionDetailControl.Dock = DockStyle.Fill;
-            control.Controls.Add(exceptionDetailControl);
+            var exceptionDetail = new ExceptionDetailControl();
+            exceptionDetail.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
+            exceptionDetail.PopulateExceptionTab(exception);
+            exceptionDetail.Dock = DockStyle.Fill;
+            control.Controls.Add(exceptionDetail);
         }
 
         public void PopulateAssembliesTab()

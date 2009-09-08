@@ -1,16 +1,5 @@
 using System.Text;
 
-namespace System.Runtime.CompilerServices
-{
-	// ReSharper disable UnusedMember.Global
-	/// <summary>
-	/// a hack (?) to ensure that we can use Extension Methods and still target .NET2
-	/// see http://www.danielmoth.com/Blog/2007/05/using-extension-methods-in-fx-20.html
-	/// </summary>
-	public class ExtensionAttribute : Attribute { }
-}
-// ReSharper restore UnusedMember.Global
-
 namespace ExceptionReporting.Extensions
 {
 	/// <summary>
@@ -54,6 +43,11 @@ namespace ExceptionReporting.Extensions
 			}
 
 			return currentValue;
+		}
+
+		public static bool IsEmpty(this string input)
+		{
+			return string.IsNullOrEmpty(input);
 		}
 	}
 }
