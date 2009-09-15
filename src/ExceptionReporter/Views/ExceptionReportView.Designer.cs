@@ -74,6 +74,15 @@
             this.btnDetailToggle = new System.Windows.Forms.Button();
             this.txtExceptionMessageLarge = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
+            this.lessDetailPanel = new System.Windows.Forms.Panel();
+            this.lessDetail_optionsPanel = new System.Windows.Forms.Panel();
+            this.lblContactCompany = new System.Windows.Forms.Label();
+            this.btnSimpleEmail = new System.Windows.Forms.Button();
+            this.btnSimpleDetailToggle = new System.Windows.Forms.Button();
+            this.btnSimpleCopy = new System.Windows.Forms.Button();
+            this.txtExceptionMessageLarge2 = new System.Windows.Forms.TextBox();
+            this.lessDetail_alertIcon = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGeneral)).BeginInit();
@@ -81,6 +90,9 @@
             this.tabConfig.SuspendLayout();
             this.tabSysInfo.SuspendLayout();
             this.tabContact.SuspendLayout();
+            this.lessDetailPanel.SuspendLayout();
+            this.lessDetail_optionsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lessDetail_alertIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // listviewAssemblies
@@ -100,8 +112,8 @@
             // tabControl
             // 
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                            | System.Windows.Forms.AnchorStyles.Left)
-                                                                           | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Controls.Add(this.tabExceptions);
             this.tabControl.Controls.Add(this.tabAssemblies);
@@ -111,10 +123,11 @@
             this.tabControl.HotTrack = true;
             this.tabControl.Location = new System.Drawing.Point(6, 6);
             this.tabControl.MinimumSize = new System.Drawing.Size(200, 0);
+            this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.ShowToolTips = true;
-            this.tabControl.Size = new System.Drawing.Size(597, 373);
+            this.tabControl.Size = new System.Drawing.Size(372, 157);
             this.tabControl.TabIndex = 6;
             // 
             // tabGeneral
@@ -136,7 +149,7 @@
             this.tabGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Size = new System.Drawing.Size(589, 347);
+            this.tabGeneral.Size = new System.Drawing.Size(364, 131);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
@@ -154,7 +167,7 @@
             // txtExceptionMessage
             // 
             this.txtExceptionMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExceptionMessage.BackColor = System.Drawing.Color.White;
             this.txtExceptionMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtExceptionMessage.Location = new System.Drawing.Point(78, 7);
@@ -162,7 +175,7 @@
             this.txtExceptionMessage.Name = "txtExceptionMessage";
             this.txtExceptionMessage.ReadOnly = true;
             this.txtExceptionMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtExceptionMessage.Size = new System.Drawing.Size(496, 68);
+            this.txtExceptionMessage.Size = new System.Drawing.Size(271, 68);
             this.txtExceptionMessage.TabIndex = 0;
             this.txtExceptionMessage.Text = "No message";
             // 
@@ -178,14 +191,14 @@
             // txtUserExplanation
             // 
             this.txtUserExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                                    | System.Windows.Forms.AnchorStyles.Left)
-                                                                                   | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUserExplanation.BackColor = System.Drawing.Color.Cornsilk;
             this.txtUserExplanation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserExplanation.Location = new System.Drawing.Point(8, 210);
             this.txtUserExplanation.Multiline = true;
             this.txtUserExplanation.Name = "txtUserExplanation";
-            this.txtUserExplanation.Size = new System.Drawing.Size(566, 124);
+            this.txtUserExplanation.Size = new System.Drawing.Size(341, 0);
             this.txtUserExplanation.TabIndex = 6;
             // 
             // lblRegion
@@ -254,12 +267,12 @@
             // txtApplicationName
             // 
             this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                                   | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtApplicationName.BackColor = System.Drawing.Color.Snow;
             this.txtApplicationName.Location = new System.Drawing.Point(78, 92);
             this.txtApplicationName.Name = "txtApplicationName";
             this.txtApplicationName.ReadOnly = true;
-            this.txtApplicationName.Size = new System.Drawing.Size(496, 20);
+            this.txtApplicationName.Size = new System.Drawing.Size(271, 20);
             this.txtApplicationName.TabIndex = 1;
             // 
             // lblVersion
@@ -340,19 +353,19 @@
             this.lblMachine.AutoSize = true;
             this.lblMachine.Location = new System.Drawing.Point(5, 15);
             this.lblMachine.Name = "lblMachine";
-            this.lblMachine.Size = new System.Drawing.Size(48, 13);
+            this.lblMachine.Size = new System.Drawing.Size(46, 13);
             this.lblMachine.TabIndex = 16;
             this.lblMachine.Text = "Machine";
             // 
             // txtMachine
             // 
             this.txtMachine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                           | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMachine.BackColor = System.Drawing.SystemColors.Control;
             this.txtMachine.Location = new System.Drawing.Point(59, 12);
             this.txtMachine.Name = "txtMachine";
             this.txtMachine.ReadOnly = true;
-            this.txtMachine.Size = new System.Drawing.Size(270, 20);
+            this.txtMachine.Size = new System.Drawing.Size(270, 21);
             this.txtMachine.TabIndex = 0;
             // 
             // lblUsername
@@ -372,14 +385,14 @@
             this.txtUserName.Location = new System.Drawing.Point(412, 14);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ReadOnly = true;
-            this.txtUserName.Size = new System.Drawing.Size(169, 20);
+            this.txtUserName.Size = new System.Drawing.Size(169, 21);
             this.txtUserName.TabIndex = 1;
             // 
             // treeEnvironment
             // 
             this.treeEnvironment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                                 | System.Windows.Forms.AnchorStyles.Left)
-                                                                                | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.treeEnvironment.BackColor = System.Drawing.SystemColors.Window;
             this.treeEnvironment.HotTracking = true;
             this.treeEnvironment.Location = new System.Drawing.Point(8, 40);
@@ -408,7 +421,7 @@
             // lblContactMessageTop
             // 
             this.lblContactMessageTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                                     | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblContactMessageTop.Location = new System.Drawing.Point(8, 24);
             this.lblContactMessageTop.MinimumSize = new System.Drawing.Size(200, 0);
             this.lblContactMessageTop.Name = "lblContactMessageTop";
@@ -423,7 +436,7 @@
             this.txtFax.MinimumSize = new System.Drawing.Size(200, 0);
             this.txtFax.Name = "txtFax";
             this.txtFax.ReadOnly = true;
-            this.txtFax.Size = new System.Drawing.Size(249, 20);
+            this.txtFax.Size = new System.Drawing.Size(249, 21);
             this.txtFax.TabIndex = 3;
             // 
             // lblFax
@@ -431,7 +444,7 @@
             this.lblFax.AutoSize = true;
             this.lblFax.Location = new System.Drawing.Point(18, 168);
             this.lblFax.Name = "lblFax";
-            this.lblFax.Size = new System.Drawing.Size(24, 13);
+            this.lblFax.Size = new System.Drawing.Size(25, 13);
             this.lblFax.TabIndex = 34;
             this.lblFax.Text = "Fax";
             // 
@@ -441,7 +454,7 @@
             this.txtPhone.MinimumSize = new System.Drawing.Size(200, 0);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.ReadOnly = true;
-            this.txtPhone.Size = new System.Drawing.Size(249, 20);
+            this.txtPhone.Size = new System.Drawing.Size(249, 21);
             this.txtPhone.TabIndex = 2;
             // 
             // lblPhone
@@ -449,7 +462,7 @@
             this.lblPhone.AutoSize = true;
             this.lblPhone.Location = new System.Drawing.Point(16, 144);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(38, 13);
+            this.lblPhone.Size = new System.Drawing.Size(37, 13);
             this.lblPhone.TabIndex = 32;
             this.lblPhone.Text = "Phone";
             // 
@@ -458,7 +471,7 @@
             this.lblWebSite.AutoSize = true;
             this.lblWebSite.Location = new System.Drawing.Point(16, 80);
             this.lblWebSite.Name = "lblWebSite";
-            this.lblWebSite.Size = new System.Drawing.Size(30, 13);
+            this.lblWebSite.Size = new System.Drawing.Size(29, 13);
             this.lblWebSite.TabIndex = 30;
             this.lblWebSite.Text = "Web";
             // 
@@ -466,7 +479,7 @@
             // 
             this.urlWeb.ActiveLinkColor = System.Drawing.Color.Orange;
             this.urlWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                       | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.urlWeb.AutoSize = true;
             this.urlWeb.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlWeb.Location = new System.Drawing.Point(72, 77);
@@ -483,7 +496,7 @@
             this.lblEmail.AutoSize = true;
             this.lblEmail.Location = new System.Drawing.Point(16, 56);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(32, 13);
+            this.lblEmail.Size = new System.Drawing.Size(31, 13);
             this.lblEmail.TabIndex = 28;
             this.lblEmail.Text = "Email";
             // 
@@ -491,7 +504,7 @@
             // 
             this.urlEmail.ActiveLinkColor = System.Drawing.Color.Orange;
             this.urlEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                         | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.urlEmail.AutoSize = true;
             this.urlEmail.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlEmail.Location = new System.Drawing.Point(72, 53);
@@ -509,7 +522,7 @@
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(376, 382);
+            this.btnSave.Location = new System.Drawing.Point(151, 166);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(72, 32);
             this.btnSave.TabIndex = 2;
@@ -519,7 +532,7 @@
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar.Location = new System.Drawing.Point(5, 398);
+            this.progressBar.Location = new System.Drawing.Point(5, 182);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(141, 16);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -531,7 +544,7 @@
             this.btnEmail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
             this.btnEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmail.Location = new System.Drawing.Point(453, 382);
+            this.btnEmail.Location = new System.Drawing.Point(228, 166);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(72, 32);
             this.btnEmail.TabIndex = 1;
@@ -543,9 +556,9 @@
             this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblProgressMessage.AutoSize = true;
             this.lblProgressMessage.BackColor = System.Drawing.Color.Transparent;
-            this.lblProgressMessage.Location = new System.Drawing.Point(3, 382);
+            this.lblProgressMessage.Location = new System.Drawing.Point(3, 166);
             this.lblProgressMessage.Name = "lblProgressMessage";
-            this.lblProgressMessage.Size = new System.Drawing.Size(143, 13);
+            this.lblProgressMessage.Size = new System.Drawing.Size(150, 13);
             this.lblProgressMessage.TabIndex = 52;
             this.lblProgressMessage.Text = "Loading system information...";
             // 
@@ -555,7 +568,7 @@
             this.btnCopy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnCopy.Image")));
             this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCopy.Location = new System.Drawing.Point(299, 382);
+            this.btnCopy.Location = new System.Drawing.Point(74, 166);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(72, 32);
             this.btnCopy.TabIndex = 3;
@@ -567,7 +580,7 @@
             this.btnDetailToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetailToggle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetailToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDetailToggle.Location = new System.Drawing.Point(222, 382);
+            this.btnDetailToggle.Location = new System.Drawing.Point(-3, 166);
             this.btnDetailToggle.Name = "btnDetailToggle";
             this.btnDetailToggle.Size = new System.Drawing.Size(72, 32);
             this.btnDetailToggle.TabIndex = 4;
@@ -576,8 +589,8 @@
             // txtExceptionMessageLarge
             // 
             this.txtExceptionMessageLarge.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                                          | System.Windows.Forms.AnchorStyles.Left)
-                                                                                         | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExceptionMessageLarge.BackColor = System.Drawing.Color.White;
             this.txtExceptionMessageLarge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtExceptionMessageLarge.Location = new System.Drawing.Point(6, 6);
@@ -585,7 +598,7 @@
             this.txtExceptionMessageLarge.Name = "txtExceptionMessageLarge";
             this.txtExceptionMessageLarge.ReadOnly = true;
             this.txtExceptionMessageLarge.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtExceptionMessageLarge.Size = new System.Drawing.Size(596, 370);
+            this.txtExceptionMessageLarge.Size = new System.Drawing.Size(371, 154);
             this.txtExceptionMessageLarge.TabIndex = 5;
             this.txtExceptionMessageLarge.Text = "No message";
             // 
@@ -594,16 +607,138 @@
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(530, 382);
+            this.btnClose.Location = new System.Drawing.Point(305, 166);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(72, 32);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             // 
+            // lessDetailPanel
+            // 
+            this.lessDetailPanel.BackColor = System.Drawing.Color.White;
+            this.lessDetailPanel.Controls.Add(this.lessDetail_optionsPanel);
+            this.lessDetailPanel.Controls.Add(this.txtExceptionMessageLarge2);
+            this.lessDetailPanel.Controls.Add(this.lessDetail_alertIcon);
+            this.lessDetailPanel.Controls.Add(this.label1);
+            this.lessDetailPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lessDetailPanel.Location = new System.Drawing.Point(0, 0);
+            this.lessDetailPanel.Name = "lessDetailPanel";
+            this.lessDetailPanel.Size = new System.Drawing.Size(384, 202);
+            this.lessDetailPanel.TabIndex = 54;
+            // 
+            // lessDetail_optionsPanel
+            // 
+            this.lessDetail_optionsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
+            this.lessDetail_optionsPanel.Controls.Add(this.lblContactCompany);
+            this.lessDetail_optionsPanel.Controls.Add(this.btnSimpleEmail);
+            this.lessDetail_optionsPanel.Controls.Add(this.btnSimpleDetailToggle);
+            this.lessDetail_optionsPanel.Controls.Add(this.btnSimpleCopy);
+            this.lessDetail_optionsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lessDetail_optionsPanel.Location = new System.Drawing.Point(0, 123);
+            this.lessDetail_optionsPanel.Name = "lessDetail_optionsPanel";
+            this.lessDetail_optionsPanel.Padding = new System.Windows.Forms.Padding(8);
+            this.lessDetail_optionsPanel.Size = new System.Drawing.Size(384, 79);
+            this.lessDetail_optionsPanel.TabIndex = 26;
+            // 
+            // lblContactCompany
+            // 
+            this.lblContactCompany.AutoSize = true;
+            this.lblContactCompany.ForeColor = System.Drawing.Color.SlateGray;
+            this.lblContactCompany.Location = new System.Drawing.Point(13, 11);
+            this.lblContactCompany.Name = "lblContactCompany";
+            this.lblContactCompany.Size = new System.Drawing.Size(282, 13);
+            this.lblContactCompany.TabIndex = 3;
+            // 
+            // btnSimpleEmail
+            // 
+            this.btnSimpleEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSimpleEmail.FlatAppearance.BorderSize = 0;
+            this.btnSimpleEmail.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(200)))), ((int)(((byte)(230)))));
+            this.btnSimpleEmail.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnSimpleEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSimpleEmail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpleEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
+            this.btnSimpleEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSimpleEmail.Location = new System.Drawing.Point(255, 36);
+            this.btnSimpleEmail.Name = "btnSimpleEmail";
+            this.btnSimpleEmail.Size = new System.Drawing.Size(118, 32);
+            this.btnSimpleEmail.TabIndex = 1;
+            this.btnSimpleEmail.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnSimpleDetailToggle
+            // 
+            this.btnSimpleDetailToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSimpleDetailToggle.FlatAppearance.BorderSize = 0;
+            this.btnSimpleDetailToggle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(200)))), ((int)(((byte)(230)))));
+            this.btnSimpleDetailToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnSimpleDetailToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSimpleDetailToggle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpleDetailToggle.Image = ((System.Drawing.Image)(resources.GetObject("btnSimpleDetailToggle.Image")));
+            this.btnSimpleDetailToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSimpleDetailToggle.Location = new System.Drawing.Point(12, 36);
+            this.btnSimpleDetailToggle.Name = "btnSimpleDetailToggle";
+            this.btnSimpleDetailToggle.Size = new System.Drawing.Size(96, 32);
+            this.btnSimpleDetailToggle.TabIndex = 4;
+            this.btnSimpleDetailToggle.Text = "More detail";
+            this.btnSimpleDetailToggle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnSimpleCopy
+            // 
+            this.btnSimpleCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSimpleCopy.FlatAppearance.BorderSize = 0;
+            this.btnSimpleCopy.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(200)))), ((int)(((byte)(230)))));
+            this.btnSimpleCopy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnSimpleCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSimpleCopy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimpleCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnSimpleCopy.Image")));
+            this.btnSimpleCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSimpleCopy.Location = new System.Drawing.Point(144, 36);
+            this.btnSimpleCopy.Name = "btnSimpleCopy";
+            this.btnSimpleCopy.Size = new System.Drawing.Size(109, 32);
+            this.btnSimpleCopy.TabIndex = 3;
+            this.btnSimpleCopy.Text = "Copy details";
+            this.btnSimpleCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtExceptionMessageLarge2
+            // 
+            this.txtExceptionMessageLarge2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtExceptionMessageLarge2.BackColor = System.Drawing.Color.White;
+            this.txtExceptionMessageLarge2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtExceptionMessageLarge2.Location = new System.Drawing.Point(88, 62);
+            this.txtExceptionMessageLarge2.Multiline = true;
+            this.txtExceptionMessageLarge2.Name = "txtExceptionMessageLarge2";
+            this.txtExceptionMessageLarge2.ReadOnly = true;
+            this.txtExceptionMessageLarge2.Size = new System.Drawing.Size(276, 55);
+            this.txtExceptionMessageLarge2.TabIndex = 0;
+            this.txtExceptionMessageLarge2.Text = "No message";
+            // 
+            // lessDetail_alertIcon
+            // 
+            this.lessDetail_alertIcon.Image = ((System.Drawing.Image)(resources.GetObject("picGeneral.Image")));
+            this.lessDetail_alertIcon.Location = new System.Drawing.Point(14, 13);
+            this.lessDetail_alertIcon.Name = "lessDetail_alertIcon";
+            this.lessDetail_alertIcon.Size = new System.Drawing.Size(64, 64);
+            this.lessDetail_alertIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.lessDetail_alertIcon.TabIndex = 25;
+            this.lessDetail_alertIcon.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(84, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(147, 23);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Operation Failed";
+            // 
             // ExceptionReportView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(609, 418);
+            this.ClientSize = new System.Drawing.Size(384, 202);
+            this.Controls.Add(this.lessDetailPanel);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDetailToggle);
             this.Controls.Add(this.tabControl);
@@ -613,6 +748,7 @@
             this.Controls.Add(this.lblProgressMessage);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.txtExceptionMessageLarge);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ExceptionReportView";
@@ -626,6 +762,11 @@
             this.tabSysInfo.PerformLayout();
             this.tabContact.ResumeLayout(false);
             this.tabContact.PerformLayout();
+            this.lessDetailPanel.ResumeLayout(false);
+            this.lessDetailPanel.PerformLayout();
+            this.lessDetail_optionsPanel.ResumeLayout(false);
+            this.lessDetail_optionsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lessDetail_alertIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -678,5 +819,14 @@
         private System.Windows.Forms.TextBox txtExceptionMessageLarge;
         private System.Windows.Forms.WebBrowser webBrowserConfig;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Panel lessDetailPanel;
+        private System.Windows.Forms.PictureBox lessDetail_alertIcon;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel lessDetail_optionsPanel;
+        private System.Windows.Forms.TextBox txtExceptionMessageLarge2;
+        private System.Windows.Forms.Label lblContactCompany;
+        private System.Windows.Forms.Button btnSimpleEmail;
+        private System.Windows.Forms.Button btnSimpleCopy;
+        private System.Windows.Forms.Button btnSimpleDetailToggle;
     }
 }

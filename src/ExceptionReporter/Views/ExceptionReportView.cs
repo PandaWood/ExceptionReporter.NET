@@ -52,6 +52,8 @@ namespace ExceptionReporting.WinForms.Views
             txtExceptionMessageLarge.Text = 
                 txtExceptionMessage.Text =
                 !string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions[0].Message;
+            
+            txtExceptionMessageLarge2.Text = txtExceptionMessageLarge.Text;
 
             txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
             txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
@@ -88,6 +90,8 @@ namespace ExceptionReporting.WinForms.Views
 
             Text = reportInfo.TitleText;
             txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
+            lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
+            btnSimpleEmail.Text = string.Format("E-mail {0}", reportInfo.CompanyName);
 
             if (reportInfo.TakeScreenshot)
             {
@@ -116,9 +120,12 @@ namespace ExceptionReporting.WinForms.Views
         private void WireUpEvents()
         {
             btnEmail.Click += Email_Click;
+            btnSimpleEmail.Click += Email_Click;
             btnCopy.Click += Copy_Click;
+            btnSimpleCopy.Click += Copy_Click;
             btnClose.Click += Close_Click;
             btnDetailToggle.Click += Detail_Click;
+            btnSimpleDetailToggle.Click += Detail_Click;
             urlEmail.LinkClicked += EmailLink_Clicked;
             btnSave.Click += Save_Click;
             urlWeb.LinkClicked += UrlLink_Clicked;
@@ -164,11 +171,15 @@ namespace ExceptionReporting.WinForms.Views
         {
             if (ShowFullDetail)
             {
+                Size = new Size(625, 456);
+                lessDetailPanel.Hide();
                 btnDetailToggle.Text = "Less Detail";
                 tabControl.Visible = true;
             }
             else
             {
+                Size = new Size(400,240);
+                lessDetailPanel.Show();
                 btnDetailToggle.Text = "More Detail";
                 tabControl.Visible = false;
             }
@@ -395,6 +406,7 @@ namespace ExceptionReporting.WinForms.Views
             var internalExceptionView = new InternalExceptionView();
             internalExceptionView.ShowException(message, exception);
         }
+
     }
 
 	public class WinFormsClipboard : IClipboard

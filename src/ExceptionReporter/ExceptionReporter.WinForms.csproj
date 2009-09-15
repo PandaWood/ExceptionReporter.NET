@@ -68,6 +68,11 @@
     <Compile Include="IInternalExceptionView.cs" />
     <Compile Include="Mail\EmailTextBuilder.cs" />
     <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SystemInfo\SysInfoQueries.cs" />
     <Compile Include="SystemInfo\SysInfoQuery.cs" />
     <Compile Include="SystemInfo\SysInfoResult.cs" />
@@ -103,6 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="XmlToHtml.xslt" />
   </ItemGroup>
   <ItemGroup>

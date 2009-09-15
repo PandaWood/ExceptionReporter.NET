@@ -70,6 +70,7 @@ namespace ExceptionReporting.Config
             _info.WebUrl = GetContactSetting("web").GetString(_info.WebUrl);
             _info.Phone = GetContactSetting("phone").GetString(_info.Phone);
             _info.Fax = GetContactSetting("fax").GetString(_info.Fax);
+            _info.CompanyName= GetContactSetting("CompanyName").GetString(_info.CompanyName);
         }
 
         private void ReadTabSettings()

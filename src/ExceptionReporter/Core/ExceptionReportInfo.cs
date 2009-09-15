@@ -70,6 +70,7 @@ namespace ExceptionReporting.Core
         public string WebUrl { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
+        public string CompanyName { get; set; }
 
         public bool ShowGeneralTab { get; set; }
         public bool ShowConfigTab { get; set; }
@@ -104,7 +105,8 @@ namespace ExceptionReporting.Core
             get { return TakeScreenshot && ScreenshotImage != null; }
         }
 
-        public ExceptionReportInfo()
+
+	    public ExceptionReportInfo()
         {
             SetDefaultValues();
         }
