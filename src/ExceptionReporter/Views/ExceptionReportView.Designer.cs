@@ -104,7 +104,7 @@
             this.listviewAssemblies.HoverSelection = true;
             this.listviewAssemblies.Location = new System.Drawing.Point(0, 0);
             this.listviewAssemblies.Name = "listviewAssemblies";
-            this.listviewAssemblies.Size = new System.Drawing.Size(589, 347);
+            this.listviewAssemblies.Size = new System.Drawing.Size(364, 131);
             this.listviewAssemblies.TabIndex = 21;
             this.listviewAssemblies.UseCompatibleStateImageBehavior = false;
             this.listviewAssemblies.View = System.Windows.Forms.View.Details;
@@ -296,7 +296,7 @@
             // 
             this.tabExceptions.Location = new System.Drawing.Point(4, 22);
             this.tabExceptions.Name = "tabExceptions";
-            this.tabExceptions.Size = new System.Drawing.Size(589, 347);
+            this.tabExceptions.Size = new System.Drawing.Size(364, 131);
             this.tabExceptions.TabIndex = 1;
             this.tabExceptions.Text = "Exceptions";
             this.tabExceptions.UseVisualStyleBackColor = true;
@@ -306,7 +306,7 @@
             this.tabAssemblies.Controls.Add(this.listviewAssemblies);
             this.tabAssemblies.Location = new System.Drawing.Point(4, 22);
             this.tabAssemblies.Name = "tabAssemblies";
-            this.tabAssemblies.Size = new System.Drawing.Size(589, 347);
+            this.tabAssemblies.Size = new System.Drawing.Size(364, 131);
             this.tabAssemblies.TabIndex = 6;
             this.tabAssemblies.Text = "Assemblies";
             this.tabAssemblies.UseVisualStyleBackColor = true;
@@ -316,7 +316,7 @@
             this.tabConfig.Controls.Add(this.webBrowserConfig);
             this.tabConfig.Location = new System.Drawing.Point(4, 22);
             this.tabConfig.Name = "tabConfig";
-            this.tabConfig.Size = new System.Drawing.Size(589, 347);
+            this.tabConfig.Size = new System.Drawing.Size(364, 131);
             this.tabConfig.TabIndex = 5;
             this.tabConfig.Text = "Configuration";
             this.tabConfig.UseVisualStyleBackColor = true;
@@ -330,7 +330,7 @@
             this.webBrowserConfig.Location = new System.Drawing.Point(0, 0);
             this.webBrowserConfig.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserConfig.Name = "webBrowserConfig";
-            this.webBrowserConfig.Size = new System.Drawing.Size(589, 347);
+            this.webBrowserConfig.Size = new System.Drawing.Size(364, 131);
             this.webBrowserConfig.TabIndex = 21;
             this.webBrowserConfig.WebBrowserShortcutsEnabled = false;
             // 
@@ -343,7 +343,7 @@
             this.tabSysInfo.Controls.Add(this.treeEnvironment);
             this.tabSysInfo.Location = new System.Drawing.Point(4, 22);
             this.tabSysInfo.Name = "tabSysInfo";
-            this.tabSysInfo.Size = new System.Drawing.Size(589, 347);
+            this.tabSysInfo.Size = new System.Drawing.Size(364, 131);
             this.tabSysInfo.TabIndex = 3;
             this.tabSysInfo.Text = "System";
             this.tabSysInfo.UseVisualStyleBackColor = true;
@@ -413,7 +413,7 @@
             this.tabContact.Controls.Add(this.urlEmail);
             this.tabContact.Location = new System.Drawing.Point(4, 22);
             this.tabContact.Name = "tabContact";
-            this.tabContact.Size = new System.Drawing.Size(589, 347);
+            this.tabContact.Size = new System.Drawing.Size(364, 131);
             this.tabContact.TabIndex = 4;
             this.tabContact.Text = "Contact";
             this.tabContact.UseVisualStyleBackColor = true;
@@ -646,7 +646,7 @@
             this.lblContactCompany.ForeColor = System.Drawing.Color.SlateGray;
             this.lblContactCompany.Location = new System.Drawing.Point(13, 11);
             this.lblContactCompany.Name = "lblContactCompany";
-            this.lblContactCompany.Size = new System.Drawing.Size(282, 13);
+            this.lblContactCompany.Size = new System.Drawing.Size(0, 13);
             this.lblContactCompany.TabIndex = 3;
             // 
             // btnSimpleEmail
@@ -657,7 +657,7 @@
             this.btnSimpleEmail.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
             this.btnSimpleEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimpleEmail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSimpleEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
+            this.btnSimpleEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnSimpleEmail.Image")));
             this.btnSimpleEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSimpleEmail.Location = new System.Drawing.Point(255, 36);
             this.btnSimpleEmail.Name = "btnSimpleEmail";
@@ -706,17 +706,17 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExceptionMessageLarge2.BackColor = System.Drawing.Color.White;
             this.txtExceptionMessageLarge2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtExceptionMessageLarge2.Location = new System.Drawing.Point(88, 62);
+            this.txtExceptionMessageLarge2.Location = new System.Drawing.Point(86, 62);
             this.txtExceptionMessageLarge2.Multiline = true;
             this.txtExceptionMessageLarge2.Name = "txtExceptionMessageLarge2";
             this.txtExceptionMessageLarge2.ReadOnly = true;
-            this.txtExceptionMessageLarge2.Size = new System.Drawing.Size(276, 55);
+            this.txtExceptionMessageLarge2.Size = new System.Drawing.Size(283, 55);
             this.txtExceptionMessageLarge2.TabIndex = 0;
             this.txtExceptionMessageLarge2.Text = "No message";
             // 
             // lessDetail_alertIcon
             // 
-            this.lessDetail_alertIcon.Image = ((System.Drawing.Image)(resources.GetObject("picGeneral.Image")));
+            this.lessDetail_alertIcon.Image = ((System.Drawing.Image)(resources.GetObject("lessDetail_alertIcon.Image")));
             this.lessDetail_alertIcon.Location = new System.Drawing.Point(14, 13);
             this.lessDetail_alertIcon.Name = "lessDetail_alertIcon";
             this.lessDetail_alertIcon.Size = new System.Drawing.Size(64, 64);
@@ -752,6 +752,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ExceptionReportView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.tabGeneral.PerformLayout();
