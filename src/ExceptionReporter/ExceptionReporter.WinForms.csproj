@@ -8,7 +8,7 @@
     <ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExceptionReporter</RootNamespace>
+    <RootNamespace>ExceptionReporting</RootNamespace>
     <AssemblyName>ExceptionReporter.WinForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -112,7 +112,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlToHtml.xslt" />
+    <EmbeddedResource Include="XmlToHtml.xslt">
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Win32Mapi\Win32Mapi.csproj">

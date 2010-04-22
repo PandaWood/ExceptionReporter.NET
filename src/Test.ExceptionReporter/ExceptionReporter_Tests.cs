@@ -8,7 +8,7 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void Can_Init_AppAssembly()
 		{
-			var exceptionReporter = new Core.ExceptionReporter();
+			var exceptionReporter = new ExceptionReporter();
 			Assert.That(exceptionReporter.Config.AppAssembly, Is.Not.Null);
 			Assert.That(exceptionReporter.Config.AppAssembly.FullName, 
 				Is.StringStarting("ExceptionReporter.Tests"));

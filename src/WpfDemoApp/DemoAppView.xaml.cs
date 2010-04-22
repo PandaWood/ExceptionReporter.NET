@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using ExceptionReporting;
 
 namespace WpfDemoApp
 {
@@ -27,7 +28,7 @@ namespace WpfDemoApp
 			}
 			catch (Exception exception)
 			{
-				var exceptionReporter = new ExceptionReporting.Core.ExceptionReporter();
+				var exceptionReporter = new ExceptionReporter();
 
 				if (useConfig)
 					exceptionReporter.ReadConfig();

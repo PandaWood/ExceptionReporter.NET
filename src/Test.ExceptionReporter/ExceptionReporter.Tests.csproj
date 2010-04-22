@@ -8,7 +8,7 @@
     <ProjectGuid>{38C592CC-F774-4A0F-95FA-318AB0DDB476}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExceptionReporter.Tests</RootNamespace>
+    <RootNamespace>ExceptionReporting.Tests</RootNamespace>
     <AssemblyName>ExceptionReporter.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

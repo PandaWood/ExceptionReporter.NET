@@ -8,7 +8,7 @@ namespace ExceptionReporting.Config
 {
     internal class ConfigHtmlConverter
     {
-        private const string EmbeddedXsltFileName = "ExceptionReporter.XmlToHtml.xslt";
+        private const string EmbeddedXsltFileName = "ExceptionReporting.XmlToHtml.xslt";
 		private string _xsltFilename = EmbeddedXsltFileName;
 
 		private readonly XslCompiledTransform _xslCompiledTransform = new XslCompiledTransform();
