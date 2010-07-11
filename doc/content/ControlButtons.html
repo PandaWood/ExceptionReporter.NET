@@ -40,209 +40,74 @@ Sends a <a href="#Report">Formatted Exception Report</a> to an email address usi
 
 <div class="CodeBox">
 <pre>
------------------------------
-[General Info]
+	-----------------------------
+	[General Info]
 
-Application: ExceptionReporter Demo App
-Version:     1.0.2.0
-Region:      English (Australia)
-Machine:     MOSESMACHINE
-User:        Peter
-Date: 09/Aug/2008
-Time: 1:47 PM
+	Application: ExceptionReporter Demo App
+	Version:     2.0.0.0
+	Region:      English (Australia)
+	Machine:     MACHINENAME
+	User:        spurrymoses
+	Date: 11/07/2010
+	Time: 12:40 AM
 
-User Explanation:
+	User Explanation:
 
-Peter said "I was just printing a report for all closed accounts"
------------------------------
+	spurrymoses said ""
+	-----------------------------
 
-[Exception Info]
+	[Exception Info 1]
 
-Top-level Exception
-Type:        System.IO.IOException
-Message:     Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.
-Source:      DemoApp
-Stack Trace: at ExceptionReporting.DemoApp.DemoAppView.Throw_Click(Object sender, EventArgs e) in 
-S:\Projects\ExceptionReporter\src\DemoApp\DemoAppView.cs:line 22
+	Top-level Exception
+	Type:        System.IO.IOException
+	Message:     Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.
+	Source:      WinFormsDemoApp
+	Stack Trace: at WinFormsDemoApp.DemoAppView.AndAnotherOne() in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 110
+	   at WinFormsDemoApp.DemoAppView.CallAnotherMethod() in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 101
+	   at WinFormsDemoApp.DemoAppView.SomeMethod() in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 96
+	   at WinFormsDemoApp.DemoAppView.ShowExceptionReporter(Boolean useConfig) in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 81
 
-Inner Exception 1
-Type:        System.Exception
-Message:     This is an Inner Exception message
-Source:
------------------------------
+	Inner Exception 1
+	Type:        System.Exception
+	Message:     This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller
+	Source:
 
-[Assembly Info]
+	-----------------------------
 
-mscorlib, Version=2.0.0.0
-System.Windows.Forms, Version=2.0.0.0
-System, Version=2.0.0.0
-System.Drawing, Version=2.0.0.0
-ExceptionReporter, Version=1.0.2.0
------------------------------
+	[Assembly Info]
 
-[Config Settings]
+	mscorlib, Version=2.0.0.0
+	System.Windows.Forms, Version=2.0.0.0
+	System, Version=2.0.0.0
+	ExceptionReporter.WinForms, Version=2.1.0.0
+	System.Drawing, Version=2.0.0.0
 
-ER_CONTACT_EMAIL = mysupport@zzzsupport.com
-ER_CONTACT_WEB = www.codeplex.com/ExceptionReporter
-ER_CONTACT_PHONE = 1423 1234 4321
-ER_CONTACT_FAX = 1423 1234 4322
-ER_SHOW_EXCEPTIONS = true
-ER_SHOW_ASSEMBLIES = true
-ER_SHOW_CONFIG = true
-ER_SHOW_SYSTEM = true
-ER_SHOW_CONTACT = true
-ER_SMTP_SERVER = smtpserver.server.au
-ER_SMTP_USERNAME = bob
-ER_SMTP_PASSWORD = password
-ER_SMTP_FROM = smtpfrom@from.com
-ER_SEND_ADDRESS = sendaddress@sender.com
-ER_MAIL_METHOD = MAPI
-ER_GENERAL_MESSAGE = An exception has occured - you can send details to the programmer
-ER_EXPLANATION_MESSAGE = Please enter a short description of what happened
-ER_CONTACT_MESSAGE_TOP = The numbers below may be used to contact support for this software
-ER_CONTACT_MESSAGE_BOTTOM = Some bottom message
------------------------------
+	-----------------------------
 
-[System Info]
+	[System Info]
 
-Operating System
--Microsoft® Windows Vista™ Home Premium
---BootDevice = \Device\HarddiskVolume1
---BuildNumber = 6001
---BuildType = Multiprocessor Free
---Caption = Microsoft® Windows Vista™ Home Premium 
---CodeSet = 1252
---CountryCode = 61
---CreationClassName = Win32_OperatingSystem
---CSCreationClassName = Win32_ComputerSystem
---CSDVersion = Service Pack 1
---CSName = MOSESMACHINE
---CurrentTimeZone = 600
---DataExecutionPrevention_32BitApplications = True
---DataExecutionPrevention_Available = True
---DataExecutionPrevention_Drivers = True
---DataExecutionPrevention_SupportPolicy = 2
---Debug = False
---Description = MOSESMACHINE
---Distributed = False
---EncryptionLevel = 256
---ForegroundApplicationBoost = 2
---FreePhysicalMemory = 1074912
---FreeSpaceInPagingFiles = 1940528
---FreeVirtualMemory = 2883936
---InstallDate = 20071110091318.000000+660
---LargeSystemCache = 
---LastBootUpTime = 20080810104938.375199+600
---LocalDateTime = 20080810224523.620000+600
---Locale = 0c09
---Manufacturer = Microsoft Corporation
---MaxNumberOfProcesses = 4294967295
---MaxProcessMemorySize = 2097024
---MUILanguages = System.String[]
---Name = Microsoft® Windows Vista™ Home Premium |C:\Windows|\Device\Harddisk0\Partition1
---NumberOfLicensedUsers = 
---NumberOfProcesses = 61
---NumberOfUsers = 2
---OperatingSystemSKU = 3
---Organization = 
---OSArchitecture = 32-bit
---OSLanguage = 1033
---OSProductSuite = 768
---OSType = 18
---OtherTypeDescription = 
---PAEEnabled = True
---PlusProductID = 
---PlusVersionNumber = 
---Primary = True
---ProductType = 1
---QuantumLength = 1
---QuantumType = 1
---RegisteredUser = Peter
---SerialNumber = 89578-OEM-7359722-53298
---ServicePackMajorVersion = 1
---ServicePackMinorVersion = 0
---SizeStoredInPagingFiles = 2402064
---Status = OK
---SuiteMask = 784
---SystemDevice = \Device\HarddiskVolume1
---SystemDirectory = C:\Windows\system32
---SystemDrive = C:
---TotalSwapSpaceSize = 
---TotalVirtualMemorySize = 4448828
---TotalVisibleMemorySize = 2094864
---Version = 6.0.6001
---WindowsDirectory = C:\Windows
+	Operating System
+	-Microsoft Windows 7 Enterprise
+	--CodeSet = 1252
+	--CSDVersion =
+	--CurrentTimeZone = 600
+	--FreePhysicalMemory = 1947848
+	--OSArchitecture = 32-bit
+	--OSLanguage = 1033
+	--ServicePackMajorVersion = 0
+	--ServicePackMinorVersion = 0
+	--Version = 6.1.7600
 
-Machine
--MOSESMACHINE
---AdminPasswordStatus = 3
---AutomaticManagedPagefile = False
---AutomaticResetBootOption = True
---AutomaticResetCapability = True
---BootOptionOnLimit = 
---BootOptionOnWatchDog = 
---BootROMSupported = True
---BootupState = Normal boot
---Caption = MOSESMACHINE
---ChassisBootupState = 2
---CreationClassName = Win32_ComputerSystem
---CurrentTimeZone = 600
---DaylightInEffect = False
---Description = AT/AT COMPATIBLE
---DNSHostName = MOSESMACHINE
---Domain = WORKGROUP
---DomainRole = 0
---EnableDaylightSavingsTime = True
---FrontPanelResetStatus = 3
---InfraredSupported = False
---InitialLoadInfo = 
---InstallDate = 
---KeyboardPasswordStatus = 3
---LastLoadInfo = 
---Manufacturer = Gigabyte Technology Co., Ltd.
---Model = P35-DS3L
---Name = MOSESMACHINE
---NameFormat = 
---NetworkServerModeEnabled = True
---NumberOfLogicalProcessors = 2
---NumberOfProcessors = 1
---OEMLogoBitmap = 
---OEMStringArray = 
---PartOfDomain = False
---PauseAfterReset = -1
---PCSystemType = 1
---PowerManagementCapabilities = 
---PowerManagementSupported = 
---PowerOnPasswordStatus = 3
---PowerState = 0
---PowerSupplyState = 2
---PrimaryOwnerContact = 
---PrimaryOwnerName = Peter
---ResetCapability = 1
---ResetCount = -1
---ResetLimit = -1
---Roles = System.String[]
---Status = OK
---SupportContactDescription = 
---SystemStartupDelay = 
---SystemStartupOptions = 
---SystemStartupSetting = 
---SystemType = X86-based PC
---ThermalState = 2
---TotalPhysicalMemory = 2145140736
---UserName = MOSESMACHINE\Peter
---WakeUpType = 6
---Workgroup = WORKGROUP
+	Machine
+	-MOSESMACHINE
+	--Manufacturer = Gigabyte Technology Co., Ltd.
+	--Model = P35-DS3L
+	--TotalPhysicalMemory = 3756515328
+	--UserName = MachineName\spurrymoses
 
------------------------------
+	-----------------------------
 
-[Contact Info]
 
-Email:  mysupport@zzzsupport.com
-Web:    www.codeplex.com/ExceptionReporter
-Phone:  1423 1234 4321
-Fax:    1423 1234 4322
------------------------------
 </pre>
 </div>
 
