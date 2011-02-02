@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using ExceptionReporting.Extensions;
 using ExceptionReporting.Config;
@@ -91,9 +92,14 @@ namespace ExceptionReporting.Core
 		}
 
 		private void BuildConfigInfo()
-		{
+        {
+            var configFilePath = ConfigReader.GetConfigFilePath();
+            if (!File.Exists(configFilePath))
+            {
+                return;
+            }
 			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
-			_stringBuilder.AppendLine(_fileReader.ReadAll(ConfigReader.GetConfigFilePath()));
+		    _stringBuilder.AppendLine(_fileReader.ReadAll(configFilePath));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
