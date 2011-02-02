@@ -1,13 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Tests", "src\Test.ExceptionReporter\ExceptionReporter.Tests.csproj", "{38C592CC-F774-4A0F-95FA-318AB0DDB476}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.Wpf", "src\WpfDemoApp\DemoApp.Wpf.csproj", "{6388786B-F2DD-459A-9912-349AF8418C4B}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{D0E853F8-AF29-49E7-86C8-C315C32A2F9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinForms", "WinForms", "{33AD4DE9-506A-47F8-A234-AA2C8007BDE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Tests", "src\Test.ExceptionReporter\ExceptionReporter.Tests.csproj", "{38C592CC-F774-4A0F-95FA-318AB0DDB476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.Wpf", "src\WpfDemoApp\DemoApp.Wpf.csproj", "{6388786B-F2DD-459A-9912-349AF8418C4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.WinForms", "src\ExceptionReporter\ExceptionReporter.WinForms.csproj", "{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}"
 EndProject
