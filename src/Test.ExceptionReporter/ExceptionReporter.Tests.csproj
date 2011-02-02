@@ -17,6 +17,12 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -54,20 +60,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyReferenceDigger_Tests.cs" />
-    <Compile Include="Config_Tests.cs" />
-    <Compile Include="Disposable_Tests.cs" />
-    <Compile Include="ExceptionReporter_Tests.cs" />
-    <Compile Include="ExceptionReportInfo_Tests.cs" />
-    <Compile Include="ExceptionReportGenerator_Tests.cs" />
-    <Compile Include="Extensions_Test.cs" />
-    <Compile Include="ExceptionReportBuilder_Tests.cs" />
-    <Compile Include="MailSender_Tests.cs" />
+    <Compile Include="AssemblyReferenceDigger_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Config_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Disposable_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExceptionReportBuilder_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExceptionReporter_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExceptionReportGenerator_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExceptionReportInfo_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions_Test.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MailSender_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenshotTaker_Tests.cs" />
-    <Compile Include="SysInfoResult_Tests.cs" />
-    <Compile Include="SystemInfoRetriever_Tests.cs" />
-    <Compile Include="ViewFactory_Tests.cs" />
+    <Compile Include="ScreenshotTaker_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SysInfoResult_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SystemInfoRetriever_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewFactory_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
