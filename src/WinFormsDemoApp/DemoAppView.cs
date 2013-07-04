@@ -39,10 +39,14 @@ namespace WinFormsDemoApp
             }
             catch (Exception exception)
             {
+	            var file = Path.GetTempFileName() + ".zip";	
+				// has to be a registered mime type, and be non-zero bytes, I believe (for MAPI at least) else it won't attach
+	            File.WriteAllText(file, "test file");
 				var exceptionReporter = new ExceptionReporter();
 				exceptionReporter.Config.ShowConfigTab = false;
 				exceptionReporter.Config.ShowAssembliesTab = false;
-                exceptionReporter.Show("This is a custom message", exception);
+				exceptionReporter.Config.FilesToAttach = new[] { file };
+	            exceptionReporter.Show("This is a custom message. As another test, a temp file will be attached to the email sent", exception);
             }
         }
 
@@ -67,7 +71,7 @@ namespace WinFormsDemoApp
             {
                 exception2 = exception;
             }
-			var exceptionReporter = new ExceptionReporting.ExceptionReporter();
+			var exceptionReporter = new ExceptionReporter();
 
             exceptionReporter.ReadConfig();
 

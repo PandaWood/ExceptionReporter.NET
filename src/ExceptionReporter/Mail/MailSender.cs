@@ -34,26 +34,27 @@ namespace ExceptionReporting.Mail
         /// <summary>
         /// Send SimpleMAPI email
         /// </summary>
-        public void SendMapi(string exceptionReport, IntPtr windowHandle)
+        public void SendMapi(string exceptionReport)
         {
             var mapi = new Mapi();
-            mapi.Logon(windowHandle);
-            mapi.Reset();
-
         	var emailAddress = _reportInfo.EmailReportAddress.IsEmpty()
         	                   	? _reportInfo.ContactEmail
         	                   	: _reportInfo.EmailReportAddress;
 
             mapi.AddRecipient(emailAddress, null, false);
-            AttachMapiScreenshotIfRequired(mapi);
+	        AddMapiAttachments(mapi);
             mapi.Send(EmailSubject, exceptionReport, true);
-            mapi.Logoff();
         }
 
-        private void AttachMapiScreenshotIfRequired(Mapi mapi)
+		private void AddMapiAttachments(Mapi mapi)
         {
             if (_reportInfo.ScreenshotAvailable)
                 mapi.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
+
+			foreach (var file in _reportInfo.FilesToAttach)
+			{
+				mapi.Attach(file);
+			}
         }
 
         private MailMessage CreateMailMessage(string exceptionReport)
@@ -67,12 +68,26 @@ namespace ExceptionReporting.Mail
                                   };
 
             mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
-            AttachSmtpScreenshotIfRequired(mailMessage);
-
+			AddAnyAttachments(mailMessage);
+            
             return mailMessage;
         }
 
-        private void AttachSmtpScreenshotIfRequired(MailMessage mailMessage)
+	    private void AddAnyAttachments(MailMessage mailMessage)
+	    {
+			AttachScreenshot(mailMessage);
+			AttachFiles(mailMessage);
+	    }
+
+	    private void AttachFiles(MailMessage mailMessage)
+	    {
+		    foreach (var f in _reportInfo.FilesToAttach)
+		    {
+			    mailMessage.Attachments.Add(new Attachment(f));
+		    }
+	    }
+
+	    private void AttachScreenshot(MailMessage mailMessage)
         {
         	if (_reportInfo.ScreenshotAvailable)
         		mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage),

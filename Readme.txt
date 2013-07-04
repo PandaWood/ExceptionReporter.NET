@@ -5,7 +5,7 @@ Welcome to the new, ExceptionReporter project on CodePlex (moved from SourceForg
 The project has changed a bit since it was moved onto CodePlex, an explanation of the changes follows:
 
 [FUNCTIONALITY CHANGES]
-- The enumerating of printers is completely removed (can cause random hanging, is expensive, and probably of little most users)
+- The enumerating of printers is completely removed (can cause random hanging, is expensive, and probably of little use to most users)
 - Printing functionality is removed - for similar reasons to above - printing complicates everything, and I've chosen to remove it
 
 [CONFIG CHANGES]

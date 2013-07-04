@@ -105,6 +105,7 @@ namespace ExceptionReporting.Core
             get { return TakeScreenshot && ScreenshotImage != null; }
         }
 
+		public string[] FilesToAttach { get; set; }
 
 	    public ExceptionReportInfo()
         {
@@ -129,6 +130,7 @@ namespace ExceptionReporting.Core
             TitleText = "Exception Report";
             UserExplanationFontSize = 12f;
             TakeScreenshot = false;
+	        FilesToAttach = new string[]{};
         }
 
         /// <summary>

@@ -156,7 +156,7 @@ namespace ExceptionReporting
             try
             {
                 var mailSender = new MailSender(ReportInfo);
-                mailSender.SendMapi(emailText, windowHandle);
+                mailSender.SendMapi(emailText);
                 wasSuccessful = true;
             }
             catch (Exception exception)
