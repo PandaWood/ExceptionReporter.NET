@@ -31,14 +31,14 @@ namespace ExceptionReporting.Core
 			_reportInfo.ExceptionDate = DateTime.UtcNow;
 			_reportInfo.UserName = Environment.UserName;
 			_reportInfo.MachineName = Environment.MachineName;
-            _reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
+			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
-            // TODO Application is WPF/WinForm specific, replace
-            _reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
-            _reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
+			// TODO Application is WPF/WinForm specific, replace
+			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
+			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
 
-            if (_reportInfo.AppAssembly == null)
-			    _reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+			if (_reportInfo.AppAssembly == null)
+				_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
 		/// <summary>
@@ -66,19 +66,19 @@ namespace ExceptionReporting.Core
 		{
 			var retriever = new SysInfoRetriever();
 			var results = new List<SysInfoResult>
-			              {
-			              	retriever.Retrieve(SysInfoQueries.OperatingSystem).Filter(
-			              		new[]
-			              		{
-			              			"CodeSet", "CurrentTimeZone", "FreePhysicalMemory",
-			              			"OSArchitecture", "OSLanguage", "Version"
-			              		}),
-			              	retriever.Retrieve(SysInfoQueries.Machine).Filter(
-			              		new[]
-			              		{
-			              			"Machine", "UserName", "TotalPhysicalMemory", "Manufacturer", "Model"
-			              		}),
-			              };
+						  {
+							retriever.Retrieve(SysInfoQueries.OperatingSystem).Filter(
+								new[]
+								{
+									"CodeSet", "CurrentTimeZone", "FreePhysicalMemory",
+									"OSArchitecture", "OSLanguage", "Version"
+								}),
+							retriever.Retrieve(SysInfoQueries.Machine).Filter(
+								new[]
+								{
+									"Machine", "UserName", "TotalPhysicalMemory", "Manufacturer", "Model"
+								}),
+						  };
 			return results;
 		}
 

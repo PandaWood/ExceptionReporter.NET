@@ -310,7 +310,7 @@ namespace ExceptionReporting.WinForms.Views
                                  {
                                      _presenter.AppAssembly.GetName()
                                  };
-            assemblies.Sort(new Comparison<AssemblyName>((x, y) => string.Compare(x.Name, y.Name)));
+            assemblies.Sort((x, y) => string.CompareOrdinal(x.Name, y.Name));
             foreach (var assemblyName in assemblies)
             {
                 AddAssembly(assemblyName);

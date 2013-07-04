@@ -30,12 +30,12 @@ namespace ExceptionReporting
 		{
 			var viewType = typeof(T);
 
-		    var assemblies = _assembly.GetReferencedAssemblies();
-            assemblies.Concat(new[]{new AssemblyName (_assembly.FullName)});
+		    var refAssemblies = _assembly.GetReferencedAssemblies();
+            var assemblies = refAssemblies.Concat(new[]{new AssemblyName (_assembly.FullName)});
 
 		    var matchingTypes =
 		        from assemblyName in
-		            from assembly in assemblies
+					from assembly in assemblies
 					where assembly.Name.Contains("ExceptionReporter")
 					select assembly
 				from type in Assembly.Load(assemblyName.Name).GetExportedTypes()
