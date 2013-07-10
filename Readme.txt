@@ -2,7 +2,7 @@ Exception Reporter
 ------------------
 ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a textual report of the incident.
 
-See documention in doc/index.html
+See https://exceptionreporter.codeplex.com/documentation
 
 [FUTURE MOVEMENTS]
 There is a WPF (Windows Presentation Foundation) project in the solution with the bare minimum of code. It's just a skeletal beginning.
