@@ -167,6 +167,11 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
+		/// Show the Exception Reporter as a "TopMost" window (ie TopMost property on a WinForm)
+		/// </summary>
+		public bool TopMost { get; set; }
+
+		/// <summary>
 		/// Any files to attach to email (SMTP or SimpleMAPI) 
 		/// This is in addition to the automatically attached screenshot, if configured via TakeScreenshot
 		/// Any file attached needs to be a registered MIME type extension to work(?)
@@ -197,6 +202,7 @@ namespace ExceptionReporting.Core
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
 			TakeScreenshot = false;
+			TopMost = false;
 			FilesToAttach = new string[]{};
 		}
 

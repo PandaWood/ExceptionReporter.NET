@@ -25,6 +25,7 @@ namespace ExceptionReporting.WinForms.Views
         {
             ShowFullDetail = true;
             InitializeComponent();
+	        TopMost = reportInfo.TopMost;
 
             _presenter = new ExceptionReportPresenter(this, reportInfo)
                              {

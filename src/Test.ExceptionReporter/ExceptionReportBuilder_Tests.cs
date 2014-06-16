@@ -117,7 +117,7 @@ namespace ExceptionReporting.Tests
 			return expectedString;
 		}
 
-		private static IList<SysInfoResult> CreateSysInfoResult() 
+		private static IEnumerable<SysInfoResult> CreateSysInfoResult() 
 		{
 			IList<SysInfoResult> results = new List<SysInfoResult>();
 			var result = new SysInfoResult("Memory");

@@ -39,7 +39,7 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// Return the supplied Bitmap, as a file on the system, in JPEG format
 		/// </summary>
-		/// <param name="bitmap">The Bitmap to save (most likely one created using TakeScreenshot()</param>
+		/// <param name="bitmap">The Bitmap to save</param>
 		/// <returns></returns>
 		public static string GetImageAsFile(Bitmap bitmap)
 		{
