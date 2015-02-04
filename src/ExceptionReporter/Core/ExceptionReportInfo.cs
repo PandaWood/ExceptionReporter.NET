@@ -13,7 +13,6 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReportInfo : Disposable
 	{
-
 		private readonly List<Exception> _exceptions = new List<Exception>();
 
 		/// <summary>
