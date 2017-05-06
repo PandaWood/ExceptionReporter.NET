@@ -4,12 +4,12 @@ ExceptionReporter is a .NET component that shows a dialog with detailed informat
 
 Most things can be configured: whether buttons have images, what text appears in the labels, font-sizes/colors, which tabs are shown etc
 
-![](images/Home_ExceptionReporterNew.png)
+![](images/er-user-input.png)
 
 **Contrasting configuration**
 There are no images on the buttons, the window title is customised and an extra Tab (_Contact_) is visible
 
-![](images/Home_ExceptionReporter_ExceptionsTab.png)
+![](images/er-exceptions-tab.png)
 
 #### Most Recent Features
 - Added Less/More detail button - toggles between showing just the exception message or the dialog as normal (for users who get confused with too much information)
