@@ -1,6 +1,7 @@
-We've just moved over from CodePlex so this is now the official home of the Exception Reporter
+<sub><sup>We've just moved over from CodePlex so this is now the official home of the Exception Reporter</sub></sup>
 
-#ExceptionReporter 
+
+# Exception Reporter
 Exception Reporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it
 
 ###### Samples
