@@ -8,9 +8,7 @@ Most things can be configured: whether buttons have images, what text appears in
 
 ![](images/er-user-input.png)
 
-In this example, there are no images on the buttons, the window title is customised and an extra Tab (_Contact_) is visible
-
-See the wiki page on [Configuration Options](https://github.com/PandaWood/Exception-Reporter/wiki/Configuration-Options) for more info
+In this example, there are no images on the buttons, the window title is customised and an extra Tab (_Contact_) is visible - see the wiki page on [Configuration Options](https://github.com/PandaWood/Exception-Reporter/wiki/Configuration-Options) for more info
 
 ![](images/er-exceptions-tab.png)
 
