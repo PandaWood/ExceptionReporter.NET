@@ -4,14 +4,13 @@
 # Exception Reporter
 Exception Reporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it
 
-###### Samples
-
 Most things can be configured: whether buttons have images, what text appears in the labels, font-sizes/colors, which tabs are shown etc
 
 ![](images/er-user-input.png)
 
-**Contrasting configuration**
-There are no images on the buttons, the window title is customised and an extra Tab (_Contact_) is visible
+In this example, there are no images on the buttons, the window title is customised and an extra Tab (_Contact_) is visible
+
+See the wiki page on [Configuration Options](https://github.com/PandaWood/Exception-Reporter/wiki/Configuration-Options) for more info
 
 ![](images/er-exceptions-tab.png)
 
