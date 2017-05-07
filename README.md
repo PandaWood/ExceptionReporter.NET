@@ -22,9 +22,9 @@ The Exception Reporter is invoked manually or by setting up it's invocation on a
 see [Sample Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
 
 The user is shown this dialog which is auto-populated with the exception it was given and certain system details.
-A screenshot and any attachments you choose are configured and ready to be sent (via email).
+A screenshot is also taken (jpeg, multiple screens if present) and you can also add attachments to be sent (via email).
 
-The ultimate goal is the developer receiving a formatted exception report via email - see
+The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
 
 
