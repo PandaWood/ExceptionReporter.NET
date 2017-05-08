@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>ExceptionReporter</id>
+        <version>2.1.2</version>
+        <title>Exception Reporter</title>
+        <authors>Peter van der Woude (pandawood)</authors>
+        <owners>Peter van der Woude (pandawood),Simon Cropp</owners>
+        <licenseUrl>https://github.com/PandaWood/Exception-Reporter/blob/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/PandaWood/Exception-Reporter</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot that is taken automatically (if configured)</description>
+        <summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</summary>
+        <releaseNotes>
+        </releaseNotes>
+        <language>en-AU</language>
+        <tags>exception reporter report screenshot stacktrace crash</tags>
+    </metadata>
+</package>
