@@ -11,66 +11,66 @@ using Rhino.Mocks;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
-	public class ExceptionReportBuilder_Tests
-	{
-		private IFileReader _fileReader;
+    [TestFixture]
+    public class ExceptionReportBuilder_Tests
+    {
+        private IFileReader _fileReader;
 
-		[SetUp]
-		public void SetUp()
-		{
-			_fileReader = MockRepository.GenerateStub<IFileReader>();
-			_fileReader.Stub(c => c.ReadAll("")).IgnoreArguments().Return("");
-		}
+        [SetUp]
+        public void SetUp()
+        {
+            _fileReader = MockRepository.GenerateStub<IFileReader>();
+            _fileReader.Stub(c => c.ReadAll("")).IgnoreArguments().Return("");
+        }
 
-		[Test]
-		public void CanBuild_ReferencedAssemblies_Section()
-		{
+        [Test]
+        public void CanBuild_ReferencedAssemblies_Section()
+        {
             using (var reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowAssembliesTab = true;
                 reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
-            	var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
+                var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
 
-            	var exceptionReport = builder.Build();
+                var exceptionReport = builder.Build();
 
                 Assert.That(exceptionReport, Is.Not.Null);
 
-            	var exceptionReportString = exceptionReport.ToString();
-            	Assert.That(exceptionReportString.Length, Is.GreaterThan(0));
-				Assert.That(exceptionReportString, Is.StringContaining("System.Core, Version="));
-				Assert.That(exceptionReportString, Is.StringContaining(Environment.NewLine));
+                var exceptionReportString = exceptionReport.ToString();
+                Assert.That(exceptionReportString.Length, Is.GreaterThan(0));
+                Assert.That(exceptionReportString, Is.StringContaining("System.Core, Version="));
+                Assert.That(exceptionReportString, Is.StringContaining(Environment.NewLine));
             }
-		}
+        }
 
-		[Test]
-		public void CanBuild_SysInfoSection()
-		{
-			var sysInfoResults = CreateSysInfoResult();
-			var expectedExceptionReport = CreateExpectedReport();
+        [Test]
+        public void CanBuild_SysInfoSection()
+        {
+            var sysInfoResults = CreateSysInfoResult();
+            var expectedExceptionReport = CreateExpectedReport();
 
             using (var reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowSysInfoTab = true;
 
-				var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults) { FileReader = _fileReader };
-            	var exceptionReport = builder.Build();
+                var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults) { FileReader = _fileReader };
+                var exceptionReport = builder.Build();
 
-				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
+                Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
             }
-		}
+        }
 
-		[Test]
-		public void CanBuild_HierarchyString_With_Root_And_InnerException()
-		{
+        [Test]
+        public void CanBuild_HierarchyString_With_Root_And_InnerException()
+        {
             using (var reportInfo = CreateReportInfo())
             {
                 reportInfo.ShowExceptionsTab = true;
                 reportInfo.SetExceptions(new List<Exception>
                                             {
-                                                new ArgumentOutOfRangeException("OuterException", 
-												new ArgumentNullException("Inner" + "Exception"))
+                                                new ArgumentOutOfRangeException("OuterException",
+                                                new ArgumentNullException("Inner" + "Exception"))
                                             });
 
                 var expectedExceptionReportString = new StringBuilder().AppendDottedLine()
@@ -87,46 +87,46 @@ namespace ExceptionReporting.Tests
                     .AppendLine("Source:")
                     .AppendLine().AppendDottedLine().AppendLine();
 
-				var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
-            	var exceptionReport = builder.Build();
+                var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
+                var exceptionReport = builder.Build();
 
-				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
+                Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
             }
-		}
+        }
 
-		private static ExceptionReportInfo CreateReportInfo()
-		{
-			return new ExceptionReportInfo
-			{
-				ShowAssembliesTab = false,
-				ShowConfigTab = false,
-				ShowGeneralTab = false,
-				ShowSysInfoTab = false,
-				ShowExceptionsTab = false,
-			};
-		}
+        private static ExceptionReportInfo CreateReportInfo()
+        {
+            return new ExceptionReportInfo
+            {
+                ShowAssembliesTab = false,
+                ShowConfigTab = false,
+                ShowGeneralTab = false,
+                ShowSysInfoTab = false,
+                ShowExceptionsTab = false,
+            };
+        }
 
-		private static StringBuilder CreateExpectedReport() 
-		{
-			var expectedString = new StringBuilder().AppendDottedLine();
-			expectedString.AppendLine("[System Info]").AppendLine();
-			expectedString.AppendLine("Memory");
-			expectedString.AppendLine("-Physical Memory");
-			expectedString.AppendLine("--Version:2.66");
-			expectedString.AppendLine().AppendDottedLine().AppendLine();
-			return expectedString;
-		}
+        private static StringBuilder CreateExpectedReport()
+        {
+            var expectedString = new StringBuilder().AppendDottedLine();
+            expectedString.AppendLine("[System Info]").AppendLine();
+            expectedString.AppendLine("Memory");
+            expectedString.AppendLine("-Physical Memory");
+            expectedString.AppendLine("--Version:2.66");
+            expectedString.AppendLine().AppendDottedLine().AppendLine();
+            return expectedString;
+        }
 
-		private static IEnumerable<SysInfoResult> CreateSysInfoResult() 
-		{
-			IList<SysInfoResult> results = new List<SysInfoResult>();
-			var result = new SysInfoResult("Memory");
-			result.Nodes.Add("Physical Memory");
-			var resultChild = new SysInfoResult("Bla");
-			result.ChildResults.Add(resultChild);
-			resultChild.Nodes.Add("Version:2.66");
-			results.Add(result);
-			return results;
-		}
-	}
+        private static IEnumerable<SysInfoResult> CreateSysInfoResult()
+        {
+            IList<SysInfoResult> results = new List<SysInfoResult>();
+            var result = new SysInfoResult("Memory");
+            result.Nodes.Add("Physical Memory");
+            var resultChild = new SysInfoResult("Bla");
+            result.ChildResults.Add(resultChild);
+            resultChild.Nodes.Add("Version:2.66");
+            results.Add(result);
+            return results;
+        }
+    }
 }

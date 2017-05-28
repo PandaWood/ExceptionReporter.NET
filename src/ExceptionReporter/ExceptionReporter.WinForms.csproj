@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +11,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExceptionReporting</RootNamespace>
     <AssemblyName>ExceptionReporter.WinForms</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
@@ -19,6 +19,16 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <PackageId>ExceptionReporter</PackageId>
+    <PackageVersion>2.1.2</PackageVersion>
+    <Authors>Peter van der Woude, Simon Cropp</Authors>
+    <PackageLicenseUrl>https://github.com/PandaWood/Exception-Reporter/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <Owners>Peter van der Woude,Simon Cropp</Owners>
+    <PackageProjectUrl>https://github.com/PandaWood/Exception-Reporter</PackageProjectUrl>
+    <Summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</Summary>
+    <Title>Exception Reporter</Title>
+    <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot that is taken automatically (if configured)</Description>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -35,6 +45,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,8 +88,6 @@
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
-    <Compile Include="IExceptionReportView.cs" />
-    <Compile Include="IInternalExceptionView.cs" />
     <Compile Include="Mail\EmailTextBuilder.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -85,8 +100,6 @@
     <Compile Include="SystemInfo\SysInfoResult.cs" />
     <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
     <Compile Include="SystemInfo\SysInfoRetriever.cs" />
-    <Compile Include="ViewFactory.cs" />
-    <Compile Include="ViewResolver.cs" />
     <Compile Include="WinFormsProperties\AssemblyInfo.cs" />
     <Compile Include="Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
@@ -100,18 +113,13 @@
     <Compile Include="Views\ExceptionReportView.Designer.cs">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\InternalExceptionView.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
       <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ExceptionReportView.resx">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\InternalExceptionView.resx">
-      <DependentUpon>InternalExceptionView.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Views\IExceptionReportView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
@@ -128,6 +136,9 @@
       <Name>Win32Mapi</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -136,7 +147,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)tools\ilmerge /target:library /out:$(SolutionDir)release\$(TargetFileName) $(TargetDir)$(TargetFileName) $(TargetDir)Win32Mapi.dll</PostBuildEvent>
-  </PropertyGroup>
+
+  <Import Project="..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.targets" Condition="Exists('..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.targets')" />
 </Project>

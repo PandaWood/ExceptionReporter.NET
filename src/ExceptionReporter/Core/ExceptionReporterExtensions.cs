@@ -45,6 +45,11 @@ namespace ExceptionReporting.Extensions
 			return currentValue;
 		}
 
+        /// <summary>
+        /// Is empty.
+        /// </summary>
+        /// <returns><c>true</c>, if empty was ised, <c>false</c> otherwise.</returns>
+        /// <param name="input">Input.</param>
 		public static bool IsEmpty(this string input)
 		{
 			return string.IsNullOrEmpty(input);

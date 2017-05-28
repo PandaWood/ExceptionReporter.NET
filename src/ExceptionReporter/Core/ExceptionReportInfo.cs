@@ -71,7 +71,7 @@ namespace ExceptionReporting.Core
 		public string AppVersion { get; set; }
 
 		/// <summary>
-		/// Region information using <see cref="Application.CurrentCulture.DisplayName"/>
+		/// Region information
 		/// </summary>
 		public string RegionInfo { get; set; }
 
@@ -112,8 +112,20 @@ namespace ExceptionReporting.Core
 		public bool ShowConfigTab { get; set; }
 		public bool ShowContactTab { get; set; }
 		public bool ShowExceptionsTab { get; set; }
-		public bool ShowSysInfoTab { get; set; }
-		public bool ShowAssembliesTab { get; set; }
+
+        private bool _showSysInfoTab;
+        public bool ShowSysInfoTab 
+        { 
+            get { return !ExceptionReport.IsRunningMono() && _showSysInfoTab; } 
+            set { _showSysInfoTab = value; }
+        }
+
+		private bool _showAssembliesTab;
+		public bool ShowAssembliesTab
+		{
+			get { return !ExceptionReport.IsRunningMono() && _showAssembliesTab; }
+			set { _showAssembliesTab = value; }
+		}
 
 		/// <summary>
 		/// Email address used to send an email (eg appears in the 'to:' field in the default email client if simpleMAPI)

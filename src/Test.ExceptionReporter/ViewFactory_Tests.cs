@@ -10,7 +10,7 @@ namespace ExceptionReporting.Tests
 		private readonly Assembly _winformsAssembly;
 		private readonly ViewResolver _winformsViewResolver;
 //		private readonly Assembly _wpfAssembly;
-		private readonly ViewResolver _wpfViewResolver;
+		//private readonly ViewResolver _wpfViewResolver;
 
 		public ViewFactory_Tests()
 		{
@@ -54,22 +54,22 @@ namespace ExceptionReporting.Tests
 			Assert.That(view.ToString(), Is.StringStarting("ExceptionReporting.WinForms.Views.ExceptionReportView"));
 		}
 
-		[Test, Ignore]
-		public void CanResolve_Wpf_IInternalExceptionView_Interface()
-		{
-			var viewType = _wpfViewResolver.Resolve<IInternalExceptionView>();
+		//[Test, Ignore]
+		//public void CanResolve_Wpf_IInternalExceptionView_Interface()
+		//{
+		//	var viewType = _wpfViewResolver.Resolve<IInternalExceptionView>();
 
-			Assert.That(viewType.ToString(), Is.EqualTo("ExceptionReporting.Wpf.Views.InternalExceptionView"));
-			Assert.That(viewType.Assembly.FullName, Is.StringStarting("ExceptionReporter.Wpf"));
-		}
+		//	Assert.That(viewType.ToString(), Is.EqualTo("ExceptionReporting.Wpf.Views.InternalExceptionView"));
+		//	Assert.That(viewType.Assembly.FullName, Is.StringStarting("ExceptionReporter.Wpf"));
+		//}
 
-		[Test, Ignore]
-		public void CanResolve_Wpf_IExceptionReportView_Interface()
-		{
-			var viewType = _wpfViewResolver.Resolve<IExceptionReportView>();
+		//[Test, Ignore]
+		//public void CanResolve_Wpf_IExceptionReportView_Interface()
+		//{
+		//	var viewType = _wpfViewResolver.Resolve<IExceptionReportView>();
 
-			Assert.That(viewType.ToString(), Is.StringStarting("ExceptionReporting.Wpf.Views.ExceptionReportView"));
-			Assert.That(viewType.Assembly.FullName, Is.StringStarting("ExceptionReporter.Wpf"));
-		}
+		//	Assert.That(viewType.ToString(), Is.StringStarting("ExceptionReporting.Wpf.Views.ExceptionReportView"));
+		//	Assert.That(viewType.Assembly.FullName, Is.StringStarting("ExceptionReporter.Wpf"));
+		//}
 	}
 }

@@ -23,22 +23,19 @@ namespace ExceptionReporting.Core
 		/// however 'base' properties such as MachineName</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
-			if (reportInfo == null)
-				throw new ExceptionReportGeneratorException("reportInfo cannot be null");
+            _reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
-			_reportInfo = reportInfo;
+            _reportInfo.ExceptionDate = DateTime.UtcNow;
+            _reportInfo.UserName = Environment.UserName;
+            _reportInfo.MachineName = Environment.MachineName;
+            _reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
-			_reportInfo.ExceptionDate = DateTime.UtcNow;
-			_reportInfo.UserName = Environment.UserName;
-			_reportInfo.MachineName = Environment.MachineName;
-			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
+            // TODO Application is WPF/WinForm specific, replace
+            _reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
+            _reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
 
-			// TODO Application is WPF/WinForm specific, replace
-			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
-			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
-
-			if (_reportInfo.AppAssembly == null)
-				_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+            if (_reportInfo.AppAssembly == null)
+                _reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
 		/// <summary>
@@ -82,6 +79,9 @@ namespace ExceptionReporting.Core
 			return results;
 		}
 
+        /// <summary>
+        /// Disposes the managed resources.
+        /// </summary>
 		protected override void DisposeManagedResources()
 		{
 			_reportInfo.Dispose();
@@ -89,6 +89,9 @@ namespace ExceptionReporting.Core
 		}
 	}
 
+    /// <summary>
+    /// Exception report generator exception.
+    /// </summary>
 	internal class ExceptionReportGeneratorException : Exception
 	{
 		public ExceptionReportGeneratorException(string message) : base(message)

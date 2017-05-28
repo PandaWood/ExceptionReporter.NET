@@ -14,9 +14,7 @@ namespace ExceptionReporting
 	public class ExceptionReporter
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-		private IExceptionReportView _view;
-		private readonly IInternalExceptionView _internalExceptionView;
-		private readonly ViewResolver _viewResolver;
+		private ExceptionReporting.IExceptionReportView _view;
 
 		/// <summary>
 		/// Initialise the ExceptionReporter
@@ -26,13 +24,7 @@ namespace ExceptionReporting
 		{
 			var callingAssembly = Assembly.GetCallingAssembly();
 
-			_reportInfo = new ExceptionReportInfo
-							  {
-								  AppAssembly = callingAssembly
-							  };
-
-			_viewResolver = new ViewResolver(callingAssembly);
-			_internalExceptionView = ViewFactory.Create<IInternalExceptionView>(_viewResolver);
+			_reportInfo = new ExceptionReportInfo { AppAssembly = callingAssembly };
 		}
 
 		/// <summary>
@@ -57,12 +49,12 @@ namespace ExceptionReporting
 			try
 			{
 				_reportInfo.SetExceptions(exceptions);
-				_view = ViewFactory.Create<IExceptionReportView>(_viewResolver, _reportInfo);
+				_view = new WinForms.Views.ExceptionReportView( _reportInfo);
 				_view.ShowExceptionReport();
 			}
 			catch (Exception internalException)
 			{
-				_internalExceptionView.ShowException("Unable to show Exception Report", internalException);
+                System.Windows.Forms.MessageBox.Show(internalException.Message);
 			}
 		}
 		// ReSharper restore MemberCanBePrivate.Global
@@ -90,10 +82,8 @@ namespace ExceptionReporting
 				configReader.ReadConfig();
 			}
 			catch (Exception ex)
-			{	
-				//TODO do we really want to show this?
-				_internalExceptionView.ShowException(
-					"Unable to read ExceptionReporter configuration - default values will be used", ex);
+			{
+                System.Windows.Forms.MessageBox.Show(ex.Message);    // last resort, hope it never happens
 			}
 		}
 	}

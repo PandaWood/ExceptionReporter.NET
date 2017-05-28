@@ -100,7 +100,7 @@ namespace ExceptionReporting.WinForms.Views
 	            {
 		            reportInfo.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
 	            }
-	            catch (Exception ex) { }	
+                catch { }	
 				// not too concerned about the specifics at the moment, just that an exception here doesn't prevent the entire mechansim from working
 				// specifically, if we are raising this exception as the result of an out-of-memory exception, we have little chance of a screenshot succeeding
             }
@@ -410,8 +410,7 @@ namespace ExceptionReporting.WinForms.Views
 
         public void ShowErrorDialog(string message, Exception exception)
         {
-            var internalExceptionView = new InternalExceptionView();
-            internalExceptionView.ShowException(message, exception);
+            MessageBox.Show(message);       // last resort, hope it never happens
         }
 
     }

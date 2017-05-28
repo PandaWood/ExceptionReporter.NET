@@ -233,7 +233,8 @@ namespace ExceptionReporting
 				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
 				_view.PopulateConfigTab(GetConfigAsHtml());
-				_view.PopulateSysInfoTab();
+                if (!ExceptionReport.IsRunningMono())
+				    _view.PopulateSysInfoTab();
 			}
 			finally
 			{

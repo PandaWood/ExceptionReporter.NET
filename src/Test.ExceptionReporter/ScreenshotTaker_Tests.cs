@@ -10,7 +10,10 @@ namespace ExceptionReporting.Tests
 		public void TestName()
 		{
 			var screenshot = ScreenshotTaker.TakeScreenShot();
-			Assert.IsNotNull(screenshot);
+			if (ExceptionReport.IsRunningMono())			
+				Assert.That(screenshot, Is.Null);
+			else 
+                Assert.IsNotNull(screenshot);
 		}
 	}
 }
