@@ -27,7 +27,7 @@
     <PackageProjectUrl>https://github.com/PandaWood/Exception-Reporter</PackageProjectUrl>
     <Summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</Summary>
     <Title>Exception Reporter</Title>
-    <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot that is taken automatically (if configured)</Description>
+    <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
