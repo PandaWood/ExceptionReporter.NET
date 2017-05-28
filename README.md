@@ -10,6 +10,11 @@ Exception and the application/system running it
 PM> Install-Package ExceptionReporter
 ```
 
+### The assemblies
+For the un-nugetted, the latest release dll/xml for ExceptionReporter is in the 'dist' folder
+
+## How it Looks
+
 Many interface elements can be configured: whether buttons have images, what text appears in the labels,
 font-sizes/colors, which tabs are shown etc
 
@@ -33,11 +38,9 @@ The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
 
 
-#### Most Recent Features
-- Added Less/More detail button - toggles between showing just the exception message or the dialog
-as normal (for users who get confused with too much information)
-- Support for multiple exceptions (ie a list of exceptions)
-- A  _custom message_ can override the main message (ie Exception.Message)
-- Screenshot saved as jpeg format (rather than .bmp) to reduce file size
-- Attach any files to the optional email message (just add to the _FilesToAttach_  array with the
-full path & those files will be automatically attached to the outgoing email (MAPI or SMTP)
+#### Some Important Features
+- Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
+- Screenshot is automatically taken and attached (support for multiple monitors) - but is configurable
+- Attach additional files to the email - useful for including log/trace files to help with diagnosis
+- Report includes system information such as Windows version, service pack, CPU, memory total and available
+- Also includes all assemblies and versions being used by the current executable

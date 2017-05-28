@@ -27,10 +27,7 @@ namespace ExceptionReporting.WinForms.Views
             InitializeComponent();
 	        TopMost = reportInfo.TopMost;
 
-            _presenter = new ExceptionReportPresenter(this, reportInfo)
-                             {
-                                 Clipboard = new WinFormsClipboard()
-                             };
+            _presenter = new ExceptionReportPresenter(this, reportInfo);
 
             WireUpEvents();
             PopulateTabs();
@@ -414,14 +411,6 @@ namespace ExceptionReporting.WinForms.Views
         }
 
     }
-
-	public class WinFormsClipboard : IClipboard
-	{
-		public void CopyTo(string text)
-		{
-			Clipboard.SetDataObject(text, true);
-		}
-	}
 }
 
 #pragma warning restore 1591

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using ExceptionReporting.Extensions;
-using ExceptionReporting.Config;
 using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
@@ -13,7 +12,6 @@ namespace ExceptionReporting.Core
 		private readonly ExceptionReportInfo _reportInfo;
 		private StringBuilder _stringBuilder;
 		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
-		private IFileReader _fileReader = new FileReader();
 
 		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
@@ -26,11 +24,6 @@ namespace ExceptionReporting.Core
 			_sysInfoResults = sysInfoResults;
 		}
 
-		public IFileReader FileReader
-		{
-			set { _fileReader = value; }
-		}
-
 		/// <summary>
 		/// Build the exception report
 		/// </summary>
@@ -41,7 +34,6 @@ namespace ExceptionReporting.Core
 			if (_reportInfo.ShowGeneralTab) BuildGeneralInfo();
 			if (_reportInfo.ShowExceptionsTab) BuildExceptionInfo();
 			if (_reportInfo.ShowAssembliesTab) BuildAssemblyInfo();
-			if (_reportInfo.ShowConfigTab) BuildConfigInfo();
 			if (_reportInfo.ShowSysInfoTab) BuildSysInfo();
 			if (_reportInfo.ShowContactTab) BuildContactInfo();
 
@@ -89,18 +81,6 @@ namespace ExceptionReporting.Core
 				.AppendLine()
 				.AppendLine(digger.CreateReferencesString())
 				.AppendDottedLine().AppendLine();
-		}
-
-		private void BuildConfigInfo()
-        {
-            var configFilePath = ConfigReader.GetConfigFilePath();
-            if (!File.Exists(configFilePath))
-            {
-                return;
-            }
-			_stringBuilder.AppendLine("[Config Settings]").AppendLine();
-		    _stringBuilder.AppendLine(_fileReader.ReadAll(configFilePath));
-			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
 		private void BuildSysInfo()

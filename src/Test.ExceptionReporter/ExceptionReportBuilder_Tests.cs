@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using ExceptionReporting.Extensions;
-using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
@@ -14,15 +13,6 @@ namespace ExceptionReporting.Tests
     [TestFixture]
     public class ExceptionReportBuilder_Tests
     {
-        private IFileReader _fileReader;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _fileReader = MockRepository.GenerateStub<IFileReader>();
-            _fileReader.Stub(c => c.ReadAll("")).IgnoreArguments().Return("");
-        }
-
         [Test]
         public void CanBuild_ReferencedAssemblies_Section()
         {
@@ -31,7 +21,7 @@ namespace ExceptionReporting.Tests
                 reportInfo.ShowAssembliesTab = true;
                 reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
-                var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
+                var builder = new ExceptionReportBuilder(reportInfo);
 
                 var exceptionReport = builder.Build();
 
@@ -54,7 +44,7 @@ namespace ExceptionReporting.Tests
             {
                 reportInfo.ShowSysInfoTab = true;
 
-                var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults) { FileReader = _fileReader };
+                var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults);
                 var exceptionReport = builder.Build();
 
                 Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
@@ -87,7 +77,7 @@ namespace ExceptionReporting.Tests
                     .AppendLine("Source:")
                     .AppendLine().AppendDottedLine().AppendLine();
 
-                var builder = new ExceptionReportBuilder(reportInfo) { FileReader = _fileReader };
+                var builder = new ExceptionReportBuilder(reportInfo);
                 var exceptionReport = builder.Build();
 
                 Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));

@@ -60,12 +60,14 @@ namespace ExceptionReporting.Mail
 		private MailMessage CreateMailMessage(string exceptionReport)
 		{
 			var mailMessage = new MailMessage
-								  {
-									  From = new MailAddress(_reportInfo.SmtpFromAddress, null),
-									  ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
-									  Body = exceptionReport,
-									  Subject = EmailSubject
-								  };
+			  {
+				From = new MailAddress(_reportInfo.SmtpFromAddress, null),
+                #pragma warning disable CS0618 // Type or member is obsolete
+                ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
+                #pragma warning restore CS0618 // Type or member is obsolete
+                Body = exceptionReport,
+				Subject = EmailSubject
+			  };
 
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
 			AddAnyAttachments(mailMessage);

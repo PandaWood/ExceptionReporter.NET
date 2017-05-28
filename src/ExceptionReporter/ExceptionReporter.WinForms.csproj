@@ -74,9 +74,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigHtmlConverter.cs" />
-    <Compile Include="Config\ConfigReader.cs" />
-    <Compile Include="Config\FileReader.cs" />
     <Compile Include="Core\AssemblyReferenceDigger.cs" />
     <Compile Include="Core\Disposable.cs" />
     <Compile Include="Core\ExceptionReport.cs" />
@@ -84,7 +81,6 @@
     <Compile Include="Core\ExceptionReporterExtensions.cs" />
     <Compile Include="Core\ExceptionReportGenerator.cs" />
     <Compile Include="Core\ExceptionReportInfo.cs" />
-    <Compile Include="Core\IClipboard.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
     <Compile Include="ExceptionReportPresenter.cs" />
@@ -120,14 +116,13 @@
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Views\IExceptionReportView.cs" />
+    <Compile Include="Core\WinformsClipboard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlToHtml.xslt">
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

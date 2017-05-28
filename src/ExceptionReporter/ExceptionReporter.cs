@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 
 // ReSharper disable UnusedMember.Global
@@ -68,24 +67,7 @@ namespace ExceptionReporting
 		{
 			_reportInfo.CustomMessage = customMessage;
 			Show(exceptions);
-		}
-
-		/// <summary>
-		/// Read settings from config file
-		/// <remarks> This method must be explicitly called - config is not automatically read</remarks>
-		/// </summary>
-		public void ReadConfig()
-		{
-			try
-			{
-				var configReader = new ConfigReader(_reportInfo);
-				configReader.ReadConfig();
-			}
-			catch (Exception ex)
-			{
-                System.Windows.Forms.MessageBox.Show(ex.Message);    // last resort, hope it never happens
-			}
-		}
+		}		
 	}
 }
 

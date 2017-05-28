@@ -67,9 +67,6 @@
     <Compile Include="AssemblyReferenceDigger_Tests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Config_Tests.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Disposable_Tests.cs">
       <SubType>Code</SubType>
     </Compile>

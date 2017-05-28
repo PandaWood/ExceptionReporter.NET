@@ -43,7 +43,6 @@
     <Reference Include="System.Core">
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -54,9 +53,6 @@
     <EmbeddedResource Include="DemoAppView.resx">
       <DependentUpon>DemoAppView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <Compile Include="DemoAppView.cs">
       <SubType>Form</SubType>
     </Compile>

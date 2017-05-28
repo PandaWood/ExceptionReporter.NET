@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using ExceptionReporting.Config;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
@@ -16,7 +15,6 @@ namespace ExceptionReporting
 	/// </summary>
 	public class ExceptionReportPresenter
 	{
-		private IClipboard _clipboard;
 		private readonly IExceptionReportView _view;
 		private readonly ExceptionReportGenerator _reportGenerator;
 
@@ -44,16 +42,9 @@ namespace ExceptionReporting
 		/// 
 		/// </summary>
 		public ExceptionReportInfo ReportInfo { get; private set; }
+        private WinFormsClipboard _clipboard = new WinFormsClipboard();
 
-		/// <summary>
-		/// An IClipboard needs to be set by the calling View before copying to clipboard (see IClipboard for info)
-		/// </summary>
-		public IClipboard Clipboard
-		{
-			set { _clipboard = value; }
-		}
-
-		private ExceptionReport CreateExceptionReport()
+        private ExceptionReport CreateExceptionReport()
 		{
 			ReportInfo.UserExplanation = _view.UserExplanation;
 			return _reportGenerator.CreateExceptionReport();
@@ -178,12 +169,6 @@ namespace ExceptionReporting
 			}
 		}
 
-		private static string GetConfigAsHtml()
-		{
-			var converter = new ConfigHtmlConverter(Assembly.GetExecutingAssembly());
-			return converter.Convert();
-		}
-
 		/// <summary>
 		/// Get the system information results
 		/// </summary>
@@ -232,7 +217,6 @@ namespace ExceptionReporting
 
 				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
-				_view.PopulateConfigTab(GetConfigAsHtml());
                 if (!ExceptionReport.IsRunningMono())
 				    _view.PopulateSysInfoTab();
 			}

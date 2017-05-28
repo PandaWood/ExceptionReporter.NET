@@ -34,10 +34,10 @@ namespace ExceptionReporting.Core
         /// <summary>
         /// Releases all resource used by the <see cref="T:ExceptionReporting.Core.Disposable"/> object.
         /// </summary>
-        /// <remarks>Call <see cref="Dispose"/> when you are finished using the
-        /// <see cref="T:ExceptionReporting.Core.Disposable"/>. The <see cref="Dispose"/> method leaves the
+        /// <remarks>Call Dispose when you are finished using the
+        /// ExceptionReporting.Core.Disposable. The Dispose method leaves the
         /// <see cref="T:ExceptionReporting.Core.Disposable"/> in an unusable state. After calling
-        /// <see cref="Dispose"/>, you must release all references to the
+        /// Dispose you must release all references to the
         /// <see cref="T:ExceptionReporting.Core.Disposable"/> so the garbage collector can reclaim the memory that the
         /// <see cref="T:ExceptionReporting.Core.Disposable"/> was occupying.</remarks>
         public void Dispose()

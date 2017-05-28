@@ -73,8 +73,6 @@ namespace WinFormsDemoApp
 			}
 			var exceptionReporter = new ExceptionReporter();
 
-			exceptionReporter.ReadConfig();
-
 			exceptionReporter.Show(exception1, exception2);
 		}
 
@@ -88,9 +86,6 @@ namespace WinFormsDemoApp
 			{
 				var exceptionReporter = new ExceptionReporter();
 
-				if (useConfig)
-					exceptionReporter.ReadConfig();
-				
 				exceptionReporter.Show(exception);
 			}
 		}
