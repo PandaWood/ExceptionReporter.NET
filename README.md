@@ -38,8 +38,8 @@ The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
 
 
-#### Some Important Features
-(At this time, these are the features that the similar and simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) don't have)
+## Some Important Features
+(At this time, these seem to be the features that the similar and simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) doesn't have)
 
 - Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
 - Screenshot is automatically taken and attached (support for multiple monitors) - but is configurable
