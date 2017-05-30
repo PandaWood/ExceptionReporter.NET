@@ -39,8 +39,44 @@ The ultimate goal is the developer receiving a formatted exception report - see
 
 
 #### Some Important Features
+(At this time, these are the features that the similar and simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) don't have)
+
 - Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
 - Screenshot is automatically taken and attached (support for multiple monitors) - but is configurable
 - Attach additional files to the email - useful for including log/trace files to help with diagnosis
-- Report includes system information such as Windows version, service pack, CPU, memory total and available
-- Also includes all assemblies and versions being used by the current executable
+- Report includes system information such as Windows version, CPU, memory and all the assemblies with versions being used by the current executable (see example below)
+
+```
+[Assembly Info]
+ 
+mscorlib, Version=2.0.0.0
+System.Windows.Forms, Version=2.0.0.0
+System, Version=2.0.0.0
+ExceptionReporter.WinForms, Version=2.1.0.0
+System.Drawing, Version=2.0.0.0
+EO.WebBrowser, Version=16.0.91.0
+  System.Xml.Linq, Version=4.0.0.0
+  Esent.Collections, Version=1.9.3.2
+-----------------------------
+
+[System Info]
+
+Operating System
+-Microsoft Windows 7 Enterprise
+--CodeSet = 1252
+--CSDVersion =
+--CurrentTimeZone = 600
+--FreePhysicalMemory = 1947848
+--OSArchitecture = 32-bit
+--OSLanguage = 1033
+--ServicePackMajorVersion = 0
+--ServicePackMinorVersion = 0
+--Version = 6.1.7600
+
+[Machine]
+-MOSESMACHINE
+--Manufacturer = Gigabyte Technology Co., Ltd.
+--Model = P35-DS3L
+--TotalPhysicalMemory = 3756515328
+--UserName = MachineName\GruberMachine
+  ```
