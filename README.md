@@ -1,11 +1,12 @@
 <sub><sup>We've just moved over from CodePlex so this is now the official home of the Exception Reporter</sub></sup>
 
 
-# Exception Reporter
+# Exception Reporter.NET
 Exception Reporter is a .NET component that shows a dialog with detailed information on an
 Exception and the application/system running it
 
-### The nuget package [![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
+### The nuget package
+ [![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
 ```
 PM> Install-Package ExceptionReporter
 ```
@@ -21,8 +22,7 @@ font-sizes/colors, which tabs are shown etc
 ![](images/er-user-input.png)
 
 In this example, there are no images on the buttons,
-the window title is customised and an extra Tab (_Contact_) is visible -
-see the wiki page on [Configuration Options](https://github.com/PandaWood/Exception-Reporter/wiki/Configuration-Options) for more info
+the window title is customised and an extra Tab (_Contact_) is visible
 
 ![](images/er-exceptions-tab.png)
 
@@ -39,28 +39,59 @@ The ultimate goal is the developer receiving a formatted exception report - see
 
 
 ## Some Important Features
-(At this time, these seem to be the features that the similar and simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) doesn't have)
+(Note: these seem to be the features that the similar but simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) doesn't have)
 
 - Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
 - Screenshot is automatically taken and attached (support for multiple monitors) - but is configurable
 - Attach additional files to the email - useful for including log/trace files to help with diagnosis
-- Report includes system information such as Windows version, CPU, memory and all the assemblies with versions being used by the current executable (see example below)
+- Support for connecting to email client (via MAPI) as well as SMTP - this means that the report body/subject/attachments will connect to Outlook (or the default Email client) and allow the user to send and manage the email themselves (without requiring an SMTP server)
+- The Report is plain text and includes exception stack traces and system information such as Windows version, CPU, memory and a list of all the assemblies (with versions) being used by the current executable (see example report below)
 
 ```
-[Assembly Info]
+
+-----------------------------
+[General Info]
+
+Application: ExceptionReporter Demo App
+Version:     2.1.2.0
+Region:      English (Australia)
+Machine:     PANDAMAN
+User:        JohnGruber
+Date: 30/05/2017
+Time: 12:40 AM
+
+User Explanation:
+
+JohnGruber said "I just pressed Connect and this happened"
+-----------------------------
  
+[Exception Info 1]
+
+Top-level Exception
+Type:        System.IO.IOException
+Message:     Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.
+Source:      WinFormsDemoApp
+Stack Trace: at WinFormsDemoApp.DemoAppView.AndAnotherOne() in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 110
+    at WinFormsDemoApp.DemoAppView.CallAnotherMethod() in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 101
+    at WinFormsDemoApp.DemoAppView.SomeMethod() in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 96
+    at WinFormsDemoApp.DemoAppView.ShowExceptionReporter(Boolean useConfig) in Z:\MyProjects\ExceptionReporter\src\WinFormsDemoApp\DemoAppView.cs:line 81
+
+Inner Exception 1
+Type:        System.Exception
+Message:     This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller
+
+-----------------------------
+
+[Assembly Info] 
 mscorlib, Version=2.0.0.0
 System.Windows.Forms, Version=2.0.0.0
 System, Version=2.0.0.0
-ExceptionReporter.WinForms, Version=2.1.0.0
+ExceptionReporter.WinForms, Version=2.1.2.0
 System.Drawing, Version=2.0.0.0
 EO.WebBrowser, Version=16.0.91.0
-  System.Xml.Linq, Version=4.0.0.0
-  Esent.Collections, Version=1.9.3.2
------------------------------
+Esent.Collections, Version=1.9.3.2
 
 [System Info]
-
 Operating System
 -Microsoft Windows 7 Enterprise
 --CodeSet = 1252
@@ -74,7 +105,7 @@ Operating System
 --Version = 6.1.7600
 
 [Machine]
--MOSESMACHINE
+-PANDAMAN
 --Manufacturer = Gigabyte Technology Co., Ltd.
 --Model = P35-DS3L
 --TotalPhysicalMemory = 3756515328
