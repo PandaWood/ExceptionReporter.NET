@@ -20,15 +20,18 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.1.2</PackageVersion>
+    <PackageVersion>2.2</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
-    <PackageLicenseUrl>https://github.com/PandaWood/Exception-Reporter/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
-    <PackageProjectUrl>https://github.com/PandaWood/Exception-Reporter</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
     <Summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</Summary>
-    <Title>Exception Reporter</Title>
+    <Title>ExceptionReporter.NET</Title>
     <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>Remove embedded Win32Mapi library and use nuget dependency to include Simple-MAPI.NET</PackageReleaseNotes>
+    <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -72,6 +75,9 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Mapi">
+      <HintPath>..\..\packages\Simple-MAPI.NET.1.0.0\lib\net20\Mapi.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AssemblyReferenceDigger.cs" />
@@ -124,12 +130,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Win32Mapi\Win32Mapi.csproj">
-      <Project>{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}</Project>
-      <Name>Win32Mapi</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
