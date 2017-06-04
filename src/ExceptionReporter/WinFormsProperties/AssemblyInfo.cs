@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ExceptionReporter.WinForms")]
 [assembly: AssemblyDescription("Displays exception details and system information")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("https://github.com/PandaWood/Cradiator")]
+[assembly: AssemblyCompany("https://github.com/PandaWood/ExceptionReporter.NET")]
 [assembly: AssemblyProduct("Exception Reporter")]
 [assembly: AssemblyCopyright("Copyright © 2008-2017")]
 [assembly: AssemblyTrademark("")]

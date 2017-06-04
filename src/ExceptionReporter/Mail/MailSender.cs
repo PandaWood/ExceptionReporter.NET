@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using System.Net.Mail;
 using ExceptionReporting.Core;
 using ExceptionReporting.Extensions;
+using Ionic.Zip;
 using Win32Mapi;
 
 namespace ExceptionReporting.Mail
@@ -22,9 +24,9 @@ namespace ExceptionReporting.Mail
 		public void SendSmtp(string exceptionReport, CompletedMethodDelegate setEmailCompletedState)
 		{
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer)
-								 {
-									 DeliveryMethod = SmtpDeliveryMethod.Network
-								 };
+			{
+				DeliveryMethod = SmtpDeliveryMethod.Network
+			};
 			var mailMessage = CreateMailMessage(exceptionReport);
 
 			smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
@@ -43,7 +45,7 @@ namespace ExceptionReporting.Mail
 
 			mapi.AddRecipient(emailAddress, null, false);
 			AddMapiAttachments(mapi);
-			mapi.Send(EmailSubject, exceptionReport, true);
+			mapi.Send(EmailSubject, exceptionReport);
 		}
 
 		private void AddMapiAttachments(Mapi mapi)
@@ -51,49 +53,54 @@ namespace ExceptionReporting.Mail
 			if (_reportInfo.ScreenshotAvailable)
 				mapi.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
 
-			foreach (var file in _reportInfo.FilesToAttach)
-			{
-				mapi.Attach(file);
-			}
+			AttachFiles(new AttachAdapter(mapi));
 		}
 
 		private MailMessage CreateMailMessage(string exceptionReport)
 		{
 			var mailMessage = new MailMessage
-			  {
+			{
 				From = new MailAddress(_reportInfo.SmtpFromAddress, null),
-                #pragma warning disable CS0618 // Type or member is obsolete
-                ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
-                #pragma warning restore CS0618 // Type or member is obsolete
-                Body = exceptionReport,
+				#pragma warning disable CS0618 // Type or member is obsolete
+				ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
+				#pragma warning restore CS0618 // Type or member is obsolete
+				Body = exceptionReport,
 				Subject = EmailSubject
-			  };
+			};
 
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
-			AddAnyAttachments(mailMessage);
-			
+			AddSmtpAttachments(mailMessage);
+
 			return mailMessage;
 		}
 
-		private void AddAnyAttachments(MailMessage mailMessage)
+		private void AddSmtpAttachments(MailMessage mailMessage)
 		{
 			AttachScreenshot(mailMessage);
-			AttachFiles(mailMessage);
+			AttachFiles(new AttachAdapter(mailMessage));
 		}
 
-		private void AttachFiles(MailMessage mailMessage)
+		private void AttachFiles(IAttach attacher)
 		{
-			foreach (var f in _reportInfo.FilesToAttach)
+			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport.zip");
+			if (File.Exists(zipfileName)) File.Delete(zipfileName);
+
+			using (var zip = new ZipFile(zipfileName))
 			{
-				mailMessage.Attachments.Add(new Attachment(f));
+				foreach (var f in _reportInfo.FilesToAttach)
+				{
+					if (File.Exists(f)) zip.AddFile(f, "");
+				}
+				zip.Save();
 			}
+			attacher.Attach(zipfileName);
 		}
 
 		private void AttachScreenshot(MailMessage mailMessage)
 		{
 			if (_reportInfo.ScreenshotAvailable)
 				mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage),
-														   ScreenshotTaker.ScreenshotMimeType));
+															 ScreenshotTaker.ScreenshotMimeType));
 		}
 
 		public string EmailSubject

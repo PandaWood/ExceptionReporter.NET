@@ -13,7 +13,7 @@ namespace ExceptionReporting
 	public class ExceptionReporter
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-		private ExceptionReporting.IExceptionReportView _view;
+		private IExceptionReportView _view;
 
 		/// <summary>
 		/// Initialise the ExceptionReporter
