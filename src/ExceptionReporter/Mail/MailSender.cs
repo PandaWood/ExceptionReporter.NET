@@ -35,6 +35,28 @@ namespace ExceptionReporting.Mail
 			smtpClient.SendAsync(mailMessage, null);
 		}
 
+		private MailMessage CreateMailMessage(string exceptionReport)
+		{
+			var mailMessage = new MailMessage
+			{
+				From = new MailAddress(_reportInfo.SmtpFromAddress, null),
+				#pragma warning disable CS0618 // Type or member is obsolete
+				ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
+				#pragma warning restore CS0618 // Type or member is obsolete
+				Body = exceptionReport,
+				Subject = EmailSubject
+			};
+
+			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
+
+			if (_reportInfo.ScreenshotAvailable)
+				mailMessage.Attachments.Add(
+					new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));
+			AttachFiles();
+
+			return mailMessage;
+		}
+
 		/// <summary>
 		/// Send SimpleMAPI email
 		/// </summary>
@@ -56,37 +78,23 @@ namespace ExceptionReporting.Mail
 			mapi.Send(EmailSubject, exceptionReport);
 		}
 
-		private MailMessage CreateMailMessage(string exceptionReport)
-		{
-			var mailMessage = new MailMessage
-			{
-				From = new MailAddress(_reportInfo.SmtpFromAddress, null),
-				#pragma warning disable CS0618 // Type or member is obsolete
-				ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
-				#pragma warning restore CS0618 // Type or member is obsolete
-				Body = exceptionReport,
-				Subject = EmailSubject
-			};
-
-			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
-			if (_reportInfo.ScreenshotAvailable)
-				mailMessage.Attachments.Add(
-					new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));
-			AttachFiles();
-
-			return mailMessage;
-		}
-
 		private void AttachFiles()
 		{
-			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport.zip");
+			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport-attachments.zip");
 			if (File.Exists(zipfileName)) File.Delete(zipfileName);
 
 			using (var zip = new ZipFile(zipfileName))
 			{
 				foreach (var f in _reportInfo.FilesToAttach)
-				{
-					if (File.Exists(f)) zip.AddFile(f, "");
+				{ // try not to add already zipped files to the "single zip" attachment, by checking for "zip" extension
+					if (!File.Exists(f)) continue;
+
+					if (!f.EndsWith(".zip")) { 
+						zip.AddFile(f, ""); 							// add file to zip attachment
+					}
+					else {
+						_attacher.Attach(zipfileName);		// attach zip file separately
+					}
 				}
 				zip.Save();
 			}
