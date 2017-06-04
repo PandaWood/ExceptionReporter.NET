@@ -12,6 +12,7 @@ namespace ExceptionReporting.Mail
 	{
 		public delegate void CompletedMethodDelegate(bool success);
 		private readonly ExceptionReportInfo _reportInfo;
+		private AttachAdapter _attacher;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{
@@ -28,6 +29,7 @@ namespace ExceptionReporting.Mail
 				DeliveryMethod = SmtpDeliveryMethod.Network
 			};
 			var mailMessage = CreateMailMessage(exceptionReport);
+			_attacher = new AttachAdapter(mailMessage);
 
 			smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
 			smtpClient.SendAsync(mailMessage, null);
@@ -39,21 +41,19 @@ namespace ExceptionReporting.Mail
 		public void SendMapi(string exceptionReport)
 		{
 			var mapi = new Mapi();
+			_attacher = new AttachAdapter(mapi);
+			
 			var emailAddress = _reportInfo.EmailReportAddress.IsEmpty()
 								? _reportInfo.ContactEmail
 								: _reportInfo.EmailReportAddress;
 
 			mapi.AddRecipient(emailAddress, null, false);
-			AddMapiAttachments(mapi);
-			mapi.Send(EmailSubject, exceptionReport);
-		}
-
-		private void AddMapiAttachments(Mapi mapi)
-		{
+			
 			if (_reportInfo.ScreenshotAvailable)
-				mapi.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
+				_attacher.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
 
-			AttachFiles(new AttachAdapter(mapi));
+			AttachFiles();
+			mapi.Send(EmailSubject, exceptionReport);
 		}
 
 		private MailMessage CreateMailMessage(string exceptionReport)
@@ -69,18 +69,15 @@ namespace ExceptionReporting.Mail
 			};
 
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
-			AddSmtpAttachments(mailMessage);
+			if (_reportInfo.ScreenshotAvailable)
+				mailMessage.Attachments.Add(
+					new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));
+			AttachFiles();
 
 			return mailMessage;
 		}
 
-		private void AddSmtpAttachments(MailMessage mailMessage)
-		{
-			AttachScreenshot(mailMessage);
-			AttachFiles(new AttachAdapter(mailMessage));
-		}
-
-		private void AttachFiles(IAttach attacher)
+		private void AttachFiles()
 		{
 			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport.zip");
 			if (File.Exists(zipfileName)) File.Delete(zipfileName);
@@ -93,14 +90,7 @@ namespace ExceptionReporting.Mail
 				}
 				zip.Save();
 			}
-			attacher.Attach(zipfileName);
-		}
-
-		private void AttachScreenshot(MailMessage mailMessage)
-		{
-			if (_reportInfo.ScreenshotAvailable)
-				mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage),
-															 ScreenshotTaker.ScreenshotMimeType));
+			_attacher.Attach(zipfileName);
 		}
 
 		public string EmailSubject
