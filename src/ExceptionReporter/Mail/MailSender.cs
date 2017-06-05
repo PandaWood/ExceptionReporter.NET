@@ -80,13 +80,15 @@ namespace ExceptionReporting.Mail
 
 		private void AttachFiles()
 		{
+			if (_reportInfo.FilesToAttach.Length == 0) return;
+
 			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport-attachments.zip");
 			if (File.Exists(zipfileName)) File.Delete(zipfileName);
 
 			using (var zip = new ZipFile(zipfileName))
 			{
 				foreach (var f in _reportInfo.FilesToAttach)
-				{ // try not to add already zipped files to the "single zip" attachment, by checking for "zip" extension
+				{ // try not to add already zipped files to our "zip" attachment, by checking for "zip" extension
 					if (!File.Exists(f)) continue;
 
 					if (!f.EndsWith(".zip")) { 
