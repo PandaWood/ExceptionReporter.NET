@@ -6,7 +6,6 @@ using ExceptionReporting.Extensions;
 using ExceptionReporting.Core;
 using ExceptionReporting.SystemInfo;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace ExceptionReporting.Tests
 {

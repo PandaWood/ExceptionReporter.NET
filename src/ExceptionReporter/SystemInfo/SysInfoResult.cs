@@ -10,18 +10,14 @@ namespace ExceptionReporting.SystemInfo
 	/// </summary>
 	public class SysInfoResult
 	{
-		private readonly string _name;
-		private readonly List<string> _nodes = new List<string>();
-		private readonly List<SysInfoResult> _childResults = new List<SysInfoResult>();
-
 		public SysInfoResult(string name)
 		{
-			_name = name;
+			Name = name;
 		}
 
 		public void AddNode(string node)
 		{
-			_nodes.Add(node);
+			Nodes.Add(node);
 		}
 
 		public void AddChildren(IEnumerable<SysInfoResult> children)
@@ -29,30 +25,21 @@ namespace ExceptionReporting.SystemInfo
 			ChildResults.AddRange(children);
 		}
 
-		public List<string> Nodes
-		{
-			get { return _nodes; }
-		}
+		public List<string> Nodes { get; } = new List<string>();
 
 		private void Clear()
 		{
-			_nodes.Clear();
+			Nodes.Clear();
 		}
 
 		private void AddRange(IEnumerable<string> nodes)
 		{
-			_nodes.AddRange(nodes);
+			Nodes.AddRange(nodes);
 		}
 
-		public string Name
-		{
-			get { return _name; }
-		}
+		public string Name { get; }
 
-		public List<SysInfoResult> ChildResults
-		{
-			get { return _childResults; }
-		}
+		public List<SysInfoResult> ChildResults { get; } = new List<SysInfoResult>();
 
 		public SysInfoResult Filter(string[] filterStrings)
 		{
@@ -67,4 +54,3 @@ namespace ExceptionReporting.SystemInfo
 		}
 	}
 }
-#pragma warning restore 1591

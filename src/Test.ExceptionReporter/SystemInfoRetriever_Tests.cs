@@ -26,7 +26,7 @@ namespace ExceptionReporting.Tests
 
             Assert.That(sysInfoResult.Nodes.Count, Is.EqualTo(1));      // at least 1 machine name
             Assert.That(sysInfoResult.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
-            Assert.That(sysInfoResult.ChildResults[0].Nodes.Where(r => r.Contains("CurrentTimeZone")).Count(), Is.GreaterThan(0));
+            Assert.That(sysInfoResult.ChildResults[0].Nodes.Count(r => r.Contains("CurrentTimeZone")), Is.GreaterThan(0));
         }
 
         [Test]

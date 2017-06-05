@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.SystemInfo;
+#pragma warning disable 1591
 
 namespace ExceptionReporting.Core
 {
@@ -23,7 +24,8 @@ namespace ExceptionReporting.Core
 		/// however 'base' properties such as MachineName</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
-            _reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
+			if (reportInfo == null) throw new ExceptionReportGeneratorException("reportInfo cannot be null");
+			_reportInfo = reportInfo;
 
             _reportInfo.ExceptionDate = DateTime.UtcNow;
             _reportInfo.UserName = Environment.UserName;
@@ -39,7 +41,7 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Create an exception report 
+		/// Create an exception report
 		/// NB This method re-uses the same information retrieved from the system on subsequent calls
 		/// Create a new ExceptionReportGenerator if you need to refresh system information from the computer
 		/// </summary>
@@ -92,7 +94,7 @@ namespace ExceptionReporting.Core
     /// <summary>
     /// Exception report generator exception.
     /// </summary>
-	internal class ExceptionReportGeneratorException : Exception
+	public class ExceptionReportGeneratorException : Exception
 	{
 		public ExceptionReportGeneratorException(string message) : base(message)
 		{ }
