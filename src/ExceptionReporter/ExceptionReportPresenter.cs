@@ -42,9 +42,9 @@ namespace ExceptionReporting
 		/// 
 		/// </summary>
 		public ExceptionReportInfo ReportInfo { get; private set; }
-        private WinFormsClipboard _clipboard = new WinFormsClipboard();
+		private WinFormsClipboard _clipboard = new WinFormsClipboard();
 
-        private ExceptionReport CreateExceptionReport()
+		private ExceptionReport CreateExceptionReport()
 		{
 			ReportInfo.UserExplanation = _view.UserExplanation;
 			return _reportGenerator.CreateExceptionReport();
@@ -217,8 +217,8 @@ namespace ExceptionReporting
 
 				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
-                if (!ExceptionReport.IsRunningMono())
-				    _view.PopulateSysInfoTab();
+				if (!ExceptionReport.IsRunningMono())
+					_view.PopulateSysInfoTab();
 			}
 			finally
 			{

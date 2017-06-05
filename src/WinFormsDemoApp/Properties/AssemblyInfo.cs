@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ExceptionReporter Demo App")]
 [assembly: AssemblyDescription("ExceptionReporter Demo App")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("www.codeplex.com/ExceptionReporter")]
+[assembly: AssemblyCompany("https://github.com/PandaWood/ExceptionReporter.NET")]
 [assembly: AssemblyProduct("ExceptionReporter Demo App")]
-[assembly: AssemblyCopyright("Copyright ©  2008")]
+[assembly: AssemblyCopyright("Copyright © 2008-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.2.0.0")]
+[assembly: AssemblyFileVersion("2.2.0.0")]

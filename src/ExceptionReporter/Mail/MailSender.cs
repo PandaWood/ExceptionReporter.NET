@@ -8,7 +8,7 @@ using Win32Mapi;
 
 namespace ExceptionReporting.Mail
 {
-	internal class MailSender
+	class MailSender
 	{
 		public delegate void CompletedMethodDelegate(bool success);
 		private readonly ExceptionReportInfo _reportInfo;
