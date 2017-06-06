@@ -55,5 +55,7 @@ Global
 		$5.scope = application/config+xml
 		$0.StandardHeader = $6
 		$0.VersionControlPolicy = $7
+		version = 2.2.0
+		description = ExceptionReporter is a .NET component which shows an interface and gathers detailed informaton on an Exception and the application/system running it
 	EndGlobalSection
 EndGlobal

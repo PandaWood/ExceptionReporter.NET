@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Mail;
+using System.Text;
 using ExceptionReporting.Core;
 using ExceptionReporting.Extensions;
 using Ionic.Zip;
@@ -26,8 +28,13 @@ namespace ExceptionReporting.Mail
 		{
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer)
 			{
-				DeliveryMethod = SmtpDeliveryMethod.Network
+				DeliveryMethod = SmtpDeliveryMethod.Network,
+				Port = _reportInfo.SmtpPort,
+				EnableSsl = _reportInfo.SmtpUseSsl,
+				UseDefaultCredentials = false,
+				Credentials = new NetworkCredential(_reportInfo.SmtpUsername, _reportInfo.SmtpPassword),
 			};
+
 			var mailMessage = CreateMailMessage(exceptionReport);
 			_attacher = new AttachAdapter(mailMessage);
 
@@ -39,10 +46,8 @@ namespace ExceptionReporting.Mail
 		{
 			var mailMessage = new MailMessage
 			{
+				BodyEncoding = Encoding.UTF8,
 				From = new MailAddress(_reportInfo.SmtpFromAddress, null),
-				#pragma warning disable CS0618 // Type or member is obsolete
-				ReplyTo = new MailAddress(_reportInfo.SmtpFromAddress, null),
-				#pragma warning restore CS0618 // Type or member is obsolete
 				Body = exceptionReport,
 				Subject = EmailSubject
 			};
@@ -50,10 +55,9 @@ namespace ExceptionReporting.Mail
 			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
 
 			if (_reportInfo.ScreenshotAvailable)
-				mailMessage.Attachments.Add(
-					new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));
-			AttachFiles();
+				mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));
 
+			AttachFiles();
 			return mailMessage;
 		}
 

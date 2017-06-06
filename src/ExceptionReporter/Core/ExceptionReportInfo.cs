@@ -53,6 +53,8 @@ namespace ExceptionReporting.Core
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
+		public int SmtpPort { get; set; }
+		public bool SmtpUseSsl { get; set; }
 
 		/// <summary>
 		/// Email that is displayed in the 'Contact Information'. See <see cref="EmailReportAddress"/> 

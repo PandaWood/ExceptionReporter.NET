@@ -32,6 +32,7 @@
     <PackageReleaseNotes>Remove embedded Win32Mapi library and use nuget dependency to include Simple-MAPI.NET</PackageReleaseNotes>
     <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
