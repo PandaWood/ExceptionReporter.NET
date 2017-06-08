@@ -66,7 +66,7 @@ namespace ExceptionReporting.Mail
 		/// </summary>
 		public void SendMapi(string exceptionReport)
 		{
-			var mapi = new Mapi();
+			var mapi = new SimpleMapi();
 			_attacher = new AttachAdapter(mapi);
 			
 			var emailAddress = _reportInfo.EmailReportAddress.IsEmpty()

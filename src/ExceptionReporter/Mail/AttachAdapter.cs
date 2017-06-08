@@ -14,7 +14,7 @@ namespace ExceptionReporting.Mail
 	/// </summary>
 	class AttachAdapter : IAttach
 	{
-		readonly Mapi _mapi;
+		readonly SimpleMapi _mapi;
 		readonly MailMessage _mailMessage;
 
 		public AttachAdapter(MailMessage mailMessage)
@@ -22,7 +22,7 @@ namespace ExceptionReporting.Mail
 			_mailMessage = mailMessage;
 		}
 
-		public AttachAdapter(Mapi mapi)
+		public AttachAdapter(SimpleMapi mapi)
 		{
 			_mapi = mapi;
 		}

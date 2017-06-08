@@ -76,11 +76,11 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Mapi">
-      <HintPath>..\..\packages\Simple-MAPI.NET.1.0.0\lib\net20\Mapi.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetZip">
       <HintPath>..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleMapi">
+      <HintPath>..\..\packages\Simple-MAPI.NET.1.0.1\lib\net20\SimpleMapi.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
