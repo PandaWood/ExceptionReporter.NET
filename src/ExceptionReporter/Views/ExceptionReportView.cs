@@ -228,10 +228,6 @@ namespace ExceptionReporting.WinForms.Views
             {
                 tabControl.TabPages.Remove(tabAssemblies);
             }
-            if (!_presenter.ReportInfo.ShowConfigTab)
-            {
-                tabControl.TabPages.Remove(tabConfig);
-            }
             if (!_presenter.ReportInfo.ShowSysInfoTab)
             {
                 tabControl.TabPages.Remove(tabSysInfo);
@@ -328,15 +324,9 @@ namespace ExceptionReporting.WinForms.Views
             listviewAssemblies.Items.Add(listViewItem);
         }
 
-        public void PopulateConfigTab(string configFileAsXml)
-        {
-            webBrowserConfig.DocumentText = configFileAsXml;
-        }
-
         protected override void OnClosing(CancelEventArgs e)
         {
             _presenter.Close();
-            webBrowserConfig.Dispose();
             base.OnClosing(e);
         }
 

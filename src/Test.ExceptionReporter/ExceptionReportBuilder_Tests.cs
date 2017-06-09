@@ -88,7 +88,6 @@ namespace ExceptionReporting.Tests
             return new ExceptionReportInfo
             {
                 ShowAssembliesTab = false,
-                ShowConfigTab = false,
                 ShowGeneralTab = false,
                 ShowSysInfoTab = false,
                 ShowExceptionsTab = false,

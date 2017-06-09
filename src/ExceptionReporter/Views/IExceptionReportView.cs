@@ -19,7 +19,6 @@ namespace ExceptionReporting
         void SetEmailCompletedState(bool success);
         void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage);
     	void SetInProgressState();
-        void PopulateConfigTab(string filePath);
         void PopulateExceptionTab(IList<Exception> exceptions);
         void PopulateAssembliesTab();
         void PopulateSysInfoTab();

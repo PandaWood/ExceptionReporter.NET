@@ -110,7 +110,6 @@ namespace ExceptionReporting.Core
 		public string CompanyName { get; set; }
 
 		public bool ShowGeneralTab { get; set; }
-		public bool ShowConfigTab { get; set; }
 		public bool ShowContactTab { get; set; }
 		public bool ShowExceptionsTab { get; set; }
 
@@ -204,7 +203,6 @@ namespace ExceptionReporting.Core
 			BackgroundColor = Color.WhiteSmoke;
 			ShowExceptionsTab = true;
 			ShowContactTab = false;
-			ShowConfigTab = true;
 			ShowAssembliesTab = true;
 			ShowSysInfoTab = true;
 			ShowGeneralTab = true;

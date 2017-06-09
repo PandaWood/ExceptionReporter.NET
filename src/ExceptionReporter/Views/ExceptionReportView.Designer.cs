@@ -48,8 +48,6 @@
             this.txtVersion = new System.Windows.Forms.TextBox();
             this.tabExceptions = new System.Windows.Forms.TabPage();
             this.tabAssemblies = new System.Windows.Forms.TabPage();
-            this.tabConfig = new System.Windows.Forms.TabPage();
-            this.webBrowserConfig = new System.Windows.Forms.WebBrowser();
             this.tabSysInfo = new System.Windows.Forms.TabPage();
             this.lblMachine = new System.Windows.Forms.Label();
             this.txtMachine = new System.Windows.Forms.TextBox();
@@ -87,7 +85,6 @@
             this.tabGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGeneral)).BeginInit();
             this.tabAssemblies.SuspendLayout();
-            this.tabConfig.SuspendLayout();
             this.tabSysInfo.SuspendLayout();
             this.tabContact.SuspendLayout();
             this.lessDetailPanel.SuspendLayout();
@@ -117,7 +114,6 @@
             this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Controls.Add(this.tabExceptions);
             this.tabControl.Controls.Add(this.tabAssemblies);
-            this.tabControl.Controls.Add(this.tabConfig);
             this.tabControl.Controls.Add(this.tabSysInfo);
             this.tabControl.Controls.Add(this.tabContact);
             this.tabControl.HotTrack = true;
@@ -310,29 +306,6 @@
             this.tabAssemblies.TabIndex = 6;
             this.tabAssemblies.Text = "Assemblies";
             this.tabAssemblies.UseVisualStyleBackColor = true;
-            // 
-            // tabConfig
-            // 
-            this.tabConfig.Controls.Add(this.webBrowserConfig);
-            this.tabConfig.Location = new System.Drawing.Point(4, 22);
-            this.tabConfig.Name = "tabConfig";
-            this.tabConfig.Size = new System.Drawing.Size(364, 131);
-            this.tabConfig.TabIndex = 5;
-            this.tabConfig.Text = "Configuration";
-            this.tabConfig.UseVisualStyleBackColor = true;
-            // 
-            // webBrowserConfig
-            // 
-            this.webBrowserConfig.AllowNavigation = false;
-            this.webBrowserConfig.AllowWebBrowserDrop = false;
-            this.webBrowserConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowserConfig.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowserConfig.Location = new System.Drawing.Point(0, 0);
-            this.webBrowserConfig.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowserConfig.Name = "webBrowserConfig";
-            this.webBrowserConfig.Size = new System.Drawing.Size(364, 131);
-            this.webBrowserConfig.TabIndex = 21;
-            this.webBrowserConfig.WebBrowserShortcutsEnabled = false;
             // 
             // tabSysInfo
             // 
@@ -758,7 +731,6 @@
             this.tabGeneral.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGeneral)).EndInit();
             this.tabAssemblies.ResumeLayout(false);
-            this.tabConfig.ResumeLayout(false);
             this.tabSysInfo.ResumeLayout(false);
             this.tabSysInfo.PerformLayout();
             this.tabContact.ResumeLayout(false);
@@ -792,7 +764,6 @@
         private System.Windows.Forms.TextBox txtVersion;
         private System.Windows.Forms.TabPage tabExceptions;
         private System.Windows.Forms.TabPage tabAssemblies;
-        private System.Windows.Forms.TabPage tabConfig;
         private System.Windows.Forms.TabPage tabSysInfo;
         private System.Windows.Forms.Label lblMachine;
         private System.Windows.Forms.TextBox txtMachine;
@@ -818,7 +789,6 @@
         private System.Windows.Forms.PictureBox picGeneral;
         private System.Windows.Forms.Button btnDetailToggle;
         private System.Windows.Forms.TextBox txtExceptionMessageLarge;
-        private System.Windows.Forms.WebBrowser webBrowserConfig;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel lessDetailPanel;
         private System.Windows.Forms.PictureBox lessDetail_alertIcon;
