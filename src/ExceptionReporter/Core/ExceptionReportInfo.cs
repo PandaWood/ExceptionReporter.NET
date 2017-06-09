@@ -56,18 +56,18 @@ namespace ExceptionReporting.Core
 		public bool SmtpUseSsl { get; set; }
 
 		/// <summary>
-		/// Email that is displayed in the 'Contact Information'. See <see cref="EmailReportAddress"/> 
+		/// Email that is displayed in the 'Contact Information'. /> 
 		/// for the email actually used to send if using SimpleMAPI or SMTP)
 		/// </summary>
 		public string ContactEmail { get; set; }
 
 		/// <summary>
-		/// The name of the running application using <see cref="Application.ProductName"/>
+		/// The name of the running application using />
 		/// </summary>
 		public string AppName { get; set; }
 
 		/// <summary>
-		/// The version of the running application using <see cref="Application.ProductVersion"/>
+		/// The version of the running application />
 		/// </summary>
 		public string AppVersion { get; set; }
 
@@ -77,7 +77,7 @@ namespace ExceptionReporting.Core
 		public string RegionInfo { get; set; }
 
 		/// <summary>
-		/// The name of the running application's machine using <see cref="Environment.MachineName"/>
+		/// The name of the running application's machine/>
 		/// </summary>
 		public string MachineName { get; set; }
 

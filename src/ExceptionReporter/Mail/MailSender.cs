@@ -36,23 +36,20 @@ namespace ExceptionReporting.Mail
 			};
 
 			var mailMessage = CreateMailMessage(exceptionReport);
-			_attacher = new AttachAdapter(mailMessage);
 
 			smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
-			smtpClient.SendAsync(mailMessage, null);
+			smtpClient.SendAsync(mailMessage, "Exception Report");
 		}
 
 		private MailMessage CreateMailMessage(string exceptionReport)
 		{
-			var mailMessage = new MailMessage
+			var mailMessage = new MailMessage(_reportInfo.SmtpFromAddress, _reportInfo.EmailReportAddress)
 			{
 				BodyEncoding = Encoding.UTF8,
-				From = new MailAddress(_reportInfo.SmtpFromAddress, null),
 				Body = exceptionReport,
 				Subject = EmailSubject
 			};
-
-			mailMessage.To.Add(new MailAddress(_reportInfo.ContactEmail));
+			_attacher = new AttachAdapter(mailMessage);
 
 			if (_reportInfo.ScreenshotAvailable)
 				mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));

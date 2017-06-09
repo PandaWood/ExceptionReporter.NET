@@ -139,7 +139,7 @@ namespace ExceptionReporting
 			catch (Exception exception)
 			{
 				_view.SetEmailCompletedState(false);
-				_view.ShowErrorDialog("Unable to send email using SMTP", exception);
+				_view.ShowErrorDialog("Unable to send email using SMTP" + Environment.NewLine + exception.Message, exception);
 			}
 		}
 

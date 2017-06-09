@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using ExceptionReporting;
+using ExceptionReporting.Core;
 
 namespace WinFormsDemoApp
 {
@@ -44,9 +45,26 @@ namespace WinFormsDemoApp
 				// has to be a registered mime type, and be non-zero bytes, I believe (for MAPI at least) else it won't attach
 				File.WriteAllText(file1, "test text file 1");
 				File.WriteAllText(file2, "test text file 2");
+
 				var exceptionReporter = new ExceptionReporter();
+
 				exceptionReporter.Config.ShowAssembliesTab = false;
 				exceptionReporter.Config.FilesToAttach = new[] { file1, file2 };
+
+
+				//--- smtp
+//				exceptionReporter.Config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
+//				exceptionReporter.Config.SmtpPort = 465;
+//				exceptionReporter.Config.SmtpServer= "smtp.gmail.com";
+//				exceptionReporter.Config.SmtpUsername = "<user>@gmail.com";
+//				exceptionReporter.Config.SmtpUseSsl = true;
+//				exceptionReporter.Config.SmtpPassword = "<password>";
+//				exceptionReporter.Config.SmtpFromAddress = "user@exceptionreport.com";
+//
+//				exceptionReporter.Config.EmailReportAddress = "<user>@gmail.com";
+				//----
+
+
 				exceptionReporter.Show("This is a custom message. As another test, 2 temp files will be attached to the email sent", exception);
 			}
 		}
@@ -77,7 +95,7 @@ namespace WinFormsDemoApp
 			exceptionReporter.Show(exception1, exception2);
 		}
 
-		private static void ShowExceptionReporter(bool useConfig) 
+		private static void ShowExceptionReporter(bool useSMTP) 
 		{
 			try
 			{
