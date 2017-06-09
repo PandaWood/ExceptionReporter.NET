@@ -1,10 +1,8 @@
-using System;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using ExceptionReporting.Core;
-using ExceptionReporting.Extensions;
 using Ionic.Zip;
 using Win32Mapi;
 
@@ -12,7 +10,6 @@ namespace ExceptionReporting.Mail
 {
 	class MailSender
 	{
-		public delegate void CompletedMethodDelegate(bool success);
 		private readonly ExceptionReportInfo _reportInfo;
 		private AttachAdapter _attacher;
 		private IExceptionReportView _view;
@@ -43,19 +40,6 @@ namespace ExceptionReporting.Mail
 			smtpClient.SendAsync(mailMessage, "Exception Report");
 		}
 
-		private void SmtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-		{
-			if (e.Error != null)
-			{
-				_view.SetEmailCompletedState(true);
-				_view.ShowErrorDialog(e.Error.Message, e.Error);
-			}
-			else
-			{
-				_view.SetEmailCompletedState(false);
-			}
-		}
-
 		private MailMessage CreateMailMessage(string exceptionReport)
 		{
 			var mailMessage = new MailMessage(_reportInfo.SmtpFromAddress, _reportInfo.EmailReportAddress)
@@ -73,6 +57,19 @@ namespace ExceptionReporting.Mail
 			return mailMessage;
 		}
 
+		private void SmtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_view.SetEmailCompletedState(true);
+				_view.ShowErrorDialog(e.Error.Message, e.Error);
+			}
+			else
+			{
+				_view.SetEmailCompletedState(false);
+			}
+		}
+
 		/// <summary>
 		/// Send SimpleMAPI email
 		/// </summary>
@@ -81,11 +78,7 @@ namespace ExceptionReporting.Mail
 			var mapi = new SimpleMapi();
 			_attacher = new AttachAdapter(mapi);
 			
-			var emailAddress = _reportInfo.EmailReportAddress.IsEmpty()
-								? _reportInfo.ContactEmail
-								: _reportInfo.EmailReportAddress;
-
-			mapi.AddRecipient(emailAddress, null, false);
+			mapi.AddRecipient(_reportInfo.EmailReportAddress, null, false);
 			
 			if (_reportInfo.ScreenshotAvailable)
 				_attacher.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));

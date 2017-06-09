@@ -78,8 +78,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Send the exception report via email, using the configured email method/type
 		/// </summary>
-		/// <param name="handle">The handle of the window to use in sending the email</param>
-		public void SendReportByEmail(IntPtr handle)
+		public void SendReportByEmail()
 		{
 			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
 			{

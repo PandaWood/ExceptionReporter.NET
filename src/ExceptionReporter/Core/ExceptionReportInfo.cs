@@ -57,17 +57,17 @@ namespace ExceptionReporting.Core
 
 		/// <summary>
 		/// Email that is displayed in the 'Contact Information'. /> 
-		/// for the email actually used to send if using SimpleMAPI or SMTP)
+		/// (ie not the email for sending the report to)
 		/// </summary>
 		public string ContactEmail { get; set; }
 
 		/// <summary>
-		/// The name of the running application using />
+		/// The name of the running application calling the exception report />
 		/// </summary>
 		public string AppName { get; set; }
 
 		/// <summary>
-		/// The version of the running application />
+		/// The version of the running application calling the exception report />
 		/// </summary>
 		public string AppVersion { get; set; }
 
@@ -86,6 +86,9 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public string UserName { get; set; }
 
+		/// <summary>
+		/// Date/time of the exception being raised
+		/// </summary>
 		public DateTime ExceptionDate { get; set; }
 
 		/// <summary>
@@ -128,7 +131,7 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Email address used to send an email (eg appears in the 'to:' field in the default email client if simpleMAPI)
+		/// Email address used to send the report to via email (eg appears in the 'to:' field in the default email client if simpleMAPI)
 		/// </summary>
 		public string EmailReportAddress { get; set; }
 
@@ -166,6 +169,7 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// Which email method to use (SMTP or SimpleMAPI) 
 		/// SimpleMAPI basically means it will try to use an installed Email client on the user's machine (eg Outlook)
+		/// SMTP requires various other settings (host/port/credentials etc) starting with 'SMTP'
 		/// </summary>
 		public EmailMethod MailMethod { get; set; }
 
@@ -183,10 +187,9 @@ namespace ExceptionReporting.Core
 		public bool TopMost { get; set; }
 
 		/// <summary>
-		/// Any files to attach to email (SMTP or SimpleMAPI) 
-		/// This is in addition to the automatically attached screenshot, if configured via TakeScreenshot
-		/// Any file attached needs to be a registered MIME type extension to work(?)
-		/// (attaching .tmp doesn't get attached in SimpleMAPI - testing using Outlook2013)
+		/// Any additional files to attach to the outgoing email report (SMTP or SimpleMAPI) 
+		/// This is in addition to the automatically attached screenshot, if configured
+		/// All files (exception those already with .zip extension) will be added into a single zip file and attached to the email
 		/// </summary>
 		public string[] FilesToAttach { get; set; }
 
