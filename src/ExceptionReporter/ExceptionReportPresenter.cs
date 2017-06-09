@@ -134,7 +134,7 @@ namespace ExceptionReporting
 			try
 			{
 				var mailSender = new MailSender(ReportInfo);
-				mailSender.SendSmtp(emailText, _view.SetEmailCompletedState);
+				mailSender.SendSmtp(emailText, _view);
 			}
 			catch (Exception exception)
 			{

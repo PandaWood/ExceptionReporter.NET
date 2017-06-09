@@ -15,6 +15,7 @@ namespace ExceptionReporting.Mail
 		public delegate void CompletedMethodDelegate(bool success);
 		private readonly ExceptionReportInfo _reportInfo;
 		private AttachAdapter _attacher;
+		private IExceptionReportView _view;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{
@@ -24,8 +25,9 @@ namespace ExceptionReporting.Mail
 		/// <summary>
 		/// Send SMTP email
 		/// </summary>
-		public void SendSmtp(string exceptionReport, CompletedMethodDelegate setEmailCompletedState)
+		public void SendSmtp(string exceptionReport, IExceptionReportView view)
 		{
+			_view = view;
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer)
 			{
 				DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -37,8 +39,21 @@ namespace ExceptionReporting.Mail
 
 			var mailMessage = CreateMailMessage(exceptionReport);
 
-			smtpClient.SendCompleted += delegate { setEmailCompletedState.Invoke(true); };
+			smtpClient.SendCompleted += SmtpClient_SendCompleted;
 			smtpClient.SendAsync(mailMessage, "Exception Report");
+		}
+
+		private void SmtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+		{
+			if (e.Error != null)
+			{
+				_view.SetEmailCompletedState(true);
+				_view.ShowErrorDialog(e.Error.Message, e.Error);
+			}
+			else
+			{
+				_view.SetEmailCompletedState(false);
+			}
 		}
 
 		private MailMessage CreateMailMessage(string exceptionReport)

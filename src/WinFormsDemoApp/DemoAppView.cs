@@ -54,12 +54,12 @@ namespace WinFormsDemoApp
 
 				//--- smtp
 //				exceptionReporter.Config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
-//				exceptionReporter.Config.SmtpPort = 465;
+//				exceptionReporter.Config.SmtpPort = 587;
 //				exceptionReporter.Config.SmtpServer= "smtp.gmail.com";
 //				exceptionReporter.Config.SmtpUsername = "<user>@gmail.com";
 //				exceptionReporter.Config.SmtpUseSsl = true;
 //				exceptionReporter.Config.SmtpPassword = "<password>";
-//				exceptionReporter.Config.SmtpFromAddress = "user@exceptionreport.com";
+//				exceptionReporter.Config.SmtpFromAddress = "<user>@gmail.com";
 //
 //				exceptionReporter.Config.EmailReportAddress = "<user>@gmail.com";
 				//----
