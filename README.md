@@ -12,7 +12,7 @@ PM> Install-Package ExceptionReporter
 ```
 
 ### The assemblies
-For the un-nugetted, the latest release dll/xml for ExceptionReporter is in the 'dist' folder
+For the un-nugetted, you can find the dll/xml for ExceptionReporter in the latest release. But note, there are now nuget dependencies for DotNetZip library and SimpleMAPI.NET - so those libraries need to be downloaded as well.
 
 ## How it Looks
 
