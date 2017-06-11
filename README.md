@@ -12,7 +12,7 @@ PM> Install-Package ExceptionReporter
 ```
 
 ### The assemblies
-For the un-nugetted, you can find the dll/xml for ExceptionReporter in the latest release. But note, there are now nuget dependencies for DotNetZip library and SimpleMAPI.NET - so those libraries need to be downloaded as well.
+For the un-nugetted, you can find the binaries for ExceptionReporter in the latest release. But note, there are now nuget dependencies for 2 libraries (DotNetZip SimpleMAPI.NET) - so those libraries have to be referenced as well (included in the release binary).
 
 ## How it Looks
 

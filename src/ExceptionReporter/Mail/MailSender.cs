@@ -94,6 +94,7 @@ namespace ExceptionReporting.Mail
 			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport-attachments.zip");
 			if (File.Exists(zipfileName)) File.Delete(zipfileName);
 
+			int nonZipFilesAttached = 0;
 			using (var zip = new ZipFile(zipfileName))
 			{
 				foreach (var f in _reportInfo.FilesToAttach)
@@ -101,15 +102,18 @@ namespace ExceptionReporting.Mail
 					if (!File.Exists(f)) continue;
 
 					if (!f.EndsWith(".zip")) { 
-						zip.AddFile(f, ""); 							// add file to zip attachment
+						zip.AddFile(f, "");               // add file to zip attachment
+						nonZipFilesAttached++;
 					}
 					else {
-						_attacher.Attach(zipfileName);		// attach zip file separately
+						_attacher.Attach(f);		// attach zip file separately
 					}
 				}
 				zip.Save();
 			}
-			_attacher.Attach(zipfileName);
+
+			if (nonZipFilesAttached >= 1)
+				_attacher.Attach(zipfileName);
 		}
 
 		public string EmailSubject
