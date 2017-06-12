@@ -1,8 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 15.00
 # Visual Studio 2010
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinForms", "WinForms", "{33AD4DE9-506A-47F8-A234-AA2C8007BDE4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Tests", "src\Test.ExceptionReporter\ExceptionReporter.Tests.csproj", "{38C592CC-F774-4A0F-95FA-318AB0DDB476}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.WinForms", "src\ExceptionReporter\ExceptionReporter.WinForms.csproj", "{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}"
@@ -35,8 +33,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C49896A3-C0DA-45C4-B30E-4D17E548DBF6} = {33AD4DE9-506A-47F8-A234-AA2C8007BDE4}
-		{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E} = {33AD4DE9-506A-47F8-A234-AA2C8007BDE4}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

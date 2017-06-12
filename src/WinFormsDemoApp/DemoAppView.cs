@@ -41,31 +41,32 @@ namespace WinFormsDemoApp
 			catch (Exception exception)
 			{
 				var file1 = Path.GetTempFileName() + "-file1.txt";	
-				var file2 = Path.GetTempFileName() + "-file2.txt";	
-				// has to be a registered mime type, and be non-zero bytes, I believe (for MAPI at least) else it won't attach
+				var file2 = Path.GetTempFileName() + "-file2.txt";
+				var file3 = Path.GetTempFileName() + "-file3.zip";
+
 				File.WriteAllText(file1, "test text file 1");
 				File.WriteAllText(file2, "test text file 2");
+				File.WriteAllText(file3, "test text file 3");
 
 				var exceptionReporter = new ExceptionReporter();
+				var config = exceptionReporter.Config;
 
-				exceptionReporter.Config.ShowAssembliesTab = false;
-				exceptionReporter.Config.FilesToAttach = new[] { file1, file2 };
+				config.ShowAssembliesTab = false;
+				config.FilesToAttach = new[] { file1, file2, file3 };
+				config.TakeScreenshot = true;
 
-
-				//--- smtp
-//				exceptionReporter.Config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
-//				exceptionReporter.Config.SmtpPort = 587;
-//				exceptionReporter.Config.SmtpServer= "smtp.gmail.com";
-//				exceptionReporter.Config.SmtpUsername = "<user>@gmail.com";
-//				exceptionReporter.Config.SmtpUseSsl = true;
-//				exceptionReporter.Config.SmtpPassword = "<password>";
-//				exceptionReporter.Config.SmtpFromAddress = "<user>@gmail.com";
-//
-//				exceptionReporter.Config.EmailReportAddress = "<user>@gmail.com";
+				//--- Test SMTP
+				//config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
+				//config.SmtpPort = 587;
+				//config.SmtpServer= "smtp.gmail.com";
+				//config.SmtpUsername = "<user>";
+				//config.SmtpUseSsl = true;     // NB you'll need to have "Allow less secure apps: ON" if using gmail for this
+				//config.SmtpPassword = "<password>";
+				//config.SmtpFromAddress = "test@gmail.com";
+				//config.EmailReportAddress = "<user>";
 				//----
 
-
-				exceptionReporter.Show("This is a custom message. As another test, 2 temp files will be attached to the email sent", exception);
+				exceptionReporter.Show("temp files will be attached to the email sent", exception);
 			}
 		}
 

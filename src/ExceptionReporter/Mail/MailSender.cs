@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -11,7 +13,6 @@ namespace ExceptionReporting.Mail
 	class MailSender
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-		private AttachAdapter _attacher;
 		private IExceptionReportView _view;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
@@ -48,12 +49,8 @@ namespace ExceptionReporting.Mail
 				Body = exceptionReport,
 				Subject = EmailSubject
 			};
-			_attacher = new AttachAdapter(mailMessage);
 
-			if (_reportInfo.ScreenshotAvailable)
-				mailMessage.Attachments.Add(new Attachment(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage), ScreenshotTaker.ScreenshotMimeType));
-
-			AttachFiles();
+			AttachFiles(new AttachAdapter(mailMessage));
 			return mailMessage;
 		}
 
@@ -61,12 +58,12 @@ namespace ExceptionReporting.Mail
 		{
 			if (e.Error != null)
 			{
-				_view.SetEmailCompletedState(true);
+				_view.SetEmailCompletedState(false);
 				_view.ShowErrorDialog(e.Error.Message, e.Error);
 			}
 			else
 			{
-				_view.SetEmailCompletedState(false);
+				_view.SetEmailCompletedState(true);
 			}
 		}
 
@@ -76,44 +73,50 @@ namespace ExceptionReporting.Mail
 		public void SendMapi(string exceptionReport)
 		{
 			var mapi = new SimpleMapi();
-			_attacher = new AttachAdapter(mapi);
+			var attacher = new AttachAdapter(mapi);
 			
 			mapi.AddRecipient(_reportInfo.EmailReportAddress, null, false);
 			
-			if (_reportInfo.ScreenshotAvailable)
-				_attacher.Attach(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
-
-			AttachFiles();
+			AttachFiles(attacher);
 			mapi.Send(EmailSubject, exceptionReport);
 		}
 
-		private void AttachFiles()
+		private void AttachFiles(IAttach attacher)
 		{
-			if (_reportInfo.FilesToAttach.Length == 0) return;
-
-			var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport-attachments.zip");
-			if (File.Exists(zipfileName)) File.Delete(zipfileName);
-
-			int nonZipFilesAttached = 0;
-			using (var zip = new ZipFile(zipfileName))
+			var filesToAttach = new List<string>();
+			if (_reportInfo.FilesToAttach.Length > 0)
 			{
-				foreach (var f in _reportInfo.FilesToAttach)
-				{ // try not to add already zipped files to our "zip" attachment, by checking for "zip" extension
-					if (!File.Exists(f)) continue;
-
-					if (!f.EndsWith(".zip")) { 
-						zip.AddFile(f, "");               // add file to zip attachment
-						nonZipFilesAttached++;
-					}
-					else {
-						_attacher.Attach(f);		// attach zip file separately
-					}
-				}
-				zip.Save();
+				filesToAttach.AddRange(_reportInfo.FilesToAttach);
+			}
+			if (_reportInfo.ScreenshotAvailable) 
+			{
+				filesToAttach.Add(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
 			}
 
-			if (nonZipFilesAttached >= 1)
-				_attacher.Attach(zipfileName);
+			var existingFilesToAttach = filesToAttach.Where(f => File.Exists(f)).ToList();
+
+			foreach (var zf in existingFilesToAttach.Where(f => f.EndsWith(".zip"))) {
+				attacher.Attach(zf);		// attach external zip files separately
+			}
+
+			var nonzipFilesToAttach = existingFilesToAttach.Where(f => !f.EndsWith(".zip")).ToList();
+
+			if (nonzipFilesToAttach.Any())
+			{		// attach all other files (non zip) into our one zip file
+				var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport.zip");
+				if (File.Exists(zipfileName)) File.Delete(zipfileName);
+
+				using (var zip = new ZipFile(zipfileName))
+				{
+					foreach (var f in nonzipFilesToAttach)
+					{
+						zip.AddFile(f, "");
+					}
+					zip.Save();
+				}
+
+				attacher.Attach(zipfileName);
+			}
 		}
 
 		public string EmailSubject
