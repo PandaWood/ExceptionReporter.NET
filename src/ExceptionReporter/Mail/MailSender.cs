@@ -99,22 +99,18 @@ namespace ExceptionReporting.Mail
 			}
 
 			var nonzipFilesToAttach = existingFilesToAttach.Where(f => !f.EndsWith(".zip")).ToList();
-
 			if (nonzipFilesToAttach.Any())
 			{		// attach all other files (non zip) into our one zip file
-				var zipfileName = Path.Combine(Path.GetTempPath(), "exceptionreport.zip");
-				if (File.Exists(zipfileName)) File.Delete(zipfileName);
+				var zipFile = Path.Combine(Path.GetTempPath(), _reportInfo.AttachmentFilename);
+				if (File.Exists(zipFile)) File.Delete(zipFile);
 
-				using (var zip = new ZipFile(zipfileName))
+				using (var zip = new ZipFile(zipFile))
 				{
-					foreach (var f in nonzipFilesToAttach)
-					{
-						zip.AddFile(f, "");
-					}
+					zip.AddFiles(nonzipFilesToAttach, "");
 					zip.Save();
 				}
 
-				attacher.Attach(zipfileName);
+				attacher.Attach(zipFile);
 			}
 		}
 

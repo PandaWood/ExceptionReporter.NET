@@ -116,12 +116,12 @@ namespace ExceptionReporting.Core
 		public bool ShowContactTab { get; set; }
 		public bool ShowExceptionsTab { get; set; }
 
-        private bool _showSysInfoTab;
-        public bool ShowSysInfoTab 
-        { 
-            get { return !ExceptionReport.IsRunningMono() && _showSysInfoTab; } 
-            set { _showSysInfoTab = value; }
-        }
+		private bool _showSysInfoTab;
+		public bool ShowSysInfoTab
+		{
+			get { return !ExceptionReport.IsRunningMono() && _showSysInfoTab; }
+			set { _showSysInfoTab = value; }
+		}
 
 		private bool _showAssembliesTab;
 		public bool ShowAssembliesTab
@@ -143,7 +143,7 @@ namespace ExceptionReporting.Core
 		public string ContactMessageTop { get; set; }
 
 		public bool ShowFlatButtons { get; set; }
-		public bool ShowLessMoreDetailButton{ get; set; }
+		public bool ShowLessMoreDetailButton { get; set; }
 		public bool ShowFullDetail { get; set; }
 		public bool ShowButtonIcons { get; set; }
 
@@ -176,8 +176,8 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// Whether a screenshot is configured to be taken and that it has been taken - used internally
 		/// </summary>
-		public bool ScreenshotAvailable 
-		{ 
+		public bool ScreenshotAvailable
+		{
 			get { return TakeScreenshot && ScreenshotImage != null; }
 		}
 
@@ -192,6 +192,17 @@ namespace ExceptionReporting.Core
 		/// All files (exception those already with .zip extension) will be added into a single zip file and attached to the email
 		/// </summary>
 		public string[] FilesToAttach { get; set; }
+
+		string _attachmentFilename = "ex";
+		/// <summary>
+		/// Gets or sets the attachment filename.
+		/// </summary>
+		/// <value>The attachment filename, extension .zip applied automatically if not provided</value>
+		public string AttachmentFilename
+		{
+			get { return _attachmentFilename.EndsWith(".zip") ? _attachmentFilename : _attachmentFilename + ".zip"; }
+			set { _attachmentFilename = value; }
+		}
 
 		public ExceptionReportInfo()
 		{
@@ -217,6 +228,7 @@ namespace ExceptionReporting.Core
 			TakeScreenshot = false;
 			TopMost = false;
 			FilesToAttach = new string[]{};
+			AttachmentFilename = "ExceptionReport";
 		}
 
 		/// <summary>
