@@ -73,11 +73,10 @@ namespace ExceptionReporting.Mail
 		public void SendMapi(string exceptionReport)
 		{
 			var mapi = new SimpleMapi();
-			var attacher = new AttachAdapter(mapi);
 			
 			mapi.AddRecipient(_reportInfo.EmailReportAddress, null, false);
 			
-			AttachFiles(attacher);
+			AttachFiles(new AttachAdapter(mapi));
 			mapi.Send(EmailSubject, exceptionReport);
 		}
 
@@ -93,7 +92,7 @@ namespace ExceptionReporting.Mail
 				filesToAttach.Add(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
 			}
 
-			var existingFilesToAttach = filesToAttach.Where(f => File.Exists(f)).ToList();
+			var existingFilesToAttach = filesToAttach.Where(File.Exists).ToList();
 
 			foreach (var zf in existingFilesToAttach.Where(f => f.EndsWith(".zip"))) {
 				attacher.Attach(zf);		// attach external zip files separately

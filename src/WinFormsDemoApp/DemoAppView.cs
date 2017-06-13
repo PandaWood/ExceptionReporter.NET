@@ -42,28 +42,28 @@ namespace WinFormsDemoApp
 			{
 				var file1 = Path.GetTempFileName() + "-file1.txt";	
 				var file2 = Path.GetTempFileName() + "-file2.txt";
-				var file3 = Path.GetTempFileName() + "-file3.zip";
+//				var file3 = Path.GetTempFileName() + "-file3.zip";
 
 				File.WriteAllText(file1, "test text file 1");
 				File.WriteAllText(file2, "test text file 2");
-				File.WriteAllText(file3, "test text file 3");
+//				File.WriteAllText(file3, "test text file 3");
 
 				var exceptionReporter = new ExceptionReporter();
 				var config = exceptionReporter.Config;
 
 				config.ShowAssembliesTab = false;
-				config.FilesToAttach = new[] { file1, file2, file3 };
+				config.FilesToAttach = new[] { file1, file2 };// , file3 };
 				config.TakeScreenshot = true;
 
 				//--- Test SMTP
-				//config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
-				//config.SmtpPort = 587;
-				//config.SmtpServer= "smtp.gmail.com";
-				//config.SmtpUsername = "<user>";
-				//config.SmtpUseSsl = true;     // NB you'll need to have "Allow less secure apps: ON" if using gmail for this
-				//config.SmtpPassword = "<password>";
-				//config.SmtpFromAddress = "test@gmail.com";
-				//config.EmailReportAddress = "<user>";
+				config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
+				config.SmtpServer= "smtp.gmail.com";
+				config.SmtpPort = 587;
+				config.SmtpUsername = "<user>";
+				config.SmtpPassword = "<password>";
+				config.SmtpFromAddress = "test@gmail.com";
+				config.EmailReportAddress = "<emailto>";
+				config.SmtpUseSsl = true;     // NB you'll need to have "Allow less secure apps: ON" if using gmail for this
 				//----
 
 				exceptionReporter.Show("temp files will be attached to the email sent", exception);
