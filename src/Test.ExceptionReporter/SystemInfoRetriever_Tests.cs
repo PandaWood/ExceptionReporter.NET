@@ -38,7 +38,7 @@ namespace ExceptionReporting.Tests
 				Assert.That(sysInfoResult, Is.Null);
 				return;
 			};
-            Assert.That(sysInfoResult.Nodes[0], Is.StringContaining("Windows"));
+            Assert.That(sysInfoResult.Nodes[0], Does.Contain("Windows"));
         }
     }
 }

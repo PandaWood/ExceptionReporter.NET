@@ -10,8 +10,7 @@ namespace ExceptionReporting.Tests
 		{
 			var exceptionReporter = new ExceptionReporter();
 			Assert.That(exceptionReporter.Config.AppAssembly, Is.Not.Null);
-			Assert.That(exceptionReporter.Config.AppAssembly.FullName, 
-				Is.StringStarting("ExceptionReporter.Tests"));
+			Assert.That(exceptionReporter.Config.AppAssembly.FullName, Does.Contain("ExceptionReporter.Tests"));
 		}
 	}
 }

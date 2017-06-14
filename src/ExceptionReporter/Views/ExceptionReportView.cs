@@ -9,7 +9,7 @@ using ExceptionReporting.SystemInfo;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporting.WinForms.Views
+namespace ExceptionReporting.Views
 {
 	/// <summary>
 	/// The main ExceptionReporter dialog

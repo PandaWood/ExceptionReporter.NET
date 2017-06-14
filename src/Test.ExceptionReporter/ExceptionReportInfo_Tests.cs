@@ -92,5 +92,19 @@ namespace ExceptionReporting.Tests
 			_info.MainException = _exception;
 			Assert.That(_info.Exceptions.Count, Is.EqualTo(1));
 		}
+
+		[Test]
+		public void can_set_attachment_filename_zip_added()
+		{
+			_info.AttachmentFilename = "test";
+			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));
+		}
+
+		[Test]
+		public void can_set_attachment_filename_zip_already_exists()
+		{
+			_info.AttachmentFilename = "test.zip";
+			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));
+		}
 	}
 }

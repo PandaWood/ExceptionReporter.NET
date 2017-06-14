@@ -23,28 +23,6 @@ namespace ExceptionReporting.Extensions
 			return string.IsNullOrEmpty(newString) ? currentString : newString.Trim();
 		}
 
-		/// <summary>
-		/// Returns the boolean value of configString; where configString is null or empty, the current value is returned
-		/// <remarks>all of (case insensitive) 'y' 'n' 'true' or 'false' are accepted as boolean indicators</remarks>
-		/// </summary>
-		public static bool GetBool(this string configString, bool currentValue)
-		{
-			if (string.IsNullOrEmpty(configString)) return currentValue;
-
-			switch (configString.ToLower())
-			{
-				case "y" : 
-				case "true": 
-					return true;
-
-				case "n" :
-				case "false" : 
-					return false;
-			}
-
-			return currentValue;
-		}
-
         /// <summary>
         /// Is empty.
         /// </summary>

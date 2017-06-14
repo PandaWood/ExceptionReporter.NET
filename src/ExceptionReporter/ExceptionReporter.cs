@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using ExceptionReporting.Core;
+using ExceptionReporting.Views;
 
 // ReSharper disable UnusedMember.Global
 
@@ -48,7 +49,7 @@ namespace ExceptionReporting
 			try
 			{
 				_reportInfo.SetExceptions(exceptions);
-				_view = new WinForms.Views.ExceptionReportView( _reportInfo);
+				_view = new ExceptionReportView( _reportInfo);
 				_view.ShowExceptionReport();
 			}
 			catch (Exception internalException)

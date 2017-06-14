@@ -38,7 +38,7 @@ namespace ExceptionReporting.Tests
 			CollectionAssert.Contains(filterResults.ChildResults[0].Nodes, "CodeSet = 7");
 		}
 
-		[Test, Ignore]	//to fix this we'd need to get a propery key/value pair going
+		[Test, Ignore("to fix this we'd need to get a propery key/value pair going")]
 		public void CanFilter_JustKey_EvenIfEndsInSameKey()
 		{
 			_child.AddNode("ServicePackVersion = 2");

@@ -229,6 +229,7 @@ namespace ExceptionReporting.Core
 			TopMost = false;
 			FilesToAttach = new string[]{};
 			AttachmentFilename = "ExceptionReport";
+			SmtpFromAddress = "";
 		}
 
 		/// <summary>

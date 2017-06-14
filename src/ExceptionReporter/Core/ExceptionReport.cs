@@ -17,7 +17,7 @@ namespace ExceptionReporting.Core
 			_reportString = stringBuilder;
 		}
 
-		private static bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
+		private static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
 
 		/// <summary>
 		/// Is running mono.

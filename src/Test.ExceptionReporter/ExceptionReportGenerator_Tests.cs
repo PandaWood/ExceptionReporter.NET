@@ -22,10 +22,9 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		[ExpectedException(typeof(ExceptionReportGeneratorException), ExpectedMessage = "reportInfo cannot be null")]
 		public void TestName()
 		{
-			_reportGenerator = new ExceptionReportGenerator(null);
+			Assert.Throws<ExceptionReportGeneratorException>(() => _reportGenerator = new ExceptionReportGenerator(null), "reportInfo cannot be null");
 		}
 
 		[Test]
@@ -33,9 +32,9 @@ namespace ExceptionReporting.Tests
 		{
 			var report = _reportGenerator.CreateExceptionReport();
 
-			Assert.That(report.ToString(), Is.StringStarting("-"));
-			Assert.That(report.ToString(), Is.StringContaining("Application:"));
-			Assert.That(report.ToString(), Is.StringContaining("TotalPhysicalMemory ="));
+			Assert.That(report.ToString(), Does.StartWith("-"));
+			Assert.That(report.ToString(), Does.Contain("Application:"));
+			Assert.That(report.ToString(), Does.Contain("TotalPhysicalMemory ="));
 		}
 
 		[Test]

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using ExceptionReporting.Core;
+using ExceptionReporting.Views;
 using Ionic.Zip;
 using Win32Mapi;
 
@@ -21,7 +22,13 @@ namespace ExceptionReporting.Mail
 		}
 
 		/// <summary>
-		/// Send SMTP email
+		/// Send SMTP email, requires following config properties to be set
+		/// SmtpPort
+		/// SmtpUseSsl
+		/// SmtpUsername
+		/// SmtpPassword
+		/// SmtpFromAddress
+		/// EmailReportAddress
 		/// </summary>
 		public void SendSmtp(string exceptionReport, IExceptionReportView view)
 		{
@@ -95,12 +102,12 @@ namespace ExceptionReporting.Mail
 			var existingFilesToAttach = filesToAttach.Where(File.Exists).ToList();
 
 			foreach (var zf in existingFilesToAttach.Where(f => f.EndsWith(".zip"))) {
-				attacher.Attach(zf);		// attach external zip files separately
+				attacher.Attach(zf);		// attach external zip files separately, admittedly weak detection using just file extension
 			}
 
 			var nonzipFilesToAttach = existingFilesToAttach.Where(f => !f.EndsWith(".zip")).ToList();
 			if (nonzipFilesToAttach.Any())
-			{		// attach all other files (non zip) into our one zip file
+			{	// attach all other files (non zip) into our one zip file
 				var zipFile = Path.Combine(Path.GetTempPath(), _reportInfo.AttachmentFilename);
 				if (File.Exists(zipFile)) File.Delete(zipFile);
 

@@ -12,10 +12,7 @@ namespace ExceptionReporting.Tests
         public void CanCreateSubject()
         {
             var exception = new Exception("hello");
-            var reportInfo = new ExceptionReportInfo
-                                 {
-                                     TitleText = ";"
-                                 };
+            var reportInfo = new ExceptionReportInfo { TitleText = ";" };
             reportInfo.SetExceptions(new []{exception});
             var mailSender = new MailSender(reportInfo);
 

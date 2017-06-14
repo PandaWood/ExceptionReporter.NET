@@ -19,7 +19,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.2</PackageVersion>
+    <PackageVersion>2.2.1</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
@@ -28,15 +28,13 @@
     <Title>ExceptionReporter.NET</Title>
     <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>New Feature:
-- Automatically compress all files specified for attachment into a single zip file (excluding files already with .zip extension)
-Fixes/Changes:
-- Fix SMTP support including adding SSL/credentials and configurable via code (ie previously XML/app config only). Also added SMTP error display for diagnosis
-- Removed XML config in favor of code config. The "Config" tab is also therefore removed
-Internal/structural:
-- Removed embedded Win32Mapi library and switched to using nuget dependency to include support Simple-MAPI.NET (ie for using embedded email client for emails)
-- The base .NET runtime is 4.0 Client
-- The assembly is no longer signed - if I could figure out a way to provide signed/unsigned I would do it - let me know if being unsigned is a hassle</PackageReleaseNotes>
+    <PackageReleaseNotes> 
+    Slight Change: 
+    - screenshot is now added to a single zip file for attachment (same zip file used by optional additional files) ie only zip files are now attached to emails
+    Fixes: 
+    - fix for case where already zipped file was added to attached files
+    - fix UI label for email success/fail
+    </PackageReleaseNotes>
     <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <ReleaseVersion>2.2.0</ReleaseVersion>
@@ -105,7 +103,7 @@ Internal/structural:
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
-    <Compile Include="ExceptionReportPresenter.cs" />
+    <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Mail\EmailTextBuilder.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

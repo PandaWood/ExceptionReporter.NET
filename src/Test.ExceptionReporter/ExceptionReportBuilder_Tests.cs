@@ -28,8 +28,8 @@ namespace ExceptionReporting.Tests
 
                 var exceptionReportString = exceptionReport.ToString();
                 Assert.That(exceptionReportString.Length, Is.GreaterThan(0));
-                Assert.That(exceptionReportString, Is.StringContaining("System.Core, Version="));
-                Assert.That(exceptionReportString, Is.StringContaining(Environment.NewLine));
+                Assert.That(exceptionReportString, Does.Contain("System.Core, Version="));
+                Assert.That(exceptionReportString, Does.Contain(Environment.NewLine));
             }
         }
 
