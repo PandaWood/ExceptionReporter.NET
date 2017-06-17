@@ -54,7 +54,9 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Sends the report by email - not caring about the callback events provided by implementing your own see cref="IEmailSendEvent"/>
+		/// Sends the report by email 
+		/// This no-arg method ignores receive completed/error events from the async email send
+		/// Use this method if you have no need to handle completion and errors
 		/// </summary>
 		public void SendReportByEmail()
 		{
@@ -64,7 +66,6 @@ namespace ExceptionReporting.Core
 
 		/// <summary>
 		/// Sends the report by email (assumes SMTP - a silent/async send)
-		/// Requires implementing cref="IEmailSendEvent"/
 		/// <param name="emailSendEvent">Implementation of cref="IEmailSendEvent"/ to receive completed event and error object, if any</param>
 		/// </summary>
 		public void SendReportByEmail(IEmailSendEvent emailSendEvent) 

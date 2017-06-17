@@ -31,10 +31,11 @@ namespace ExceptionReporting.Tests
 		public void Generator_CanCreateExceptionReport_WithACoupleOfMinimal_NotTooSpecificBits_ThatShouldExist()
 		{
 			var report = _reportGenerator.CreateExceptionReport();
+			var reportString = report.ToString();
 
-			Assert.That(report.ToString(), Does.StartWith("-"));
-			Assert.That(report.ToString(), Does.Contain("Application:"));
-			Assert.That(report.ToString(), Does.Contain("TotalPhysicalMemory ="));
+			Assert.That(reportString, Does.StartWith("-"));
+			Assert.That(reportString, Does.Contain("Application:"));
+			Assert.That(reportString, Does.Contain("TotalPhysicalMemory ="));
 		}
 
 		[Test]

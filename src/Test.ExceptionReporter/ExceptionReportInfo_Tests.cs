@@ -19,7 +19,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[TearDown]
-        public void TearDown()
+		public void TearDown()
 		{
 			_info.Dispose();
 		}
@@ -45,10 +45,10 @@ namespace ExceptionReporting.Tests
 		public void OnSetExceptions_MainException_ShowsFirstException()
 		{
 			_info.SetExceptions(new List<Exception>
-			                    {
-			                    	new Exception("test1"),
-			                    	new Exception("test2")
-			                    });
+													{
+														new Exception("test1"),
+														new Exception("test2")
+													});
 
 			Assert.That(_info.MainException.Message, Is.EqualTo("test1"));
 		}
@@ -57,10 +57,10 @@ namespace ExceptionReporting.Tests
 		public void CanSet_MultipleExceptions()
 		{
 			_info.SetExceptions(new List<Exception>
-			                    {
-			                    	new Exception("test1"),
-			                    	new Exception("test2")
-			                    });
+													{
+														new Exception("test1"),
+														new Exception("test2")
+													});
 
 			Assert.That(_info.Exceptions.Count, Is.EqualTo(2));
 		}
@@ -70,23 +70,23 @@ namespace ExceptionReporting.Tests
 		{
 			_info.MainException = _exception;
 			_info.SetExceptions(new List<Exception>
-			                    {
-			                    	new Exception("test1"),
-			                    	new Exception("test2")
-			                    });
+													{
+														new Exception("test1"),
+														new Exception("test2")
+													});
 
 			Assert.That(_info.Exceptions.Count, Is.Not.EqualTo(3));
 			Assert.That(_info.Exceptions.Count, Is.EqualTo(2));
 		}
 
-		[Test] 
+		[Test]
 		public void OnMainExceptionSet_WhenExceptionsAlreadyExist_OtherExceptionsAreCleared()
 		{
 			_info.SetExceptions(new List<Exception>
-			                    {
-			                    	new Exception("test1"),
-			                    	new Exception("test2")
-			                    });
+													{
+														new Exception("test1"),
+														new Exception("test2")
+													});
 
 			Assert.That(_info.Exceptions.Count, Is.EqualTo(2));
 			_info.MainException = _exception;

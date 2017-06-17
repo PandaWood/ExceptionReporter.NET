@@ -60,22 +60,22 @@ namespace ExceptionReporting.Core
 
 		private void BuildExceptionInfo()
 		{
-		    for (var index = 0; index < _reportInfo.Exceptions.Count; index++)
-		    {
-		        var exception = _reportInfo.Exceptions[index];
+			for (var index = 0; index < _reportInfo.Exceptions.Count; index++)
+			{
+				var exception = _reportInfo.Exceptions[index];
 
 				//TODO maybe omit a number when there's only 1 exception
-		        _stringBuilder.AppendLine(string.Format("[Exception Info {0}]", index+1))
-		            .AppendLine()
-		            .AppendLine(ExceptionHierarchyToString(exception))
-		            .AppendLine().AppendDottedLine().AppendLine();
-		    }
+				_stringBuilder.AppendLine(string.Format("[Exception Info {0}]", index + 1))
+						.AppendLine()
+						.AppendLine(ExceptionHierarchyToString(exception))
+						.AppendLine().AppendDottedLine().AppendLine();
+			}
 		}
 
-	    private void BuildAssemblyInfo()
-	    {
-	    	var digger = new AssemblyReferenceDigger(_reportInfo.AppAssembly);
-	    
+		private void BuildAssemblyInfo()
+		{
+			var digger = new AssemblyReferenceDigger(_reportInfo.AppAssembly);
+
 			_stringBuilder.AppendLine("[Assembly Info]")
 				.AppendLine()
 				.AppendLine(digger.CreateReferencesString())
@@ -115,7 +115,7 @@ namespace ExceptionReporting.Core
 				if (count++ == 0)
 					stringBuilder.AppendLine("Top-level Exception");
 				else
-					stringBuilder.AppendLine("Inner Exception " + (count-1));
+					stringBuilder.AppendLine("Inner Exception " + (count - 1));
 
 				stringBuilder.AppendLine("Type:        " + currentException.GetType())
 							 .AppendLine("Message:     " + currentException.Message)

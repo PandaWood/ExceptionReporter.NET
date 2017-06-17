@@ -7,7 +7,6 @@ using System.Net.Mail;
 using System.Text;
 using ExceptionReporting.Core;
 using ExceptionReporting.Extensions;
-using ExceptionReporting.Views;
 using Ionic.Zip;
 using Win32Mapi;
 
@@ -25,12 +24,7 @@ namespace ExceptionReporting.Mail
 
 		/// <summary>
 		/// Send SMTP email, requires following ExceptionReportInfo properties to be set
-		/// SmtpPort
-		/// SmtpUseSsl
-		/// SmtpUsername
-		/// SmtpPassword
-		/// SmtpFromAddress
-		/// EmailReportAddress
+		/// SmtpPort, SmtpUseSsl, SmtpUsername, SmtpPassword, SmtpFromAddress, EmailReportAddress
 		/// </summary>
 		public void SendSmtp(string exceptionReport, IEmailSendEvent emailEvent)
 		{
@@ -44,23 +38,19 @@ namespace ExceptionReporting.Mail
 				Credentials = new NetworkCredential(_reportInfo.SmtpUsername, _reportInfo.SmtpPassword),
 			};
 
-			var mailMessage = CreateMailMessage(exceptionReport);
-
-			smtpClient.SendCompleted += SmtpClient_SendCompleted;
-			smtpClient.SendAsync(mailMessage, "Exception Report");
-		}
-
-		private MailMessage CreateMailMessage(string exceptionReport)
-		{
 			var mailMessage = new MailMessage(_reportInfo.SmtpFromAddress, _reportInfo.EmailReportAddress)
 			{
 				BodyEncoding = Encoding.UTF8,
+				SubjectEncoding = Encoding.UTF8,
 				Body = exceptionReport,
 				Subject = EmailSubject
 			};
 
 			AttachFiles(new AttachAdapter(mailMessage));
-			return mailMessage;
+
+			smtpClient.SendCompleted += SmtpClient_SendCompleted;
+			smtpClient.SendCompleted += (sender, e) => mailMessage.Dispose();
+			smtpClient.SendAsync(mailMessage, "Exception Report");
 		}
 
 		private void SmtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -82,9 +72,9 @@ namespace ExceptionReporting.Mail
 		public void SendMapi(string exceptionReport)
 		{
 			var mapi = new SimpleMapi();
-			
+
 			mapi.AddRecipient(_reportInfo.EmailReportAddress, null, false);
-			
+
 			AttachFiles(new AttachAdapter(mapi));
 			mapi.Send(EmailSubject, exceptionReport);
 		}
@@ -96,20 +86,21 @@ namespace ExceptionReporting.Mail
 			{
 				filesToAttach.AddRange(_reportInfo.FilesToAttach);
 			}
-			if (_reportInfo.ScreenshotAvailable) 
+			if (_reportInfo.ScreenshotAvailable)
 			{
 				filesToAttach.Add(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
 			}
 
 			var existingFilesToAttach = filesToAttach.Where(File.Exists).ToList();
 
-			foreach (var zf in existingFilesToAttach.Where(f => f.EndsWith(".zip"))) {
-				attacher.Attach(zf);		// attach external zip files separately, admittedly weak detection using just file extension
+			foreach (var zf in existingFilesToAttach.Where(f => f.EndsWith(".zip")))
+			{
+				attacher.Attach(zf);    // attach external zip files separately, admittedly weak detection using just file extension
 			}
 
 			var nonzipFilesToAttach = existingFilesToAttach.Where(f => !f.EndsWith(".zip")).ToList();
 			if (nonzipFilesToAttach.Any())
-			{	// attach all other files (non zip) into our one zip file
+			{ // attach all other files (non zip) into our one zip file
 				var zipFile = Path.Combine(Path.GetTempPath(), _reportInfo.AttachmentFilename);
 				if (File.Exists(zipFile)) File.Delete(zipFile);
 
@@ -125,12 +116,13 @@ namespace ExceptionReporting.Mail
 
 		public string EmailSubject
 		{
-			get {
+			get
+			{
 				try
 				{
 					return _reportInfo.MainException.Message.Truncate(100);
 				}
-				catch(Exception)
+				catch (Exception)
 				{
 					return "Exception Report";
 				}
