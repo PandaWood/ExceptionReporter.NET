@@ -7,31 +7,10 @@ namespace ExceptionReporting.Tests
 	public class Extensions_Test
 	{
 		[Test]
-		public void CanAssign_IfNotNullOrEmpty()
+		public void can_truncate()
 		{
-			var oldString = "OldString";
-
-			oldString = "NewString".GetString(oldString);
-			Assert.That(oldString, Is.EqualTo("NewString"));
+			Assert.That("A message too long".Truncate(9), Is.EqualTo("A message"));
 		}
 
-		[Test]
-		public void CanNotAssign_IfEmpty()
-		{
-			var oldString = "OldString";
-
-			oldString = "".GetString(oldString);
-			Assert.That(oldString, Is.EqualTo("OldString"));
-		}
-
-		[Test]
-		public void CanNotAssign_IfNull()
-		{
-			const string newString = null;
-			var oldString = "OldString";
-
-			oldString = newString.GetString(oldString);
-			Assert.That(oldString, Is.EqualTo("OldString"));
-		}
 	}
 }

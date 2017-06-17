@@ -17,17 +17,7 @@ namespace ExceptionReporting.Core
 			_reportString = stringBuilder;
 		}
 
-		private static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
 
-		/// <summary>
-		/// Is running mono.
-		/// </summary>
-		/// <returns><c>true</c>, if running mono <c>false</c> otherwise.</returns>
-		public static bool IsRunningMono() { return _isRunningMono; }
-
-		/// <summary>
-		/// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>.
-		/// </summary>
 		/// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>.</returns>
 		public override string ToString()
 		{
@@ -39,22 +29,14 @@ namespace ExceptionReporting.Core
 			return Equals(obj._reportString.ToString(), _reportString.ToString());
 		}
 
-		/// <summary>
-		/// Determines whether the specified <see cref="object"/> is equal to the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>.
-		/// </summary>
-		/// <param name="obj">The <see cref="object"/> to compare with the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>.</param>
 		/// <returns><c>true</c> if the specified <see cref="object"/> is equal to the current
 		/// <see cref="T:ExceptionReporting.Core.ExceptionReport"/>; otherwise, <c>false</c>.</returns>
 		public override bool Equals(object obj)
 		{
 			return Equals((ExceptionReport)obj);
 		}
-
-		/// <summary>
-		/// Serves as a hash function for a <see cref="T:ExceptionReporting.Core.ExceptionReport"/> object.
-		/// </summary>
-		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
-		/// hash table.</returns>
+			
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures </returns>
 		public override int GetHashCode()
 		{
 			return _reportString.GetHashCode();

@@ -5,7 +5,7 @@ namespace ExceptionReporting.Extensions
 	/// <summary>
 	/// All extension methods for ExceptionReporter
 	/// </summary>
-	public static class ExceptionReporterExtensions
+	internal static class ExceptionReporterExtensions
 	{
 		/// <summary>
 		/// Append a dotted line to the given string
@@ -23,14 +23,24 @@ namespace ExceptionReporting.Extensions
 			return string.IsNullOrEmpty(newString) ? currentString : newString.Trim();
 		}
 
-        /// <summary>
-        /// Is empty.
-        /// </summary>
-        /// <returns><c>true</c>, if empty was ised, <c>false</c> otherwise.</returns>
-        /// <param name="input">Input.</param>
+		/// <summary>
+		/// Is empty.
+		/// </summary>
+		/// <returns><c>true</c>, if empty was ised, <c>false</c> otherwise.</returns>
+		/// <param name="input">Input.</param>
 		public static bool IsEmpty(this string input)
 		{
 			return string.IsNullOrEmpty(input);
 		}
+
+		/// <summary>
+		/// Truncate the specified value and maxLength.
+		/// </summary>
+		public static string Truncate(this string value, int maxLength)
+		{
+			if (string.IsNullOrEmpty(value)) return value;
+			return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+		}
+
 	}
 }

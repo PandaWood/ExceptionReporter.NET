@@ -19,7 +19,7 @@ namespace ExceptionReporting.Core
 		/// <returns>Bitmap of the screen, as at the time called</returns>
 		public static Bitmap TakeScreenShot()
 		{
-      if (ExceptionReport.IsRunningMono()) return null;
+      if (ExceptionReporter.IsRunningMono()) return null;
 
 			var rectangle = Rectangle.Empty;
 

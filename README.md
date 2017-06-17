@@ -2,7 +2,7 @@
 
 
 # Exception Reporter.NET
-Exception Reporter is a .NET component that shows a dialog with detailed information on an
+Exception Reporter is a .NET component that shows collects detailed information on an
 Exception and the application/system running it
 
 ### The nuget package
@@ -12,7 +12,7 @@ PM> Install-Package ExceptionReporter
 ```
 
 ### The assemblies
-For the un-nugetted, you can find the binaries for ExceptionReporter in the latest release. But note, there are now nuget dependencies for 2 libraries (DotNetZip SimpleMAPI.NET) - so those libraries have to be referenced as well (included in the release binary).
+For the un-nugetted, you can find the binaries for ExceptionReporter in the latest release. But note, there are now nuget dependencies for 2 libraries (DotNetZip,SimpleMAPI.NET) - so those libraries have to be referenced as well (included in the release binary).
 
 ## How it Looks
 
@@ -42,11 +42,12 @@ The ultimate goal is the developer receiving a formatted exception report - see
 (Note: these seem to be the features that the similar but simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) doesn't have)
 
 - Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
+- Support for generating a report without showing a dialog (see ExceptionReportGenerator class)
 - Screenshot is automatically taken and attached (support for multiple monitors) - but is configurable
 - Attach additional files to the email (automatically compressed into a single zip file before being attached) - useful for including any log/config files etc to help with diagnosis
-- Support for connecting to email client (via Simple MAPI) as well as SMTP - this basically means that the report body/subject/attachments will connect to Outlook (or the default Email client) and allow the user to send and manage the email themselves (without requiring an SMTP server)
-- A Demo App that works and sends emails (with commented-out variables for testing)
-- The Report is plain text and includes exception stack traces and system information such as Windows version, CPU, memory and a list of all the assemblies (with versions) being used by the current executable (see example report below)
+- Support for connecting to email client (MAPI) - this basically means that the report body/subject/attachments will connect to Outlook (or the default Email client) and allow the user to send and manage the email themselves without requiring an SMTP server
+- The solution includes a Demo App for testing config and sending emails etc (with commented-out variables for testing)
+- The Report is plain text and includes exception stack traces and important system information (using WMI) such as CPU, memory, Windows versions as well as a list of all the assemblies (with versions) being used by the current executable (see example report below)
 
 ```
 
@@ -54,7 +55,7 @@ The ultimate goal is the developer receiving a formatted exception report - see
 [General Info]
 
 Application: ExceptionReporter Demo App
-Version:     2.2.0
+Version:     2.2.1
 Region:      English (Australia)
 Machine:     PANDAMAN
 User:        JohnGruber

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExceptionReporting</RootNamespace>
+    <AssemblyName>ExceptionReporter.WinForms</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <ApplicationIcon>warning.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PackageId>ExceptionReporter</PackageId>
+    <PackageVersion>2.2.1</PackageVersion>
+    <Authors>Peter van der Woude, Simon Cropp</Authors>
+    <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <Owners>Peter van der Woude,Simon Cropp</Owners>
+    <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
+    <Summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</Summary>
+    <Title>ExceptionReporter.NET</Title>
+    <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>Slight Change: 
+    - screenshot is now added to a single zip file for attachment (same zip file used by optional additional files) ie only zip files are now attached to emails
+Fixes: 
+    - fix for case where already zipped file was added to attached files
+    - fix UI label for email success/fail</PackageReleaseNotes>
+    <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <ReleaseVersion>2.2.1</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="DotNetZip">
+      <HintPath>..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleMapi">
+      <HintPath>..\..\packages\Simple-MAPI.NET.1.0.1\lib\net20\SimpleMapi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\AssemblyReferenceDigger.cs" />
+    <Compile Include="Core\Disposable.cs" />
+    <Compile Include="Core\ExceptionReport.cs" />
+    <Compile Include="Core\ExceptionReportBuilder.cs" />
+    <Compile Include="Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="Core\ExceptionReportGenerator.cs" />
+    <Compile Include="Core\ExceptionReportInfo.cs" />
+    <Compile Include="Core\ScreenshotTaker.cs" />
+    <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="Views\ExceptionReportPresenter.cs" />
+    <Compile Include="Mail\EmailTextBuilder.cs" />
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="SystemInfo\SysInfoResult.cs" />
+    <Compile Include="SystemInfo\SysInfoResultMapper.cs" />
+    <Compile Include="SystemInfo\SysInfoRetriever.cs" />
+    <Compile Include="Views\ExceptionDetailControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ExceptionDetailControl.Designer.cs">
+      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExceptionReportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ExceptionReportView.Designer.cs">
+      <DependentUpon>ExceptionReportView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
+      <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ExceptionReportView.resx">
+      <DependentUpon>ExceptionReportView.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Views\IExceptionReportView.cs" />
+    <Compile Include="Core\WinformsClipboard.cs" />
+    <Compile Include="Mail\AttachAdapter.cs" />
+    <Compile Include="Mail\EmailSendEvent.cs" />
+    <Compile Include="Core\IEmailSendEvent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="warning.ico" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.targets" Condition="Exists('..\..\packages\NuGet.Build.Packaging.0.1.248\build\NuGet.Build.Packaging.targets')" />
+</Project>

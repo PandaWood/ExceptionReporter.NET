@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Management;
-using ExceptionReporting.Core;
 
 namespace ExceptionReporting.SystemInfo
 {
@@ -21,7 +20,7 @@ namespace ExceptionReporting.SystemInfo
 		/// <returns>a SysInfoResult ie containing the results of the query</returns>
 		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
 		{
-			if (ExceptionReport.IsRunningMono())
+			if (ExceptionReporter.IsRunningMono())
 			{
 				return null;
 			}

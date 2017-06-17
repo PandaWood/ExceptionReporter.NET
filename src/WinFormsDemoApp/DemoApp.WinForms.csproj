@@ -62,9 +62,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.WinForms.csproj">
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter.csproj">
       <Project>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</Project>
-      <Name>ExceptionReporter.WinForms</Name>
+      <Name>ExceptionReporter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

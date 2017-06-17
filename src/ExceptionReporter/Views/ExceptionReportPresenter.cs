@@ -27,7 +27,7 @@ namespace ExceptionReporting.Views
 		{
 			_view = view;
 			ReportInfo = info;
-			_reportGenerator = new ExceptionReportGenerator(ReportInfo);
+			_reportGenerator = new ExceptionReportGenerator(info);
 		}
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception exception)
 			{
-				_view.ShowErrorDialog(string.Format("Unable to save file '{0}'", fileName), exception);
+				_view.ShowError(string.Format("Unable to save file '{0}'", fileName), exception);
 			}
 		}
 
@@ -137,8 +137,8 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception exception)
 			{
-				_view.SetEmailCompletedState(false);
-				_view.ShowErrorDialog("Unable to send email using SMTP" + Environment.NewLine + exception.Message, exception);
+				_view.Completed(false);
+				_view.ShowError("Unable to send email using SMTP" + Environment.NewLine + exception.Message, exception);
 			}
 		}
 
@@ -160,7 +160,7 @@ namespace ExceptionReporting.Views
 			catch (Exception exception)
 			{
 				wasSuccessful = false;
-				_view.ShowErrorDialog("Unable to send Email using 'Simple MAPI'", exception);
+				_view.ShowError("Unable to send Email using 'Simple MAPI'", exception);
 			}
 			finally
 			{
@@ -169,7 +169,7 @@ namespace ExceptionReporting.Views
 		}
 
 		/// <summary>
-		/// Get the system information results
+		/// Fetch the WMI system information
 		/// </summary>
 		public IEnumerable<SysInfoResult> GetSysInfoResults()
 		{
@@ -201,7 +201,7 @@ namespace ExceptionReporting.Views
 			}
 			catch (Exception exception)
 			{
-				_view.ShowErrorDialog(string.Format("Unable to (Shell) Execute '{0}'", executeString), exception);
+				_view.ShowError(string.Format("Unable to (Shell) Execute '{0}'", executeString), exception);
 			}
 		}
 
@@ -216,7 +216,7 @@ namespace ExceptionReporting.Views
 
 				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
-				if (!ExceptionReport.IsRunningMono())
+				if (!ExceptionReporter.IsRunningMono())
 					_view.PopulateSysInfoTab();
 			}
 			finally

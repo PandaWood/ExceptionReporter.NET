@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using ExceptionReporting.Core;
+using ExceptionReporting.Extensions;
 using ExceptionReporting.Views;
 using Ionic.Zip;
 using Win32Mapi;
@@ -14,7 +16,7 @@ namespace ExceptionReporting.Mail
 	class MailSender
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-		private IExceptionReportView _view;
+		private IEmailSendEvent _emailEvent;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{
@@ -22,7 +24,7 @@ namespace ExceptionReporting.Mail
 		}
 
 		/// <summary>
-		/// Send SMTP email, requires following config properties to be set
+		/// Send SMTP email, requires following ExceptionReportInfo properties to be set
 		/// SmtpPort
 		/// SmtpUseSsl
 		/// SmtpUsername
@@ -30,9 +32,9 @@ namespace ExceptionReporting.Mail
 		/// SmtpFromAddress
 		/// EmailReportAddress
 		/// </summary>
-		public void SendSmtp(string exceptionReport, IExceptionReportView view)
+		public void SendSmtp(string exceptionReport, IEmailSendEvent emailEvent)
 		{
-			_view = view;
+			_emailEvent = emailEvent;
 			var smtpClient = new SmtpClient(_reportInfo.SmtpServer)
 			{
 				DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -65,12 +67,12 @@ namespace ExceptionReporting.Mail
 		{
 			if (e.Error != null)
 			{
-				_view.SetEmailCompletedState(false);
-				_view.ShowErrorDialog(e.Error.Message, e.Error);
+				_emailEvent.Completed(false);
+				_emailEvent.ShowError(e.Error.Message, e.Error);
 			}
 			else
 			{
-				_view.SetEmailCompletedState(true);
+				_emailEvent.Completed(true);
 			}
 		}
 
@@ -123,7 +125,16 @@ namespace ExceptionReporting.Mail
 
 		public string EmailSubject
 		{
-			get { return _reportInfo.MainException.Message; }
+			get {
+				try
+				{
+					return _reportInfo.MainException.Message.Truncate(100);
+				}
+				catch(Exception)
+				{
+					return "Exception Report";
+				}
+			}
 		}
 	}
 }

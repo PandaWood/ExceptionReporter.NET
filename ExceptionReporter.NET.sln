@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Tests", "src\Test.ExceptionReporter\ExceptionReporter.Tests.csproj", "{38C592CC-F774-4A0F-95FA-318AB0DDB476}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ExceptionReporter", "src\Test.ExceptionReporter\Tests.ExceptionReporter.csproj", "{38C592CC-F774-4A0F-95FA-318AB0DDB476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.WinForms", "src\ExceptionReporter\ExceptionReporter.WinForms.csproj", "{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter", "src\ExceptionReporter\ExceptionReporter.csproj", "{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.WinForms", "src\WinFormsDemoApp\DemoApp.WinForms.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
 	ProjectSection(ProjectDependencies) = postProject

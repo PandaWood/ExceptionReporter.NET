@@ -119,14 +119,14 @@ namespace ExceptionReporting.Core
 		private bool _showSysInfoTab;
 		public bool ShowSysInfoTab
 		{
-			get { return !ExceptionReport.IsRunningMono() && _showSysInfoTab; }
+			get { return !ExceptionReporter.IsRunningMono() && _showSysInfoTab; }
 			set { _showSysInfoTab = value; }
 		}
 
 		private bool _showAssembliesTab;
 		public bool ShowAssembliesTab
 		{
-			get { return !ExceptionReport.IsRunningMono() && _showAssembliesTab; }
+			get { return !ExceptionReporter.IsRunningMono() && _showAssembliesTab; }
 			set { _showAssembliesTab = value; }
 		}
 

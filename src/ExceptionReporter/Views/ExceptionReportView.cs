@@ -194,7 +194,7 @@ namespace ExceptionReporting.Views
 			get { return txtUserExplanation.Text; }
 		}
 
-		public void SetEmailCompletedState(bool success)
+		public void Completed(bool success)
 		{
 			ProgressMessage = success ? "Email sent" : "Failed to send Email";
 			ShowProgressBar = false;
@@ -203,7 +203,7 @@ namespace ExceptionReporting.Views
 
 		public void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage)
 		{
-			SetEmailCompletedState(success);
+			Completed(success);
 
 			if (success)
 			{
@@ -395,7 +395,7 @@ namespace ExceptionReporting.Views
 			_presenter.SendContactEmail();
 		}
 
-		public void ShowErrorDialog(string message, Exception exception)
+		public void ShowError(string message, Exception exception)
 		{
 			MessageBox.Show(message);       // last resort, hope it never happens
 		}

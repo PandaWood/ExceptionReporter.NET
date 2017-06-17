@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
+using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
 #pragma warning disable 1591
 
@@ -27,16 +28,16 @@ namespace ExceptionReporting.Core
 			if (reportInfo == null) throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 			_reportInfo = reportInfo;
 
-            _reportInfo.ExceptionDate = DateTime.UtcNow;
-            _reportInfo.UserName = Environment.UserName;
-            _reportInfo.MachineName = Environment.MachineName;
-            _reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
+			_reportInfo.ExceptionDate = DateTime.UtcNow;
+			_reportInfo.UserName = Environment.UserName;
+			_reportInfo.MachineName = Environment.MachineName;
+			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
-            _reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
-            _reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
+			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
+			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
 
-            if (_reportInfo.AppAssembly == null)
-                _reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+			if (_reportInfo.AppAssembly == null)
+				_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
 		/// <summary>
@@ -52,6 +53,26 @@ namespace ExceptionReporting.Core
 			return reportBuilder.Build();
 		}
 
+		/// <summary>
+		/// Sends the report by email - not caring about the callback events provided by implementing your own see cref="IEmailSendEvent"/>
+		/// </summary>
+		public void SendReportByEmail()
+		{
+			var mailSender = new MailSender(_reportInfo);
+			mailSender.SendSmtp(CreateExceptionReport().ToString(), new EmailSendEvent());
+		}
+
+		/// <summary>
+		/// Sends the report by email (assumes SMTP - a silent/async send)
+		/// Requires implementing cref="IEmailSendEvent"/
+		/// <param name="emailSendEvent">Implementation of cref="IEmailSendEvent"/ to receive completed event and error object, if any</param>
+		/// </summary>
+		public void SendReportByEmail(IEmailSendEvent emailSendEvent) 
+		{
+				var mailSender = new MailSender(_reportInfo);
+			mailSender.SendSmtp(CreateExceptionReport().ToString(), emailSendEvent);
+		}
+
 		internal IList<SysInfoResult> GetOrFetchSysInfoResults()
 		{
 			if (_sysInfoResults.Count == 0)
@@ -60,7 +81,7 @@ namespace ExceptionReporting.Core
 			return _sysInfoResults.AsReadOnly();
 		}
 
-		private static IEnumerable<SysInfoResult> CreateSysInfoResults()
+		static IEnumerable<SysInfoResult> CreateSysInfoResults()
 		{
 			var retriever = new SysInfoRetriever();
 			var results = new List<SysInfoResult>
@@ -80,9 +101,9 @@ namespace ExceptionReporting.Core
 			return results;
 		}
 
-        /// <summary>
-        /// Disposes the managed resources.
-        /// </summary>
+		/// <summary>
+		/// Disposes the managed resources.
+		/// </summary>
 		protected override void DisposeManagedResources()
 		{
 			_reportInfo.Dispose();
@@ -90,9 +111,9 @@ namespace ExceptionReporting.Core
 		}
 	}
 
-    /// <summary>
-    /// Exception report generator exception.
-    /// </summary>
+	/// <summary>
+	/// Exception report generator exception.
+	/// </summary>
 	public class ExceptionReportGeneratorException : Exception
 	{
 		public ExceptionReportGeneratorException(string message) : base(message)

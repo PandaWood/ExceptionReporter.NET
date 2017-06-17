@@ -68,7 +68,13 @@ namespace ExceptionReporting
 		{
 			_reportInfo.CustomMessage = customMessage;
 			Show(exceptions);
-		}		
+		}
+
+		private static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
+
+		/// <returns><c>true</c>, if running mono <c>false</c> otherwise.</returns>
+		public static bool IsRunningMono() { return _isRunningMono; }
+
 	}
 }
 
