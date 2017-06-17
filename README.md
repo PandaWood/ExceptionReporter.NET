@@ -19,6 +19,12 @@ For the un-nugetted, you can find the binaries for ExceptionReporter in the late
 Many interface elements can be configured: whether buttons have images, what text appears in the labels,
 font-sizes/colors, which tabs are shown etc
 
+This is the simple/less detail version
+
+![](images/er-lessdetail.png)
+
+This screenshot below show the more detailed configuration, including an input for user as well as tabular information (this is useful for technical users)
+
 ![](images/er-user-input.png)
 
 In this example, there are no images on the buttons,
