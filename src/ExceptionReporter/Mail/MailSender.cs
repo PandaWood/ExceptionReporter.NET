@@ -48,22 +48,19 @@ namespace ExceptionReporting.Mail
 
 			AttachFiles(new AttachAdapter(mailMessage));
 
-			smtpClient.SendCompleted += SmtpClient_SendCompleted;
-			smtpClient.SendCompleted += (sender, e) => mailMessage.Dispose();
+			smtpClient.SendCompleted += (sender, e) =>
+			{
+				if (e.Error != null)
+				{
+					_emailEvent.Completed(false);
+					_emailEvent.ShowError(e.Error.Message, e.Error);
+				}
+				else
+				{
+					_emailEvent.Completed(true);
+				}
+			};
 			smtpClient.SendAsync(mailMessage, "Exception Report");
-		}
-
-		private void SmtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-		{
-			if (e.Error != null)
-			{
-				_emailEvent.Completed(false);
-				_emailEvent.ShowError(e.Error.Message, e.Error);
-			}
-			else
-			{
-				_emailEvent.Completed(true);
-			}
 		}
 
 		/// <summary>

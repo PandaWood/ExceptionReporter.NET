@@ -76,6 +76,7 @@ namespace ExceptionReporting.Core
 
 		internal IList<SysInfoResult> GetOrFetchSysInfoResults()
 		{
+			if (ExceptionReporter.IsRunningMono()) return new List<SysInfoResult>();
 			if (_sysInfoResults.Count == 0)
 				_sysInfoResults.AddRange(CreateSysInfoResults());
 
