@@ -18,8 +18,8 @@ namespace ExceptionReporting.Views
 	public partial class ExceptionReportView : Form, IExceptionReportView
 	// ReSharper restore UnusedMember.Global
 	{
-		private bool _isDataRefreshRequired;
-		private readonly ExceptionReportPresenter _presenter;
+		bool _isDataRefreshRequired;
+		readonly ExceptionReportPresenter _presenter;
 
 		public ExceptionReportView(ExceptionReportInfo reportInfo)
 		{

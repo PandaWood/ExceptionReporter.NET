@@ -57,21 +57,33 @@ namespace ExceptionReporting.Core
 		/// Sends the report by email 
 		/// This no-arg method ignores receive completed/error events from the async email send
 		/// Use this method if you have no need to handle completion and errors
+		/// <returns>whether the initial mail connection setup succeeded - not mail sent</returns>
 		/// </summary>
-		public void SendReportByEmail()
+		public bool SendReportByEmail()
 		{
-			var mailSender = new MailSender(_reportInfo);
-			mailSender.SendSmtp(CreateExceptionReport().ToString(), new EmailSendEvent());
+			try
+			{
+				var mailSender = new MailSender(_reportInfo);
+				var reportString = CreateExceptionReport().ToString();
+				mailSender.SendSmtp(reportString, new EmailSendEvent());
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
 		/// <summary>
 		/// Sends the report by email (assumes SMTP - a silent/async send)
 		/// <param name="emailSendEvent">Implementation of cref="IEmailSendEvent"/ to receive completed event and error object, if any</param>
+		/// <returns>whether the initial mail connection setup succeeded - not mail sent - use emailSendEvent to determine send/success</returns>
 		/// </summary>
 		public void SendReportByEmail(IEmailSendEvent emailSendEvent) 
 		{
 				var mailSender = new MailSender(_reportInfo);
-			mailSender.SendSmtp(CreateExceptionReport().ToString(), emailSendEvent);
+			var reportString = CreateExceptionReport().ToString();
+			mailSender.SendSmtp(reportString, emailSendEvent);
 		}
 
 		internal IList<SysInfoResult> GetOrFetchSysInfoResults()

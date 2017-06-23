@@ -10,10 +10,7 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public static class ScreenshotTaker
 	{
-		/// <summary>The (hard-coded) file type that will be used to save the attached screenshot </summary>
-		public const string ScreenshotMimeType = "image/jpeg";
-
-		private const string ScreenshotFileName = "exceptionreport-screenshot.jpg";
+		const string ScreenshotFileName = "exceptionreport-screenshot.jpg";
 		
 		/// <summary> Take a screenshot (supports multiple monitors) </summary>
 		/// <returns>Bitmap of the screen, as at the time called</returns>

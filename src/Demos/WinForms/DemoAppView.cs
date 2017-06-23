@@ -82,7 +82,8 @@ namespace Demo.WinForms
 		{
 			//--- Test SMTP - recommend using MailSlurper https://github.com/mailslurper
 			config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
-			config.SmtpServer = "10.0.2.2";
+			//config.SmtpServer = "10.0.2.2";
+			config.SmtpServer = "127.0.0.1";
 			config.SmtpPort = 2500;
 			config.SmtpUsername = "";
 			config.SmtpPassword = "";

@@ -15,8 +15,8 @@ namespace ExceptionReporting.Views
 	/// </summary>
 	public class ExceptionReportPresenter
 	{
-		private readonly IExceptionReportView _view;
-		private readonly ExceptionReportGenerator _reportGenerator;
+		readonly IExceptionReportView _view;
+		readonly ExceptionReportGenerator _reportGenerator;
 
 		/// <summary>
 		/// 
@@ -42,7 +42,7 @@ namespace ExceptionReporting.Views
 		/// 
 		/// </summary>
 		public ExceptionReportInfo ReportInfo { get; private set; }
-		private WinFormsClipboard _clipboard = new WinFormsClipboard();
+		WinFormsClipboard _clipboard = new WinFormsClipboard();
 
 		private ExceptionReport CreateExceptionReport()
 		{

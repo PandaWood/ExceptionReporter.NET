@@ -14,12 +14,12 @@ namespace ExceptionReporting.Mail
 {
 	class MailSender
 	{
-		private readonly ExceptionReportInfo _reportInfo;
-		private IEmailSendEvent _emailEvent;
+		readonly ExceptionReportInfo _config;
+		IEmailSendEvent _emailEvent;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{
-			_reportInfo = reportInfo;
+			_config = reportInfo;
 		}
 
 		/// <summary>
@@ -29,16 +29,16 @@ namespace ExceptionReporting.Mail
 		public void SendSmtp(string exceptionReport, IEmailSendEvent emailEvent)
 		{
 			_emailEvent = emailEvent;
-			var smtpClient = new SmtpClient(_reportInfo.SmtpServer)
+			var smtpClient = new SmtpClient(_config.SmtpServer)
 			{
 				DeliveryMethod = SmtpDeliveryMethod.Network,
-				Port = _reportInfo.SmtpPort,
-				EnableSsl = _reportInfo.SmtpUseSsl,
-				UseDefaultCredentials = false,
-				Credentials = new NetworkCredential(_reportInfo.SmtpUsername, _reportInfo.SmtpPassword),
+				Port = _config.SmtpPort,
+				EnableSsl = _config.SmtpUseSsl,
+				UseDefaultCredentials = _config.SmtpUseSsl,
+				Credentials = new NetworkCredential(_config.SmtpUsername, _config.SmtpPassword),
 			};
 
-			var mailMessage = new MailMessage(_reportInfo.SmtpFromAddress, _reportInfo.EmailReportAddress)
+			var mailMessage = new MailMessage(_config.SmtpFromAddress, _config.EmailReportAddress)
 			{
 				BodyEncoding = Encoding.UTF8,
 				SubjectEncoding = Encoding.UTF8,
@@ -70,7 +70,7 @@ namespace ExceptionReporting.Mail
 		{
 			var mapi = new SimpleMapi();
 
-			mapi.AddRecipient(_reportInfo.EmailReportAddress, null, false);
+			mapi.AddRecipient(_config.EmailReportAddress, null, false);
 
 			AttachFiles(new AttachAdapter(mapi));
 			mapi.Send(EmailSubject, exceptionReport);
@@ -79,13 +79,13 @@ namespace ExceptionReporting.Mail
 		private void AttachFiles(IAttach attacher)
 		{
 			var filesToAttach = new List<string>();
-			if (_reportInfo.FilesToAttach.Length > 0)
+			if (_config.FilesToAttach.Length > 0)
 			{
-				filesToAttach.AddRange(_reportInfo.FilesToAttach);
+				filesToAttach.AddRange(_config.FilesToAttach);
 			}
-			if (_reportInfo.ScreenshotAvailable)
+			if (_config.ScreenshotAvailable)
 			{
-				filesToAttach.Add(ScreenshotTaker.GetImageAsFile(_reportInfo.ScreenshotImage));
+				filesToAttach.Add(ScreenshotTaker.GetImageAsFile(_config.ScreenshotImage));
 			}
 
 			var existingFilesToAttach = filesToAttach.Where(File.Exists).ToList();
@@ -98,7 +98,7 @@ namespace ExceptionReporting.Mail
 			var nonzipFilesToAttach = existingFilesToAttach.Where(f => !f.EndsWith(".zip")).ToList();
 			if (nonzipFilesToAttach.Any())
 			{ // attach all other files (non zip) into our one zip file
-				var zipFile = Path.Combine(Path.GetTempPath(), _reportInfo.AttachmentFilename);
+				var zipFile = Path.Combine(Path.GetTempPath(), _config.AttachmentFilename);
 				if (File.Exists(zipFile)) File.Delete(zipFile);
 
 				using (var zip = new ZipFile(zipFile))
@@ -117,7 +117,7 @@ namespace ExceptionReporting.Mail
 			{
 				try
 				{
-					return _reportInfo.MainException.Message.Truncate(100);
+					return _config.MainException.Message.Truncate(100);
 				}
 				catch (Exception)
 				{

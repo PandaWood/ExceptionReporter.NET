@@ -9,9 +9,9 @@ namespace ExceptionReporting.SystemInfo
 	/// </summary>
 	class SysInfoRetriever
 	{
-		private ManagementObjectSearcher _sysInfoSearcher;
-		private SysInfoResult _sysInfoResult;
-		private SysInfoQuery _sysInfoQuery;
+		ManagementObjectSearcher _sysInfoSearcher;
+		SysInfoResult _sysInfoResult;
+		SysInfoQuery _sysInfoQuery;
 
 		/// <summary>
 		/// Retrieve system information, using the given SysInfoQuery to determine what information to retrieve

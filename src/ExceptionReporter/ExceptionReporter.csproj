@@ -34,11 +34,10 @@ Fixes:
     - fix for case where already zipped file was added to attached files
     - fix UI label for email success/fail</PackageReleaseNotes>
     <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <ReleaseVersion>2.2.1</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

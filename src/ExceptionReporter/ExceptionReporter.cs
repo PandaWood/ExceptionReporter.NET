@@ -13,8 +13,8 @@ namespace ExceptionReporting
 	/// </summary>
 	public class ExceptionReporter
 	{
-		private readonly ExceptionReportInfo _reportInfo;
-		private IExceptionReportView _view;
+		readonly ExceptionReportInfo _reportInfo;
+		IExceptionReportView _view;
 
 		/// <summary>
 		/// Initialise the ExceptionReporter
@@ -44,17 +44,17 @@ namespace ExceptionReporting
 		// ReSharper disable MemberCanBePrivate.Global
 		public void Show(params Exception[] exceptions)
 		{
-			if (exceptions == null) return;		//TODO perhaps show a dialog that says "No exception to show" ?
+			if (exceptions == null) return;   //TODO perhaps show a dialog that says "No exception to show" ?
 
 			try
 			{
 				_reportInfo.SetExceptions(exceptions);
-				_view = new ExceptionReportView( _reportInfo);
+				_view = new ExceptionReportView(_reportInfo);
 				_view.ShowExceptionReport();
 			}
 			catch (Exception internalException)
 			{
-                System.Windows.Forms.MessageBox.Show(internalException.Message);
+				System.Windows.Forms.MessageBox.Show(internalException.Message);
 			}
 		}
 		// ReSharper restore MemberCanBePrivate.Global
@@ -70,7 +70,7 @@ namespace ExceptionReporting
 			Show(exceptions);
 		}
 
-		private static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
+		static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
 
 		/// <returns><c>true</c>, if running mono <c>false</c> otherwise.</returns>
 		public static bool IsRunningMono() { return _isRunningMono; }
