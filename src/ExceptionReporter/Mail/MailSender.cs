@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using ExceptionReporting.Core;
 using ExceptionReporting.Extensions;
-using Ionic.Zip;
 using Win32Mapi;
 
 namespace ExceptionReporting.Mail
@@ -16,10 +12,12 @@ namespace ExceptionReporting.Mail
 	{
 		readonly ExceptionReportInfo _config;
 		IEmailSendEvent _emailEvent;
+		FileAttacher _attacher;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{
 			_config = reportInfo;
+			_attacher = new FileAttacher(reportInfo);
 		}
 
 		/// <summary>
@@ -46,7 +44,7 @@ namespace ExceptionReporting.Mail
 				Subject = EmailSubject
 			};
 
-			AttachFiles(new AttachAdapter(mailMessage));
+			_attacher.AttachFiles(new AttachAdapter(mailMessage));
 
 			smtpClient.SendCompleted += (sender, e) =>
 			{
@@ -60,6 +58,7 @@ namespace ExceptionReporting.Mail
 					_emailEvent.Completed(true);
 				}
 			};
+
 			smtpClient.SendAsync(mailMessage, "Exception Report");
 		}
 
@@ -71,59 +70,14 @@ namespace ExceptionReporting.Mail
 			var mapi = new SimpleMapi();
 
 			mapi.AddRecipient(_config.EmailReportAddress, null, false);
+			_attacher.AttachFiles(new AttachAdapter(mapi));
 
-			AttachFiles(new AttachAdapter(mapi));
 			mapi.Send(EmailSubject, exceptionReport);
-		}
-
-		private void AttachFiles(IAttach attacher)
-		{
-			var filesToAttach = new List<string>();
-			if (_config.FilesToAttach.Length > 0)
-			{
-				filesToAttach.AddRange(_config.FilesToAttach);
-			}
-			if (_config.ScreenshotAvailable)
-			{
-				filesToAttach.Add(ScreenshotTaker.GetImageAsFile(_config.ScreenshotImage));
-			}
-
-			var existingFilesToAttach = filesToAttach.Where(File.Exists).ToList();
-
-			foreach (var zf in existingFilesToAttach.Where(f => f.EndsWith(".zip")))
-			{
-				attacher.Attach(zf);    // attach external zip files separately, admittedly weak detection using just file extension
-			}
-
-			var nonzipFilesToAttach = existingFilesToAttach.Where(f => !f.EndsWith(".zip")).ToList();
-			if (nonzipFilesToAttach.Any())
-			{ // attach all other files (non zip) into our one zip file
-				var zipFile = Path.Combine(Path.GetTempPath(), _config.AttachmentFilename);
-				if (File.Exists(zipFile)) File.Delete(zipFile);
-
-				using (var zip = new ZipFile(zipFile))
-				{
-					zip.AddFiles(nonzipFilesToAttach, "");
-					zip.Save();
-				}
-
-				attacher.Attach(zipFile);
-			}
 		}
 
 		public string EmailSubject
 		{
-			get
-			{
-				try
-				{
-					return _config.MainException.Message.Truncate(100);
-				}
-				catch (Exception)
-				{
-					return "Exception Report";
-				}
-			}
+			get { return _config.MainException.Message.Truncate(100); }
 		}
 	}
 }

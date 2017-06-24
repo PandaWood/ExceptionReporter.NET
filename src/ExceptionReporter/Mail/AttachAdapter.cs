@@ -1,5 +1,4 @@
-﻿﻿using System;
-using Win32Mapi;
+﻿using Win32Mapi;
 using System.Net.Mail;
 
 namespace ExceptionReporting.Mail

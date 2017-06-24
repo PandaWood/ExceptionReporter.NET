@@ -15,8 +15,8 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReportGenerator : Disposable
 	{
-		private readonly ExceptionReportInfo _reportInfo;
-		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
+		readonly ExceptionReportInfo _reportInfo;
+		readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
 		/// <summary>
 		/// Initialises some ExceptionReportInfo properties related to the application/system
@@ -25,8 +25,7 @@ namespace ExceptionReporting.Core
 		/// however 'base' properties such as MachineName</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
-			if (reportInfo == null) throw new ExceptionReportGeneratorException("reportInfo cannot be null");
-			_reportInfo = reportInfo;
+			_reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
 			_reportInfo.ExceptionDate = DateTime.UtcNow;
 			_reportInfo.UserName = Environment.UserName;
@@ -54,27 +53,6 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Sends the report by email 
-		/// This no-arg method ignores receive completed/error events from the async email send
-		/// Use this method if you have no need to handle completion and errors
-		/// <returns>whether the initial mail connection setup succeeded - not mail sent</returns>
-		/// </summary>
-		public bool SendReportByEmail()
-		{
-			try
-			{
-				var mailSender = new MailSender(_reportInfo);
-				var reportString = CreateExceptionReport().ToString();
-				mailSender.SendSmtp(reportString, new EmailSendEvent());
-				return true;
-			}
-			catch (Exception)
-			{
-				return false;
-			}
-		}
-
-		/// <summary>
 		/// Sends the report by email (assumes SMTP - a silent/async send)
 		/// <param name="emailSendEvent">Implementation of cref="IEmailSendEvent"/ to receive completed event and error object, if any</param>
 		/// <returns>whether the initial mail connection setup succeeded - not mail sent - use emailSendEvent to determine send/success</returns>
@@ -83,7 +61,7 @@ namespace ExceptionReporting.Core
 		{
 				var mailSender = new MailSender(_reportInfo);
 			var reportString = CreateExceptionReport().ToString();
-			mailSender.SendSmtp(reportString, emailSendEvent);
+			mailSender.SendSmtp(reportString, emailSendEvent ?? new EmailSendEvent());
 		}
 
 		internal IList<SysInfoResult> GetOrFetchSysInfoResults()
