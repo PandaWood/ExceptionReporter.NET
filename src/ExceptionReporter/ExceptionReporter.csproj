@@ -139,7 +139,9 @@ Fixes:
     <Compile Include="Mail\AttachAdapter.cs" />
     <Compile Include="Mail\EmailSendEvent.cs" />
     <Compile Include="Core\IEmailSendEvent.cs" />
-    <Compile Include="Mail\FileAttacher.cs" />
+    <Compile Include="Mail\Attacher.cs" />
+    <Compile Include="Mail\Zipper.cs" />
+    <Compile Include="Core\FileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="warning.ico" />

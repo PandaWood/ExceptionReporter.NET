@@ -17,10 +17,10 @@ namespace ExceptionReporting.Tests
 			DisposeManagedResourcesCalled = false;
 		}
 
-		private static bool DisposeUnmanagedResourcesCalled { get; set; }
-		private static bool DisposeManagedResourcesCalled { get; set; }
+		static bool DisposeUnmanagedResourcesCalled { get; set; }
+		static bool DisposeManagedResourcesCalled { get; set; }
 
-		private class DisposableStub : Disposable
+		class DisposableStub : Disposable
 		{
 			protected override void DisposeManagedResources()
 			{

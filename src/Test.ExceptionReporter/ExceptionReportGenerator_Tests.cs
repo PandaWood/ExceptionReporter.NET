@@ -30,6 +30,7 @@ namespace ExceptionReporting.Tests
 		[Test]
 		public void Generator_CanCreateExceptionReport_WithACoupleOfMinimal_NotTooSpecificBits_ThatShouldExist()
 		{
+			if (ExceptionReporter.IsRunningMono()) return;
 			var report = _reportGenerator.CreateExceptionReport();
 			var reportString = report.ToString();
 

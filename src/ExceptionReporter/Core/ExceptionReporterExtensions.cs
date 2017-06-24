@@ -4,8 +4,9 @@ namespace ExceptionReporting.Extensions
 {
 	/// <summary>
 	/// All extension methods for ExceptionReporter
+	/// It's important this class is internal/not public else it will pollute user extensions
 	/// </summary>
-	internal static class ExceptionReporterExtensions
+	static class ExceptionReporterExtensions
 	{
 		/// <summary>
 		/// Append a dotted line to the given string
@@ -15,22 +16,9 @@ namespace ExceptionReporting.Extensions
 			return stringBuilder.AppendLine("-----------------------------");
 		}
 
-		/// <summary>
-		/// Return a string if not null, else the current value
-		/// </summary>
-		public static string GetString(this string newString, string currentString)
-		{
-			return string.IsNullOrEmpty(newString) ? currentString : newString.Trim();
-		}
-
-		/// <summary>
-		/// Is empty.
-		/// </summary>
-		/// <returns><c>true</c>, if empty was ised, <c>false</c> otherwise.</returns>
-		/// <param name="input">Input.</param>
 		public static bool IsEmpty(this string input)
 		{
-			return string.IsNullOrEmpty(input);
+			return string.IsNullOrWhiteSpace(input);
 		}
 
 		/// <summary>

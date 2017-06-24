@@ -12,16 +12,17 @@ namespace ExceptionReporting.Mail
 	{
 		readonly ExceptionReportInfo _config;
 		IEmailSendEvent _emailEvent;
-		FileAttacher _attacher;
+		Attacher _attacher;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{
 			_config = reportInfo;
-			_attacher = new FileAttacher(reportInfo);
+			_attacher = new Attacher(reportInfo);
 		}
 
 		/// <summary>
-		/// Send SMTP email, requires following ExceptionReportInfo properties to be set
+		/// Send SMTP email, uses native .NET4 SmtpClient library
+		/// Requires following ExceptionReportInfo properties to be set:
 		/// SmtpPort, SmtpUseSsl, SmtpUsername, SmtpPassword, SmtpFromAddress, EmailReportAddress
 		/// </summary>
 		public void SendSmtp(string exceptionReport, IEmailSendEvent emailEvent)
@@ -63,7 +64,7 @@ namespace ExceptionReporting.Mail
 		}
 
 		/// <summary>
-		/// Send SimpleMAPI email
+		/// Send email via installed client - uses Simple-MAPI.NET library - https://github.com/PandaWood/Simple-MAPI.NET
 		/// </summary>
 		public void SendMapi(string exceptionReport)
 		{
@@ -77,7 +78,7 @@ namespace ExceptionReporting.Mail
 
 		public string EmailSubject
 		{
-			get { return _config.MainException.Message.Truncate(100); }
+			get { return _config.MainException.Message?.Truncate(100) ?? "Exception Report"; }
 		}
 	}
 }

@@ -57,7 +57,7 @@ namespace ExceptionReporting.Core
 		/// <param name="emailSendEvent">Implementation of cref="IEmailSendEvent"/ to receive completed event and error object, if any</param>
 		/// <returns>whether the initial mail connection setup succeeded - not mail sent - use emailSendEvent to determine send/success</returns>
 		/// </summary>
-		public void SendReportByEmail(IEmailSendEvent emailSendEvent) 
+		public void SendReportByEmail(IEmailSendEvent emailSendEvent = null) 
 		{
 				var mailSender = new MailSender(_reportInfo);
 			var reportString = CreateExceptionReport().ToString();

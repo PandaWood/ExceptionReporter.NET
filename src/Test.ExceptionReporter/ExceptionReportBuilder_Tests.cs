@@ -28,7 +28,8 @@ namespace ExceptionReporting.Tests
 
 				var exceptionReportString = exceptionReport.ToString();
 				Assert.That(exceptionReportString.Length, Is.GreaterThan(0));
-				Assert.That(exceptionReportString, Does.Contain("System.Core, Version="));
+				if (!ExceptionReporter.IsRunningMono())
+					Assert.That(exceptionReportString, Does.Contain("System.Core, Version="));
 				Assert.That(exceptionReportString, Does.Contain(Environment.NewLine));
 			}
 		}
@@ -46,7 +47,8 @@ namespace ExceptionReporting.Tests
 				var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults);
 				var exceptionReport = builder.Build();
 
-				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
+				if (!ExceptionReporter.IsRunningMono())
+					Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
 			}
 		}
 

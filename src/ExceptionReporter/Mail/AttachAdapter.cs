@@ -1,6 +1,4 @@
-﻿using Win32Mapi;
-using System.Net.Mail;
-
+﻿
 namespace ExceptionReporting.Mail
 {
 	interface IAttach
@@ -9,19 +7,19 @@ namespace ExceptionReporting.Mail
 	}
 
 	/// <summary>
-	/// Provide a plug between 2 incompatible classes that nevertheless need the same "attach" treatment
+	/// Provide a plug between incompatible classes that nevertheless need the same "attach" treatment
 	/// </summary>
 	class AttachAdapter : IAttach
 	{
-		readonly SimpleMapi _mapi;
-		readonly MailMessage _mailMessage;
+		readonly Win32Mapi.SimpleMapi _mapi;
+		readonly System.Net.Mail.MailMessage _mailMessage;
 
-		public AttachAdapter(MailMessage mailMessage)
+		public AttachAdapter(System.Net.Mail.MailMessage mailMessage)
 		{
 			_mailMessage = mailMessage;
 		}
 
-		public AttachAdapter(SimpleMapi mapi)
+		public AttachAdapter(Win32Mapi.SimpleMapi mapi)
 		{
 			_mapi = mapi;
 		}
@@ -29,7 +27,7 @@ namespace ExceptionReporting.Mail
 		public void Attach(string filename)
 		{
 			if (_mapi != null) _mapi.Attach(filename);
-			if (_mailMessage != null) _mailMessage.Attachments.Add(new Attachment(filename));
+			if (_mailMessage != null) _mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
 		}
 	}
 }

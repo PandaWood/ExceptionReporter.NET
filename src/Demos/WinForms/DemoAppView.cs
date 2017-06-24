@@ -125,7 +125,7 @@ namespace Demo.WinForms
 		static void AndAnotherOne()
 		{
 			var exception = new IOException(
-				"Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.",
+				"Unable to establish a connection with the Foo bank account service: " + Guid.NewGuid().ToString(),
 				new Exception(
 					"This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller"));
 			throw exception;

@@ -11,6 +11,5 @@ namespace ExceptionReporting.Tests
 		{
 			Assert.That("A message too long".Truncate(9), Is.EqualTo("A message"));
 		}
-
 	}
 }
