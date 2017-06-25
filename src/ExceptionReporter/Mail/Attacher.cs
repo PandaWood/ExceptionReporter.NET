@@ -28,17 +28,17 @@ namespace ExceptionReporting.Mail
 				files.Add(ScreenshotTaker.GetImageAsFile(_config.ScreenshotImage));
 			}
 
-			var filesThatExist = files.Where(f => File.Exists(f));
+			var filesThatExist = files.Where(f => File.Exists(f)).ToList();
 
-			// attach external zip files separately, admittedly weak detection using just file extension
+			// attach external zip files separately - admittedly weak detection using just file extension
 			filesThatExist.Where(f => f.EndsWith(ZIP)).ToList().ForEach(attacher.Attach);
 
 			// now zip & attach all specified files (ie config FilesToAttach) plus screenshot, if taken
-			var nonzipFilesToAttach = filesThatExist.Where(f => !f.EndsWith(ZIP)).ToList();
-			if (nonzipFilesToAttach.Any())
+			var filesToZip = filesThatExist.Where(f => !f.EndsWith(ZIP)).ToList();
+			if (filesToZip.Any())
 			{
 				var zipFile = File.TempFile(_config.AttachmentFilename);
-				Zipper.Zip(zipFile, nonzipFilesToAttach);
+				Zipper.Zip(zipFile, filesToZip);
 				attacher.Attach(zipFile);
 			}
 		}

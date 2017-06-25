@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExceptionReporting</RootNamespace>
-    <AssemblyName>ExceptionReporter.WinForms</AssemblyName>
+    <AssemblyName>ExceptionReporter.NET</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
@@ -19,7 +19,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.2.1</PackageVersion>
+    <PackageVersion>2.2.2</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
@@ -34,10 +34,9 @@ Fixes:
     - fix for case where already zipped file was added to attached files
     - fix UI label for email success/fail</PackageReleaseNotes>
     <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
-    <ReleaseVersion>2.2.1</ReleaseVersion>
+    <ReleaseVersion>2.2.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -53,7 +52,7 @@ Fixes:
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\ExceptionReporter.NET.xml</DocumentationFile>
     <CustomCommands>
       <CustomCommands>
         <Command>

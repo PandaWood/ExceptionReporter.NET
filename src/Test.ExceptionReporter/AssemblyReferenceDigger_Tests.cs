@@ -10,7 +10,7 @@ namespace ExceptionReporting.Tests
         [Test]
         public void TestName()
         {
-            var digger = new AssemblyReferenceDigger(Assembly.Load("ExceptionReporter.WinForms"));
+            var digger = new AssemblyReferenceDigger(Assembly.Load("ExceptionReporter.NET"));
             var references = digger.CreateReferencesString();
 
             Assert.That(references, Does.Contain("System.Windows.Forms, Version="));
