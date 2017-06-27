@@ -28,11 +28,9 @@
     <Title>ExceptionReporter.NET</Title>
     <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>Slight Change: 
-    - screenshot is now added to a single zip file for attachment (same zip file used by optional additional files) ie only zip files are now attached to emails
-Fixes: 
-    - fix for case where already zipped file was added to attached files
-    - fix UI label for email success/fail</PackageReleaseNotes>
+    <PackageReleaseNotes>Changes:
+- In addition to creating a report without any GUI/dialog, you can now also send an exception report via email (SMTP only) without showing a dialog/GUI
+- file attachment name can be configured (.zip extension assumed)</PackageReleaseNotes>
     <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
     <ReleaseVersion>2.2.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>

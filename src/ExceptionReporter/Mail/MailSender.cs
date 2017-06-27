@@ -49,14 +49,22 @@ namespace ExceptionReporting.Mail
 
 			smtpClient.SendCompleted += (sender, e) =>
 			{
-				if (e.Error != null)
+				try
 				{
-					_emailEvent.Completed(false);
-					_emailEvent.ShowError(e.Error.Message, e.Error);
+					if (e.Error != null)
+					{
+						_emailEvent.Completed(false);
+						_emailEvent.ShowError(e.Error.Message, e.Error);
+					}
+					else
+					{
+						_emailEvent.Completed(true);
+					}
 				}
-				else
+				finally 
 				{
-					_emailEvent.Completed(true);
+					smtpClient.Dispose();
+					mailMessage.Dispose();
 				}
 			};
 

@@ -59,7 +59,7 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public void SendReportByEmail(IEmailSendEvent emailSendEvent = null) 
 		{
-				var mailSender = new MailSender(_reportInfo);
+			var mailSender = new MailSender(_reportInfo);
 			var reportString = CreateExceptionReport().ToString();
 			mailSender.SendSmtp(reportString, emailSendEvent ?? new EmailSendEvent());
 		}
