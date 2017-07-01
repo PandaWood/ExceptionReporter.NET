@@ -34,7 +34,7 @@ namespace ExceptionReporting.Views
 			PopulateReportInfo(reportInfo);
 		}
 
-		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
+		void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
 			urlEmail.Text = reportInfo.ContactEmail;
 			txtFax.Text = reportInfo.Fax;
@@ -103,7 +103,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void RemoveButtonIcons()
+		void RemoveButtonIcons()
 		{
 			// removing the icons, requires a bit of reshuffling of positions
 			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
@@ -113,7 +113,7 @@ namespace ExceptionReporting.Views
 			ShiftDown3Pixels(new[] { btnClose, btnDetailToggle, btnCopy, btnEmail, btnSave });
 		}
 
-		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
+		static void ShiftDown3Pixels(IEnumerable<Control> buttons)
 		{
 			foreach (var button in buttons)
 			{
@@ -121,7 +121,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void WireUpEvents()
+		void WireUpEvents()
 		{
 			btnEmail.Click += Email_Click;
 			btnSimpleEmail.Click += Email_Click;
@@ -137,7 +137,7 @@ namespace ExceptionReporting.Views
 			KeyDown += ExceptionReportView_KeyDown;
 		}
 
-		private void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
+		void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
@@ -291,7 +291,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void AddExceptionControl(Control control, Exception exception)
+		void AddExceptionControl(Control control, Exception exception)
 		{
 			var exceptionDetail = new ExceptionDetailControl();
 			exceptionDetail.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
@@ -317,7 +317,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void AddAssembly(AssemblyName assemblyName)
+		void AddAssembly(AssemblyName assemblyName)
 		{
 			var listViewItem = new ListViewItem { Text = assemblyName.Name };
 			listViewItem.SubItems.Add(assemblyName.Version.ToString());
@@ -330,7 +330,7 @@ namespace ExceptionReporting.Views
 			base.OnClosing(e);
 		}
 
-		private TreeNode CreateSysInfoTree()
+		TreeNode CreateSysInfoTree()
 		{
 			var rootNode = new TreeNode("System");
 
@@ -349,27 +349,27 @@ namespace ExceptionReporting.Views
 			rootNode.Expand();
 		}
 
-		private void Copy_Click(object sender, EventArgs e)
+		void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
 		}
 
-		private void Close_Click(object sender, EventArgs e)
+		void Close_Click(object sender, EventArgs e)
 		{
 			Close();
 		}
 
-		private void Detail_Click(object sender, EventArgs e)
+		void Detail_Click(object sender, EventArgs e)
 		{
 			_presenter.ToggleDetail();
 		}
 
-		private void Email_Click(object sender, EventArgs e)
+		void Email_Click(object sender, EventArgs e)
 		{
 			_presenter.SendReportByEmail();
 		}
 
-		private void Save_Click(object sender, EventArgs e)
+		void Save_Click(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
 			{
@@ -385,19 +385,19 @@ namespace ExceptionReporting.Views
 		}
 
 
-		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
+		void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			_presenter.NavigateToWebsite();
 		}
 
-		private void EmailLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
+		void EmailLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			_presenter.SendContactEmail();
 		}
 
 		public void ShowError(string message, Exception exception)
 		{
-			MessageBox.Show(message);       // last resort, hope it never happens
+			MessageBox.Show(message); 
 		}
 
 	}

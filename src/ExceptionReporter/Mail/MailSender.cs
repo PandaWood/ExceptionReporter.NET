@@ -63,8 +63,8 @@ namespace ExceptionReporting.Mail
 				}
 				finally 
 				{
-					smtpClient.Dispose();
 					mailMessage.Dispose();
+					smtpClient.Dispose();
 				}
 			};
 

@@ -110,7 +110,7 @@ namespace ExceptionReporting.Views
 			_view.ToggleShowFullDetail();
 		}
 
-		private string BuildEmailText()
+		string BuildEmailText()
 		{
 			var emailTextBuilder = new EmailTextBuilder();
 			var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
@@ -122,7 +122,7 @@ namespace ExceptionReporting.Views
 			return entireEmailText.ToString();
 		}
 
-		private void SendSmtpMail()
+		void SendSmtpMail()
 		{
 			var emailText = BuildEmailText();
 
@@ -142,7 +142,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		private void SendMapiEmail()
+		void SendMapiEmail()
 		{
 			var emailText = BuildEmailText();
 
@@ -192,7 +192,7 @@ namespace ExceptionReporting.Views
 			ShellExecute(ReportInfo.WebUrl);
 		}
 
-		private void ShellExecute(string executeString)
+		void ShellExecute(string executeString)
 		{
 			try
 			{

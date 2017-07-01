@@ -6,11 +6,11 @@ using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
 {
-	internal class ExceptionReportBuilder
+	class ExceptionReportBuilder
 	{
-		private readonly ExceptionReportInfo _reportInfo;
-		private StringBuilder _stringBuilder;
-		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
+		readonly ExceptionReportInfo _reportInfo;
+		StringBuilder _stringBuilder;
+		readonly IEnumerable<SysInfoResult> _sysInfoResults;
 
 		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
@@ -39,7 +39,7 @@ namespace ExceptionReporting.Core
 			return new ExceptionReport(_stringBuilder);
 		}
 
-		private void BuildGeneralInfo()
+		void BuildGeneralInfo()
 		{
 			_stringBuilder.AppendLine("[General Info]")
 				.AppendLine()
@@ -58,7 +58,7 @@ namespace ExceptionReporting.Core
 				.AppendLine().AppendDottedLine().AppendLine();
 		}
 
-		private void BuildExceptionInfo()
+		void BuildExceptionInfo()
 		{
 			for (var index = 0; index < _reportInfo.Exceptions.Count; index++)
 			{
@@ -72,7 +72,7 @@ namespace ExceptionReporting.Core
 			}
 		}
 
-		private void BuildAssemblyInfo()
+		void BuildAssemblyInfo()
 		{
 			var digger = new AssemblyReferenceDigger(_reportInfo.AppAssembly);
 
@@ -82,14 +82,14 @@ namespace ExceptionReporting.Core
 				.AppendDottedLine().AppendLine();
 		}
 
-		private void BuildSysInfo()
+		void BuildSysInfo()
 		{
 			_stringBuilder.AppendLine("[System Info]").AppendLine();
 			_stringBuilder.Append(SysInfoResultMapper.CreateStringList(_sysInfoResults));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
-		private void BuildContactInfo()
+		void BuildContactInfo()
 		{
 			_stringBuilder.AppendLine("[Contact Info]")
 				.AppendLine()
@@ -104,7 +104,7 @@ namespace ExceptionReporting.Core
 		/// Create a line-delimited string of the exception hierarchy 
 		/// //TODO see Label='EH' in View, this is doing too much and is duplicated
 		/// </summary>
-		private static string ExceptionHierarchyToString(Exception exception)
+		string ExceptionHierarchyToString(Exception exception)
 		{
 			var currentException = exception;
 			var stringBuilder = new StringBuilder();

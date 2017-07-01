@@ -14,7 +14,7 @@ namespace ExceptionReporting.Mail
 		/// </summary>
 		public virtual void Completed(bool success)
 		{
-			Console.WriteLine("SMTP email sent");
+			Console.WriteLine("SMTP email sent: " + success);
 		}
 
 		/// <summary>
