@@ -19,7 +19,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.2.2</PackageVersion>
+    <PackageVersion>2.3.0</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>

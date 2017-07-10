@@ -113,9 +113,7 @@ Operating System
 --Version = 6.1.7600
 
 [Machine]
--PANDAMAN
 --Manufacturer = Gigabyte Technology Co., Ltd.
 --Model = P35-DS3L
 --TotalPhysicalMemory = 3756515328
---UserName = MachineName\GruberMachine
   ```

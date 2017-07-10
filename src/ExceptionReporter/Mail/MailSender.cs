@@ -21,7 +21,7 @@ namespace ExceptionReporting.Mail
 		}
 
 		/// <summary>
-		/// Send SMTP email, uses native .NET4 SmtpClient library
+		/// Send SMTP email, uses native .NET SmtpClient library
 		/// Requires following ExceptionReportInfo properties to be set:
 		/// SmtpPort, SmtpUseSsl, SmtpUsername, SmtpPassword, SmtpFromAddress, EmailReportAddress
 		/// </summary>

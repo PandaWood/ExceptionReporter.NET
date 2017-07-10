@@ -28,8 +28,6 @@ namespace ExceptionReporting.Core
 			_reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
 			_reportInfo.ExceptionDate = DateTime.UtcNow;
-			_reportInfo.UserName = Environment.UserName;
-			_reportInfo.MachineName = Environment.MachineName;
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
 			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
@@ -88,7 +86,7 @@ namespace ExceptionReporting.Core
 			retriever.Retrieve(SysInfoQueries.Machine).Filter(
 				new[]
 				{
-					"Machine", "UserName", "TotalPhysicalMemory", "Manufacturer", "Model"
+					"TotalPhysicalMemory", "Manufacturer", "Model"
 				}),
 			};
 			return results;

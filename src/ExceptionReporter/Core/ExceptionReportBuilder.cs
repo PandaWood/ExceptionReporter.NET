@@ -46,15 +46,14 @@ namespace ExceptionReporting.Core
 				.AppendLine("Application: " + _reportInfo.AppName)
 				.AppendLine("Version:     " + _reportInfo.AppVersion)
 				.AppendLine("Region:      " + _reportInfo.RegionInfo)
-				.AppendLine("Machine:     " + _reportInfo.MachineName)
-				.AppendLine("User:        " + _reportInfo.UserName)
+				
 				.AppendLine("Date: " + _reportInfo.ExceptionDate.ToShortDateString())
 				.AppendLine("Time: " + _reportInfo.ExceptionDate.ToShortTimeString())
 				.AppendLine();
 
 			_stringBuilder.AppendLine("User Explanation:")
 				.AppendLine()
-				.AppendFormat("{0} said \"{1}\"", _reportInfo.UserName, _reportInfo.UserExplanation)
+				.AppendFormat("User said \"{0}\"", _reportInfo.UserExplanation)
 				.AppendLine().AppendDottedLine().AppendLine();
 		}
 

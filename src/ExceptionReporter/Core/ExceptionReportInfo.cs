@@ -77,16 +77,6 @@ namespace ExceptionReporting.Core
 		public string RegionInfo { get; set; }
 
 		/// <summary>
-		/// The name of the running application's machine/>
-		/// </summary>
-		public string MachineName { get; set; }
-
-		/// <summary>
-		/// The name of the running application's current user. Defaults to <see cref="Environment.UserName"/>
-		/// </summary>
-		public string UserName { get; set; }
-
-		/// <summary>
 		/// Date/time of the exception being raised
 		/// </summary>
 		public DateTime ExceptionDate { get; set; }

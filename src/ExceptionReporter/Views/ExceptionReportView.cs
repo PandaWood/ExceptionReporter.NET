@@ -55,8 +55,6 @@ namespace ExceptionReporting.Views
 
 			txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
 			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
-			txtUserName.Text = reportInfo.UserName;
-			txtMachine.Text = reportInfo.MachineName;
 			txtRegion.Text = reportInfo.RegionInfo;
 			txtApplicationName.Text = reportInfo.AppName;
 			txtVersion.Text = reportInfo.AppVersion;
