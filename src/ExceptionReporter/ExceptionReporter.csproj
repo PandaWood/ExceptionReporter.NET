@@ -19,7 +19,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.2.2</PackageVersion>
+    <PackageVersion>2.3.0</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
@@ -29,8 +29,17 @@
     <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReleaseNotes>Changes:
-- In addition to creating a report without any GUI/dialog, you can now also send an exception report via email (SMTP only) without showing a dialog/GUI
-- file attachment name can be configured (.zip extension assumed)</PackageReleaseNotes>
+- new config 'AttachmentFilename' (default is ExceptionReport.zip)
+- access to sending a report via email to API for dialogless workflow
+- remove system information 'UserName' and 'MachineName' from report (privacy concern)
+
+Fixes:
+- fix default message for smtp mail send completion to cater for success/failure
+- add dispose to MailMessage and SmtpClient on SendCompleted (potential memory leak)
+
+Internal:
+- update nunit to 3.7
+- Demo caters to using MailSlurper</PackageReleaseNotes>
     <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
     <ReleaseVersion>2.2.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
