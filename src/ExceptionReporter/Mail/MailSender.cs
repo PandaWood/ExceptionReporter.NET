@@ -53,12 +53,12 @@ namespace ExceptionReporting.Mail
 				{
 					if (e.Error != null)
 					{
-						_emailEvent.Completed(false);
+						_emailEvent.Completed(success: false);
 						_emailEvent.ShowError(e.Error.Message, e.Error);
 					}
 					else
 					{
-						_emailEvent.Completed(true);
+						_emailEvent.Completed(success: true);
 					}
 				}
 				finally 

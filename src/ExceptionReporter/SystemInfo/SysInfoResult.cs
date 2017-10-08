@@ -43,10 +43,11 @@ namespace ExceptionReporting.SystemInfo
 
 		public SysInfoResult Filter(string[] filterStrings)
 		{
-			var filteredNodes = (from node in ChildResults[0].Nodes
-								 from filter in filterStrings
-								 where node.Contains(filter + " = ")	//TODO a little too primitive
-								 select node).ToList();
+			var filteredNodes = (
+				from node in ChildResults[0].Nodes
+					from filter in filterStrings
+					where node.Contains(filter + " = ")	//TODO a little too primitive
+					select node).ToList();
 
 			ChildResults[0].Clear();
 			ChildResults[0].AddRange(filteredNodes);
