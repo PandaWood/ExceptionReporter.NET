@@ -42,7 +42,8 @@ namespace ExceptionReporting.Views
 		/// 
 		/// </summary>
 		public ExceptionReportInfo ReportInfo { get; private set; }
-		WinFormsClipboard _clipboard = new WinFormsClipboard();
+
+		private WinFormsClipboard _clipboard = new WinFormsClipboard();
 
 		private ExceptionReport CreateExceptionReport()
 		{

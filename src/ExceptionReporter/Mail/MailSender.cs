@@ -86,7 +86,7 @@ namespace ExceptionReporting.Mail
 
 		public string EmailSubject
 		{
-			get { return _config.MainException.Message?.Truncate(100) ?? "Exception Report"; }
+			get { return _config.MainException.Message?.Replace('\r', ' ').Replace('\n', ' ').Truncate(100) ?? "Exception Report"; }
 		}
 	}
 }

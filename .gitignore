@@ -66,3 +66,5 @@ packages/
 #Test files
 *.testsettings
 .idea/
+
+\.vs/ExceptionReporter\.NET/xs/
