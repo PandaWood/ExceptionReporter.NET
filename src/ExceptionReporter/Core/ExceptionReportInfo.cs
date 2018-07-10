@@ -12,7 +12,7 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReportInfo : Disposable
 	{
-		private readonly List<Exception> _exceptions = new List<Exception>();
+		readonly List<Exception> _exceptions = new List<Exception>();
 
 		/// <summary>
 		/// The Main (for the most part the 'only') exception, which is the subject of this exception 'report'

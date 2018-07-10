@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ExceptionReporting.Extensions;
 using ExceptionReporting.SystemInfo;
@@ -36,7 +37,7 @@ namespace ExceptionReporting.Core
 			if (_reportInfo.ShowSysInfoTab) BuildSysInfo();
 			if (_reportInfo.ShowContactTab) BuildContactInfo();
 
-			return new ExceptionReport(_stringBuilder);
+			return new ExceptionReport(_stringBuilder, _reportInfo, _sysInfoResults.ToList());
 		}
 
 		void BuildGeneralInfo()

@@ -46,7 +46,7 @@ namespace ExceptionReporting.SystemInfo
 			var filteredNodes = (
 				from node in ChildResults[0].Nodes
 					from filter in filterStrings
-					where node.Contains(filter + " = ")	//TODO a little too primitive
+					where node.Contains(filter + " = ")
 					select node).ToList();
 
 			ChildResults[0].Clear();

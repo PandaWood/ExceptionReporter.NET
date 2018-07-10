@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Text;
+using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
 {
@@ -7,21 +9,40 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReport
 	{
-		private readonly StringBuilder _reportString;
+		readonly StringBuilder _reportString;
+		readonly ExceptionReportInfo _reportInfo;
+		readonly IList<SysInfoResult> _sysInfoResults;
 
 		/// <summary>
 		/// Construct an ExceptionReport from a StringBuilder
 		/// </summary>
-		public ExceptionReport(StringBuilder stringBuilder)
+		public ExceptionReport(StringBuilder stringBuilder, ExceptionReportInfo reportInfo, IList<SysInfoResult> sysInfoResults)
 		{
 			_reportString = stringBuilder;
+			_reportInfo = reportInfo;
+			_sysInfoResults = sysInfoResults;
 		}
-
 
 		/// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>.</returns>
 		public override string ToString()
 		{
 			return _reportString.ToString();
+		}
+
+		/// <summary>
+		/// Gets the report info.
+		/// </summary>
+		public ExceptionReportInfo ReportInfo
+		{
+			get { return _reportInfo; }
+		}
+
+		/// <summary>
+		/// Gets the sys info results.
+		/// </summary>
+		public IList<SysInfoResult> SysInfoResults
+		{
+			get { return _sysInfoResults; }
 		}
 
 		private bool Equals(ExceptionReport obj)
