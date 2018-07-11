@@ -136,6 +136,7 @@ namespace ExceptionReporting.Core
 		public bool ShowLessMoreDetailButton { get; set; }
 		public bool ShowFullDetail { get; set; }
 		public bool ShowButtonIcons { get; set; }
+		public bool ShowEmailButton { get; set; }
 
 		/// <summary>
 		/// Dialog title text
@@ -204,6 +205,7 @@ namespace ExceptionReporting.Core
 			ShowFlatButtons = true;
 			ShowFullDetail = true;
 			ShowButtonIcons = true;
+			ShowEmailButton = true;
 			BackgroundColor = Color.WhiteSmoke;
 			ShowExceptionsTab = true;
 			ShowContactTab = false;

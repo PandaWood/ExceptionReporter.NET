@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -67,12 +67,10 @@ namespace ExceptionReporting.Views
 
 			listviewAssemblies.BackColor =
 					txtFax.BackColor =
-					txtMachine.BackColor =
 					txtPhone.BackColor =
 					txtRegion.BackColor =
 					txtTime.BackColor =
 					txtTime.BackColor =
-					txtUserName.BackColor =
 					txtVersion.BackColor =
 					txtApplicationName.BackColor =
 					txtDate.BackColor =
@@ -82,6 +80,11 @@ namespace ExceptionReporting.Views
 			if (!reportInfo.ShowButtonIcons)
 			{
 				RemoveButtonIcons();
+			}
+
+			if (!reportInfo.ShowEmailButton)
+			{
+				RemoveEmailButton();
 			}
 
 			Text = reportInfo.TitleText;
@@ -99,6 +102,14 @@ namespace ExceptionReporting.Views
 				// not too concerned about the specifics at the moment, just that an exception here doesn't prevent the entire mechansim from working
 				// specifically, if we are raising this exception as the result of an out-of-memory exception, we have little chance of a screenshot succeeding
 			}
+		}
+
+		private void RemoveEmailButton()
+		{
+			this.btnSimpleEmail.Hide();
+			this.btnEmail.Hide();
+			this.btnCopy.Location = btnEmail.Location;
+			this.btnSimpleCopy.Location = btnSimpleEmail.Location;
 		}
 
 		void RemoveButtonIcons()
@@ -398,6 +409,10 @@ namespace ExceptionReporting.Views
 			MessageBox.Show(message); 
 		}
 
+		private void txtExceptionMessageLarge2_TextChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
 

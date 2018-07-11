@@ -23,7 +23,9 @@ namespace ExceptionReporting.Core
 			_sysInfoResults = sysInfoResults;
 		}
 
-		/// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>.</returns>
+		/// <returns>
+		/// A <see cref="T:System.String"/> that represents the current <see cref="T:ExceptionReporting.Core.ExceptionReport"/>
+		/// </returns>
 		public override string ToString()
 		{
 			return _reportString.ToString();
@@ -32,6 +34,7 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// Gets the report info.
 		/// </summary>
+		// ReSharper disable once ConvertToAutoProperty
 		public ExceptionReportInfo ReportInfo
 		{
 			get { return _reportInfo; }
@@ -40,6 +43,7 @@ namespace ExceptionReporting.Core
 		/// <summary>
 		/// Gets the sys info results.
 		/// </summary>
+		// ReSharper disable once ConvertToAutoProperty
 		public IList<SysInfoResult> SysInfoResults
 		{
 			get { return _sysInfoResults; }

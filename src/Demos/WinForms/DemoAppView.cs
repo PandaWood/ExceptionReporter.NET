@@ -107,6 +107,7 @@ namespace Demo.WinForms
 				{
 					exceptionReporter.Config.ShowFullDetail = false;
 					exceptionReporter.Config.ShowLessMoreDetailButton = true;
+//					exceptionReporter.Config.ShowEmailButton = false;		// just for testing that removing email button works well positioning etc
 				}
 				exceptionReporter.Show(exception);
 			}
@@ -130,6 +131,5 @@ namespace Demo.WinForms
 					"This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller"));
 			throw exception;
 		}
-
 	}
 }
