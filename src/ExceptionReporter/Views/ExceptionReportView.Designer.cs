@@ -119,7 +119,7 @@ namespace ExceptionReporting.Views
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.ShowToolTips = true;
-			this.tabControl.Size = new System.Drawing.Size(372, 157);
+			this.tabControl.Size = new System.Drawing.Size(539, 371);
 			this.tabControl.TabIndex = 6;
 			// 
 			// tabGeneral
@@ -141,7 +141,7 @@ namespace ExceptionReporting.Views
 			this.tabGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tabGeneral.Name = "tabGeneral";
-			this.tabGeneral.Size = new System.Drawing.Size(364, 131);
+			this.tabGeneral.Size = new System.Drawing.Size(531, 345);
 			this.tabGeneral.TabIndex = 0;
 			this.tabGeneral.Text = "General";
 			this.tabGeneral.UseVisualStyleBackColor = true;
@@ -167,7 +167,7 @@ namespace ExceptionReporting.Views
 			this.txtExceptionMessage.Name = "txtExceptionMessage";
 			this.txtExceptionMessage.ReadOnly = true;
 			this.txtExceptionMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtExceptionMessage.Size = new System.Drawing.Size(271, 68);
+			this.txtExceptionMessage.Size = new System.Drawing.Size(438, 68);
 			this.txtExceptionMessage.TabIndex = 0;
 			this.txtExceptionMessage.Text = "No message";
 			// 
@@ -190,7 +190,7 @@ namespace ExceptionReporting.Views
 			this.txtUserExplanation.Location = new System.Drawing.Point(8, 210);
 			this.txtUserExplanation.Multiline = true;
 			this.txtUserExplanation.Name = "txtUserExplanation";
-			this.txtUserExplanation.Size = new System.Drawing.Size(341, 0);
+			this.txtUserExplanation.Size = new System.Drawing.Size(508, 132);
 			this.txtUserExplanation.TabIndex = 6;
 			// 
 			// lblRegion
@@ -264,7 +264,7 @@ namespace ExceptionReporting.Views
 			this.txtApplicationName.Location = new System.Drawing.Point(78, 92);
 			this.txtApplicationName.Name = "txtApplicationName";
 			this.txtApplicationName.ReadOnly = true;
-			this.txtApplicationName.Size = new System.Drawing.Size(271, 20);
+			this.txtApplicationName.Size = new System.Drawing.Size(438, 20);
 			this.txtApplicationName.TabIndex = 1;
 			// 
 			// lblVersion
@@ -315,12 +315,12 @@ namespace ExceptionReporting.Views
 			// 
 			// treeEnvironment
 			// 
-			this.treeEnvironment.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeEnvironment.BackColor = System.Drawing.SystemColors.Window;
+			this.treeEnvironment.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeEnvironment.HotTracking = true;
-			this.treeEnvironment.Location = new System.Drawing.Point(8, 40);
+			this.treeEnvironment.Location = new System.Drawing.Point(0, 0);
 			this.treeEnvironment.Name = "treeEnvironment";
-			this.treeEnvironment.Size = new System.Drawing.Size(573, 301);
+			this.treeEnvironment.Size = new System.Drawing.Size(364, 131);
 			this.treeEnvironment.TabIndex = 2;
 			// 
 			// tabContact
@@ -445,7 +445,7 @@ namespace ExceptionReporting.Views
 			this.btnSave.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
 			this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnSave.Location = new System.Drawing.Point(151, 166);
+			this.btnSave.Location = new System.Drawing.Point(318, 380);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(72, 32);
 			this.btnSave.TabIndex = 2;
@@ -455,7 +455,7 @@ namespace ExceptionReporting.Views
 			// progressBar
 			// 
 			this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.progressBar.Location = new System.Drawing.Point(5, 182);
+			this.progressBar.Location = new System.Drawing.Point(5, 396);
 			this.progressBar.Name = "progressBar";
 			this.progressBar.Size = new System.Drawing.Size(141, 16);
 			this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -467,7 +467,7 @@ namespace ExceptionReporting.Views
 			this.btnEmail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnEmail.Image")));
 			this.btnEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnEmail.Location = new System.Drawing.Point(228, 166);
+			this.btnEmail.Location = new System.Drawing.Point(395, 380);
 			this.btnEmail.Name = "btnEmail";
 			this.btnEmail.Size = new System.Drawing.Size(72, 32);
 			this.btnEmail.TabIndex = 1;
@@ -479,7 +479,7 @@ namespace ExceptionReporting.Views
 			this.lblProgressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblProgressMessage.AutoSize = true;
 			this.lblProgressMessage.BackColor = System.Drawing.Color.Transparent;
-			this.lblProgressMessage.Location = new System.Drawing.Point(3, 166);
+			this.lblProgressMessage.Location = new System.Drawing.Point(3, 380);
 			this.lblProgressMessage.Name = "lblProgressMessage";
 			this.lblProgressMessage.Size = new System.Drawing.Size(150, 13);
 			this.lblProgressMessage.TabIndex = 52;
@@ -491,7 +491,7 @@ namespace ExceptionReporting.Views
 			this.btnCopy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnCopy.Image")));
 			this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnCopy.Location = new System.Drawing.Point(74, 166);
+			this.btnCopy.Location = new System.Drawing.Point(241, 380);
 			this.btnCopy.Name = "btnCopy";
 			this.btnCopy.Size = new System.Drawing.Size(72, 32);
 			this.btnCopy.TabIndex = 3;
@@ -503,7 +503,7 @@ namespace ExceptionReporting.Views
 			this.btnDetailToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnDetailToggle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnDetailToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnDetailToggle.Location = new System.Drawing.Point(-3, 166);
+			this.btnDetailToggle.Location = new System.Drawing.Point(164, 380);
 			this.btnDetailToggle.Name = "btnDetailToggle";
 			this.btnDetailToggle.Size = new System.Drawing.Size(72, 32);
 			this.btnDetailToggle.TabIndex = 4;
@@ -521,7 +521,7 @@ namespace ExceptionReporting.Views
 			this.txtExceptionMessageLarge.Name = "txtExceptionMessageLarge";
 			this.txtExceptionMessageLarge.ReadOnly = true;
 			this.txtExceptionMessageLarge.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtExceptionMessageLarge.Size = new System.Drawing.Size(371, 154);
+			this.txtExceptionMessageLarge.Size = new System.Drawing.Size(538, 368);
 			this.txtExceptionMessageLarge.TabIndex = 5;
 			this.txtExceptionMessageLarge.Text = "No message";
 			// 
@@ -530,7 +530,7 @@ namespace ExceptionReporting.Views
 			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnClose.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnClose.Location = new System.Drawing.Point(305, 166);
+			this.btnClose.Location = new System.Drawing.Point(472, 380);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(72, 32);
 			this.btnClose.TabIndex = 0;
@@ -543,10 +543,9 @@ namespace ExceptionReporting.Views
 			this.lessDetailPanel.Controls.Add(this.txtExceptionMessageLarge2);
 			this.lessDetailPanel.Controls.Add(this.lessDetail_alertIcon);
 			this.lessDetailPanel.Controls.Add(this.label1);
-			this.lessDetailPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lessDetailPanel.Location = new System.Drawing.Point(0, 0);
+			this.lessDetailPanel.Location = new System.Drawing.Point(2, -2);
 			this.lessDetailPanel.Name = "lessDetailPanel";
-			this.lessDetailPanel.Size = new System.Drawing.Size(384, 202);
+			this.lessDetailPanel.Size = new System.Drawing.Size(381, 202);
 			this.lessDetailPanel.TabIndex = 54;
 			// 
 			// lessDetail_optionsPanel
@@ -560,7 +559,7 @@ namespace ExceptionReporting.Views
 			this.lessDetail_optionsPanel.Location = new System.Drawing.Point(0, 123);
 			this.lessDetail_optionsPanel.Name = "lessDetail_optionsPanel";
 			this.lessDetail_optionsPanel.Padding = new System.Windows.Forms.Padding(8);
-			this.lessDetail_optionsPanel.Size = new System.Drawing.Size(384, 79);
+			this.lessDetail_optionsPanel.Size = new System.Drawing.Size(381, 79);
 			this.lessDetail_optionsPanel.TabIndex = 26;
 			// 
 			// lblContactCompany
@@ -582,7 +581,7 @@ namespace ExceptionReporting.Views
 			this.btnSimpleEmail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSimpleEmail.Image = ((System.Drawing.Image)(resources.GetObject("btnSimpleEmail.Image")));
 			this.btnSimpleEmail.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnSimpleEmail.Location = new System.Drawing.Point(255, 36);
+			this.btnSimpleEmail.Location = new System.Drawing.Point(252, 36);
 			this.btnSimpleEmail.Name = "btnSimpleEmail";
 			this.btnSimpleEmail.Size = new System.Drawing.Size(118, 32);
 			this.btnSimpleEmail.TabIndex = 1;
@@ -632,7 +631,7 @@ namespace ExceptionReporting.Views
 			this.txtExceptionMessageLarge2.Multiline = true;
 			this.txtExceptionMessageLarge2.Name = "txtExceptionMessageLarge2";
 			this.txtExceptionMessageLarge2.ReadOnly = true;
-			this.txtExceptionMessageLarge2.Size = new System.Drawing.Size(283, 55);
+			this.txtExceptionMessageLarge2.Size = new System.Drawing.Size(280, 55);
 			this.txtExceptionMessageLarge2.TabIndex = 0;
 			this.txtExceptionMessageLarge2.Text = "No message";
 			this.txtExceptionMessageLarge2.TextChanged += new System.EventHandler(this.txtExceptionMessageLarge2_TextChanged);
@@ -660,7 +659,7 @@ namespace ExceptionReporting.Views
 			// ExceptionReportView
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.ClientSize = new System.Drawing.Size(384, 202);
+			this.ClientSize = new System.Drawing.Size(551, 416);
 			this.Controls.Add(this.lessDetailPanel);
 			this.Controls.Add(this.btnClose);
 			this.Controls.Add(this.btnDetailToggle);
