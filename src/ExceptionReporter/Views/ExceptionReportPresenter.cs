@@ -161,7 +161,7 @@ namespace ExceptionReporting.Views
 			catch (Exception exception)
 			{
 				wasSuccessful = false;
-				_view.ShowError("Unable to send Email using 'Simple MAPI'", exception);
+				_view.ShowError("Unable to connect to Email client\r\nPlease create an Email manually and use Copy Details", exception);
 			}
 			finally
 			{
