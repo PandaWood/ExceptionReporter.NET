@@ -19,29 +19,24 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.3.0</PackageVersion>
+    <PackageVersion>2.4.1</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
     <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
     <Summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</Summary>
     <Title>ExceptionReporter.NET</Title>
-    <Description>ExceptionReporter is a .NET component that shows a dialog with detailed information on an Exception and the application/system running it. It allows the application user to copy, save and/or email a report of the incident - including a screenshot</Description>
+    <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReleaseNotes>Changes:
-- new config 'AttachmentFilename' (default is ExceptionReport.zip)
-- access to sending a report via email to API for dialogless workflow
-- remove system information 'UserName' and 'MachineName' from report (privacy concern)
+- new config 'ShowEmailButton' - defaults to true (ie backwards compatible)
+- remove interface fields for 'UserName' and 'MachineName' - which were empty after properties were removed in a recent change 
 
 Fixes:
-- fix default message for smtp mail send completion to cater for success/failure
-- add dispose to MailMessage and SmtpClient on SendCompleted (potential memory leak)
-
-Internal:
-- update nunit to 3.7
-- Demo caters to using MailSlurper</PackageReleaseNotes>
-    <PackageTags>crash-reporter, exception-reporter,crash,exception,report</PackageTags>
-    <ReleaseVersion>2.2.2</ReleaseVersion>
+- fix 'user explanation/message' textbox not fitting/docking properly in it's allotted space
+</PackageReleaseNotes>
+    <PackageTags>exception-reporter,exception,report</PackageTags>
+    <ReleaseVersion>2.4.1</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -71,13 +66,12 @@ Internal:
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ExceptionReporter.WinForms.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\ExceptionReporter.NET.xml</DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
