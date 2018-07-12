@@ -1,9 +1,6 @@
 <sub><sup>We've just moved over from CodePlex so this is now the official home of the Exception Reporter</sub></sup>
 
-
 # Exception Reporter.NET
-Exception Reporter is a .NET component that shows collects detailed information on an
-Exception and the application/system running it
 
 ### The nuget package
  [![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
@@ -11,30 +8,28 @@ Exception and the application/system running it
 PM> Install-Package ExceptionReporter
 ```
 
-### The assemblies
-For the un-nugetted, you can find the binaries for ExceptionReporter in the latest release. But note, there are now nuget dependencies for 2 libraries (DotNetZip,SimpleMAPI.NET) - so those libraries have to be referenced as well (included in the release binary).
-
 ## How it Looks
 
-Many interface elements can be configured: whether buttons have images, what text appears in the labels,
-font-sizes/colors, which tabs are shown etc
+If you choose to show a dialog (and you don't have to, there is an API for getting the info and keeping it to yourself) there are 2 *modes* - *less details* and *more details*
 
-This is the simple/less detail version
+### **Less Detail** mode
+![Compact Mode](images/er2-less-detail.png)
 
-![](images/er-lessdetail.png)
+### **More Detail** mode
+![More Detail Mode](images/er2-more-detail.png)
 
-This screenshot below show the more detailed configuration, including an input for user as well as tabular information (this is useful for technical users)
-
-![](images/er-user-input.png)
-
-In this example, there are no images on the buttons,
+#### Interface Configuration Options
+In the next screenshot, we have an example of some customization that can be made with *configuration*. 
+There are no images on the buttons,
 the window title is customised and an extra Tab (_Contact_) is visible
 
-![](images/er-exceptions-tab.png)
+![Customized Example](images/er-customized.png)
+
+The buttons for *More detail* and *Less Detail* allow the user to switch between these modes.
 
 ## How it works
 
-The Exception Reporter is invoked manually or by setting up it's invocation on an event, where it's basically passed the root Exception -
+The Exception Reporter is invoked manually or by setting up it's invocation on a Windows Error event, where it's basically passed the root Exception -
 see [Sample Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
 
 The user is shown this dialog which is auto-populated with the exception it was given and certain system details.
@@ -45,7 +40,7 @@ The ultimate goal is the developer receiving a formatted exception report - see
 
 
 ## Some Important Features
-(Note: these seem to be the features that the similar but simpler project [Crash Reporter.NET](https://github.com/ravibpatel/CrashReporter.NET) doesn't have)
+(Note: most of these seem to be the features that similar projects don't have)
 
 - Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
 - Support for generating a report without showing a dialog (see ExceptionReportGenerator class)
