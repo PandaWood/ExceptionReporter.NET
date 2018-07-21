@@ -46,7 +46,7 @@ The ultimate goal is the developer receiving a formatted exception report - see
 - Support for generating a report without showing a dialog (see ExceptionReportGenerator class)
 - Screenshot is automatically taken and attached (support for multiple monitors) - but is configurable
 - Attach additional files to the email (automatically compressed into a single zip file before being attached) - useful for including any log/config files etc to help with diagnosis
-- Support for connecting to email client (MAPI) - this basically means that the report body/subject/attachments will connect to Outlook (or the default Email client) and allow the user to send and manage the email themselves without requiring an SMTP server
+- Support for connecting to email client (MAPI) - as well as an SMTP server. This basically means that the report body/subject/attachments can connect to Outlook (or the default Email client) and allow the user to send and manage the email themselves without requiring an SMTP server
 - The solution includes a Demo App for testing config and sending emails etc (with commented-out variables for testing)
 - The Report is plain text and includes exception stack traces and important system information (using WMI) such as CPU, memory, Windows versions as well as a list of all the assemblies (with versions) being used by the current executable (see example report below)
 
