@@ -13,28 +13,22 @@
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
-    <ApplicationIcon>warning.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.4.1</PackageVersion>
+    <PackageVersion>2.4.2</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
     <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
-    <Summary>ExceptionReporter is a .NET WinForm component that shows a dialog with detailed information on a given Exception</Summary>
+    <Summary>EExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Summary>
     <Title>ExceptionReporter.NET</Title>
     <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>Changes:
-- new config 'ShowEmailButton' - defaults to true (ie backwards compatible)
-- remove interface fields for 'UserName' and 'MachineName' - which were empty after properties were removed in a recent change 
-
-Fixes:
-- fix 'user explanation/message' textbox not fitting/docking properly in it's allotted space
-</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixes:
+- Remove the project icon "warning.ico" to ensure that the ExceptionReporter.NET nuget package can be converted to the new "PackageReference" format without odd compile errors - The PackageReference format is described here  https://docs.microsoft.com/en-us/nuget/reference/migrate-packages-config-to-package-reference</PackageReleaseNotes>
     <PackageTags>exception-reporter,exception,report</PackageTags>
     <ReleaseVersion>2.4.1</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
@@ -144,7 +138,6 @@ Fixes:
     <Compile Include="Core\FileService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="warning.ico" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -152,7 +145,7 @@ Fixes:
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
+  </ItemGroup>  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
