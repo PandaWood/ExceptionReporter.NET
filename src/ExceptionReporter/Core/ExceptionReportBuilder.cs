@@ -13,7 +13,7 @@ namespace ExceptionReporting.Core
 		StringBuilder _stringBuilder;
 		readonly IEnumerable<SysInfoResult> _sysInfoResults;
 
-		public ExceptionReportBuilder(ExceptionReportInfo reportInfo)
+		private ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
 			_reportInfo = reportInfo;
 		}

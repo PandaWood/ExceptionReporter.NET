@@ -20,7 +20,7 @@ namespace ExceptionReporting.Tests
 				reportInfo.ShowAssembliesTab = true;
 				reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
-				var builder = new ExceptionReportBuilder(reportInfo);
+				var builder = new ExceptionReportBuilder(reportInfo, new List<SysInfoResult>());
 
 				var exceptionReport = builder.Build();
 
@@ -78,7 +78,7 @@ namespace ExceptionReporting.Tests
 						.AppendLine("Source:")
 						.AppendLine().AppendDottedLine().AppendLine();
 
-				var builder = new ExceptionReportBuilder(reportInfo);
+				var builder = new ExceptionReportBuilder(reportInfo, new List<SysInfoResult>());
 				var exceptionReport = builder.Build();
 
 				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
