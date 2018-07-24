@@ -1,8 +1,0 @@
-configuration: Debug
-
-before_build:
-  - nuget restore
-  
-  build:
-    verbosity: minimal
-    

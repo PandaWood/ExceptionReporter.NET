@@ -1,6 +1,8 @@
-<sub><sup>We've just moved over from CodePlex so this is now the official home of the Exception Reporter</sub></sup>
+<sub><sup>We've moved from CodePlex - this is now the official home of Exception Reporter</sub></sup>
 
 # Exception Reporter.NET
+
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net)
 
 ### The nuget package
  [![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
