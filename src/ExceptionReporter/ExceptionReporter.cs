@@ -13,8 +13,8 @@ namespace ExceptionReporting
 	/// </summary>
 	public class ExceptionReporter
 	{
-		readonly ExceptionReportInfo _reportInfo;
-		IExceptionReportView _view;
+		private readonly ExceptionReportInfo _reportInfo;
+		private IExceptionReportView _view;
 
 		/// <summary>
 		/// Initialise the ExceptionReporter

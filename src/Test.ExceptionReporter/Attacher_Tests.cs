@@ -8,9 +8,9 @@ namespace ExceptionReporting.Tests
 	[TestFixture]
 	public class Attacher_Tests
 	{
-		Mock<IAttach> _iattach;
-		Mock<IFileService> _file;
-		Mock<IZipper> _zip;
+		private Mock<IAttach> _iattach;
+		private Mock<IFileService> _file;
+		private Mock<IZipper> _zip;
 
 		[SetUp]
 		public void SetUp()
@@ -21,7 +21,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_attach_nothing_if_none_to_attach()
+		public void Can_Attach_Nothing_If_None_To_Attach()
 		{
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new string[] {} })
 			{
@@ -35,7 +35,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_attach_1_with_1_file()
+		public void Can_Attach_1_With_1_File()
 		{
 			_file.Setup((f) => f.Exists("file1")).Returns(true);
 			_file.Setup((f) => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
@@ -52,7 +52,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_attach_1_with_multiple_files()
+		public void Can_Attach_1_With_Multiple_Files()
 		{
 			_file.Setup((f) => f.Exists(It.IsAny<string>())).Returns(true);
 			_file.Setup((f) => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
@@ -69,7 +69,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_attach_0_when_multiple_files_are_provided_but_dont_actually_exist()
+		public void Can_Attach_0_When_Multiple_Files_But_None_Exist()
 		{
 			_file.Setup((f) => f.Exists(It.IsAny<string>())).Returns(false);
 			_file.Setup((f) => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
@@ -86,7 +86,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_attach_1_for_each_already_zipped()
+		public void Can_Attach_1_For_Each_Already_Zipped()
 		{
 			_file.Setup((f) => f.Exists(It.IsAny<string>())).Returns(true);
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new string[] { "file1.zip", "file2.zip" } })
@@ -102,7 +102,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_attach_1_already_zipped_and_1_filestoattach()
+		public void Can_Attach_1_Already_Zipped_And_1_File_To_Attach()
 		{
 			_file.Setup((f) => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
 			_file.Setup((f) => f.Exists(It.IsAny<string>())).Returns(true);

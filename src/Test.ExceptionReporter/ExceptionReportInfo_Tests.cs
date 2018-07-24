@@ -25,7 +25,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void Can_GetAndSet_1_Exception_WithoutKnowingOrCaring_ThereCanBe_Many()
+		public void Can_Get_And_Set_1_Exception_Without_Knowing_There_Can_Be_Many()
 		{
 			_info.MainException = _exception;
 
@@ -33,7 +33,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void ExceptionsProperty_ShowsSameException_SetBy_MainExceptionProperty()
+		public void Can_Show_Same_Exception_Set_By_Main_Exception_Property()
 		{
 			_info.MainException = _exception;
 
@@ -42,7 +42,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void OnSetExceptions_MainException_ShowsFirstException()
+		public void Main_Exception_Shows_First_Exception()
 		{
 			_info.SetExceptions(new List<Exception>
 													{
@@ -54,7 +54,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void CanSet_MultipleExceptions()
+		public void Can_Set_Multiple_Exceptions()
 		{
 			_info.SetExceptions(new List<Exception>
 													{
@@ -66,7 +66,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void OnSetExceptions_WhenExceptionAlreadyExists_OtherExceptionsAreCleared()
+		public void When_Exception_Already_Exists_Other_Exceptions_Are_Cleared()
 		{
 			_info.MainException = _exception;
 			_info.SetExceptions(new List<Exception>
@@ -80,7 +80,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void OnMainExceptionSet_WhenExceptionsAlreadyExist_OtherExceptionsAreCleared()
+		public void When_Multiple_Exceptions_Already_Exist_Other_Exceptions_Are_Cleared()
 		{
 			_info.SetExceptions(new List<Exception>
 													{
@@ -94,14 +94,14 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void can_set_attachment_filename_zip_added()
+		public void Can_Set_Attachment_Filename_Zip_Added()
 		{
 			_info.AttachmentFilename = "test";
 			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));
 		}
 
 		[Test]
-		public void can_set_attachment_filename_zip_already_exists()
+		public void Can_Set_Attachment_Filename_Zip_Already_Exists()
 		{
 			_info.AttachmentFilename = "test.zip";
 			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));

@@ -98,7 +98,7 @@ namespace ExceptionReporting.Views
 		public void CopyReportToClipboard()
 		{
 			var exceptionReport = CreateExceptionReport();
-			_clipboard.CopyTo(exceptionReport.ToString());
+			WinFormsClipboard.CopyTo(exceptionReport.ToString());
 			_view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
 		}
 

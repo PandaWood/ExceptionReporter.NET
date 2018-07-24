@@ -7,11 +7,11 @@ namespace ExceptionReporting.SystemInfo
 	/// <summary>
 	/// Retrieves system information using WMI
 	/// </summary>
-	class SysInfoRetriever
+	internal class SysInfoRetriever
 	{
-		ManagementObjectSearcher _sysInfoSearcher;
-		SysInfoResult _sysInfoResult;
-		SysInfoQuery _sysInfoQuery;
+		private ManagementObjectSearcher _sysInfoSearcher;
+		private SysInfoResult _sysInfoResult;
+		private SysInfoQuery _sysInfoQuery;
 
 		/// <summary>
 		/// Retrieve system information, using the given SysInfoQuery to determine what information to retrieve

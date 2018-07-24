@@ -6,8 +6,8 @@ namespace ExceptionReporting.Tests
 	[TestFixture]
 	public class SysInfoResult_Tests
 	{
-		SysInfoResult _sysInfoResult;
-		SysInfoResult _child;
+		private SysInfoResult _sysInfoResult;
+		private SysInfoResult _child;
 
 		[SetUp]
 		public void SetUp()
@@ -19,7 +19,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void CanFilter()
+		public void Can_Filter()
 		{
 			var filterResults = _sysInfoResult.Filter(new[] {"CountryCode", "CodeSet"});
 
@@ -29,7 +29,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void CanFilter_JustKey()
+		public void Can_Filter_Just_Key()
 		{
 			_child.AddNode("Code = CodeSet");
 			var filterResults = _sysInfoResult.Filter(new[] { "CodeSet"});
@@ -39,7 +39,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test, Ignore("to fix this we'd need to get a propery key/value pair going")]
-		public void CanFilter_JustKey_EvenIfEndsInSameKey()
+		public void Can_Filter_Just_Key_If_Ends_In_SameKey()
 		{
 			_child.AddNode("ServicePackVersion = 2");
 			_child.AddNode("Version = 6.002");

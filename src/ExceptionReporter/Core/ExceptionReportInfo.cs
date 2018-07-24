@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
+// ReSharper disable MemberCanBePrivate.Global
 
 #pragma warning disable 1591
 
 namespace ExceptionReporting.Core
 {
+	/// <inheritdoc />
 	/// <summary>
 	/// a bag of information (some of which is stored and retrieved from config)
 	/// </summary>

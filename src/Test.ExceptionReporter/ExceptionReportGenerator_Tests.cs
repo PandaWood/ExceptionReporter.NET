@@ -22,13 +22,13 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void TestName()
+		public void Can_Deal_With_Null_In_Constructor()
 		{
 			Assert.Throws<ExceptionReportGeneratorException>(() => _reportGenerator = new ExceptionReportGenerator(null), "reportInfo cannot be null");
 		}
 
 		[Test]
-		public void Generator_CanCreateExceptionReport_WithACoupleOfMinimal_NotTooSpecificBits_ThatShouldExist()
+		public void Can_Create_Report_With_A_Couple_Of_Minimal_Bits_That_Should_Exist()
 		{
 			if (ExceptionReporter.IsRunningMono()) return;
 			var report = _reportGenerator.CreateExceptionReport();
@@ -40,7 +40,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void Generator_CanCreateExceptionReport_WithSameResult_IfCalledTwice()
+		public void Can_Create_Report_With_Same_Result_If_Called_Twice()
 		{
 			var report1 = _reportGenerator.CreateExceptionReport();
 			var report2 = _reportGenerator.CreateExceptionReport();

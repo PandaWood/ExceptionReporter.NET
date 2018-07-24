@@ -6,7 +6,7 @@ namespace ExceptionReporting.Tests
 	public class ExceptionReporter_Tests
 	{
 		[Test]
-		public void Can_Init_AppAssembly()
+		public void Can_Init_App_Assembly()
 		{
 			var exceptionReporter = new ExceptionReporter();
 			Assert.That(exceptionReporter.Config.AppAssembly, Is.Not.Null);

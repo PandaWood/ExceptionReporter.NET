@@ -7,7 +7,7 @@ namespace ExceptionReporting.Tests
 	public class ScreenshotTaker_Tests
 	{
 		[Test]
-		public void TestName()
+		public void Can_Take_Screenshot()
 		{
 			var screenshot = ScreenshotTaker.TakeScreenShot();
 			if (ExceptionReporter.IsRunningMono())

@@ -4,12 +4,12 @@ using ExceptionReporting.Core;
 
 namespace ExceptionReporting.Mail
 {
-	class Attacher
+	internal class Attacher
 	{
-		protected const string ZIP = ".zip";
-		public IFileService File { get; set; } = new FileService();
-		public IZipper Zipper { get; set; } = new Zipper();
-		readonly ExceptionReportInfo _config;
+		private const string ZIP = ".zip";
+		public IFileService File { private get; set; } = new FileService();
+		public IZipper Zipper { private get; set; } = new Zipper();
+		private readonly ExceptionReportInfo _config;
 
 		public Attacher(ExceptionReportInfo config)
 		{

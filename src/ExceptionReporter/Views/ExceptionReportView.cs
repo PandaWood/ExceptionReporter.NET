@@ -34,7 +34,7 @@ namespace ExceptionReporting.Views
 			PopulateReportInfo(reportInfo);
 		}
 
-		void PopulateReportInfo(ExceptionReportInfo reportInfo)
+		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
 			urlEmail.Text = reportInfo.ContactEmail;
 			txtFax.Text = reportInfo.Fax;
@@ -122,7 +122,7 @@ namespace ExceptionReporting.Views
 			ShiftDown3Pixels(new[] { btnClose, btnDetailToggle, btnCopy, btnEmail, btnSave });
 		}
 
-		static void ShiftDown3Pixels(IEnumerable<Control> buttons)
+		private static void ShiftDown3Pixels(IEnumerable<Control> buttons)
 		{
 			foreach (var button in buttons)
 			{
@@ -130,7 +130,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		void WireUpEvents()
+		private void WireUpEvents()
 		{
 			btnEmail.Click += Email_Click;
 			btnSimpleEmail.Click += Email_Click;
@@ -146,7 +146,7 @@ namespace ExceptionReporting.Views
 			KeyDown += ExceptionReportView_KeyDown;
 		}
 
-		void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
+		private void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
@@ -300,7 +300,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		void AddExceptionControl(Control control, Exception exception)
+		private void AddExceptionControl(Control control, Exception exception)
 		{
 			var exceptionDetail = new ExceptionDetailControl();
 			exceptionDetail.SetControlBackgrounds(_presenter.ReportInfo.BackgroundColor);
@@ -326,7 +326,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		void AddAssembly(AssemblyName assemblyName)
+		private void AddAssembly(AssemblyName assemblyName)
 		{
 			var listViewItem = new ListViewItem { Text = assemblyName.Name };
 			listViewItem.SubItems.Add(assemblyName.Version.ToString());
@@ -339,7 +339,7 @@ namespace ExceptionReporting.Views
 			base.OnClosing(e);
 		}
 
-		TreeNode CreateSysInfoTree()
+		private TreeNode CreateSysInfoTree()
 		{
 			var rootNode = new TreeNode("System");
 
@@ -358,27 +358,27 @@ namespace ExceptionReporting.Views
 			rootNode.Expand();
 		}
 
-		void Copy_Click(object sender, EventArgs e)
+		private void Copy_Click(object sender, EventArgs e)
 		{
 			_presenter.CopyReportToClipboard();
 		}
 
-		void Close_Click(object sender, EventArgs e)
+		private void Close_Click(object sender, EventArgs e)
 		{
 			Close();
 		}
 
-		void Detail_Click(object sender, EventArgs e)
+		private void Detail_Click(object sender, EventArgs e)
 		{
 			_presenter.ToggleDetail();
 		}
 
-		void Email_Click(object sender, EventArgs e)
+		private void Email_Click(object sender, EventArgs e)
 		{
 			_presenter.SendReportByEmail();
 		}
 
-		void Save_Click(object sender, EventArgs e)
+		private void Save_Click(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
 			{
@@ -394,12 +394,12 @@ namespace ExceptionReporting.Views
 		}
 
 
-		void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			_presenter.NavigateToWebsite();
 		}
 
-		void EmailLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void EmailLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			_presenter.SendContactEmail();
 		}

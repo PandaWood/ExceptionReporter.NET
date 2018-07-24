@@ -7,11 +7,11 @@ using ExceptionReporting.SystemInfo;
 
 namespace ExceptionReporting.Core
 {
-	class ExceptionReportBuilder
+	internal class ExceptionReportBuilder
 	{
-		readonly ExceptionReportInfo _reportInfo;
-		StringBuilder _stringBuilder;
-		readonly IEnumerable<SysInfoResult> _sysInfoResults;
+		private readonly ExceptionReportInfo _reportInfo;
+		private StringBuilder _stringBuilder;
+		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
 
 		private ExceptionReportBuilder(ExceptionReportInfo reportInfo)
 		{
@@ -40,7 +40,7 @@ namespace ExceptionReporting.Core
 			return new ExceptionReport(_stringBuilder, _reportInfo, _sysInfoResults.ToList());
 		}
 
-		void BuildGeneralInfo()
+		private void BuildGeneralInfo()
 		{
 			_stringBuilder.AppendLine("[General Info]")
 				.AppendLine()
@@ -58,7 +58,7 @@ namespace ExceptionReporting.Core
 				.AppendLine().AppendDottedLine().AppendLine();
 		}
 
-		void BuildExceptionInfo()
+		private void BuildExceptionInfo()
 		{
 			for (var index = 0; index < _reportInfo.Exceptions.Count; index++)
 			{
@@ -72,7 +72,7 @@ namespace ExceptionReporting.Core
 			}
 		}
 
-		void BuildAssemblyInfo()
+		private void BuildAssemblyInfo()
 		{
 			var digger = new AssemblyReferenceDigger(_reportInfo.AppAssembly);
 
@@ -82,14 +82,14 @@ namespace ExceptionReporting.Core
 				.AppendDottedLine().AppendLine();
 		}
 
-		void BuildSysInfo()
+		private void BuildSysInfo()
 		{
 			_stringBuilder.AppendLine("[System Info]").AppendLine();
 			_stringBuilder.Append(SysInfoResultMapper.CreateStringList(_sysInfoResults));
 			_stringBuilder.AppendDottedLine().AppendLine();
 		}
 
-		void BuildContactInfo()
+		private void BuildContactInfo()
 		{
 			_stringBuilder.AppendLine("[Contact Info]")
 				.AppendLine()
@@ -104,7 +104,7 @@ namespace ExceptionReporting.Core
 		/// Create a line-delimited string of the exception hierarchy 
 		/// //TODO see Label='EH' in View, this is doing too much and is duplicated
 		/// </summary>
-		string ExceptionHierarchyToString(Exception exception)
+		private static string ExceptionHierarchyToString(Exception exception)
 		{
 			var currentException = exception;
 			var stringBuilder = new StringBuilder();
@@ -117,12 +117,15 @@ namespace ExceptionReporting.Core
 				else
 					stringBuilder.AppendLine("Inner Exception " + (count - 1));
 
-				stringBuilder.AppendLine("Type:        " + currentException.GetType())
-							 .AppendLine("Message:     " + currentException.Message)
-							 .AppendLine("Source:      " + currentException.Source);
+				stringBuilder.
+					AppendLine("Type:        " + currentException.GetType())
+					.AppendLine("Message:     " + currentException.Message)
+					.AppendLine("Source:      " + currentException.Source);
 
 				if (currentException.StackTrace != null)
+				{
 					stringBuilder.AppendLine("Stack Trace: " + currentException.StackTrace.Trim());
+				}
 
 				stringBuilder.AppendLine();
 				currentException = currentException.InnerException;

@@ -10,7 +10,7 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public static class ScreenshotTaker
 	{
-		const string ScreenshotFileName = "exceptionreport-screenshot.jpg";
+		private const string ScreenshotFileName = "exceptionreport-screenshot.jpg";
 		
 		/// <summary> Take a screenshot (supports multiple monitors) </summary>
 		/// <returns>Bitmap of the screen, as at the time called</returns>

@@ -3,13 +3,13 @@ using System.IO;
 
 namespace ExceptionReporting.Core
 {
-	interface IFileService 
+	internal interface IFileService 
 	{
 		bool Exists(string file);
 		string TempFile(string file);
 	}
 
-	class FileService : IFileService
+	internal class FileService : IFileService
 	{
 		public bool Exists(string file)
 		{
@@ -28,7 +28,7 @@ namespace ExceptionReporting.Core
 			return tempFile;
 		}
 
-		void DeleteIfExists(string file)
+		private static void DeleteIfExists(string file)
 		{
 			if (File.Exists(file)) 
 			{ 

@@ -1,7 +1,7 @@
 ﻿
 namespace ExceptionReporting.Mail
 {
-	interface IAttach
+	internal interface IAttach
 	{
 		void Attach(string filename);
 	}
@@ -9,7 +9,7 @@ namespace ExceptionReporting.Mail
 	/// <summary>
 	/// Provide a plug between incompatible classes that nevertheless need the same "attach" treatment
 	/// </summary>
-	class AttachAdapter : IAttach
+	internal class AttachAdapter : IAttach
 	{
 		readonly Win32Mapi.SimpleMapi _mapi;
 		readonly System.Net.Mail.MailMessage _mailMessage;

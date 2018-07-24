@@ -16,7 +16,7 @@ namespace ExceptionReporting.Tests
 		private readonly SysInfoRetriever _retriever = new SysInfoRetriever();
 
 		[Test]
-		public void CanRetrieve_SysInfo_For_CPU()
+		public void Can_Retrieve_SysInfo_For_CPU()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.Machine);
 			if (ExceptionReporter.IsRunningMono())
@@ -31,7 +31,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void CanRetrieve_SysInfo_For_OS()
+		public void Can_Retrieve_SysInfo_For_OS()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
 			if (ExceptionReporter.IsRunningMono())

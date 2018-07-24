@@ -1,9 +1,9 @@
 ﻿using System;
 namespace ExceptionReporting.Core
 {
-    class WinFormsClipboard
+	internal class WinFormsClipboard
     {       
-        public void CopyTo(string text)
+        public static void CopyTo(string text)
         {
             System.Windows.Forms.Clipboard.SetDataObject(text, true);
         }

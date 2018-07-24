@@ -8,11 +8,11 @@ using Win32Mapi;
 
 namespace ExceptionReporting.Mail
 {
-	class MailSender
+	internal class MailSender
 	{
-		readonly ExceptionReportInfo _config;
-		IEmailSendEvent _emailEvent;
-		Attacher _attacher;
+		private readonly ExceptionReportInfo _config;
+		private IEmailSendEvent _emailEvent;
+		private readonly Attacher _attacher;
 
 		internal MailSender(ExceptionReportInfo reportInfo)
 		{

@@ -4,12 +4,12 @@ using Ionic.Zip;
 
 namespace ExceptionReporting.Mail
 {
-	interface IZipper 
+	internal interface IZipper 
 	{
 		void Zip(string zipFile, IEnumerable<string> files);
 	}
 
-	class Zipper : IZipper
+	internal class Zipper : IZipper
 	{
 		public void Zip(string zipFile, IEnumerable<string> files)
 		{

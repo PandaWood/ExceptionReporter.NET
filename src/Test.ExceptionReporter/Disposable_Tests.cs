@@ -17,10 +17,10 @@ namespace ExceptionReporting.Tests
 			DisposeManagedResourcesCalled = false;
 		}
 
-		static bool DisposeUnmanagedResourcesCalled { get; set; }
-		static bool DisposeManagedResourcesCalled { get; set; }
+		private static bool DisposeUnmanagedResourcesCalled { get; set; }
+		private static bool DisposeManagedResourcesCalled { get; set; }
 
-		class DisposableStub : Disposable
+		private class DisposableStub : Disposable
 		{
 			protected override void DisposeManagedResources()
 			{
@@ -48,8 +48,6 @@ namespace ExceptionReporting.Tests
 			{
 				new DisposableStub();
 				GC.Collect();
-				//Wait for finalize
-				//                Thread.Sleep(2000);		//TODO this should be removed, the test more abstracted, we should never sleep in unit tests
 			}
 			finally
 			{
@@ -64,7 +62,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void TestDispose()
+		public void Test_Disposable()
 		{
 			var disposable = new DisposableStub();
 			disposable.Dispose();

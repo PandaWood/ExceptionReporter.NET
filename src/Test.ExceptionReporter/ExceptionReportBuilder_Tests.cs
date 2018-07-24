@@ -13,7 +13,7 @@ namespace ExceptionReporting.Tests
 	public class ExceptionReportBuilder_Tests
 	{
 		[Test]
-		public void CanBuild_ReferencedAssemblies_Section()
+		public void Can_Build_Referenced_Assemblies_Section()
 		{
 			using (var reportInfo = CreateReportInfo())
 			{
@@ -35,7 +35,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void CanBuild_SysInfoSection()
+		public void Can_Build_SysInfo_Section()
 		{
 			var sysInfoResults = CreateSysInfoResult();
 			var expectedExceptionReport = CreateExpectedReport();
@@ -53,7 +53,7 @@ namespace ExceptionReporting.Tests
 		}
 
 		[Test]
-		public void CanBuild_HierarchyString_With_Root_And_InnerException()
+		public void Can_Build_Hierarchy_String_With_Root_And_Inner_Exception()
 		{
 			using (var reportInfo = CreateReportInfo())
 			{
