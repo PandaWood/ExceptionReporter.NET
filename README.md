@@ -2,7 +2,7 @@
 
 # Exception Reporter.NET
 
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
 
 ### The nuget package
  [![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
