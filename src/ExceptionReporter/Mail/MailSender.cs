@@ -31,11 +31,14 @@ namespace ExceptionReporting.Mail
 			var smtpClient = new SmtpClient(_config.SmtpServer)
 			{
 				DeliveryMethod = SmtpDeliveryMethod.Network,
-				Port = _config.SmtpPort,
 				EnableSsl = _config.SmtpUseSsl,
-				UseDefaultCredentials = _config.SmtpUseSsl,
-				Credentials = new NetworkCredential(_config.SmtpUsername, _config.SmtpPassword),
+				UseDefaultCredentials = _config.SmtpUseDefaultCredentials,
 			};
+			if (_config.SmtpPort != 0) //If 0, the default port of 25 is used.
+				smtpClient.Port = _config.SmtpPort;
+			if (_config.SmtpUseDefaultCredentials == false)
+				smtpClient.Credentials = new NetworkCredential(_config.SmtpUsername, _config.SmtpPassword);
+
 
 			var mailMessage = new MailMessage(_config.SmtpFromAddress, _config.EmailReportAddress)
 			{

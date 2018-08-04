@@ -50,12 +50,16 @@ namespace ExceptionReporting.Core
 		}
 
 		public string CustomMessage { get; set; }
+
+		#region SMTP
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
 		public int SmtpPort { get; set; }
 		public bool SmtpUseSsl { get; set; }
+		public bool SmtpUseDefaultCredentials { get; set; }
+		#endregion
 
 		/// <summary>
 		/// Email that is displayed in the 'Contact Information'. /> 
