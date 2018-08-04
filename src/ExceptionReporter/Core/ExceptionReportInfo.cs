@@ -51,14 +51,16 @@ namespace ExceptionReporting.Core
 		}
 
 		public string CustomMessage { get; set; }
-		
-		// SMTP settings
+
+		#region SMTP
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
 		public string SmtpServer { get; set; }
 		public int SmtpPort { get; set; }
 		public bool SmtpUseSsl { get; set; }
+		public bool SmtpUseDefaultCredentials { get; set; }
+		#endregion
 
 		/// <summary>
 		/// Email that is displayed in the 'Contact Information'
@@ -85,6 +87,12 @@ namespace ExceptionReporting.Core
 		/// Date/time of the exception being raised
 		/// </summary>
 		public DateTime ExceptionDate { get; set; }
+
+		/// <summary>
+		/// Whether to report the date/time of the exception in local time or Coordinated Universal Time (UTC).
+		/// Defaults to UTC if not specified.
+		/// </summary>
+		public DateTimeKind ExceptionDateKind { get; set; } = DateTimeKind.Utc;
 
 		/// <summary>
 		/// The text filled in by the user of the Exception Reporter dialog
