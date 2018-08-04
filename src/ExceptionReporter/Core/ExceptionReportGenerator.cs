@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Deployment.Application;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Mail;
@@ -31,10 +32,14 @@ namespace ExceptionReporting.Core
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
 			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
-			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
-
+			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? _GetVersion() : _reportInfo.AppVersion;
 			if (_reportInfo.AppAssembly == null)
 				_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+		}
+
+		private string _GetVersion()
+		{
+			return ApplicationDeployment.IsNetworkDeployed ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ProductVersion;
 		}
 
 		/// <summary>
