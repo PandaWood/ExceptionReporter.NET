@@ -47,5 +47,13 @@ namespace ExceptionReporting.Tests
 
 			Assert.That(report1, Is.EqualTo(report2));
 		}
+
+		[Test]
+		public void Can_Create_Report_With_Local_Datetime()
+		{
+			var config = new ExceptionReportInfo { ExceptionDateKind = DateTimeKind.Local, MainException = new Exception() };
+			var report = new ExceptionReportGenerator(config);
+			Assert.That(config.ExceptionDate.Kind == DateTimeKind.Local);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Deployment.Application;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Mail;
@@ -27,14 +28,19 @@ namespace ExceptionReporting.Core
 		{
 			_reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
-			_reportInfo.ExceptionDate = DateTime.UtcNow;
+			_reportInfo.ExceptionDate = _reportInfo.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
 			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
-			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? Application.ProductVersion : _reportInfo.AppVersion;
-
+			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? GetAppVersion() : _reportInfo.AppVersion;
 			if (_reportInfo.AppAssembly == null)
 				_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+		}
+
+		private string GetAppVersion()
+		{
+			return ApplicationDeployment.IsNetworkDeployed ? 
+				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ProductVersion;
 		}
 
 		/// <summary>
