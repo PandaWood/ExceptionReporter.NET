@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
 #pragma warning disable 1591
 
 namespace ExceptionReporting.Core
 {
-	/// <inheritdoc />
 	/// <summary>
-	/// a bag of information (some of which is stored and retrieved from config)
+	/// A bag of configuration properties
 	/// </summary>
 	public class ExceptionReportInfo : Disposable
 	{
@@ -50,6 +51,8 @@ namespace ExceptionReporting.Core
 		}
 
 		public string CustomMessage { get; set; }
+		
+		// SMTP settings
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; }
@@ -58,18 +61,18 @@ namespace ExceptionReporting.Core
 		public bool SmtpUseSsl { get; set; }
 
 		/// <summary>
-		/// Email that is displayed in the 'Contact Information'. /> 
+		/// Email that is displayed in the 'Contact Information'
 		/// (ie not the email for sending the report to)
 		/// </summary>
 		public string ContactEmail { get; set; }
 
 		/// <summary>
-		/// The name of the running application calling the exception report />
+		/// The name of the running application calling the exception report
 		/// </summary>
 		public string AppName { get; set; }
 
 		/// <summary>
-		/// The version of the running application calling the exception report />
+		/// The version of the running application calling the exception report
 		/// </summary>
 		public string AppVersion { get; set; }
 
@@ -94,6 +97,7 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public Assembly AppAssembly { get; set; }
 
+		// user/company details to make available
 		public string WebUrl { get; set; }
 		public string Phone { get; set; }
 		public string Fax { get; set; }
@@ -104,10 +108,12 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public string CompanyName { get; set; }
 
+		// whether to show certain tabs in the 'More Detail' mode of the main dialog
 		public bool ShowGeneralTab { get; set; }
 		public bool ShowContactTab { get; set; }
 		public bool ShowExceptionsTab { get; set; }
 
+		// cater for mono, which can't access the windows api's to get SysInfo and Assemblies
 		private bool _showSysInfoTab;
 		public bool ShowSysInfoTab
 		{
@@ -127,18 +133,43 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public string EmailReportAddress { get; set; }
 
+		private bool _silentReportSend;
+
 		/// <summary>
-		/// Default is <see cref="DefaultLabelMessages.DefaultExplanationLabel"/>
+		/// Send the exception report automatically and silently via the WebServiceUrl - without showing dialog or prompting the user
+		/// NB The EmailMethod must be set to WebService for this to return true ie SilentReportSend will only work when using WebService
 		/// </summary>
-		public string UserExplanationLabel { get; set; }
+		public bool SilentReportSend
+		{
+			get { return _silentReportSend && MailMethod == EmailMethod.WebService; }
+			set { _silentReportSend = value; }
+		}
 
-		public string ContactMessageTop { get; set; }
+		/// <summary>
+		/// The URL to be used to submit the exception report when EmailMethod is set to WebService
+		/// A JSON package containing the textual Exception Report, will be posted to this URL
+		/// The string that would normally be the body of an email report, will be in the root JSON property 'ExceptionReport'
+		/// </summary>
+		public string WebServiceUrl { get; set; }
 
-		public bool ShowFlatButtons { get; set; }
-		public bool ShowLessMoreDetailButton { get; set; }
-		public bool ShowFullDetail { get; set; }
-		public bool ShowButtonIcons { get; set; }
-		public bool ShowEmailButton { get; set; }
+		/// <summary>
+		/// Timeout (in seconds) for the WebService
+		/// </summary>
+		public int WebServiceTimeout { get; set; } = 15;
+
+		private bool _showEmailButton = true;
+
+		/// <summary>
+		/// Whether or not to show/display the button labelled "Email"
+		/// ShowEmailButton will assume false if EmailMethod is None
+		/// </summary>
+		public bool ShowEmailButton {
+			get
+			{	// ReSharper disable once SimplifyConditionalTernaryExpression
+				return MailMethod == EmailMethod.None ? false : _showEmailButton;
+			}
+			set { _showEmailButton = value; }
+		}
 
 		/// <summary>
 		/// Dialog title text
@@ -176,6 +207,7 @@ namespace ExceptionReporting.Core
 
 		/// <summary>
 		/// Show the Exception Reporter as a "TopMost" window (ie TopMost property on a WinForm)
+		/// This can be quite important in some environments (eg Office Addins) where it might get covered by other UI
 		/// </summary>
 		public bool TopMost { get; set; }
 
@@ -197,6 +229,13 @@ namespace ExceptionReporting.Core
 			set { _attachmentFilename = value; }
 		}
 
+		public string UserExplanationLabel { get; set; }
+		public string ContactMessageTop { get; set; }
+		public bool ShowFlatButtons { get; set; }
+		public bool ShowLessMoreDetailButton { get; set; }
+		public bool ShowFullDetail { get; set; }
+		public bool ShowButtonIcons { get; set; }
+
 		public ExceptionReportInfo()
 		{
 			SetDefaultValues();
@@ -217,7 +256,7 @@ namespace ExceptionReporting.Core
 			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
 			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
 			EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show dummy place-holder
-			TitleText = "Exception Report";
+			TitleText = "Error Report";
 			UserExplanationFontSize = 12f;
 			TakeScreenshot = false;
 			TopMost = false;
@@ -231,8 +270,10 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public enum EmailMethod
 		{
+			None,
 			SimpleMAPI,
-			SMTP
+			SMTP,
+			WebService
 		};
 
 		protected override void DisposeManagedResources()

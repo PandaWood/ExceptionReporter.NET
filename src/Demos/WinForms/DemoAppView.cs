@@ -47,7 +47,7 @@ namespace Demo.WinForms
 			}
 		}
 
-		protected void Show_Email_Attachment_Test(object sender, EventArgs e)
+		private void Show_Email_Attachment_Test(object sender, EventArgs e)
 		{
 			try
 			{
@@ -73,9 +73,15 @@ namespace Demo.WinForms
 		ExceptionReporter CreateEmailReadyReporter() 
 		{
 			var exceptionReporter = new ExceptionReporter();
-			ConfigureSmtpEmail(exceptionReporter.Config);
-
+//			ConfigureSmtpEmail(exceptionReporter.Config);		// comment one in/out to test SMPT or WebService
+			ConfigureWebService(exceptionReporter.Config);
 			return exceptionReporter;
+		}
+
+		void ConfigureWebService(ExceptionReportInfo config)
+		{
+			config.MailMethod = ExceptionReportInfo.EmailMethod.WebService;
+			config.WebServiceUrl = "http://localhost:24513/api/er";
 		}
 
 		void ConfigureSmtpEmail(ExceptionReportInfo config) 

@@ -62,10 +62,10 @@ namespace Demo.WinForms
 			this.urlEmailTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.urlEmailTest.Location = new System.Drawing.Point(12, 92);
 			this.urlEmailTest.Name = "urlEmailTest";
-			this.urlEmailTest.Size = new System.Drawing.Size(189, 16);
+			this.urlEmailTest.Size = new System.Drawing.Size(237, 16);
 			this.urlEmailTest.TabIndex = 5;
 			this.urlEmailTest.TabStop = true;
-			this.urlEmailTest.Text = "Will Attach files to SMTP Email";
+			this.urlEmailTest.Text = "Will Send Report to configured method";
 			// 
 			// urlDialogless
 			// 
