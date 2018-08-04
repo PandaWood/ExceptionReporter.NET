@@ -9,6 +9,7 @@ namespace ExceptionReporting.Mail
 {
 	internal class WebServiceSender
 	{
+		private const string JSON = "application/json";
 		private readonly ExceptionReportInfo _info;
 		private readonly IReportSendEvent _sendEvent;
 
@@ -25,9 +26,28 @@ namespace ExceptionReporting.Mail
 				Encoding = Encoding.UTF8
 			};
 
-			webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-			webClient.Headers.Add(HttpRequestHeader.Accept, "application/json");
-			webClient.UploadStringCompleted += (sender, e) =>
+			webClient.Headers.Add(HttpRequestHeader.ContentType, JSON);
+			webClient.Headers.Add(HttpRequestHeader.Accept, JSON);
+			webClient.UploadStringCompleted += OnUploadCompleted(webClient);
+
+			using (var jsonStream = new MemoryStream())
+			{
+				var sz = new DataContractJsonSerializer(typeof(ExceptionReportItem));
+				sz.WriteObject(jsonStream, new ExceptionReportItem
+				{
+					AppName = _info.AppName,
+					AppVersion = _info.AppVersion,
+					ExceptionMessage = _info.MainException.Message,
+					ExceptionReport = report
+				});
+				var jsonString = Encoding.UTF8.GetString(jsonStream.ToArray());
+				webClient.UploadStringAsync(new Uri(_info.WebServiceUrl), jsonString);
+			}
+		}
+
+		private UploadStringCompletedEventHandler OnUploadCompleted(IDisposable webClient)
+		{
+			return (sender, e) =>
 			{
 				try
 				{
@@ -47,20 +67,6 @@ namespace ExceptionReporting.Mail
 					webClient.Dispose();
 				}
 			};
-
-			using (var jsonStream = new MemoryStream())
-			{
-				var sz = new DataContractJsonSerializer(typeof(ExceptionReportItem));
-				sz.WriteObject(jsonStream, new ExceptionReportItem
-				{
-					AppName = _info.AppName,
-					AppVersion = _info.AppVersion,
-					ExceptionMessage = _info.MainException.Message,
-					ExceptionReport = report
-				});
-				var jsonString = Encoding.UTF8.GetString(jsonStream.ToArray());
-				webClient.UploadStringAsync(new Uri(_info.WebServiceUrl), jsonString);
-			}
 		}
 	}
 
@@ -75,9 +81,9 @@ namespace ExceptionReporting.Mail
 
 		protected override WebRequest GetWebRequest(Uri address)
 		{
-			var w = base.GetWebRequest(address);
-			w.Timeout = _timeout * 1000;
-			return w;
+			var wr = base.GetWebRequest(address);
+			wr.Timeout = _timeout * 1000;
+			return wr;
 		}
 	}
 }
