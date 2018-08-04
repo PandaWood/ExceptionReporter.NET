@@ -27,7 +27,7 @@ namespace ExceptionReporting.Core
 		{
 			_reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
-			_reportInfo.ExceptionDate = DateTime.UtcNow;
+			_reportInfo.ExceptionDate = _reportInfo.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
 
 			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
