@@ -68,3 +68,4 @@ packages/
 .idea/
 
 \.vs
+*.orig

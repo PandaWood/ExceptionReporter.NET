@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
@@ -50,12 +51,17 @@ namespace ExceptionReporting.Core
 			_exceptions.AddRange(exceptions);
 		}
 
+		/// <summary>
+		/// Override the Exception.Message property
+		/// A custom message to show in place of the Exception Message
+		/// eg a message to help the user solve the issue rather than the message that came with the exception
+		/// </summary>
 		public string CustomMessage { get; set; }
 
 		#region SMTP
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
-		public string SmtpFromAddress { get; set; }
+		public string SmtpFromAddress { get; set; } = "";
 		public string SmtpServer { get; set; }
 		public int SmtpPort { get; set; }
 		public bool SmtpUseSsl { get; set; }
@@ -79,12 +85,12 @@ namespace ExceptionReporting.Core
 		public string AppVersion { get; set; }
 
 		/// <summary>
-		/// Region information
+		/// Region information - set automatically
 		/// </summary>
 		public string RegionInfo { get; set; }
 
 		/// <summary>
-		/// Date/time of the exception being raised
+		/// Date/time of the exception being raised - set automatically
 		/// </summary>
 		public DateTime ExceptionDate { get; set; }
 
@@ -117,9 +123,9 @@ namespace ExceptionReporting.Core
 		public string CompanyName { get; set; }
 
 		// whether to show certain tabs in the 'More Detail' mode of the main dialog
-		public bool ShowGeneralTab { get; set; }
-		public bool ShowContactTab { get; set; }
-		public bool ShowExceptionsTab { get; set; }
+		public bool ShowGeneralTab { get; set; } = true;
+		public bool ShowContactTab { get; set; } = false;
+		public bool ShowExceptionsTab { get; set; } = true;
 
 		// cater for mono, which can't access the windows api's to get SysInfo and Assemblies
 		private bool _showSysInfoTab;
@@ -137,15 +143,18 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Email address used to send the report to via email (eg appears in the 'to:' field in the default email client if simpleMAPI)
+		/// Email address used to send the report to via email
+		/// (eg appears in the 'to:' field in the default email client if simpleMAPI)
 		/// </summary>
-		public string EmailReportAddress { get; set; }
+		public string EmailReportAddress { get; set; } = "support@acompany.com";
 
 		private bool _silentReportSend;
 
 		/// <summary>
-		/// Send the exception report automatically and silently via the WebServiceUrl - without showing dialog or prompting the user
-		/// NB The EmailMethod must be set to WebService for this to return true ie SilentReportSend will only work when using WebService
+		/// Send the exception report automatically and silently via the WebServiceUrl - without showing dialog or
+		/// prompting the user
+		/// NB The EmailMethod must be set to WebService for this to return true ie SilentReportSend will
+		/// only work when using EmailMethod type WebService
 		/// </summary>
 		public bool SilentReportSend
 		{
@@ -180,28 +189,43 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Dialog title text
+		/// The title of the main ExceptionReporter dialog
 		/// </summary>
-		public string TitleText { get; set; }
+		public string TitleText { get; set; } = "Error Report";
 
-		public Color BackgroundColor { get; set; }
-		public float UserExplanationFontSize { get; set; }
+		/// <summary>
+		/// Background color of the dialog - generally best to avoid changing this
+		/// </summary>
+		public Color BackgroundColor { get; set; } = Color.WhiteSmoke;
+
+		/// <summary>
+		/// The font size of the user input text box
+		/// </summary>
+		public float UserExplanationFontSize { get; set; } = 12f;
 
 		/// <summary>
 		/// Take a screenshot automatically at the point of calling <see cref="ExceptionReporter.Show(System.Exception[])"/>
 		/// which will then be available if sending an email using the ExceptionReporter dialog functionality
 		/// </summary>
-		public bool TakeScreenshot { get; set; }
+		public bool TakeScreenshot { get; set; } = false;
 
 		/// <summary>
-		/// The Screenshot Bitmap, used internally
+		/// The Screenshot Bitmap, used internally but exposed for flexibility
 		/// </summary>
 		public Bitmap ScreenshotImage { get; set; }
 
 		/// <summary>
-		/// Which email method to use (SMTP or SimpleMAPI) 
-		/// SimpleMAPI basically means it will try to use an installed Email client on the user's machine (eg Outlook)
+		/// Which contact method to use (SMTP/SimpleMAPI or WebService) 
+		/// SimpleMAPI means will try to use an installed Email client on the user's machine (eg Outlook)
 		/// SMTP requires various other settings (host/port/credentials etc) starting with 'SMTP'
+		/// WebService requires a REST API server accepting content-type 'application/json' of type POST and a JSON packet
+		/// containing 4 properties: (an example .NET Core REST project doing exactly this is in the ExceptionReporter.NET solution) 
+		/// {
+		///   "AppName" : "My App", 
+		///   "AppVersion" : "1.0.2",
+		///   "ExceptionMessage" : "Null Ref...",
+		///   "ExceptionReport" : "report here..."
+		/// }
 		/// </summary>
 		public EmailMethod MailMethod { get; set; }
 
@@ -217,14 +241,14 @@ namespace ExceptionReporting.Core
 		/// Show the Exception Reporter as a "TopMost" window (ie TopMost property on a WinForm)
 		/// This can be quite important in some environments (eg Office Addins) where it might get covered by other UI
 		/// </summary>
-		public bool TopMost { get; set; }
+		public bool TopMost { get; set; } = false;
 
 		/// <summary>
 		/// Any additional files to attach to the outgoing email report (SMTP or SimpleMAPI) 
 		/// This is in addition to the automatically attached screenshot, if configured
 		/// All files (exception those already with .zip extension) will be added into a single zip file and attached to the email
 		/// </summary>
-		public string[] FilesToAttach { get; set; }
+		public string[] FilesToAttach { get; set; } = {};
 
 		string _attachmentFilename = "ex";
 		/// <summary>
@@ -237,12 +261,29 @@ namespace ExceptionReporting.Core
 			set { _attachmentFilename = value; }
 		}
 
-		public string UserExplanationLabel { get; set; }
-		public string ContactMessageTop { get; set; }
-		public bool ShowFlatButtons { get; set; }
+		/// <summary>
+		/// The text to show in the label that prompts the user to input any relevant message
+		/// </summary>
+		public string UserExplanationLabel { get; set; } = DefaultLabelMessages.DefaultExplanationLabel;
+
+		public string ContactMessageTop { get; set; } = DefaultLabelMessages.DefaultContactMessageTop;
+
+		/// <summary>
+		/// Show buttons in the "flat" (non 3D) style
+		/// </summary>
+		public bool ShowFlatButtons { get; set; } = true;
+		
+		/// <summary>
+		/// Show the button that gives user the option to switch between "Less Detail/More Detail"
+		/// </summary>
 		public bool ShowLessMoreDetailButton { get; set; }
-		public bool ShowFullDetail { get; set; }
-		public bool ShowButtonIcons { get; set; }
+
+		public bool ShowFullDetail { get; set; } = true;
+
+		/// <summary>
+		/// Whether to show relevant icons on the buttons
+		/// </summary>
+		public bool ShowButtonIcons { get; set; } = true;
 
 		public ExceptionReportInfo()
 		{
@@ -251,26 +292,10 @@ namespace ExceptionReporting.Core
 
 		private void SetDefaultValues()
 		{
-			ShowFlatButtons = true;
-			ShowFullDetail = true;
-			ShowButtonIcons = true;
 			ShowEmailButton = true;
-			BackgroundColor = Color.WhiteSmoke;
-			ShowExceptionsTab = true;
-			ShowContactTab = false;
 			ShowAssembliesTab = true;
 			ShowSysInfoTab = true;
-			ShowGeneralTab = true;
-			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
-			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-			EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show dummy place-holder
-			TitleText = "Error Report";
-			UserExplanationFontSize = 12f;
-			TakeScreenshot = false;
-			TopMost = false;
-			FilesToAttach = new string[]{};
 			AttachmentFilename = "ExceptionReport";
-			SmtpFromAddress = "";
 		}
 
 		/// <summary>
@@ -286,10 +311,7 @@ namespace ExceptionReporting.Core
 
 		protected override void DisposeManagedResources()
 		{
-			if (ScreenshotImage != null)
-			{
-				ScreenshotImage.Dispose();
-			}
+			ScreenshotImage?.Dispose();
 			base.DisposeManagedResources();
 		}
 	}

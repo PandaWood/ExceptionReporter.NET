@@ -22,7 +22,7 @@ namespace ExceptionReporting.Mail
 		{
 			var client = new ExceptionReporterWebClient(_info.WebServiceTimeout)
 			{
-				Encoding = Encoding.UTF8,
+				Encoding = Encoding.UTF8
 			};
 
 			client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
@@ -72,9 +72,9 @@ namespace ExceptionReporting.Mail
 			_timeout = timeout;
 		}
 
-		protected override WebRequest GetWebRequest(Uri uri)
+		protected override WebRequest GetWebRequest(Uri address)
 		{
-			var w = base.GetWebRequest(uri);
+			var w = base.GetWebRequest(address);
 			w.Timeout = _timeout * 1000;
 			return w;
 		}
