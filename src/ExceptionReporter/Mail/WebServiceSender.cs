@@ -20,14 +20,14 @@ namespace ExceptionReporting.Mail
 
 		public void Send(string report)
 		{
-			var client = new ExceptionReporterWebClient(_info.WebServiceTimeout)
+			var webClient = new ExceptionReporterWebClient(_info.WebServiceTimeout)
 			{
 				Encoding = Encoding.UTF8
 			};
 
-			client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-			client.Headers.Add(HttpRequestHeader.Accept, "application/json");
-			client.UploadStringCompleted += (sender, e) =>
+			webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+			webClient.Headers.Add(HttpRequestHeader.Accept, "application/json");
+			webClient.UploadStringCompleted += (sender, e) =>
 			{
 				try
 				{
@@ -38,12 +38,13 @@ namespace ExceptionReporting.Mail
 					else
 					{
 						_sendEvent.Completed(success: false);
-						_sendEvent.ShowError("WebService: " + (e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
+						_sendEvent.ShowError("WebService: " + 
+							(e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
 					}
 				}
 				finally
 				{
-					client.Dispose();
+					webClient.Dispose();
 				}
 			};
 
@@ -58,7 +59,7 @@ namespace ExceptionReporting.Mail
 					ExceptionReport = report
 				});
 				var jsonString = Encoding.UTF8.GetString(jsonStream.ToArray());
-				client.UploadStringAsync(new Uri(_info.WebServiceUrl), jsonString);
+				webClient.UploadStringAsync(new Uri(_info.WebServiceUrl), jsonString);
 			}
 		}
 	}

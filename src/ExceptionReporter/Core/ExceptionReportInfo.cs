@@ -148,24 +148,8 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public string EmailReportAddress { get; set; } = "support@acompany.com";
 
-		private bool _silentReportSend;
-
-		/// <summary>
-		/// Send the exception report automatically and silently via the WebServiceUrl - without showing dialog or
-		/// prompting the user
-		/// NB The EmailMethod must be set to WebService for this to return true ie SilentReportSend will
-		/// only work when using EmailMethod type WebService
-		/// </summary>
-		public bool SilentReportSend
-		{
-			get { return _silentReportSend && MailMethod == EmailMethod.WebService; }
-			set { _silentReportSend = value; }
-		}
-
 		/// <summary>
 		/// The URL to be used to submit the exception report when EmailMethod is set to WebService
-		/// A JSON package containing the textual Exception Report, will be posted to this URL
-		/// The string that would normally be the body of an email report, will be in the root JSON property 'ExceptionReport'
 		/// </summary>
 		public string WebServiceUrl { get; set; }
 
@@ -216,7 +200,7 @@ namespace ExceptionReporting.Core
 
 		/// <summary>
 		/// Which contact method to use (SMTP/SimpleMAPI or WebService) 
-		/// SimpleMAPI means will try to use an installed Email client on the user's machine (eg Outlook)
+		/// SimpleMAPI will try to use an installed Email client on Windows (eg Outlook)
 		/// SMTP requires various other settings (host/port/credentials etc) starting with 'SMTP'
 		/// WebService requires a REST API server accepting content-type 'application/json' of type POST and a JSON packet
 		/// containing 4 properties: (an example .NET Core REST project doing exactly this is in the ExceptionReporter.NET solution) 
@@ -316,7 +300,7 @@ namespace ExceptionReporting.Core
 		}
 	}
 
-	public static class DefaultLabelMessages
+	internal static class DefaultLabelMessages
 	{
 		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
 		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";

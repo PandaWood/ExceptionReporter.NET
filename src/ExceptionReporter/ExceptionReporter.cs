@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Windows.Forms;
 using ExceptionReporting.Core;
 using ExceptionReporting.Views;
 
@@ -41,7 +42,6 @@ namespace ExceptionReporting
 		/// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and 
 		/// create and show the report dialog.</remarks>
 		/// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
-		// ReSharper disable MemberCanBePrivate.Global
 		public void Show(params Exception[] exceptions)
 		{
 			if (exceptions == null) return;   //TODO perhaps show a dialog that says "No exception to show" ?
@@ -54,10 +54,9 @@ namespace ExceptionReporting
 			}
 			catch (Exception internalException)
 			{
-				System.Windows.Forms.MessageBox.Show(internalException.Message);
+				MessageBox.Show(internalException.Message, "Error Reporting Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
-		// ReSharper restore MemberCanBePrivate.Global
 
 		/// <summary>
 		/// Show the ExceptionReport dialog with a custom message instead of the Exception's Message property
@@ -68,6 +67,34 @@ namespace ExceptionReporting
 		{
 			_reportInfo.CustomMessage = customMessage;
 			Show(exceptions);
+		}
+
+		/// <summary>
+		/// Send the report without showing a dialog (silent send)
+		/// MailMethod must be set to SMTP or WebService, else this is ignored (silently)
+		/// </summary>
+		/// <param name="exceptions">The exception/s to display in the exception report</param>
+		public void Send(params Exception[] exceptions)
+		{
+			_reportInfo.SetExceptions(exceptions);
+			var generator = new ExceptionReportGenerator(_reportInfo);
+
+			switch (_reportInfo.MailMethod)
+			{
+				case ExceptionReportInfo.EmailMethod.SMTP:
+					generator.SendReportByEmail();
+					break;
+
+				case ExceptionReportInfo.EmailMethod.WebService:
+					generator.SendReportToWebService();
+					break;
+
+				case ExceptionReportInfo.EmailMethod.None:
+					break;
+
+				case ExceptionReportInfo.EmailMethod.SimpleMAPI:
+					break;
+			}
 		}
 
 		static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;

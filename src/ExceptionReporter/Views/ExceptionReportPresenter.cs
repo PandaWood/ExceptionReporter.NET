@@ -143,7 +143,7 @@ namespace ExceptionReporting.Views
 			catch (Exception exception)
 			{		// this would be an exception in the setup, the sending has it's own failure event
 				_view.Completed(false);
-				_view.ShowError("Unable to send email using SMTP" + Environment.NewLine + exception.Message, exception);
+				_view.ShowError("Unable to setup email using SMTP" + Environment.NewLine + exception.Message, exception);
 			}
 		}
 
@@ -161,7 +161,7 @@ namespace ExceptionReporting.Views
 			catch (Exception exception)
 			{
 				_view.Completed(false);
-				_view.ShowError("Unable to setup contact with WebService" + Environment.NewLine + exception.Message, exception);
+				_view.ShowError("Unable to setup WebService" + Environment.NewLine + exception.Message, exception);
 			}
 		}
 
@@ -183,7 +183,7 @@ namespace ExceptionReporting.Views
 			catch (Exception exception)
 			{
 				success = false;
-				_view.ShowError("Unable to connect to Email client\r\nPlease create an Email manually and use Copy Details", exception);
+				_view.ShowError("Unable to setup Email client\r\nPlease create an Email manually and use Copy Details", exception);
 			}
 			finally
 			{

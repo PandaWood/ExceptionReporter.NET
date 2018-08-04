@@ -15,7 +15,7 @@ namespace Demo.WinForms
 			urlDefault.Click += Show_Default_Report;
 			urlHideDetail.Click += Show_HideDetailView_Click;
 			urlEmailTest.Click += Show_Email_Attachment_Test;
-			urlDialogless.Click += Do_Dialogless_Report;
+			urlDialogless.Click += Send_Silent_Report;
 		}
 
 		static void Show_Default_Report(object sender, EventArgs e)
@@ -28,22 +28,24 @@ namespace Demo.WinForms
 			ThrowAndShowExceptionReporter(detailView:true);
 		}
 
-		void Do_Dialogless_Report(object sender, EventArgs e)
+		void Send_Silent_Report(object sender, EventArgs e)
 		{
 			try
 			{
-				SomeMethod();
+				SomeMethodThatThrows();
 			}
 			catch (Exception exception)
 			{
-				var config = new ExceptionReportInfo
-				{
-					MainException = exception
-				};
+				var er = new ExceptionReporter();
 
-				ConfigureSmtpEmail(config);
-				var exceptionReportGenerator = new ExceptionReportGenerator(config);
-				exceptionReportGenerator.SendReportByEmail();
+//				ConfigureSmtpEmail(config);
+				ConfigureWebService(er.Config);		//toggle which type to configure
+				er.Send(exception);
+
+				// don't really need ExceptionReportGenerator (as used below) because the ExceptionReporter Send()
+				// method (above) wraps it
+				// var exceptionReportGenerator = new ExceptionReportGenerator(config);
+				// exceptionReportGenerator.SendReportByEmail();
 			}
 		}
 
@@ -51,7 +53,7 @@ namespace Demo.WinForms
 		{
 			try
 			{
-				SomeMethod();
+				SomeMethodThatThrows();
 			}
 			catch (Exception exception)
 			{
@@ -73,7 +75,7 @@ namespace Demo.WinForms
 		ExceptionReporter CreateEmailReadyReporter() 
 		{
 			var exceptionReporter = new ExceptionReporter();
-//			ConfigureSmtpEmail(exceptionReporter.Config);		// comment one in/out to test SMPT or WebService
+//			ConfigureSmtpEmail(exceptionReporter.Config);		// comment one in/out to test SMTP or WebService
 			ConfigureWebService(exceptionReporter.Config);
 			return exceptionReporter;
 		}
@@ -88,7 +90,6 @@ namespace Demo.WinForms
 		{
 			//--- Test SMTP - recommend using MailSlurper https://github.com/mailslurper
 			config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;
-			//config.SmtpServer = "10.0.2.2";
 			config.SmtpServer = "127.0.0.1";
 			config.SmtpPort = 2500;
 			config.SmtpUsername = "";
@@ -103,7 +104,7 @@ namespace Demo.WinForms
 		{
 			try
 			{
-				SomeMethod();
+				SomeMethodThatThrows();
 			}
 			catch (Exception exception)
 			{
@@ -119,7 +120,7 @@ namespace Demo.WinForms
 			}
 		}
 
-		static void SomeMethod()
+		static void SomeMethodThatThrows()
 		{
 			CallAnotherMethod();
 		}

@@ -9,9 +9,9 @@ namespace ExceptionReporting.Core
 	/// </summary>
 	public class ExceptionReport
 	{
-		readonly StringBuilder _reportString;
-		readonly ExceptionReportInfo _reportInfo;
-		readonly IList<SysInfoResult> _sysInfoResults;
+		private readonly StringBuilder _reportString;
+		private readonly ExceptionReportInfo _reportInfo;
+		private readonly IList<SysInfoResult> _sysInfoResults;
 
 		/// <summary>
 		/// Construct an ExceptionReport from a StringBuilder
