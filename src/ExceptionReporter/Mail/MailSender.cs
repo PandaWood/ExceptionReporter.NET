@@ -36,7 +36,7 @@ namespace ExceptionReporting.Mail
 
 			if (_config.SmtpPort != 0)		// the default port (25) is used if not set in config
 				smtp.Port = _config.SmtpPort;
-			if (_config.SmtpUseDefaultCredentials == false)
+			if (!_config.SmtpUseDefaultCredentials)
 				smtp.Credentials = new NetworkCredential(_config.SmtpUsername, _config.SmtpPassword);
 
 			var message = new MailMessage(_config.SmtpFromAddress, _config.EmailReportAddress)

@@ -26,8 +26,8 @@ namespace ExceptionReporting.Views
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
-			ReportInfo = info;
 			_reportGenerator = new ExceptionReportGenerator(info);
+			ReportInfo = info;
 		}
 
 		/// <summary>
@@ -39,11 +39,9 @@ namespace ExceptionReporting.Views
 		}
 
 		/// <summary>
-		/// 
+		/// Report configuration and data
 		/// </summary>
-		public ExceptionReportInfo ReportInfo { get; private set; }
-
-		private WinFormsClipboard _clipboard = new WinFormsClipboard();
+		public ExceptionReportInfo ReportInfo { get; }
 
 		private ExceptionReport CreateExceptionReport()
 		{
@@ -116,7 +114,7 @@ namespace ExceptionReporting.Views
 			_view.ToggleShowFullDetail();
 		}
 
-		string BuildReportString()
+		private string BuildReportString()
 		{
 			var emailTextBuilder = new EmailTextBuilder();
 			var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
@@ -128,7 +126,7 @@ namespace ExceptionReporting.Views
 			return entireEmailText.ToString();
 		}
 
-		void SendSmtpMail()
+		private void SendSmtpMail()
 		{
 			_view.ProgressMessage = "Sending email via SMTP...";
 			_view.EnableEmailButton = false;
@@ -165,7 +163,7 @@ namespace ExceptionReporting.Views
 			}
 		}
 
-		void SendMapiEmail()
+		private void SendMapiEmail()
 		{
 
 			_view.ProgressMessage = "Launching email program...";
@@ -215,7 +213,7 @@ namespace ExceptionReporting.Views
 			ShellExecute(ReportInfo.WebUrl);
 		}
 
-		void ShellExecute(string executeString)
+		private void ShellExecute(string executeString)
 		{
 			try
 			{

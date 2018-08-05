@@ -80,18 +80,18 @@ namespace ExceptionReporting
 			_reportInfo.SetExceptions(exceptions);
 			var generator = new ExceptionReportGenerator(_reportInfo);
 
-			if (_reportInfo.SendMethod == ReportSendMethod.SMTP ||
+			if (_reportInfo.SendMethod == ReportSendMethod.WebService)
+			{
+				generator.SendReportToWebService();
+			} 
+			else if (_reportInfo.SendMethod == ReportSendMethod.SMTP ||
 			    _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
 			{
 				generator.SendReportByEmail();
 			}
-			else if (_reportInfo.SendMethod == ReportSendMethod.WebService)
-			{
-				generator.SendReportToWebService();
-			}
 			else if (_reportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
 			         _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
-			{
+			{	// this option must be last for backward compatibility because EmailMethod.SimpleMAPI was previously 0/default
 				// can't do silently so do nothing
 			}
 		}
