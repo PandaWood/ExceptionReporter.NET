@@ -375,7 +375,7 @@ namespace ExceptionReporting.Views
 
 		private void Email_Click(object sender, EventArgs e)
 		{
-			_presenter.SendReportByEmail();
+			_presenter.SendReport();
 		}
 
 		private void Save_Click(object sender, EventArgs e)

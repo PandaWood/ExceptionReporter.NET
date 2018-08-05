@@ -96,10 +96,10 @@
     <Compile Include="Core\ExceptionReport.cs" />
     <Compile Include="Core\ExceptionReportBuilder.cs" />
     <Compile Include="Core\ExceptionReporterExtensions.cs" />
-    <Compile Include="Core\ExceptionReportGenerator.cs" />
-    <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="ExceptionReportGenerator.cs" />
+    <Compile Include="ExceptionReportInfo.cs" />
     <Compile Include="Mail\ExceptionReportPacket.cs" />
     <Compile Include="Mail\SilentSendEvent.cs" />
     <Compile Include="Mail\WebServiceSender.cs" />

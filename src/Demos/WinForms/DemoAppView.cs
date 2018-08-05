@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using ExceptionReporting;
-using ExceptionReporting.Core;
 
 namespace Demo.WinForms
 {
@@ -14,8 +13,8 @@ namespace Demo.WinForms
 
 			urlDefault.Click += Show_Default_Report;
 			urlHideDetail.Click += Show_HideDetailView_Click;
-			urlEmailTest.Click += Show_Email_Attachment_Test;
-			urlDialogless.Click += Send_Silent_Report;
+			urlSendEmail.Click += Send_Report;
+			urlSilentReport.Click += Send_Silent_Report;
 		}
 
 		static void Show_Default_Report(object sender, EventArgs e)
@@ -49,7 +48,7 @@ namespace Demo.WinForms
 			}
 		}
 
-		private void Show_Email_Attachment_Test(object sender, EventArgs e)
+		private void Send_Report(object sender, EventArgs e)
 		{
 			try
 			{
@@ -68,7 +67,7 @@ namespace Demo.WinForms
 				exceptionReporter.Config.FilesToAttach = new[] { file1, file2 };
 				exceptionReporter.Config.TakeScreenshot = true;
 
-				exceptionReporter.Show("temp files will be attached to the email sent", exception);
+				exceptionReporter.Show(exception);
 			}
 		}
 
@@ -138,5 +137,6 @@ namespace Demo.WinForms
 					"This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller"));
 			throw exception;
 		}
+
 	}
 }
