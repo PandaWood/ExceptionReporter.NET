@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using ExceptionReporting.Core;
 using ExceptionReporting.Views;
 
+// https://github.com/PandaWood/ExceptionReporter.NET
 // ReSharper disable UnusedMember.Global
 
 namespace ExceptionReporting
@@ -71,29 +72,27 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Send the report without showing a dialog (silent send)
-		/// MailMethod must be set to SMTP or WebService, else this is ignored (silently)
+		/// <see cref="ReportSendMethod"/>must be set to SMTP or WebService, else this is ignored (silently)
 		/// </summary>
-		/// <param name="exceptions">The exception/s to display in the exception report</param>
+		/// <param name="exceptions">The exception/s to include in the report</param>
 		public void Send(params Exception[] exceptions)
 		{
 			_reportInfo.SetExceptions(exceptions);
 			var generator = new ExceptionReportGenerator(_reportInfo);
 
-			switch (_reportInfo.MailMethod)
+			if (_reportInfo.SendMethod == ReportSendMethod.SMTP ||
+			    _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
 			{
-				case ExceptionReportInfo.EmailMethod.SMTP:
-					generator.SendReportByEmail();
-					break;
-
-				case ExceptionReportInfo.EmailMethod.WebService:
-					generator.SendReportToWebService();
-					break;
-
-				case ExceptionReportInfo.EmailMethod.None:
-					break;
-
-				case ExceptionReportInfo.EmailMethod.SimpleMAPI:
-					break;
+				generator.SendReportByEmail();
+			}
+			else if (_reportInfo.SendMethod == ReportSendMethod.WebService)
+			{
+				generator.SendReportToWebService();
+			}
+			else if (_reportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
+			         _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
+			{
+				// can't do silently so do nothing
 			}
 		}
 

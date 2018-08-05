@@ -32,8 +32,8 @@ namespace ExceptionReporting.Mail
 
 			using (var jsonStream = new MemoryStream())
 			{
-				var sz = new DataContractJsonSerializer(typeof(ExceptionReportItem));
-				sz.WriteObject(jsonStream, new ExceptionReportItem
+				var sz = new DataContractJsonSerializer(typeof(ExceptionReportPacket));
+				sz.WriteObject(jsonStream, new ExceptionReportPacket
 				{
 					AppName = _info.AppName,
 					AppVersion = _info.AppVersion,

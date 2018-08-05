@@ -100,7 +100,7 @@
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
-    <Compile Include="Mail\ExceptionReportItem.cs" />
+    <Compile Include="Mail\ExceptionReportPacket.cs" />
     <Compile Include="Mail\SilentSendEvent.cs" />
     <Compile Include="Mail\WebServiceSender.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />

@@ -167,7 +167,7 @@ namespace ExceptionReporting.Core
 		public bool ShowEmailButton {
 			get
 			{	// ReSharper disable once SimplifyConditionalTernaryExpression
-				return MailMethod == EmailMethod.None ? false : _showEmailButton;
+				return SendMethod == ReportSendMethod.None ? false : _showEmailButton;
 			}
 			set { _showEmailButton = value; }
 		}
@@ -199,20 +199,10 @@ namespace ExceptionReporting.Core
 		public Bitmap ScreenshotImage { get; set; }
 
 		/// <summary>
-		/// Which contact method to use (SMTP/SimpleMAPI or WebService) 
-		/// SimpleMAPI will try to use an installed Email client on Windows (eg Outlook)
-		/// SMTP requires various other settings (host/port/credentials etc) starting with 'SMTP'
-		/// WebService requires a REST API server accepting content-type 'application/json' of type POST and a JSON packet
-		/// containing 4 properties: (an example .NET Core REST project doing exactly this is in the ExceptionReporter.NET solution) 
-		/// {
-		///   "AppName" : "My App", 
-		///   "AppVersion" : "1.0.2",
-		///   "ExceptionMessage" : "Null Ref...",
-		///   "ExceptionReport" : "report here..."
-		/// }
+		/// The method used to send the report
 		/// </summary>
-		public EmailMethod MailMethod { get; set; }
-
+		public ReportSendMethod SendMethod { get; set; } = ReportSendMethod.None;
+		
 		/// <summary>
 		/// Whether a screenshot is configured to be taken and that it has been taken - used internally
 		/// </summary>
@@ -283,21 +273,45 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Enumerated type used to represent supported e-mail mechanisms 
+		/// Supported e-mail mechanisms 
 		/// </summary>
+		[Obsolete("Replace 'ExceptionReportInfo.EmailMethod' with 'ReportSendMethod'")]
 		public enum EmailMethod
 		{
-			None,
 			SimpleMAPI,
-			SMTP,
-			WebService
-		};
+			SMTP
+		}
+		
+		[Obsolete("use 'ReportSendMethod' property instead")]
+		public EmailMethod MailMethod { get; set; }
 
 		protected override void DisposeManagedResources()
 		{
 			ScreenshotImage?.Dispose();
 			base.DisposeManagedResources();
 		}
+	}
+	
+	/// <summary>
+	/// The supported methods to send a report 
+	/// </summary>
+	public enum ReportSendMethod
+	{
+		///<summary>No sending of reports (default) </summary>
+		None,
+
+		///<summary>Tries to use the Windows default Email client eg Outlook</summary>
+		SimpleMAPI,
+
+		///<summary>Connects to an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
+		SMTP,
+
+		/// <summary>
+		/// WebService - requires a REST API server accepting content-type 'application/json' of type POST and a
+		/// JSON packet containing the properties represented in the DataContract class 'ExceptionReportPacket'
+		/// (an example .NET Core REST project doing exactly what is required is included in the ExceptionReporter.NET solution)
+		/// </summary>
+		WebService
 	}
 
 	internal static class DefaultLabelMessages
@@ -306,4 +320,5 @@ namespace ExceptionReporting.Core
 		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
 	}
 }
+
 #pragma warning restore 1591

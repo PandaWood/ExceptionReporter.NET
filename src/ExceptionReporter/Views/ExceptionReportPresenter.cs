@@ -81,19 +81,19 @@ namespace ExceptionReporting.Views
 		/// </summary>
 		public void SendReportByEmail()
 		{
-			switch (ReportInfo.MailMethod)
+			if (ReportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
+			    ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatible, is obsolete
 			{
-				case ExceptionReportInfo.EmailMethod.SimpleMAPI:
-					SendMapiEmail();
-					break;
-				case ExceptionReportInfo.EmailMethod.SMTP:
-					SendSmtpMail();
-					break;
-				case ExceptionReportInfo.EmailMethod.WebService:
-					SendToWebService();
-					break;
-				case ExceptionReportInfo.EmailMethod.None:
-					break;
+				SendMapiEmail();
+			}
+			else if (ReportInfo.SendMethod == ReportSendMethod.SMTP ||
+			         ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
+			{
+				SendSmtpMail();
+			}
+			else if (ReportInfo.SendMethod == ReportSendMethod.WebService)
+			{
+				SendToWebService();
 			}
 		}
 
