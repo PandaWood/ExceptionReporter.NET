@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
 using ExceptionReporting.Views;
 
 // https://github.com/PandaWood/ExceptionReporter.NET
@@ -11,7 +10,7 @@ namespace ExceptionReporting
 {
 	/// <summary>
 	/// The entry-point (class) to invoking an ExceptionReporter dialog
-	/// eg new ExceptionReporter().Show()
+	/// eg new ExceptionReporter().Show(exceptions)
 	/// </summary>
 	public class ExceptionReporter
 	{
@@ -20,7 +19,6 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Initialise the ExceptionReporter
-		/// <remarks>readConfig() should be called (explicitly) if you need to override default config settings</remarks>
 		/// </summary>
 		public ExceptionReporter()
 		{
@@ -29,8 +27,13 @@ namespace ExceptionReporting
 			_reportInfo = new ExceptionReportInfo { AppAssembly = callingAssembly };
 		}
 
+		// One issue we have with Config property here is that we store the exception and other info on it as well
+		// This prevents us from allowing code like this new ExceptionReporter { Config = new ExceptionReportInfo { A = 1 } } 
+		// which I would much prefer
+		// TODO eventually allow this code above  
+		
 		/// <summary>
-		/// Public access to configuration
+		/// Public access to configuration/settings
 		/// </summary>
 		public ExceptionReportInfo Config
 		{
@@ -45,7 +48,7 @@ namespace ExceptionReporting
 		/// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
 		public void Show(params Exception[] exceptions)
 		{
-			if (exceptions == null) return;   //TODO perhaps show a dialog that says "No exception to show" ?
+			if (exceptions == null) return;		// silently ignore this mistake of passing null - user won't care
 
 			try
 			{
@@ -55,7 +58,7 @@ namespace ExceptionReporting
 			}
 			catch (Exception internalException)
 			{
-				MessageBox.Show(internalException.Message, "Error Reporting Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(internalException.Message, "Failed while trying to report an Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -85,13 +88,13 @@ namespace ExceptionReporting
 				generator.SendReportToWebService();
 			} 
 			else if (_reportInfo.SendMethod == ReportSendMethod.SMTP ||
-			    _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
+			    _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)		// backwards compatibility
 			{
 				generator.SendReportByEmail();
 			}
 			else if (_reportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
-			         _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
-			{	// this option must be last for backward compatibility because EmailMethod.SimpleMAPI was previously 0/default
+			         _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatibility
+			{	// this option must be last for compatibility because osbsolete MailMethod.SimpleMAPI was previously 0/default
 				// can't do silently so do nothing
 			}
 		}

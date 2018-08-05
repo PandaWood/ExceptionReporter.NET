@@ -13,7 +13,7 @@ using ExceptionReporting.Core;
 namespace ExceptionReporting
 {
 	/// <summary>
-	/// A bag of configuration properties
+	/// A bag of configuration and data
 	/// </summary>
 	public class ExceptionReportInfo : Disposable
 	{
@@ -54,19 +54,29 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Override the Exception.Message property
-		/// A custom message to show in place of the Exception Message
-		/// eg a message to help the user solve the issue rather than the message that came with the exception
+		/// ie a custom message to show in place of the Exception Message
+		/// NB this can also be set in the parameters of the overloaded method <see cref="ExceptionReporter.Show()"/>
 		/// </summary>
 		public string CustomMessage { get; set; }
 
-		#region SMTP
+		#region SMTP settings
+		
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; } = "";
 		public string SmtpServer { get; set; }
+		
+		/// <summary>
+		/// Uses default if not set (ie 25)
+		/// </summary>
 		public int SmtpPort { get; set; }
 		public bool SmtpUseSsl { get; set; }
+		
+		/// <summary>
+		/// Use default credentials of the user (alternatively set false supply SmtpUsername/SmtpPassword)
+		/// </summary>
 		public bool SmtpUseDefaultCredentials { get; set; }
+		
 		#endregion
 
 		/// <summary>
@@ -144,13 +154,15 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// Email address used to send the report to via email
-		/// (eg appears in the 'to:' field in the default email client if simpleMAPI)
+		/// Email address used to send the report via email
+		/// Appears in the 'to:' field in the default email client if
+		/// <see cref="SendMethod"/> is <see cref="ReportSendMethod.SimpleMAPI"/>
 		/// </summary>
-		public string EmailReportAddress { get; set; } = "support@acompany.com";
+		public string EmailReportAddress { get; set; } = "";
 
 		/// <summary>
-		/// The URL to be used to submit the exception report when EmailMethod is set to WebService
+		/// The URL to be used to submit the exception report to a RESTful WebService
+		/// Requires <see cref="SendMethod"/> is set to <see cref="ReportSendMethod.WebService"/>
 		/// </summary>
 		public string WebServiceUrl { get; set; }
 
@@ -160,20 +172,15 @@ namespace ExceptionReporting
 		public int WebServiceTimeout { get; set; } = 15;
 
 
+		//TODO it would also be logical to assume ShowEmailButton to be false if ReportSendMethod.None
+		// but we will have to wait until we fully remove the obsolete MailMethod enumeration because
+		// it doesn't have a None option and so there is no way to make it backwards compatible
+		// when this is ready we will add something like: get { return SendReportMethod.None || !_showEmailButton } 
+		
 		/// <summary>
 		/// Whether or not to show/display the button labelled "Email"
-		/// ShowEmailButton will assume false if EmailMethod is None
 		/// </summary>
 		public bool ShowEmailButton { get; set; } = true;
-
-		// below would be preferable but is not backward compatible with old enumeration EmailMethod which defaults to SimpleMAPI
-		//		public bool ShowEmailButton {
-		//			get
-		//			{	// ReSharper disable once SimplifyConditionalTernaryExpression
-		//				return SendMethod == ReportSendMethod.None ? false : _showEmailButton;
-		//			}
-		//			set { _showEmailButton = value; }
-		//		}
 
 		/// <summary>
 		/// The title of the main ExceptionReporter dialog

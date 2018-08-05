@@ -13,16 +13,14 @@ namespace ExceptionReporting.Views
 	/// <summary>
 	/// The Presenter in this MVP (Model-View-Presenter) implementation 
 	/// </summary>
-	public class ExceptionReportPresenter
+	internal class ExceptionReportPresenter
 	{
-		readonly IExceptionReportView _view;
-		readonly ExceptionReportGenerator _reportGenerator;
+		private readonly IExceptionReportView _view;
+		private readonly ExceptionReportGenerator _reportGenerator;
 
 		/// <summary>
-		/// 
+		/// constructor accepting a view and the data/config of the report
 		/// </summary>
-		/// <param name="view"></param>
-		/// <param name="info"></param>
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
@@ -84,19 +82,19 @@ namespace ExceptionReporting.Views
 				SendToWebService();
 			}
 			else if (ReportInfo.SendMethod == ReportSendMethod.SMTP ||
-			         ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
+			         ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)		// backwards compatibility
 			{
 				SendSmtpMail();
 			}
 			else if (ReportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
-			    ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatible, is obsolete
-			{		// this option must be last for backward compatibility because EmailMethod.SimpleMAPI was previously 0/default
+			    ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatibility
+			{		// this option must be last for compatibility because MailMethod.SimpleMAPI was previously 0/default
 				SendMapiEmail();
 			}
 		}
 
 		/// <summary>
-		/// copy the report to the clipboard, using the clipboard implementation supplied
+		/// copy the report to the clipboard
 		/// </summary>
 		public void CopyReportToClipboard()
 		{
@@ -139,7 +137,7 @@ namespace ExceptionReporting.Views
 				mailSender.SendSmtp(emailText);
 			}
 			catch (Exception exception)
-			{		// this would be an exception in the setup, the sending has it's own failure event
+			{		// most/all exceptions will be thrown in the MailSender - this is just a double backup
 				_view.Completed(false);
 				_view.ShowError("Unable to setup email using SMTP" + Environment.NewLine + exception.Message, exception);
 			}
@@ -157,7 +155,7 @@ namespace ExceptionReporting.Views
 				webService.Send(report);
 			}
 			catch (Exception exception)
-			{
+			{		// most/all exceptions will be thrown in the WebServiceSender - this is just a double backup
 				_view.Completed(false);
 				_view.ShowError("Unable to setup WebService" + Environment.NewLine + exception.Message, exception);
 			}
@@ -166,7 +164,7 @@ namespace ExceptionReporting.Views
 		private void SendMapiEmail()
 		{
 
-			_view.ProgressMessage = "Launching email program...";
+			_view.ProgressMessage = "Launching Email client...";
 			_view.EnableEmailButton = false;
 
 			var success = false;

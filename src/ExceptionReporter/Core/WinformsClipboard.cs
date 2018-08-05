@@ -1,5 +1,3 @@
-using System;
-
 namespace ExceptionReporting.Core
 {
 	internal class WinFormsClipboard

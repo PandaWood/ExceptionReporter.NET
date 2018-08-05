@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using ExceptionReporting.Core;
 
 namespace ExceptionReporting.Mail
 {

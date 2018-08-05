@@ -1,5 +1,5 @@
 using System;
-using ExceptionReporting.Core;
+// ReSharper disable UnusedMember.Global
 
 namespace ExceptionReporting.Mail
 {
