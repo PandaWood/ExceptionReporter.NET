@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter", "src\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.WinForms", "src\Demos\WinForms\Demo.WinForms.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService.ExceptionReporter", "src\WebService.ExceptionReporter\WebService.ExceptionReporter.csproj", "{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService.ExceptionReporter", "src\WebService.ExceptionReporter\WebService.ExceptionReporter.csproj", "{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

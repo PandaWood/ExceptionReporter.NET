@@ -162,9 +162,9 @@ namespace ExceptionReporting
 		public string EmailReportAddress { get; set; } = "";
 
 		/// <summary>
-		/// Priority of the mail message.
+		/// Priority of the email message - SMTP
 		/// </summary>
-		public MailPriority EmailPriority { get; set; } = MailPriority.Normal;
+		public MailPriority SmtpMailPriority { get; set; } = MailPriority.Normal;
 
 		/// <summary>
 		/// The URL to be used to submit the exception report to a RESTful WebService
