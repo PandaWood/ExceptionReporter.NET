@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net.Mail;
 using System.Reflection;
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -136,6 +137,8 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public string EmailReportAddress { get; set; }
 
+		public MailPriority EmailPriority { get; set; }
+
 		/// <summary>
 		/// Default is <see cref="DefaultLabelMessages.DefaultExplanationLabel"/>
 		/// </summary>
@@ -226,6 +229,7 @@ namespace ExceptionReporting.Core
 			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
 			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
 			EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show dummy place-holder
+			EmailPriority = MailPriority.Normal;
 			TitleText = "Exception Report";
 			UserExplanationFontSize = 12f;
 			TakeScreenshot = false;

@@ -44,6 +44,7 @@ namespace ExceptionReporting.Mail
 			{
 				BodyEncoding = Encoding.UTF8,
 				SubjectEncoding = Encoding.UTF8,
+				Priority=_config.EmailPriority,
 				Body = exceptionReport,
 				Subject = EmailSubject
 			};
