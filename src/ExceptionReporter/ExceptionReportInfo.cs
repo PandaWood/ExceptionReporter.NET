@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net.Mail;
 using System.Reflection;
 using ExceptionReporting.Core;
 
@@ -159,6 +160,11 @@ namespace ExceptionReporting
 		/// <see cref="SendMethod"/> is <see cref="ReportSendMethod.SimpleMAPI"/>
 		/// </summary>
 		public string EmailReportAddress { get; set; } = "";
+
+		/// <summary>
+		/// Priority of the email message - SMTP
+		/// </summary>
+		public MailPriority SmtpMailPriority { get; set; } = MailPriority.Normal;
 
 		/// <summary>
 		/// The URL to be used to submit the exception report to a RESTful WebService
