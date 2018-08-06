@@ -161,7 +161,10 @@ namespace ExceptionReporting
 		/// </summary>
 		public string EmailReportAddress { get; set; } = "";
 
-		public MailPriority EmailPriority { get; set; }
+		/// <summary>
+		/// Priority of the mail message.
+		/// </summary>
+		public MailPriority EmailPriority { get; set; } = MailPriority.Normal;
 
 		/// <summary>
 		/// The URL to be used to submit the exception report to a RESTful WebService
@@ -282,7 +285,6 @@ namespace ExceptionReporting
 			ShowEmailButton = true;
 			ShowAssembliesTab = true;
 			ShowSysInfoTab = true;
-			EmailPriority = MailPriority.Normal;
 			AttachmentFilename = "ExceptionReport";
 		}
 
