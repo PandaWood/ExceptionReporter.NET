@@ -117,6 +117,16 @@ namespace ExceptionReporting.Tests
 
 			_iattach.Verify((a) => a.Attach("file1.zip"), Times.Once());
 			_iattach.Verify((a) => a.Attach("attach.zip"), Times.Once());
-		}
-	}
+	    }
+
+	    [Test]
+	    public void Should_Make_Screenshot_In_Silent_Mode__Issue_26()
+	    {
+	        var attacher = new Attacher(new ExceptionReportInfo { TakeScreenshot = true });
+
+	        attacher.AttachFiles(_iattach.Object);
+
+	        Assert.IsTrue(attacher.Config.ScreenshotAvailable);
+	    }
+    }
 }
