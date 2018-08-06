@@ -205,7 +205,7 @@ namespace ExceptionReporting.Views
 
 		public void Completed(bool success)
 		{
-			ProgressMessage = success ? "Email sent" : "Failed to send Email";
+			ProgressMessage = success ? "Report sent" : "Failed to send report";
 			ShowProgressBar = false;
 			btnEmail.Enabled = true;
 		}
@@ -375,7 +375,7 @@ namespace ExceptionReporting.Views
 
 		private void Email_Click(object sender, EventArgs e)
 		{
-			_presenter.SendReportByEmail();
+			_presenter.SendReport();
 		}
 
 		private void Save_Click(object sender, EventArgs e)
@@ -406,7 +406,7 @@ namespace ExceptionReporting.Views
 
 		public void ShowError(string message, Exception exception)
 		{
-			MessageBox.Show(message); 
+			MessageBox.Show(message, "Error sending report", MessageBoxButtons.OK, MessageBoxIcon.Error); 
 		}
 
 		private void txtExceptionMessageLarge2_TextChanged(object sender, EventArgs e)

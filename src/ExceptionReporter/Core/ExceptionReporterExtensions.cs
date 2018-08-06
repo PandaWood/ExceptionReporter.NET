@@ -1,12 +1,12 @@
 using System.Text;
 
-namespace ExceptionReporting.Extensions
+namespace ExceptionReporting.Core
 {
 	/// <summary>
 	/// All extension methods for ExceptionReporter
-	/// It's important this class is internal/not public else it will pollute user extensions
+	/// It's important this class is internal/not public - else it will pollute the extensions available to the user
 	/// </summary>
-	static class ExceptionReporterExtensions
+	internal static class ExceptionReporterExtensions
 	{
 		/// <summary>
 		/// Append a dotted line to the given string

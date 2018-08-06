@@ -13,21 +13,19 @@ namespace ExceptionReporting.Views
 	/// <summary>
 	/// The Presenter in this MVP (Model-View-Presenter) implementation 
 	/// </summary>
-	public class ExceptionReportPresenter
+	internal class ExceptionReportPresenter
 	{
-		readonly IExceptionReportView _view;
-		readonly ExceptionReportGenerator _reportGenerator;
+		private readonly IExceptionReportView _view;
+		private readonly ExceptionReportGenerator _reportGenerator;
 
 		/// <summary>
-		/// 
+		/// constructor accepting a view and the data/config of the report
 		/// </summary>
-		/// <param name="view"></param>
-		/// <param name="info"></param>
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
-			ReportInfo = info;
 			_reportGenerator = new ExceptionReportGenerator(info);
+			ReportInfo = info;
 		}
 
 		/// <summary>
@@ -39,11 +37,9 @@ namespace ExceptionReporting.Views
 		}
 
 		/// <summary>
-		/// 
+		/// Report configuration and data
 		/// </summary>
-		public ExceptionReportInfo ReportInfo { get; private set; }
-
-		private WinFormsClipboard _clipboard = new WinFormsClipboard();
+		public ExceptionReportInfo ReportInfo { get; }
 
 		private ExceptionReport CreateExceptionReport()
 		{
@@ -79,21 +75,26 @@ namespace ExceptionReporting.Views
 		/// <summary>
 		/// Send the exception report via email, using the configured email method/type
 		/// </summary>
-		public void SendReportByEmail()
+		public void SendReport()
 		{
-			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)
+			if (ReportInfo.SendMethod == ReportSendMethod.WebService)
 			{
-				SendMapiEmail();
+				SendToWebService();
 			}
-
-			if (ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)
+			else if (ReportInfo.SendMethod == ReportSendMethod.SMTP ||
+			         ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)		// backwards compatibility
 			{
 				SendSmtpMail();
+			}
+			else if (ReportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
+			    ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatibility
+			{		// this option must be last for compatibility because MailMethod.SimpleMAPI was previously 0/default
+				SendMapiEmail();
 			}
 		}
 
 		/// <summary>
-		/// copy the report to the clipboard, using the clipboard implementation supplied
+		/// copy the report to the clipboard
 		/// </summary>
 		public void CopyReportToClipboard()
 		{
@@ -111,7 +112,7 @@ namespace ExceptionReporting.Views
 			_view.ToggleShowFullDetail();
 		}
 
-		string BuildEmailText()
+		private string BuildReportString()
 		{
 			var emailTextBuilder = new EmailTextBuilder();
 			var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
@@ -123,49 +124,66 @@ namespace ExceptionReporting.Views
 			return entireEmailText.ToString();
 		}
 
-		void SendSmtpMail()
+		private void SendSmtpMail()
 		{
-			var emailText = BuildEmailText();
-
 			_view.ProgressMessage = "Sending email via SMTP...";
 			_view.EnableEmailButton = false;
 			_view.ShowProgressBar = true;
 
 			try
 			{
-				var mailSender = new MailSender(ReportInfo);
-				mailSender.SendSmtp(emailText, _view);
+				var emailText = BuildReportString();
+				var mailSender = new MailSender(ReportInfo, _view);
+				mailSender.SendSmtp(emailText);
 			}
 			catch (Exception exception)
-			{
+			{		// most/all exceptions will be thrown in the MailSender - this is just a double backup
 				_view.Completed(false);
-				_view.ShowError("Unable to send email using SMTP" + Environment.NewLine + exception.Message, exception);
+				_view.ShowError("Unable to setup email using SMTP" + Environment.NewLine + exception.Message, exception);
 			}
 		}
 
-		void SendMapiEmail()
+		private void SendToWebService()
 		{
-			var emailText = BuildEmailText();
-
-			_view.ProgressMessage = "Launching email program...";
+			_view.ProgressMessage = "Connecting to WebService...";
 			_view.EnableEmailButton = false;
-
-			var wasSuccessful = false;
 
 			try
 			{
-				var mailSender = new MailSender(ReportInfo);
+				var report = BuildReportString();
+				var webService = new WebServiceSender(ReportInfo, _view);
+				webService.Send(report);
+			}
+			catch (Exception exception)
+			{		// most/all exceptions will be thrown in the WebServiceSender - this is just a double backup
+				_view.Completed(false);
+				_view.ShowError("Unable to setup WebService" + Environment.NewLine + exception.Message, exception);
+			}
+		}
+
+		private void SendMapiEmail()
+		{
+
+			_view.ProgressMessage = "Launching Email client...";
+			_view.EnableEmailButton = false;
+
+			var success = false;
+
+			try
+			{
+				var emailText = BuildReportString();
+				var mailSender = new MailSender(ReportInfo, _view);
 				mailSender.SendMapi(emailText);
-				wasSuccessful = true;
+				success = true;
 			}
 			catch (Exception exception)
 			{
-				wasSuccessful = false;
-				_view.ShowError("Unable to connect to Email client\r\nPlease create an Email manually and use Copy Details", exception);
+				success = false;
+				_view.ShowError("Unable to setup Email client\r\nPlease create an Email manually and use Copy Details", exception);
 			}
 			finally
 			{
-				_view.SetEmailCompletedState_WithMessageIfSuccess(wasSuccessful, string.Empty);
+				_view.SetEmailCompletedState_WithMessageIfSuccess(success, string.Empty);
 			}
 		}
 
@@ -193,7 +211,7 @@ namespace ExceptionReporting.Views
 			ShellExecute(ReportInfo.WebUrl);
 		}
 
-		void ShellExecute(string executeString)
+		private void ShellExecute(string executeString)
 		{
 			try
 			{

@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Mail;
 using System.Reflection;
+using ExceptionReporting.Core;
+
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
 #pragma warning disable 1591
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporting
 {
-	/// <inheritdoc />
 	/// <summary>
-	/// a bag of information (some of which is stored and retrieved from config)
+	/// A bag of configuration and data
 	/// </summary>
 	public class ExceptionReportInfo : Disposable
 	{
@@ -50,46 +53,62 @@ namespace ExceptionReporting.Core
 			_exceptions.AddRange(exceptions);
 		}
 
+		/// <summary>
+		/// Override the Exception.Message property
+		/// ie a custom message to show in place of the Exception Message
+		/// NB this can also be set in the parameters of the overloaded method <see cref="ExceptionReporter.Show()"/>
+		/// </summary>
 		public string CustomMessage { get; set; }
 
-		#region SMTP
+		#region SMTP settings
+		
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
-		public string SmtpFromAddress { get; set; }
+		public string SmtpFromAddress { get; set; } = "";
 		public string SmtpServer { get; set; }
+		
+		/// <summary>
+		/// Uses default if not set (ie 25)
+		/// </summary>
 		public int SmtpPort { get; set; }
 		public bool SmtpUseSsl { get; set; }
+		
+		/// <summary>
+		/// Use default credentials of the user (alternatively set false supply SmtpUsername/SmtpPassword)
+		/// </summary>
 		public bool SmtpUseDefaultCredentials { get; set; }
+		
 		#endregion
 
 		/// <summary>
-		/// Email that is displayed in the 'Contact Information'. /> 
+		/// Email that is displayed in the 'Contact Information'
 		/// (ie not the email for sending the report to)
 		/// </summary>
 		public string ContactEmail { get; set; }
 
 		/// <summary>
-		/// The name of the running application calling the exception report />
+		/// The name of the running application calling the exception report
 		/// </summary>
 		public string AppName { get; set; }
 
 		/// <summary>
-		/// The version of the running application calling the exception report />
+		/// The version of the running application calling the exception report
 		/// </summary>
 		public string AppVersion { get; set; }
 
 		/// <summary>
-		/// Region information
+		/// Region information - set automatically
 		/// </summary>
 		public string RegionInfo { get; set; }
 
 		/// <summary>
-		/// Date/time of the exception being raised
+		/// Date/time of the exception being raised - set automatically
 		/// </summary>
 		public DateTime ExceptionDate { get; set; }
 
 		/// <summary>
-		/// Whether to report the date/time of the exeption in local time or Coordinated Universal Time (UTC). Defaults to UTC if not specified.
+		/// Whether to report the date/time of the exception in local time or Coordinated Universal Time (UTC).
+		/// Defaults to UTC if not specified.
 		/// </summary>
 		public DateTimeKind ExceptionDateKind { get; set; } = DateTimeKind.Utc;
 
@@ -104,6 +123,7 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public Assembly AppAssembly { get; set; }
 
+		// user/company details to make available
 		public string WebUrl { get; set; }
 		public string Phone { get; set; }
 		public string Fax { get; set; }
@@ -114,10 +134,12 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		public string CompanyName { get; set; }
 
-		public bool ShowGeneralTab { get; set; }
-		public bool ShowContactTab { get; set; }
-		public bool ShowExceptionsTab { get; set; }
+		// whether to show certain tabs in the 'More Detail' mode of the main dialog
+		public bool ShowGeneralTab { get; set; } = true;
+		public bool ShowContactTab { get; set; } = false;
+		public bool ShowExceptionsTab { get; set; } = true;
 
+		// cater for mono, which can't access the windows api's to get SysInfo and Assemblies
 		private bool _showSysInfoTab;
 		public bool ShowSysInfoTab
 		{
@@ -133,51 +155,67 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// Email address used to send the report to via email (eg appears in the 'to:' field in the default email client if simpleMAPI)
+		/// Email address used to send the report via email
+		/// Appears in the 'to:' field in the default email client if
+		/// <see cref="SendMethod"/> is <see cref="ReportSendMethod.SimpleMAPI"/>
 		/// </summary>
-		public string EmailReportAddress { get; set; }
+		public string EmailReportAddress { get; set; } = "";
 
 		public MailPriority EmailPriority { get; set; }
 
 		/// <summary>
-		/// Default is <see cref="DefaultLabelMessages.DefaultExplanationLabel"/>
+		/// The URL to be used to submit the exception report to a RESTful WebService
+		/// Requires <see cref="SendMethod"/> is set to <see cref="ReportSendMethod.WebService"/>
 		/// </summary>
-		public string UserExplanationLabel { get; set; }
-
-		public string ContactMessageTop { get; set; }
-
-		public bool ShowFlatButtons { get; set; }
-		public bool ShowLessMoreDetailButton { get; set; }
-		public bool ShowFullDetail { get; set; }
-		public bool ShowButtonIcons { get; set; }
-		public bool ShowEmailButton { get; set; }
+		public string WebServiceUrl { get; set; }
 
 		/// <summary>
-		/// Dialog title text
+		/// Timeout (in seconds) for the WebService
 		/// </summary>
-		public string TitleText { get; set; }
+		public int WebServiceTimeout { get; set; } = 15;
 
-		public Color BackgroundColor { get; set; }
-		public float UserExplanationFontSize { get; set; }
+
+		//TODO it would also be logical to assume ShowEmailButton to be false if ReportSendMethod.None
+		// but we will have to wait until we fully remove the obsolete MailMethod enumeration because
+		// it doesn't have a None option and so there is no way to make it backwards compatible
+		// when this is ready we will add something like: get { return SendReportMethod.None || !_showEmailButton } 
+		
+		/// <summary>
+		/// Whether or not to show/display the button labelled "Email"
+		/// </summary>
+		public bool ShowEmailButton { get; set; } = true;
+
+		/// <summary>
+		/// The title of the main ExceptionReporter dialog
+		/// </summary>
+		public string TitleText { get; set; } = "Error Report";
+
+		/// <summary>
+		/// Background color of the dialog - generally best to avoid changing this
+		/// </summary>
+		public Color BackgroundColor { get; set; } = Color.WhiteSmoke;
+
+		/// <summary>
+		/// The font size of the user input text box
+		/// </summary>
+		public float UserExplanationFontSize { get; set; } = 12f;
 
 		/// <summary>
 		/// Take a screenshot automatically at the point of calling <see cref="ExceptionReporter.Show(System.Exception[])"/>
 		/// which will then be available if sending an email using the ExceptionReporter dialog functionality
 		/// </summary>
-		public bool TakeScreenshot { get; set; }
+		public bool TakeScreenshot { get; set; } = false;
 
 		/// <summary>
-		/// The Screenshot Bitmap, used internally
+		/// The Screenshot Bitmap, used internally but exposed for flexibility
 		/// </summary>
 		public Bitmap ScreenshotImage { get; set; }
 
 		/// <summary>
-		/// Which email method to use (SMTP or SimpleMAPI) 
-		/// SimpleMAPI basically means it will try to use an installed Email client on the user's machine (eg Outlook)
-		/// SMTP requires various other settings (host/port/credentials etc) starting with 'SMTP'
+		/// The method used to send the report
 		/// </summary>
-		public EmailMethod MailMethod { get; set; }
-
+		public ReportSendMethod SendMethod { get; set; } = ReportSendMethod.None;
+		
 		/// <summary>
 		/// Whether a screenshot is configured to be taken and that it has been taken - used internally
 		/// </summary>
@@ -188,15 +226,16 @@ namespace ExceptionReporting.Core
 
 		/// <summary>
 		/// Show the Exception Reporter as a "TopMost" window (ie TopMost property on a WinForm)
+		/// This can be quite important in some environments (eg Office Addins) where it might get covered by other UI
 		/// </summary>
-		public bool TopMost { get; set; }
+		public bool TopMost { get; set; } = false;
 
 		/// <summary>
 		/// Any additional files to attach to the outgoing email report (SMTP or SimpleMAPI) 
 		/// This is in addition to the automatically attached screenshot, if configured
 		/// All files (exception those already with .zip extension) will be added into a single zip file and attached to the email
 		/// </summary>
-		public string[] FilesToAttach { get; set; }
+		public string[] FilesToAttach { get; set; } = {};
 
 		string _attachmentFilename = "ex";
 		/// <summary>
@@ -209,6 +248,30 @@ namespace ExceptionReporting.Core
 			set { _attachmentFilename = value; }
 		}
 
+		/// <summary>
+		/// The text to show in the label that prompts the user to input any relevant message
+		/// </summary>
+		public string UserExplanationLabel { get; set; } = DefaultLabelMessages.DefaultExplanationLabel;
+
+		public string ContactMessageTop { get; set; } = DefaultLabelMessages.DefaultContactMessageTop;
+
+		/// <summary>
+		/// Show buttons in the "flat" (non 3D) style
+		/// </summary>
+		public bool ShowFlatButtons { get; set; } = true;
+		
+		/// <summary>
+		/// Show the button that gives user the option to switch between "Less Detail/More Detail"
+		/// </summary>
+		public bool ShowLessMoreDetailButton { get; set; }
+
+		public bool ShowFullDetail { get; set; } = true;
+
+		/// <summary>
+		/// Whether to show relevant icons on the buttons
+		/// </summary>
+		public bool ShowButtonIcons { get; set; } = true;
+
 		public ExceptionReportInfo()
 		{
 			SetDefaultValues();
@@ -216,52 +279,60 @@ namespace ExceptionReporting.Core
 
 		private void SetDefaultValues()
 		{
-			ShowFlatButtons = true;
-			ShowFullDetail = true;
-			ShowButtonIcons = true;
 			ShowEmailButton = true;
-			BackgroundColor = Color.WhiteSmoke;
-			ShowExceptionsTab = true;
-			ShowContactTab = false;
 			ShowAssembliesTab = true;
 			ShowSysInfoTab = true;
-			ShowGeneralTab = true;
-			UserExplanationLabel = DefaultLabelMessages.DefaultExplanationLabel;
-			ContactMessageTop = DefaultLabelMessages.DefaultContactMessageTop;
-			EmailReportAddress = "support@acompany.com"; // SimpleMAPI won't work if this is blank, so show dummy place-holder
 			EmailPriority = MailPriority.Normal;
-			TitleText = "Exception Report";
-			UserExplanationFontSize = 12f;
-			TakeScreenshot = false;
-			TopMost = false;
-			FilesToAttach = new string[]{};
 			AttachmentFilename = "ExceptionReport";
-			SmtpFromAddress = "";
 		}
 
 		/// <summary>
-		/// Enumerated type used to represent supported e-mail mechanisms 
+		/// Supported e-mail mechanisms 
 		/// </summary>
+		[Obsolete("Replace 'ExceptionReportInfo.EmailMethod' with 'ReportSendMethod'")]
 		public enum EmailMethod
 		{
 			SimpleMAPI,
 			SMTP
-		};
+		}
+		
+		[Obsolete("use 'SendMethod' property instead")]
+		public EmailMethod MailMethod { get; set; }
 
 		protected override void DisposeManagedResources()
 		{
-			if (ScreenshotImage != null)
-			{
-				ScreenshotImage.Dispose();
-			}
+			ScreenshotImage?.Dispose();
 			base.DisposeManagedResources();
 		}
 	}
+	
+	/// <summary>
+	/// The supported methods to send a report 
+	/// </summary>
+	public enum ReportSendMethod
+	{
+		///<summary>No sending of reports (default) </summary>
+		None,
 
-	public static class DefaultLabelMessages
+		///<summary>Tries to use the Windows default Email client eg Outlook</summary>
+		SimpleMAPI,
+
+		///<summary>Connects to an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
+		SMTP,
+
+		/// <summary>
+		/// WebService - requires a REST API server accepting content-type 'application/json' of type POST and a
+		/// JSON packet containing the properties represented in the DataContract class 'ExceptionReportPacket'
+		/// (an example .NET Core REST project doing exactly what is required is included in the ExceptionReporter.NET solution)
+		/// </summary>
+		WebService
+	}
+
+	internal static class DefaultLabelMessages
 	{
 		public const string DefaultExplanationLabel = "Please enter a brief explanation of events leading up to this exception";
 		public const string DefaultContactMessageTop = "The following details can be used to obtain support for this application";
 	}
 }
+
 #pragma warning restore 1591

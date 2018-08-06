@@ -9,8 +9,8 @@ namespace ExceptionReporting.SystemInfo
 
 		public SysInfoQuery(string name, string query, bool useNameAsDisplayField)
 		{
-			Name = name;
 			_useNameAsDisplayField = useNameAsDisplayField;
+			Name = name;
 			QueryText = query;
 		}
 

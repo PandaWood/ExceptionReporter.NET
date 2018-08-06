@@ -1,9 +1,7 @@
-using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using ExceptionReporting.Core;
-using ExceptionReporting.Extensions;
 using Win32Mapi;
 
 namespace ExceptionReporting.Mail
@@ -11,12 +9,13 @@ namespace ExceptionReporting.Mail
 	internal class MailSender
 	{
 		private readonly ExceptionReportInfo _config;
-		private IEmailSendEvent _emailEvent;
+		private readonly IReportSendEvent _sendEvent;
 		private readonly Attacher _attacher;
 
-		internal MailSender(ExceptionReportInfo reportInfo)
+		internal MailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent)
 		{
 			_config = reportInfo;
+			_sendEvent = sendEvent;
 			_attacher = new Attacher(reportInfo);
 		}
 
@@ -25,22 +24,21 @@ namespace ExceptionReporting.Mail
 		/// Requires following ExceptionReportInfo properties to be set:
 		/// SmtpPort, SmtpUseSsl, SmtpUsername, SmtpPassword, SmtpFromAddress, EmailReportAddress
 		/// </summary>
-		public void SendSmtp(string exceptionReport, IEmailSendEvent emailEvent)
+		public void SendSmtp(string exceptionReport)
 		{
-			_emailEvent = emailEvent;
-			var smtpClient = new SmtpClient(_config.SmtpServer)
+			var smtp = new SmtpClient(_config.SmtpServer)
 			{
 				DeliveryMethod = SmtpDeliveryMethod.Network,
 				EnableSsl = _config.SmtpUseSsl,
 				UseDefaultCredentials = _config.SmtpUseDefaultCredentials,
 			};
-			if (_config.SmtpPort != 0) //If 0, the default port of 25 is used.
-				smtpClient.Port = _config.SmtpPort;
-			if (_config.SmtpUseDefaultCredentials == false)
-				smtpClient.Credentials = new NetworkCredential(_config.SmtpUsername, _config.SmtpPassword);
 
+			if (_config.SmtpPort != 0)		// the default port (25) is used if not set in config
+				smtp.Port = _config.SmtpPort;
+			if (!_config.SmtpUseDefaultCredentials)
+				smtp.Credentials = new NetworkCredential(_config.SmtpUsername, _config.SmtpPassword);
 
-			var mailMessage = new MailMessage(_config.SmtpFromAddress, _config.EmailReportAddress)
+			var message = new MailMessage(_config.SmtpFromAddress, _config.EmailReportAddress)
 			{
 				BodyEncoding = Encoding.UTF8,
 				SubjectEncoding = Encoding.UTF8,
@@ -49,30 +47,31 @@ namespace ExceptionReporting.Mail
 				Subject = EmailSubject
 			};
 
-			_attacher.AttachFiles(new AttachAdapter(mailMessage));
+			_attacher.AttachFiles(new AttachAdapter(message));
 
-			smtpClient.SendCompleted += (sender, e) =>
+			smtp.SendCompleted += (sender, e) =>
 			{
 				try
 				{
-					if (e.Error != null)
+					if (e.Error == null)
 					{
-						_emailEvent.Completed(success: false);
-						_emailEvent.ShowError(e.Error.Message, e.Error);
+						_sendEvent.Completed(success: true);
 					}
 					else
 					{
-						_emailEvent.Completed(success: true);
+						_sendEvent.Completed(success: false);
+						_sendEvent.ShowError("SMTP: " +
+							(e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
 					}
 				}
 				finally 
 				{
-					mailMessage.Dispose();
-					smtpClient.Dispose();
+					message.Dispose();
+					smtp.Dispose();
 				}
 			};
 
-			smtpClient.SendAsync(mailMessage, "Exception Report");
+			smtp.SendAsync(message, "Exception Report");
 		}
 
 		/// <summary>

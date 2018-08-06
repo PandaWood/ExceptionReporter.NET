@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using ExceptionReporting.Core;
+using ExceptionReporting.Mail;
 
 #pragma warning disable 1591
 
@@ -9,7 +9,7 @@ namespace ExceptionReporting.Views
 	/// <summary>
 	/// The interface (contract) for an ExceptionReportView
 	/// </summary>
-	public interface IExceptionReportView : IEmailSendEvent
+	public interface IExceptionReportView : IReportSendEvent
 	{
 		string ProgressMessage { set; }
 		bool EnableEmailButton { set; }

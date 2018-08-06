@@ -33,6 +33,8 @@
     <ReleaseVersion>2.4.1</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -78,6 +80,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="DotNetZip">
@@ -90,13 +93,16 @@
   <ItemGroup>
     <Compile Include="Core\AssemblyReferenceDigger.cs" />
     <Compile Include="Core\Disposable.cs" />
-    <Compile Include="Core\ExceptionReport.cs" />
     <Compile Include="Core\ExceptionReportBuilder.cs" />
     <Compile Include="Core\ExceptionReporterExtensions.cs" />
-    <Compile Include="Core\ExceptionReportGenerator.cs" />
-    <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
+    <Compile Include="ExceptionReport.cs" />
     <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="ExceptionReportGenerator.cs" />
+    <Compile Include="ExceptionReportInfo.cs" />
+    <Compile Include="Mail\ExceptionReportPacket.cs" />
+    <Compile Include="Mail\SilentSendEvent.cs" />
+    <Compile Include="Mail\WebServiceSender.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Mail\EmailTextBuilder.cs" />
     <Compile Include="Mail\MailSender.cs" />
@@ -132,8 +138,8 @@
     <Compile Include="Views\IExceptionReportView.cs" />
     <Compile Include="Core\WinformsClipboard.cs" />
     <Compile Include="Mail\AttachAdapter.cs" />
-    <Compile Include="Mail\EmailSendEvent.cs" />
-    <Compile Include="Core\IEmailSendEvent.cs" />
+    <Compile Include="Mail\ConsoleSendEvent.cs" />
+    <Compile Include="Mail\IReportSendEvent.cs" />
     <Compile Include="Mail\Attacher.cs" />
     <Compile Include="Mail\Zipper.cs" />
     <Compile Include="Core\FileService.cs" />
