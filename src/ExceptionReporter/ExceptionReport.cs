@@ -1,6 +1,11 @@
+/**
+ * https://github.com/PandaWood/ExceptionReporter.NET
+ */
+
 using System.Collections.Generic;
 using System.Text;
 using ExceptionReporting.SystemInfo;
+
 // ReSharper disable UnusedMember.Global
 
 namespace ExceptionReporting

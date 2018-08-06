@@ -1,9 +1,12 @@
+/**
+ * https://github.com/PandaWood/ExceptionReporter.NET
+ */
+
 using System;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Views;
 
-// https://github.com/PandaWood/ExceptionReporter.NET
 // ReSharper disable UnusedMember.Global
 
 namespace ExceptionReporting

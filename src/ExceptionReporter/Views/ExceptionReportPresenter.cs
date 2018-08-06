@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -163,6 +164,11 @@ namespace ExceptionReporting.Views
 
 		private void SendMapiEmail()
 		{
+			if (ReportInfo.EmailReportAddress.IsEmpty())
+			{
+				_view.ShowError("EmailReportAddress not set", new ConfigurationErrorsException("EmailReportAddress"));
+				return;
+			}
 
 			_view.ProgressMessage = "Launching Email client...";
 			_view.EnableEmailButton = false;
@@ -179,7 +185,7 @@ namespace ExceptionReporting.Views
 			catch (Exception exception)
 			{
 				success = false;
-				_view.ShowError("Unable to setup Email client\r\nPlease create an Email manually and use Copy Details", exception);
+				_view.ShowError("Unable to setup Email client\r\nPlease create an Email manually and use Copy Details button", exception);
 			}
 			finally
 			{

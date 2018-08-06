@@ -1,9 +1,12 @@
+/**
+ * https://github.com/PandaWood/ExceptionReporter.NET
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Mail;
 using System.Reflection;
-using ExceptionReporting.Core;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global

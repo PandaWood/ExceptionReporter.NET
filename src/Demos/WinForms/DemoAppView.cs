@@ -37,13 +37,13 @@ namespace Demo.WinForms
 			{
 				var er = new ExceptionReporter();
 
-//				ConfigureSmtpEmail(config);
+//				ConfigureSmtpEmail(er.Config);
 				ConfigureWebService(er.Config);		//toggle which type to configure
 				er.Send(exception);
 
 				// don't really need ExceptionReportGenerator (as used below) because the ExceptionReporter Send()
 				// method (above) wraps it
-				// var exceptionReportGenerator = new ExceptionReportGenerator(config);
+				// var exceptionReportGenerator = new ExceptionReportGenerator(er.Config);
 				// exceptionReportGenerator.SendReportByEmail();
 			}
 		}
@@ -74,9 +74,17 @@ namespace Demo.WinForms
 		ExceptionReporter CreateEmailReadyReporter() 
 		{
 			var exceptionReporter = new ExceptionReporter();
-//			ConfigureSmtpEmail(exceptionReporter.Config);		// comment one in/out to test SMTP or WebService
-			ConfigureWebService(exceptionReporter.Config);
+			//			ConfigureWebService(exceptionReporter.Config);
+			//			ConfigureSmtpEmail(exceptionReporter.Config);		// comment any of these in/out to test
+			ConfigureSimpleMAPI(exceptionReporter.Config);
+
 			return exceptionReporter;
+		}
+
+		void ConfigureSimpleMAPI(ExceptionReportInfo config)
+		{
+			config.EmailReportAddress = "demo@exceptionreporter.com";
+			config.SendMethod = ReportSendMethod.SimpleMAPI;
 		}
 
 		void ConfigureWebService(ExceptionReportInfo config)

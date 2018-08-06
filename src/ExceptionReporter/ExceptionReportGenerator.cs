@@ -1,3 +1,7 @@
+/**
+ * https://github.com/PandaWood/ExceptionReporter.NET
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Deployment.Application;
@@ -6,6 +10,7 @@ using System.Windows.Forms;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
+
 #pragma warning disable 1591
 
 namespace ExceptionReporting
