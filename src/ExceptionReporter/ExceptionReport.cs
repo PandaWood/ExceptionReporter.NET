@@ -1,4 +1,4 @@
-/**
+/*
  * https://github.com/PandaWood/ExceptionReporter.NET
  */
 
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using ExceptionReporting.SystemInfo;
 
+// ReSharper disable ConvertToAutoProperty
 // ReSharper disable UnusedMember.Global
 
 namespace ExceptionReporting
@@ -30,7 +31,7 @@ namespace ExceptionReporting
 		}
 
 		/// <returns>
-		/// A <see cref="T:System.String"/> that represents the current <see cref="T:ExceptionReporting.ExceptionReport"/>
+		/// The report as a string
 		/// </returns>
 		public override string ToString()
 		{
@@ -38,18 +39,16 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// Gets the report info.
+		/// Gets the report info/config
 		/// </summary>
-		// ReSharper disable once ConvertToAutoProperty
 		public ExceptionReportInfo ReportInfo
 		{
 			get { return _reportInfo; }
 		}
 
 		/// <summary>
-		/// Gets the sys info results.
+		/// Gets the sys info results
 		/// </summary>
-		// ReSharper disable once ConvertToAutoProperty
 		public IList<SysInfoResult> SysInfoResults
 		{
 			get { return _sysInfoResults; }

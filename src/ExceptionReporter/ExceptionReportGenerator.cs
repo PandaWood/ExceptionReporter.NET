@@ -1,4 +1,4 @@
-/**
+/*
  * https://github.com/PandaWood/ExceptionReporter.NET
  */
 
@@ -8,8 +8,9 @@ using System.Deployment.Application;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
-using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 #pragma warning disable 1591
 
@@ -22,8 +23,8 @@ namespace ExceptionReporting
 	/// </summary>
 	public class ExceptionReportGenerator : Disposable
 	{
-		readonly ExceptionReportInfo _reportInfo;
-		readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
+		private readonly ExceptionReportInfo _reportInfo;
+		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
 
 		/// <summary>
 		/// Initialises some ExceptionReportInfo properties related to the application/system
@@ -32,6 +33,7 @@ namespace ExceptionReporting
 		/// however 'base' properties such as MachineName</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
+			// this is going to be a dev/learning mistake, so let them now fast and hard
 			_reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
 			_reportInfo.ExceptionDate = _reportInfo.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
@@ -39,6 +41,7 @@ namespace ExceptionReporting
 
 			_reportInfo.AppName = string.IsNullOrEmpty(_reportInfo.AppName) ? Application.ProductName : _reportInfo.AppName;
 			_reportInfo.AppVersion = string.IsNullOrEmpty(_reportInfo.AppVersion) ? GetAppVersion() : _reportInfo.AppVersion;
+			
 			if (_reportInfo.AppAssembly == null)
 				_reportInfo.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
@@ -50,35 +53,26 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
+		/// Generate the exception report
+		/// </summary>
+		/// <returns><see cref="ExceptionReport"/>object</returns>
+		public ExceptionReport Generate()
+		{
+			var sysInfoResults = GetOrFetchSysInfoResults();
+			var builder = new ExceptionReportBuilder(_reportInfo, sysInfoResults);
+			return builder.Build();
+		}
+
+		/// <summary>
 		/// Create an exception report
 		/// NB This method re-uses the same information retrieved from the system on subsequent calls
 		/// Create a new ExceptionReportGenerator if you need to refresh system information from the computer
 		/// </summary>
 		/// <returns></returns>
+		[Obsolete("Use Generate() instead")]
 		public ExceptionReport CreateExceptionReport()
 		{
-			var sysInfoResults = GetOrFetchSysInfoResults();
-			var reportBuilder = new ExceptionReportBuilder(_reportInfo, sysInfoResults);
-			return reportBuilder.Build();
-		}
-
-		/// <summary>
-		/// Sends the report by email (assumes SMTP - a silent/async send)
-		/// <param name="reportSendEvent">Implementation of cref="IEmailSendEvent"/ to receive completed event and
-		/// error object, if any</param>
-		/// <returns>whether the initial mail connection setup succeeded - not mail sent - use emailSendEvent to
-		/// determine send/success</returns>
-		/// </summary>
-		public void SendReportByEmail(IReportSendEvent reportSendEvent = null) 
-		{
-			var mailSender = new MailSender(_reportInfo, reportSendEvent ?? new SilentSendEvent());
-			mailSender.SendSmtp(CreateExceptionReport().ToString());
-		}
-
-		public void SendReportToWebService(IReportSendEvent reportSendEvent = null)
-		{
-			var webService = new WebServiceSender(_reportInfo, reportSendEvent ?? new SilentSendEvent());
-			webService.Send(CreateExceptionReport().ToString());
+			return Generate();
 		}
 
 		internal IList<SysInfoResult> GetOrFetchSysInfoResults()
@@ -90,7 +84,7 @@ namespace ExceptionReporting
 			return _sysInfoResults.AsReadOnly();
 		}
 
-		static IEnumerable<SysInfoResult> CreateSysInfoResults()
+		private static IEnumerable<SysInfoResult> CreateSysInfoResults()
 		{
 			var retriever = new SysInfoRetriever();
 			var results = new List<SysInfoResult>

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using ExceptionReporting.Core;
 using NUnit.Framework;
 
 namespace ExceptionReporting.Tests

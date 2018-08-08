@@ -74,9 +74,9 @@ namespace Demo.WinForms
 		ExceptionReporter CreateEmailReadyReporter() 
 		{
 			var exceptionReporter = new ExceptionReporter();
-			//			ConfigureWebService(exceptionReporter.Config);
-			//			ConfigureSmtpEmail(exceptionReporter.Config);		// comment any of these in/out to test
-			ConfigureSimpleMAPI(exceptionReporter.Config);
+						ConfigureWebService(exceptionReporter.Config);
+//						ConfigureSmtpEmail(exceptionReporter.Config);		// comment any of these in/out to test
+//			ConfigureSimpleMAPI(exceptionReporter.Config);
 
 			return exceptionReporter;
 		}

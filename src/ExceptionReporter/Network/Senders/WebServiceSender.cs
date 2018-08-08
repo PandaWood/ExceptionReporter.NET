@@ -3,12 +3,13 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using ExceptionReporting.Network.Events;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Network.Senders
 {
-	internal class WebServiceSender
+	internal class WebServiceSender : IReportSender
 	{
-		private const string JSON = "application/json";
+		private const string APPLICATION_JSON = "application/json";
 		private readonly ExceptionReportInfo _info;
 		private readonly IReportSendEvent _sendEvent;
 
@@ -16,6 +17,16 @@ namespace ExceptionReporting.Mail
 		{
 			_info = info;
 			_sendEvent = sendEvent;
+		}
+		
+		public string Description
+		{
+			get { return "WebService"; }
+		}
+		
+		public string ConnectingMessage
+		{
+			get { return string.Format("Connecting to {0}", Description); }
 		}
 
 		public void Send(string report)
@@ -25,8 +36,9 @@ namespace ExceptionReporting.Mail
 				Encoding = Encoding.UTF8
 			};
 
-			webClient.Headers.Add(HttpRequestHeader.ContentType, JSON);
-			webClient.Headers.Add(HttpRequestHeader.Accept, JSON);
+			webClient.Headers.Add(HttpRequestHeader.ContentType, APPLICATION_JSON);
+			webClient.Headers.Add(HttpRequestHeader.Accept, APPLICATION_JSON);
+			
 			webClient.UploadStringCompleted += OnUploadCompleted(webClient);
 
 			using (var jsonStream = new MemoryStream())
@@ -57,7 +69,7 @@ namespace ExceptionReporting.Mail
 					else
 					{
 						_sendEvent.Completed(success: false);
-						_sendEvent.ShowError("WebService: " + 
+						_sendEvent.ShowError(string.Format("{0}: ", Description) +
 							(e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
 					}
 				}

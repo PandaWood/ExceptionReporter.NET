@@ -1,6 +1,6 @@
 using System;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Network.Events
 {
 	/// <summary>
 	/// A fake/slient version of the events responding to sending

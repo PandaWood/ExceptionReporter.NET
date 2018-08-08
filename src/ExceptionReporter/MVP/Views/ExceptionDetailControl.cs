@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporting.MVP.Views
 {
 	internal partial class ExceptionDetailControl : UserControl
 	{
@@ -77,11 +77,11 @@ namespace ExceptionReporting.Views
 
 		private void ExceptionsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			Exception displayException = TheException;
+			var displayException = TheException;
 			foreach (ListViewItem listViewItem in listviewExceptions.Items)
 			{
 				if (!listViewItem.Selected) continue;
-				for (int count = 0; count < int.Parse(listViewItem.Tag.ToString()); count++)
+				for (var count = 0; count < int.Parse(listViewItem.Tag.ToString()); count++)
 				{
 					displayException = displayException.InnerException;
 				}

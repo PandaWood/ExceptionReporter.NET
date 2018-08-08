@@ -1,7 +1,8 @@
 using System.Runtime.Serialization;
+
 #pragma warning disable 1591
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Network
 {
 	/// <summary>
 	/// A class representing the JSON packet that is sent to the configured WebService

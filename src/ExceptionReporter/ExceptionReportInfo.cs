@@ -1,4 +1,4 @@
-/**
+/*
  * https://github.com/PandaWood/ExceptionReporter.NET
  */
 
@@ -26,7 +26,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// The Main (for the most part the 'only') exception, which is the subject of this exception 'report'
 		/// Setting this property will clear any previously set exceptions
-		/// <remarks>If multiple top-level exceptions are required, use SetExceptions instead</remarks>
+		/// <remarks>If multiple top-level exceptions are required, use <see cref="SetExceptions(IEnumerable{Exception})"/> instead</remarks>
 		/// </summary>
 		public Exception MainException
 		{
@@ -44,10 +44,10 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// Add multiple exceptions to be shown (each in a separate tab if shown in dialog)
+		/// Add multiple exceptions
 		/// <remarks>
-		/// Note: Showing multiple exceptions is a special-case requirement - for only 1 top-level exception
-		/// use the <see cref="MainException"/> property instead
+		/// Note: Showing multiple exceptions is a special-case requirement
+		/// To set only 1 top-level exception use <see cref="MainException"/> property instead
 		/// </remarks>
 		/// </summary>
 		public void SetExceptions(IEnumerable<Exception> exceptions)
@@ -59,7 +59,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Override the Exception.Message property
 		/// ie a custom message to show in place of the Exception Message
-		/// NB this can also be set in the parameters of the overloaded method <see cref="ExceptionReporter.Show()"/>
+		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporter.Show(string, Exception[]))"/>
 		/// </summary>
 		public string CustomMessage { get; set; }
 
@@ -71,15 +71,24 @@ namespace ExceptionReporting
 		public string SmtpServer { get; set; }
 		
 		/// <summary>
-		/// Uses default if not set (ie 25)
+		/// Uses default port if not set (ie 25)
 		/// </summary>
 		public int SmtpPort { get; set; }
+
+		/// <summary>
+		/// Whether SMTP uses SSL
+		/// </summary>
 		public bool SmtpUseSsl { get; set; }
 		
 		/// <summary>
 		/// Use default credentials of the user (alternatively set false supply SmtpUsername/SmtpPassword)
 		/// </summary>
 		public bool SmtpUseDefaultCredentials { get; set; }
+
+		/// <summary>
+		/// Priority of the Email message
+		/// </summary>
+		public MailPriority SmtpMailPriority { get; set; } = MailPriority.Normal;
 		
 		#endregion
 
@@ -165,11 +174,6 @@ namespace ExceptionReporting
 		public string EmailReportAddress { get; set; } = "";
 
 		/// <summary>
-		/// Priority of the email message - SMTP
-		/// </summary>
-		public MailPriority SmtpMailPriority { get; set; } = MailPriority.Normal;
-
-		/// <summary>
 		/// The URL to be used to submit the exception report to a RESTful WebService
 		/// Requires <see cref="SendMethod"/> is set to <see cref="ReportSendMethod.WebService"/>
 		/// </summary>
@@ -179,7 +183,6 @@ namespace ExceptionReporting
 		/// Timeout (in seconds) for the WebService
 		/// </summary>
 		public int WebServiceTimeout { get; set; } = 15;
-
 
 		//TODO it would also be logical to assume ShowEmailButton to be false if ReportSendMethod.None
 		// but we will have to wait until we fully remove the obsolete MailMethod enumeration because
@@ -291,13 +294,21 @@ namespace ExceptionReporting
 			AttachmentFilename = "ExceptionReport";
 		}
 
+		public bool IsSimpleMAPI()
+		{
+			return SendMethod == ReportSendMethod.SimpleMAPI ||
+			       MailMethod == EmailMethod.SimpleMAPI;		// backwards compatible
+		}
+
 		/// <summary>
 		/// Supported e-mail mechanisms 
 		/// </summary>
 		[Obsolete("Replace 'ExceptionReportInfo.EmailMethod' with 'ReportSendMethod'")]
 		public enum EmailMethod
 		{
+			///<summary>Tries to launch the installed Email client on Windows (default) </summary>
 			SimpleMAPI,
+			///<summary>Sends Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
 			SMTP
 		}
 		
@@ -322,7 +333,7 @@ namespace ExceptionReporting
 		///<summary>Tries to use the Windows default Email client eg Outlook</summary>
 		SimpleMAPI,
 
-		///<summary>Connects to an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
+		///<summary>Sends Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
 		SMTP,
 
 		/// <summary>

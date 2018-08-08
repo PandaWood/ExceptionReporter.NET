@@ -1,12 +1,15 @@
-/**
+/*
  * https://github.com/PandaWood/ExceptionReporter.NET
  */
 
 using System;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.Views;
+using ExceptionReporting.MVP;
+using ExceptionReporting.MVP.Views;
+using ExceptionReporting.Network.Events;
 
+// ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 
 namespace ExceptionReporting
@@ -18,7 +21,6 @@ namespace ExceptionReporting
 	public class ExceptionReporter
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-		private IExceptionReportView _view;
 
 		/// <summary>
 		/// Initialise the ExceptionReporter
@@ -56,12 +58,12 @@ namespace ExceptionReporting
 			try
 			{
 				_reportInfo.SetExceptions(exceptions);
-				_view = new ExceptionReportView(_reportInfo);
-				_view.ShowExceptionReport();
+				var view = new ExceptionReportView(_reportInfo);
+				view.ShowExceptionReport();
 			}
 			catch (Exception internalException)
 			{
-				MessageBox.Show(internalException.Message, "Failed while trying to report an Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(internalException.Message, "Failed trying to report an Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -78,35 +80,36 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Send the report without showing a dialog (silent send)
-		/// <see cref="ReportSendMethod"/>must be set to SMTP or WebService, else this is ignored (silently)
+		/// <see cref="ExceptionReportInfo.SendMethod"/>must be SMTP or WebService, else this is ignored (silently)
+		/// </summary>
+		/// <param name="sendEvent">Provide implementation of IReportSendEvent to receive error/updates</param>
+		/// <param name="exceptions">The exception/s to include in the report</param>
+		public void Send(IReportSendEvent sendEvent = null, params Exception[] exceptions)
+		{
+			_reportInfo.SetExceptions(exceptions);
+			
+			var generator = new ExceptionReportGenerator(_reportInfo);
+			var sender = new SenderFactory(_reportInfo, sendEvent ?? new SilentSendEvent()).Get();
+			sender.Send(generator.Generate().ToString());
+		}
+
+		/// <summary>
+		/// Send the report without showing a dialog (silent send)
+		/// <see cref="ExceptionReportInfo.SendMethod"/>must be SMTP or WebService, else this is ignored (silently)
 		/// </summary>
 		/// <param name="exceptions">The exception/s to include in the report</param>
 		public void Send(params Exception[] exceptions)
 		{
-			_reportInfo.SetExceptions(exceptions);
-			var generator = new ExceptionReportGenerator(_reportInfo);
-
-			if (_reportInfo.SendMethod == ReportSendMethod.WebService)
-			{
-				generator.SendReportToWebService();
-			} 
-			else if (_reportInfo.SendMethod == ReportSendMethod.SMTP ||
-			    _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)		// backwards compatibility
-			{
-				generator.SendReportByEmail();
-			}
-			else if (_reportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
-			         _reportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatibility
-			{	// this option must be last for compatibility because osbsolete MailMethod.SimpleMAPI was previously 0/default
-				// can't do silently so do nothing
-			}
+			Send(new SilentSendEvent(), exceptions);
 		}
 
 		static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
 
 		/// <returns><c>true</c>, if running mono <c>false</c> otherwise.</returns>
 		public static bool IsRunningMono() { return _isRunningMono; }
-
+		
+		/// <returns><c>true</c>, if not running mono <c>false</c> otherwise.</returns>
+		public static bool NotRunningMono() { return !_isRunningMono; }
 	}
 }
 

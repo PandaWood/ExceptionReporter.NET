@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
+using ExceptionReporting.MVP.Views;
+using ExceptionReporting.Network;
 using ExceptionReporting.SystemInfo;
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporting.MVP
 {
 	/// <summary>
 	/// The Presenter in this MVP (Model-View-Presenter) implementation 
@@ -17,6 +17,7 @@ namespace ExceptionReporting.Views
 	internal class ExceptionReportPresenter
 	{
 		private readonly IExceptionReportView _view;
+		private readonly IFileService _fileService;
 		private readonly ExceptionReportGenerator _reportGenerator;
 
 		/// <summary>
@@ -26,6 +27,7 @@ namespace ExceptionReporting.Views
 		{
 			_view = view;
 			_reportGenerator = new ExceptionReportGenerator(info);
+			_fileService = new FileService();
 			ReportInfo = info;
 		}
 
@@ -42,10 +44,10 @@ namespace ExceptionReporting.Views
 		/// </summary>
 		public ExceptionReportInfo ReportInfo { get; }
 
-		private ExceptionReport CreateExceptionReport()
+		private string CreateReport()
 		{
 			ReportInfo.UserExplanation = _view.UserExplanation;
-			return _reportGenerator.CreateExceptionReport();
+			return _reportGenerator.Generate().ToString();
 		}
 
 		/// <summary>
@@ -56,41 +58,43 @@ namespace ExceptionReporting.Views
 		{
 			if (string.IsNullOrEmpty(fileName)) return;
 
-			var exceptionReport = CreateExceptionReport();
-
-			try
+			var report = CreateReport();
+			var result = _fileService.Write(fileName, report);
+			
+			if (!result.Saved)
 			{
-				using (var stream = File.OpenWrite(fileName))
-				{
-					var writer = new StreamWriter(stream);
-					writer.Write(exceptionReport);
-					writer.Flush();
-				}
-			}
-			catch (Exception exception)
-			{
-				_view.ShowError(string.Format("Unable to save file '{0}'", fileName), exception);
+				_view.ShowError(string.Format("Unable to save file '{0}'", fileName), result.Exception);
 			}
 		}
 
 		/// <summary>
-		/// Send the exception report via email, using the configured email method/type
+		/// Send the exception report using the configured send method
 		/// </summary>
 		public void SendReport()
 		{
-			if (ReportInfo.SendMethod == ReportSendMethod.WebService)
+			_view.EnableEmailButton = false;
+			_view.ShowProgressBar = true;
+			
+			var sender = new SenderFactory(ReportInfo, _view).Get();
+			_view.ProgressMessage = sender.ConnectingMessage;
+			
+			try
 			{
-				SendToWebService();
+				var report = ReportInfo.IsSimpleMAPI() ? CreateMapiReport() : CreateReport();
+				sender.Send(report);
 			}
-			else if (ReportInfo.SendMethod == ReportSendMethod.SMTP ||
-			         ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SMTP)		// backwards compatibility
+			catch (Exception exception)
+			{		// most exceptions will be thrown in the Sender - this is just a backup
+				_view.Completed(false);
+				_view.ShowError(string.Format("Unable to setup {0}", sender.Description) + 
+				                Environment.NewLine + exception.Message, exception);
+			}
+			finally
 			{
-				SendSmtpMail();
-			}
-			else if (ReportInfo.SendMethod == ReportSendMethod.SimpleMAPI ||
-			    ReportInfo.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// backwards compatibility
-			{		// this option must be last for compatibility because MailMethod.SimpleMAPI was previously 0/default
-				SendMapiEmail();
+				if (ReportInfo.IsSimpleMAPI())
+				{
+					_view.Mapi_Completed();
+				}
 			}
 		}
 
@@ -99,9 +103,9 @@ namespace ExceptionReporting.Views
 		/// </summary>
 		public void CopyReportToClipboard()
 		{
-			var exceptionReport = CreateExceptionReport();
-			WinFormsClipboard.CopyTo(exceptionReport.ToString());
-			_view.ProgressMessage = string.Format("{0} copied to clipboard", ReportInfo.TitleText);
+			var report = CreateReport();
+			WinFormsClipboard.CopyTo(report);
+			_view.ProgressMessage = "Copied to clipboard";
 		}
 
 		/// <summary>
@@ -113,84 +117,16 @@ namespace ExceptionReporting.Views
 			_view.ToggleShowFullDetail();
 		}
 
-		private string BuildReportString()
+		private string CreateMapiReport()
 		{
 			var emailTextBuilder = new EmailTextBuilder();
 			var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
 			var entireEmailText = new StringBuilder(emailIntroString);
 
-			var report = CreateExceptionReport();
+			var report = CreateReport();
 			entireEmailText.Append(report);
 
 			return entireEmailText.ToString();
-		}
-
-		private void SendSmtpMail()
-		{
-			_view.ProgressMessage = "Sending email via SMTP...";
-			_view.EnableEmailButton = false;
-			_view.ShowProgressBar = true;
-
-			try
-			{
-				var emailText = BuildReportString();
-				var mailSender = new MailSender(ReportInfo, _view);
-				mailSender.SendSmtp(emailText);
-			}
-			catch (Exception exception)
-			{		// most/all exceptions will be thrown in the MailSender - this is just a double backup
-				_view.Completed(false);
-				_view.ShowError("Unable to setup email using SMTP" + Environment.NewLine + exception.Message, exception);
-			}
-		}
-
-		private void SendToWebService()
-		{
-			_view.ProgressMessage = "Connecting to WebService...";
-			_view.EnableEmailButton = false;
-
-			try
-			{
-				var report = BuildReportString();
-				var webService = new WebServiceSender(ReportInfo, _view);
-				webService.Send(report);
-			}
-			catch (Exception exception)
-			{		// most/all exceptions will be thrown in the WebServiceSender - this is just a double backup
-				_view.Completed(false);
-				_view.ShowError("Unable to setup WebService" + Environment.NewLine + exception.Message, exception);
-			}
-		}
-
-		private void SendMapiEmail()
-		{
-			if (ReportInfo.EmailReportAddress.IsEmpty())
-			{
-				_view.ShowError("EmailReportAddress not set", new ConfigurationErrorsException("EmailReportAddress"));
-				return;
-			}
-
-			_view.ProgressMessage = "Launching Email client...";
-			_view.EnableEmailButton = false;
-
-			var success = false;
-
-			try
-			{
-				var emailText = BuildReportString();
-				var mailSender = new MailSender(ReportInfo, _view);
-				mailSender.SendMapi(emailText);
-				success = true;
-			}
-			catch (Exception exception)
-			{
-				success = false;
-				_view.ShowError("Unable to setup Email client\r\nPlease create an Email manually and use Copy Details button", exception);
-			}
-			finally
-			{
-				_view.SetEmailCompletedState_WithMessageIfSuccess(success, string.Empty);
-			}
 		}
 
 		/// <summary>
@@ -241,7 +177,7 @@ namespace ExceptionReporting.Views
 
 				_view.PopulateExceptionTab(ReportInfo.Exceptions);
 				_view.PopulateAssembliesTab();
-				if (!ExceptionReporter.IsRunningMono())
+				if (ExceptionReporter.NotRunningMono())
 					_view.PopulateSysInfoTab();
 			}
 			finally

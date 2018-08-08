@@ -1,9 +1,9 @@
 using System;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Network.Events
 {
 	/// <summary>
-	/// Email send event.
+	/// Represents the events required of a report sender
 	/// </summary>
 	public interface IReportSendEvent
 	{

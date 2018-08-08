@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
-using ExceptionReporting.Core;
 using NUnit.Framework;
 
 namespace ExceptionReporting.Tests

@@ -20,14 +20,14 @@ namespace ExceptionReporting.Core
 		/// <returns>line-delimited string of referenced assemblies</returns>
 		public string CreateReferencesString()
 		{
-			var stringBuilder = new StringBuilder();
+			var s = new StringBuilder();
 
 			foreach (var assemblyName in _assembly.GetReferencedAssemblies())
 			{
-				stringBuilder.AppendLine(string.Format("{0}, Version={1}", assemblyName.Name, assemblyName.Version));
+				s.AppendLine(string.Format("{0}, Version={1}", assemblyName.Name, assemblyName.Version));
 			}
 
-			return stringBuilder.ToString();
+			return s.ToString();
 		}
 	}
 }

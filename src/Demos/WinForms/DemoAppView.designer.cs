@@ -56,27 +56,27 @@ namespace Demo.WinForms
 			this.urlDefault.TabStop = true;
 			this.urlDefault.Text = "Show Default Exception Report";
 			// 
-			// urlEmailTest
+			// urlSendEmail
 			// 
 			this.urlSendEmail.AutoSize = true;
 			this.urlSendEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.urlSendEmail.Location = new System.Drawing.Point(12, 92);
 			this.urlSendEmail.Name = "urlSendEmail";
-			this.urlSendEmail.Size = new System.Drawing.Size(210, 16);
+			this.urlSendEmail.Size = new System.Drawing.Size(224, 16);
 			this.urlSendEmail.TabIndex = 5;
 			this.urlSendEmail.TabStop = true;
-			this.urlSendEmail.Text = "Will Send Report via SendMethod";
+			this.urlSendEmail.Text = "Detail Mode Sends via SendMethod";
 			// 
-			// urlDialogless
+			// urlSilentReport
 			// 
 			this.urlSilentReport.AutoSize = true;
 			this.urlSilentReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.urlSilentReport.Location = new System.Drawing.Point(12, 128);
 			this.urlSilentReport.Name = "urlSilentReport";
-			this.urlSilentReport.Size = new System.Drawing.Size(160, 16);
+			this.urlSilentReport.Size = new System.Drawing.Size(120, 16);
 			this.urlSilentReport.TabIndex = 6;
 			this.urlSilentReport.TabStop = true;
-			this.urlSilentReport.Text = "Invoke Dialogless Report";
+			this.urlSilentReport.Text = "Send Silent Report";
 			// 
 			// DemoAppView
 			// 

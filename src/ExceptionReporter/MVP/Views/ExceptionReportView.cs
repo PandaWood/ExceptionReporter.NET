@@ -4,22 +4,19 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
 using ExceptionReporting.SystemInfo;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporting.Views
+namespace ExceptionReporting.MVP.Views
 {
 	/// <summary>
 	/// The main ExceptionReporter dialog
 	/// </summary>
-	// ReSharper disable UnusedMember.Global
 	public partial class ExceptionReportView : Form, IExceptionReportView
-	// ReSharper restore UnusedMember.Global
 	{
-		bool _isDataRefreshRequired;
-		readonly ExceptionReportPresenter _presenter;
+		private bool _isDataRefreshRequired;
+		private readonly ExceptionReportPresenter _presenter;
 
 		public ExceptionReportView(ExceptionReportInfo reportInfo)
 		{
@@ -101,7 +98,7 @@ namespace ExceptionReporting.Views
 			this.btnSimpleCopy.Location = btnSimpleEmail.Location;
 		}
 
-		void RemoveButtonIcons()
+		private void RemoveButtonIcons()
 		{
 			// removing the icons, requires a bit of reshuffling of positions
 			btnCopy.Image = btnEmail.Image = btnSave.Image = null;
@@ -199,14 +196,10 @@ namespace ExceptionReporting.Views
 			btnEmail.Enabled = true;
 		}
 
-		public void SetEmailCompletedState_WithMessageIfSuccess(bool success, string successMessage)
+		public void Mapi_Completed()
 		{
-			Completed(success);
-
-			if (success)
-			{
-				ProgressMessage = successMessage;
-			}
+			Completed(true);
+			ProgressMessage = string.Empty;
 		}
 
 		/// <summary>
@@ -381,7 +374,6 @@ namespace ExceptionReporting.Views
 				_presenter.SaveReportToFile(saveDialog.FileName);
 			}
 		}
-
 
 		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{

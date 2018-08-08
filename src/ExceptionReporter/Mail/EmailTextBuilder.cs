@@ -7,7 +7,7 @@ namespace ExceptionReporting.Mail
 	/// <summary>
 	/// textual content for email
 	/// </summary>
-	public class EmailTextBuilder
+	internal class EmailTextBuilder
 	{
 		public string CreateIntro(bool takeScreenshot)
 		{
