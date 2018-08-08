@@ -9,23 +9,31 @@ namespace ExceptionReporting.Mail
 		private const string ZIP = ".zip";
 		public IFileService File { private get; set; } = new FileService();
 		public IZipper Zipper { private get; set; } = new Zipper();
-		private readonly ExceptionReportInfo _config;
+		public readonly ExceptionReportInfo Config;
 
 		public Attacher(ExceptionReportInfo config)
 		{
-			_config = config;
+			Config = config;
 		}
 
 		public void AttachFiles(IAttach attacher)
 		{
 			var files = new List<string>();
-			if (_config.FilesToAttach.Length > 0)
+			if (Config.FilesToAttach.Length > 0)
 			{
-				files.AddRange(_config.FilesToAttach);
+				files.AddRange(Config.FilesToAttach);
 			}
-			if (_config.ScreenshotAvailable)
+
+            try
+            {
+                if (Config.TakeScreenshot)
+                    Config.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
+            }
+            catch { }
+
+			if (Config.ScreenshotAvailable)
 			{
-				files.Add(ScreenshotTaker.GetImageAsFile(_config.ScreenshotImage));
+				files.Add(ScreenshotTaker.GetImageAsFile(Config.ScreenshotImage));
 			}
 
 			var filesThatExist = files.Where(f => File.Exists(f)).ToList();
@@ -37,7 +45,7 @@ namespace ExceptionReporting.Mail
 			var filesToZip = filesThatExist.Where(f => !f.EndsWith(ZIP)).ToList();
 			if (filesToZip.Any())
 			{
-				var zipFile = File.TempFile(_config.AttachmentFilename);
+				var zipFile = File.TempFile(Config.AttachmentFilename);
 				Zipper.Zip(zipFile, filesToZip);
 				attacher.Attach(zipFile);
 			}
