@@ -91,17 +91,6 @@ namespace ExceptionReporting.Views
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 			lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
 			btnSimpleEmail.Text = string.Format("E-mail {0}", reportInfo.CompanyName);
-
-			if (reportInfo.TakeScreenshot)
-			{
-				try
-				{
-					reportInfo.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
-				}
-				catch { }
-				// not too concerned about the specifics at the moment, just that an exception here doesn't prevent the entire mechansim from working
-				// specifically, if we are raising this exception as the result of an out-of-memory exception, we have little chance of a screenshot succeeding
-			}
 		}
 
 		private void RemoveEmailButton()

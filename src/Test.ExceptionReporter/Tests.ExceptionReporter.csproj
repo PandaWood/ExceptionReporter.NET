@@ -106,9 +106,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenshotTaker_Tests.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="SysInfoResult_Tests.cs">
       <SubType>Code</SubType>
     </Compile>

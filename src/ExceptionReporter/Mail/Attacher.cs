@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using ExceptionReporting.Core;
 
@@ -9,23 +9,32 @@ namespace ExceptionReporting.Mail
 		private const string ZIP = ".zip";
 		public IFileService File { private get; set; } = new FileService();
 		public IZipper Zipper { private get; set; } = new Zipper();
-		private readonly ExceptionReportInfo _config;
+		public IScreenshotTaker ScreenshotTaker { private get; set; } = new ScreenshotTaker();
+		public ExceptionReportInfo Config { get; }
 
 		public Attacher(ExceptionReportInfo config)
 		{
-			_config = config;
+			Config = config;
 		}
 
 		public void AttachFiles(IAttach attacher)
 		{
 			var files = new List<string>();
-			if (_config.FilesToAttach.Length > 0)
+			if (Config.FilesToAttach.Length > 0)
 			{
-				files.AddRange(_config.FilesToAttach);
+				files.AddRange(Config.FilesToAttach);
 			}
-			if (_config.ScreenshotAvailable)
+
+			try
 			{
-				files.Add(ScreenshotTaker.GetImageAsFile(_config.ScreenshotImage));
+				if (Config.TakeScreenshot && !Config.ScreenshotAvailable)
+					Config.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
+			}
+			catch { /* ignored */ }
+
+			if (Config.ScreenshotAvailable)
+			{
+				files.Add(ScreenshotTaker.GetImageAsFile(Config.ScreenshotImage));
 			}
 
 			var filesThatExist = files.Where(f => File.Exists(f)).ToList();
@@ -37,7 +46,7 @@ namespace ExceptionReporting.Mail
 			var filesToZip = filesThatExist.Where(f => !f.EndsWith(ZIP)).ToList();
 			if (filesToZip.Any())
 			{
-				var zipFile = File.TempFile(_config.AttachmentFilename);
+				var zipFile = File.TempFile(Config.AttachmentFilename);
 				Zipper.Zip(zipFile, filesToZip);
 				attacher.Attach(zipFile);
 			}
