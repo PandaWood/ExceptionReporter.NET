@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using ExceptionReporting.Core;
 
@@ -9,7 +9,8 @@ namespace ExceptionReporting.Mail
 		private const string ZIP = ".zip";
 		public IFileService File { private get; set; } = new FileService();
 		public IZipper Zipper { private get; set; } = new Zipper();
-		public readonly ExceptionReportInfo Config;
+		public IScreenshotTaker ScreenshotTaker { private get; set; } = new ScreenshotTaker();
+		public ExceptionReportInfo Config { get; }
 
 		public Attacher(ExceptionReportInfo config)
 		{
@@ -24,12 +25,12 @@ namespace ExceptionReporting.Mail
 				files.AddRange(Config.FilesToAttach);
 			}
 
-            try
-            {
-                if (Config.TakeScreenshot)
-                    Config.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
-            }
-            catch { }
+			try
+			{
+				if (Config.TakeScreenshot && !Config.ScreenshotAvailable)
+					Config.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
+			}
+			catch { /* ignored */ }
 
 			if (Config.ScreenshotAvailable)
 			{

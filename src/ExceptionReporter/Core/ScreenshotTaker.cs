@@ -5,16 +5,22 @@ using System.Windows.Forms;
 
 namespace ExceptionReporting.Core
 {
+	internal interface IScreenshotTaker
+	{
+		Bitmap TakeScreenShot();
+		string GetImageAsFile(Bitmap bitmap);
+	}
+
 	/// <summary>
 	/// Utility to take a screenshot and return as a graphic file 
 	/// </summary>
-	public static class ScreenshotTaker
+	internal class ScreenshotTaker : IScreenshotTaker
 	{
 		private const string ScreenshotFileName = "exceptionreport-screenshot.jpg";
 		
 		/// <summary> Take a screenshot (supports multiple monitors) </summary>
 		/// <returns>Bitmap of the screen, as at the time called</returns>
-		public static Bitmap TakeScreenShot()
+		public Bitmap TakeScreenShot()
 		{
       if (ExceptionReporter.IsRunningMono()) return null;
 
@@ -40,9 +46,9 @@ namespace ExceptionReporting.Core
 		/// </summary>
 		/// <param name="bitmap">The Bitmap to save</param>
 		/// <returns></returns>
-		public static string GetImageAsFile(Bitmap bitmap)
+		public string GetImageAsFile(Bitmap bitmap)
 		{
-			var tempFileName = Path.GetTempPath() + ScreenshotFileName;
+			var tempFileName = Path.GetTempPath() + ScreenshotFileName;		// the image is not deleted but the same file is reused every time
 			bitmap.Save(tempFileName, ImageFormat.Jpeg);
 			return tempFileName;
 		}

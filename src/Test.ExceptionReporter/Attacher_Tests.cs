@@ -1,4 +1,5 @@
-﻿using ExceptionReporting.Core;
+using System.Drawing;
+using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using Moq;
 using NUnit.Framework;
@@ -117,16 +118,58 @@ namespace ExceptionReporting.Tests
 
 			_iattach.Verify((a) => a.Attach("file1.zip"), Times.Once());
 			_iattach.Verify((a) => a.Attach("attach.zip"), Times.Once());
-	    }
+		}
 
-	    [Test]
-	    public void Should_Make_Screenshot_In_Silent_Mode__Issue_26()
-	    {
-	        var attacher = new Attacher(new ExceptionReportInfo { TakeScreenshot = true });
+		[Test]
+		public void Should_Take_Screenshot_If_Configured()
+		{
+			var screenshot = new Mock<IScreenshotTaker>();
+			var attacher =
+				new Attacher(new ExceptionReportInfo {TakeScreenshot = true})
+				{
+					ScreenshotTaker = screenshot.Object
+				};
 
-	        attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iattach.Object);
 
-	        Assert.IsTrue(attacher.Config.ScreenshotAvailable);
-	    }
-    }
+			screenshot.Verify(s => s.TakeScreenShot(), Times.Once());
+		}
+
+		[Test]
+		public void Should_Not_Take_Screenshot_If_Not_Configured()
+		{
+			var screenshot = new Mock<IScreenshotTaker>();
+			var attacher =
+				new Attacher(new ExceptionReportInfo { TakeScreenshot = false })
+				{
+					ScreenshotTaker = screenshot.Object
+				};
+
+			attacher.AttachFiles(_iattach.Object);
+
+			screenshot.Verify(s => s.TakeScreenShot(), Times.Never);
+		}
+
+		/// <summary>
+		/// There's not actually a pathway in the code to have a screenshot "already taken" - but I think this is a worthwhile guard
+		/// </summary>
+		[Test]
+		public void Should_Not_Take_Screenshot_If_Already_Taken()
+		{
+			var screenshot = new Mock<IScreenshotTaker>();
+			var attacher =
+				new Attacher(new ExceptionReportInfo
+				{
+					TakeScreenshot = true,
+					ScreenshotImage = new Bitmap(1, 1)    // this makes the screenshot "already taken" ie exists
+				})
+				{
+					ScreenshotTaker = screenshot.Object,
+				};
+
+			attacher.AttachFiles(_iattach.Object);
+
+			screenshot.Verify(s => s.TakeScreenShot(), Times.Never);
+		}
+	}
 }
