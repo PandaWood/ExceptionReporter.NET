@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class Extensions_Test
 	{
 		[Test]

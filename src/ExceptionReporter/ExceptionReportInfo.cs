@@ -184,15 +184,15 @@ namespace ExceptionReporting
 		/// </summary>
 		public int WebServiceTimeout { get; set; } = 15;
 
-		//TODO it would also be logical to assume ShowEmailButton to be false if ReportSendMethod.None
-		// but we will have to wait until we fully remove the obsolete MailMethod enumeration because
-		// it doesn't have a None option and so there is no way to make it backwards compatible
-		// when this is ready we will add something like: get { return SendReportMethod.None || !_showEmailButton } 
-		
+		private bool _showEmailButton = true;
 		/// <summary>
 		/// Whether or not to show/display the button labelled "Email"
 		/// </summary>
-		public bool ShowEmailButton { get; set; } = true;
+		public bool ShowEmailButton
+		{
+			get { return SendMethod == ReportSendMethod.None || !_showEmailButton; }
+			set { _showEmailButton = value; }
+		}
 
 		/// <summary>
 		/// The title of the main ExceptionReporter dialog
@@ -294,15 +294,15 @@ namespace ExceptionReporting
 			AttachmentFilename = "ExceptionReport";
 		}
 
+		/// <summary>
+		/// convenience method
+		/// </summary>
+		/// <returns>true if configuration is set to use SimpleMAPI</returns>
 		public bool IsSimpleMAPI()
 		{
-			return SendMethod == ReportSendMethod.SimpleMAPI ||
-			       MailMethod == EmailMethod.SimpleMAPI;		// backwards compatible
+			return SendMethod == ReportSendMethod.SimpleMAPI;
 		}
 
-		/// <summary>
-		/// Supported e-mail mechanisms 
-		/// </summary>
 		[Obsolete("Replace 'ExceptionReportInfo.EmailMethod' with 'ReportSendMethod'")]
 		public enum EmailMethod
 		{
@@ -323,7 +323,7 @@ namespace ExceptionReporting
 	}
 	
 	/// <summary>
-	/// The supported methods to send a report 
+	/// The methods to send a report 
 	/// </summary>
 	public enum ReportSendMethod
 	{

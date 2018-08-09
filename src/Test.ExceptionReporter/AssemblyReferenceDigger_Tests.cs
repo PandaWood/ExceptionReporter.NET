@@ -4,7 +4,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class AssemblyReferenceDigger_Tests
 	{
 		[Test]

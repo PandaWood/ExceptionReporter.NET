@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class Attacher_Tests
 	{
 		private Mock<IAttach> _iattach;

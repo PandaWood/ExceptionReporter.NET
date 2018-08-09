@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
+using ExceptionReporting.MVP.Presenters;
 using ExceptionReporting.SystemInfo;
 
 #pragma warning disable 1591

@@ -10,7 +10,6 @@ namespace ExceptionReporting.Tests
 	/// The code queries the system on which it's running, so testing is kept "generic"
 	/// Not great, but better than nothing
 	/// </summary>
-	[TestFixture]
 	public class SystemInfoRetriever_Tests
 	{
 		private readonly SysInfoRetriever _retriever = new SysInfoRetriever();

@@ -96,7 +96,7 @@ namespace Demo.WinForms
 		void ConfigureSmtpEmail(ExceptionReportInfo config) 
 		{
 			//--- Test SMTP - recommend using MailSlurper https://github.com/mailslurper
-			config.MailMethod = ExceptionReportInfo.EmailMethod.SMTP;		// obsolete deprecated property used here, will be removed in later version
+			config.SendMethod = ReportSendMethod.SMTP;		// obsolete deprecated property used here, will be removed in later version
 			config.SmtpServer = "127.0.0.1";
 			config.SmtpPort = 2500;
 			config.SmtpUsername = "";

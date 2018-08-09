@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.MVP;
 using ExceptionReporting.MVP.Views;
+using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 
 // ReSharper disable MemberCanBePrivate.Global

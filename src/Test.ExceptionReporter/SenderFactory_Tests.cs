@@ -1,4 +1,4 @@
-﻿using ExceptionReporting.MVP;
+﻿using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 using ExceptionReporting.Network.Senders;
 using Moq;
@@ -17,17 +17,17 @@ namespace ExceptionReporting.Tests
 		}
 		
 		[Test]
-		public void Can_Get_Default()
+		public void Can_Get_None_Silent_Sender()
 		{
 			var factory = new SenderFactory(new ExceptionReportInfo { 
 				SendMethod = ReportSendMethod.None
 			}, _sendEvent);
 			
-			Assert.That(factory.Get(), Is.TypeOf<MapiMailSender>());
+			Assert.That(factory.Get(), Is.TypeOf<GhostSender>());
 		}
 		
 		[Test]
-		public void Can_Get_MAPI_Sender()
+		public void Can_Get_SimpleMAPI_Sender()
 		{
 			var factory = new SenderFactory(new ExceptionReportInfo
 			{
@@ -57,28 +57,6 @@ namespace ExceptionReporting.Tests
 			}, _sendEvent);
 			
 			Assert.That(factory.Get(), Is.TypeOf<WebServiceSender>());
-		}
-		
-		[Test]
-		public void Can_Get_Obsolete_MailMethod_SMTP_Sender()
-		{
-			var factory = new SenderFactory(new ExceptionReportInfo
-			{
-				MailMethod= ExceptionReportInfo.EmailMethod.SMTP
-			}, _sendEvent);
-			
-			Assert.That(factory.Get(), Is.TypeOf<SmtpMailSender>());
-		}
-		
-		[Test]
-		public void Can_Get_Obsolete_MailMethod_MAPI_Sender()
-		{
-			var factory = new SenderFactory(new ExceptionReportInfo
-			{
-				MailMethod= ExceptionReportInfo.EmailMethod.SimpleMAPI
-			}, _sendEvent);
-			
-			Assert.That(factory.Get(), Is.TypeOf<MapiMailSender>());
 		}
 	}
 }

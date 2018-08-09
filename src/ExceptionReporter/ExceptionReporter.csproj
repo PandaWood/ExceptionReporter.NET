@@ -98,10 +98,11 @@
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReport.cs" />
     <Compile Include="ExceptionReporter.cs" />
+    <Compile Include="MVP\Presenters\ExceptionReportPresenter.cs" />
+    <Compile Include="Network\SenderFactory.cs" />
+    <Compile Include="Network\Senders\GhostSender.cs" />
     <Compile Include="ReportGenerator.cs" />
     <Compile Include="ExceptionReportInfo.cs" />
-    <Compile Include="MVP\ExceptionReportPresenter.cs" />
-    <Compile Include="MVP\SenderFactory.cs" />
     <Compile Include="MVP\Views\ExceptionDetailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

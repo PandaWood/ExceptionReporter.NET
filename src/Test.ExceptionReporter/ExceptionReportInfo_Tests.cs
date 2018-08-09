@@ -4,7 +4,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class ExceptionReportInfo_Tests
 	{
 		private ExceptionReportInfo _info;
@@ -104,6 +103,34 @@ namespace ExceptionReporting.Tests
 		{
 			_info.AttachmentFilename = "test.zip";
 			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));
+		}
+		
+		[Test]
+		public void Can_Determine_IsSimpleMAPI_False_SMTP()
+		{
+			_info.SendMethod = ReportSendMethod.SMTP;
+			Assert.That(_info.IsSimpleMAPI(), Is.False);
+		}
+		
+		[Test]
+		public void Can_Determine_IsSimpleMAPI_False_WebService()
+		{
+			_info.SendMethod = ReportSendMethod.WebService;
+			Assert.That(_info.IsSimpleMAPI(), Is.False);
+		}
+		
+		[Test]
+		public void Can_Determine_IsSimpleMAPI_False_None()
+		{
+			_info.SendMethod = ReportSendMethod.None;
+			Assert.That(_info.IsSimpleMAPI(), Is.False);
+		}
+		
+		[Test]
+		public void Can_Determine_IsSimpleMAPI_True()
+		{
+			_info.SendMethod = ReportSendMethod.SimpleMAPI;
+			Assert.That(_info.IsSimpleMAPI(), Is.True);
 		}
 	}
 }

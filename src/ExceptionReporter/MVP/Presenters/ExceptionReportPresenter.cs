@@ -9,14 +9,13 @@ using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.SystemInfo;
 
-namespace ExceptionReporting.MVP
+namespace ExceptionReporting.MVP.Presenters
 {
 	/// <summary>
 	/// The Presenter in this MVP (Model-View-Presenter) implementation 
 	/// </summary>
 	internal class ExceptionReportPresenter
 	{
-		private readonly IExceptionReportView _view;
 		private readonly IFileService _fileService;
 		private readonly ReportGenerator _reportGenerator;
 
@@ -25,9 +24,9 @@ namespace ExceptionReporting.MVP
 		/// </summary>
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
-			_view = view;
 			_reportGenerator = new ReportGenerator(info);
 			_fileService = new FileService();
+			View = view;
 			ReportInfo = info;
 		}
 
@@ -44,9 +43,11 @@ namespace ExceptionReporting.MVP
 		/// </summary>
 		public ExceptionReportInfo ReportInfo { get; }
 
+		private IExceptionReportView View { get; }
+
 		private string CreateReport()
 		{
-			ReportInfo.UserExplanation = _view.UserExplanation;
+			ReportInfo.UserExplanation = View.UserExplanation;
 			return _reportGenerator.Generate().ToString();
 		}
 
@@ -63,7 +64,7 @@ namespace ExceptionReporting.MVP
 			
 			if (!result.Saved)
 			{
-				_view.ShowError(string.Format("Unable to save file '{0}'", fileName), result.Exception);
+				View.ShowError(string.Format("Unable to save file '{0}'", fileName), result.Exception);
 			}
 		}
 
@@ -72,28 +73,28 @@ namespace ExceptionReporting.MVP
 		/// </summary>
 		public void SendReport()
 		{
-			_view.EnableEmailButton = false;
-			_view.ShowProgressBar = true;
+			View.EnableEmailButton = false;
+			View.ShowProgressBar = true;
 			
-			var sender = new SenderFactory(ReportInfo, _view).Get();
-			_view.ProgressMessage = sender.ConnectingMessage;
+			var sender = new SenderFactory(ReportInfo, View).Get();
+			View.ProgressMessage = sender.ConnectingMessage;
 			
 			try
 			{
-				var report = ReportInfo.IsSimpleMAPI() ? CreateMapiReport() : CreateReport();
+				var report = ReportInfo.IsSimpleMAPI() ? CreateEmailReport() : CreateReport();
 				sender.Send(report);
 			}
 			catch (Exception exception)
 			{		// most exceptions will be thrown in the Sender - this is just a backup
-				_view.Completed(false);
-				_view.ShowError(string.Format("Unable to setup {0}", sender.Description) + 
+				View.Completed(false);
+				View.ShowError(string.Format("Unable to setup {0}", sender.Description) + 
 				                Environment.NewLine + exception.Message, exception);
 			}
 			finally
 			{
 				if (ReportInfo.IsSimpleMAPI())
 				{
-					_view.Mapi_Completed();
+					View.Mapi_Completed();
 				}
 			}
 		}
@@ -105,7 +106,7 @@ namespace ExceptionReporting.MVP
 		{
 			var report = CreateReport();
 			WinFormsClipboard.CopyTo(report);
-			_view.ProgressMessage = "Copied to clipboard";
+			View.ProgressMessage = "Copied to clipboard";
 		}
 
 		/// <summary>
@@ -113,11 +114,11 @@ namespace ExceptionReporting.MVP
 		/// </summary>
 		public void ToggleDetail()
 		{
-			_view.ShowFullDetail = !_view.ShowFullDetail;
-			_view.ToggleShowFullDetail();
+			View.ShowFullDetail = !View.ShowFullDetail;
+			View.ToggleShowFullDetail();
 		}
 
-		private string CreateMapiReport()
+		private string CreateEmailReport()
 		{
 			var emailTextBuilder = new EmailTextBuilder();
 			var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
@@ -162,7 +163,7 @@ namespace ExceptionReporting.MVP
 			}
 			catch (Exception exception)
 			{
-				_view.ShowError(string.Format("Unable to (Shell) Execute '{0}'", executeString), exception);
+				View.ShowError(string.Format("Unable to (Shell) Execute '{0}'", executeString), exception);
 			}
 		}
 
@@ -173,16 +174,16 @@ namespace ExceptionReporting.MVP
 		{
 			try
 			{
-				_view.SetInProgressState();
+				View.SetInProgressState();
 
-				_view.PopulateExceptionTab(ReportInfo.Exceptions);
-				_view.PopulateAssembliesTab();
+				View.PopulateExceptionTab(ReportInfo.Exceptions);
+				View.PopulateAssembliesTab();
 				if (ExceptionReporter.NotRunningMono())
-					_view.PopulateSysInfoTab();
+					View.PopulateSysInfoTab();
 			}
 			finally
 			{
-				_view.SetProgressCompleteState();
+				View.SetProgressCompleteState();
 			}
 		}
 

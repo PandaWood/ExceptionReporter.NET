@@ -4,7 +4,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class ReportGenerator_Tests
 	{
 		private ExceptionReportInfo _info;

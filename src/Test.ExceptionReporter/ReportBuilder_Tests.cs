@@ -8,7 +8,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class ReportBuilder_Tests
 	{
 		[Test]
