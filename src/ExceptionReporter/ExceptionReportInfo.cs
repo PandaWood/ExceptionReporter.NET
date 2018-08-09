@@ -187,10 +187,11 @@ namespace ExceptionReporting
 		private bool _showEmailButton = true;
 		/// <summary>
 		/// Whether or not to show/display the button labelled "Email"
+		/// Will assume false if <see cref="SendMethod"/> is <see cref="ReportSendMethod.None"/>
 		/// </summary>
 		public bool ShowEmailButton
 		{
-			get { return SendMethod == ReportSendMethod.None || !_showEmailButton; }
+			get { return SendMethod != ReportSendMethod.None && _showEmailButton; }
 			set { _showEmailButton = value; }
 		}
 
@@ -288,7 +289,6 @@ namespace ExceptionReporting
 
 		private void SetDefaultValues()
 		{
-			ShowEmailButton = true;
 			ShowAssembliesTab = true;
 			ShowSysInfoTab = true;
 			AttachmentFilename = "ExceptionReport";

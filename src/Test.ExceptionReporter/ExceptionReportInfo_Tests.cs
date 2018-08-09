@@ -132,5 +132,45 @@ namespace ExceptionReporting.Tests
 			_info.SendMethod = ReportSendMethod.SimpleMAPI;
 			Assert.That(_info.IsSimpleMAPI(), Is.True);
 		}
+		
+		[Test]
+		public void Can_ShowEmailButton_As_False_When_Overriden_By_ReportSendMethod_None()
+		{
+			_info.SendMethod = ReportSendMethod.None;
+			_info.ShowEmailButton = true;
+			Assert.That(_info.ShowEmailButton, Is.False);
+		}
+		
+		[Test]
+		public void Can_ShowEmailButton_As_True_And_Not_Overriden_by_SMTP()
+		{
+			_info.SendMethod = ReportSendMethod.SMTP;
+			_info.ShowEmailButton = true;
+			Assert.That(_info.ShowEmailButton, Is.True);
+		}
+		
+		[Test]
+		public void Can_ShowEmailButton_As_True_And_Not_Overriden_by_WebService()
+		{
+			_info.SendMethod = ReportSendMethod.WebService;
+			_info.ShowEmailButton = true;
+			Assert.That(_info.ShowEmailButton, Is.True);
+		}
+		
+		[Test]
+		public void Can_ShowEmailButton_As_True_And_Not_Overriden_by_SimpleMAPI()
+		{
+			_info.SendMethod = ReportSendMethod.SimpleMAPI;
+			_info.ShowEmailButton = true;
+			Assert.That(_info.ShowEmailButton, Is.True);
+		}
+
+		[Test] public void Can_ShowEmailButton_As_False_And_Not_Overriden_By_Valid_ReportSendMethod_SMTP()
+		{
+			_info.SendMethod = ReportSendMethod.SMTP;
+			_info.ShowEmailButton = false;
+			Assert.That(_info.ShowEmailButton, Is.False);
+		}
+
 	}
 }
