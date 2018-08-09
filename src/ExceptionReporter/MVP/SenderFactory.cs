@@ -26,13 +26,10 @@ namespace ExceptionReporting.MVP
 			{
 				return new SmtpMailSender(_config, _sendEvent);
 			}
-			if (_config.SendMethod == ReportSendMethod.SimpleMAPI ||
-					_config.MailMethod == ExceptionReportInfo.EmailMethod.SimpleMAPI)		// for backwards compatibility
-			{		// this option must be last for compatibility because MailMethod.SimpleMAPI was previously 0/default
-				return new MapiMailSender(_config, _sendEvent);
-			}
 			
-			// default (only required by obsolete MailMethod who's default was 0/SimpleMAPI)
+			// Default - this is required as the default because the obsolete MailMethod default was 0/SimpleMAPI
+			// NB even if SendMethod == None - this could still mean someone is using the obsolete MailMethod == SimpleMapi 
+			// When MailMethod is removed, SendMethod == None should return a SilentReportSender
 			return new MapiMailSender(_config, _sendEvent);
 		}
 	}

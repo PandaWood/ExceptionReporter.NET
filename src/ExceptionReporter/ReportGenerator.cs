@@ -21,7 +21,7 @@ namespace ExceptionReporting
 	/// This class is the entry point to use 'ExceptionReporter' as a general-purpose exception reporter
 	/// (ie use this class to create an exception report without showing a GUI/dialog)
 	/// </summary>
-	public class ExceptionReportGenerator : Disposable
+	public class ReportGenerator : Disposable
 	{
 		private readonly ExceptionReportInfo _reportInfo;
 		private readonly List<SysInfoResult> _sysInfoResults = new List<SysInfoResult>();
@@ -31,10 +31,10 @@ namespace ExceptionReporting
 		/// </summary>
 		/// <param name="reportInfo">an ExceptionReportInfo, can be pre-populated with config
 		/// however 'base' properties such as MachineName</param>
-		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
+		public ReportGenerator(ExceptionReportInfo reportInfo)
 		{
 			// this is going to be a dev/learning mistake, so let them now fast and hard
-			_reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
+			_reportInfo = reportInfo ?? throw new ReportGeneratorException("reportInfo cannot be null");
 
 			_reportInfo.ExceptionDate = _reportInfo.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
 			_reportInfo.RegionInfo = Application.CurrentCulture.DisplayName;
@@ -51,6 +51,12 @@ namespace ExceptionReporting
 			return ApplicationDeployment.IsNetworkDeployed ? 
 				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ProductVersion;
 		}
+		
+//		leave commented out for mono to toggle in/out to be able to compile
+//		private string GetAppVersion()
+//		{
+//			return Application.ProductVersion;
+//		}
 
 		/// <summary>
 		/// Generate the exception report
@@ -59,7 +65,7 @@ namespace ExceptionReporting
 		public ExceptionReport Generate()
 		{
 			var sysInfoResults = GetOrFetchSysInfoResults();
-			var builder = new ExceptionReportBuilder(_reportInfo, sysInfoResults);
+			var builder = new ReportBuilder(_reportInfo, sysInfoResults);
 			return builder.Build();
 		}
 
@@ -117,9 +123,9 @@ namespace ExceptionReporting
 	/// <summary>
 	/// Exception report generator exception.
 	/// </summary>
-	public class ExceptionReportGeneratorException : Exception
+	public class ReportGeneratorException : Exception
 	{
-		public ExceptionReportGeneratorException(string message) : base(message)
+		public ReportGeneratorException(string message) : base(message)
 		{ }
 	}
 }

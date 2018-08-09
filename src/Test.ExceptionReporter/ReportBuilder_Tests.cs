@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace ExceptionReporting.Tests
 {
 	[TestFixture]
-	public class ExceptionReportBuilder_Tests
+	public class ReportBuilder_Tests
 	{
 		[Test]
 		public void Can_Build_Referenced_Assemblies_Section()
@@ -19,7 +19,7 @@ namespace ExceptionReporting.Tests
 				reportInfo.ShowAssembliesTab = true;
 				reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
 
-				var builder = new ExceptionReportBuilder(reportInfo, new List<SysInfoResult>());
+				var builder = new ReportBuilder(reportInfo, new List<SysInfoResult>());
 
 				var exceptionReport = builder.Build();
 
@@ -43,7 +43,7 @@ namespace ExceptionReporting.Tests
 			{
 				reportInfo.ShowSysInfoTab = true;
 
-				var builder = new ExceptionReportBuilder(reportInfo, sysInfoResults);
+				var builder = new ReportBuilder(reportInfo, sysInfoResults);
 				var exceptionReport = builder.Build();
 
 				if (!ExceptionReporter.IsRunningMono())
@@ -77,7 +77,7 @@ namespace ExceptionReporting.Tests
 						.AppendLine("Source:")
 						.AppendLine().AppendDottedLine().AppendLine();
 
-				var builder = new ExceptionReportBuilder(reportInfo, new List<SysInfoResult>());
+				var builder = new ReportBuilder(reportInfo, new List<SysInfoResult>());
 				var exceptionReport = builder.Build();
 
 				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));

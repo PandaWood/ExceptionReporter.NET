@@ -93,12 +93,12 @@
   <ItemGroup>
     <Compile Include="Core\AssemblyReferenceDigger.cs" />
     <Compile Include="Core\Disposable.cs" />
-    <Compile Include="Core\ExceptionReportBuilder.cs" />
+    <Compile Include="Core\ReportBuilder.cs" />
     <Compile Include="Core\ExceptionReporterExtensions.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReport.cs" />
     <Compile Include="ExceptionReporter.cs" />
-    <Compile Include="ExceptionReportGenerator.cs" />
+    <Compile Include="ReportGenerator.cs" />
     <Compile Include="ExceptionReportInfo.cs" />
     <Compile Include="MVP\ExceptionReportPresenter.cs" />
     <Compile Include="MVP\SenderFactory.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="Network\Events\ConsoleSendEvent.cs" />
     <Compile Include="Network\Events\IReportSendEvent.cs" />
     <Compile Include="Network\Events\SilentSendEvent.cs" />
-    <Compile Include="Network\ExceptionReportPacket.cs" />
+    <Compile Include="Network\ReportPacket.cs" />
     <Compile Include="Network\IReportSender.cs" />
     <Compile Include="Network\Senders\MailSender.cs" />
     <Compile Include="Network\Senders\MapiMailSender.cs" />

@@ -16,6 +16,9 @@ namespace ExceptionReporting.Core
 		public Exception Exception { get; set; }
 	}
 
+	/// <summary>
+	/// a class for file operations that can be mocked out for tests
+	/// </summary>
 	internal class FileService : IFileService
 	{
 		public bool Exists(string file)
@@ -35,6 +38,12 @@ namespace ExceptionReporting.Core
 			return tempFile;
 		}
 
+		/// <summary>
+		/// writes a given filename with the given text content (report) to disk
+		/// </summary>
+		/// <param name="file"></param>
+		/// <param name="report"></param>
+		/// <returns>whether save succeeded and the exception in a single <see cref="FileSaveResult"/> object </returns>
 		public FileSaveResult Write(string file, string report)
 		{
 			var result = new FileSaveResult();

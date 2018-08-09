@@ -11,7 +11,7 @@ namespace ExceptionReporting.Network
 	/// 2 - It would seem overkill to include another library like JSON.NET, just for this tiny requirement
 	/// </summary>
 	[DataContract]
-	public class ExceptionReportPacket
+	public class ReportPacket
 	{
 		[DataMember]
 		public string AppName { get; set; }

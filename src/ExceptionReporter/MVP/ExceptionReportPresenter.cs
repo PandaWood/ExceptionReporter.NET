@@ -18,7 +18,7 @@ namespace ExceptionReporting.MVP
 	{
 		private readonly IExceptionReportView _view;
 		private readonly IFileService _fileService;
-		private readonly ExceptionReportGenerator _reportGenerator;
+		private readonly ReportGenerator _reportGenerator;
 
 		/// <summary>
 		/// constructor accepting a view and the data/config of the report
@@ -26,7 +26,7 @@ namespace ExceptionReporting.MVP
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_view = view;
-			_reportGenerator = new ExceptionReportGenerator(info);
+			_reportGenerator = new ReportGenerator(info);
 			_fileService = new FileService();
 			ReportInfo = info;
 		}

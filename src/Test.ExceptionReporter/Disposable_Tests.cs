@@ -5,7 +5,6 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	[TestFixture]
 	public class DisposableTests
 	{
 		[SetUp]

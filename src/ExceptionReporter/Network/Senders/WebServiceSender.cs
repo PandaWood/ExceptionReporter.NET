@@ -43,8 +43,8 @@ namespace ExceptionReporting.Network.Senders
 
 			using (var jsonStream = new MemoryStream())
 			{
-				var sz = new DataContractJsonSerializer(typeof(ExceptionReportPacket));
-				sz.WriteObject(jsonStream, new ExceptionReportPacket
+				var sz = new DataContractJsonSerializer(typeof(ReportPacket));
+				sz.WriteObject(jsonStream, new ReportPacket
 				{
 					AppName = _info.AppName,
 					AppVersion = _info.AppVersion,

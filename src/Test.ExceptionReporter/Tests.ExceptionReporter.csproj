@@ -16,9 +16,9 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
-    <ReleaseVersion>2.2.0</ReleaseVersion>
+    <ReleaseVersion>2.5</ReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -87,13 +87,13 @@
     <Compile Include="Disposable_Tests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExceptionReportBuilder_Tests.cs">
+    <Compile Include="ReportBuilder_Tests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExceptionReporter_Tests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExceptionReportGenerator_Tests.cs">
+    <Compile Include="ReportGenerator_Tests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExceptionReportInfo_Tests.cs">
