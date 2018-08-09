@@ -19,10 +19,10 @@ namespace ExceptionReporting.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ExceptionReporting.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExceptionReporting.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,102 @@ namespace ExceptionReporting.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Report.
+        /// </summary>
+        public static string Error_Report {
+            get {
+                return ResourceManager.GetString("Error_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error sending report.
+        /// </summary>
+        public static string Error_sending_report {
+            get {
+                return ResourceManager.GetString("Error_sending_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to send report.
+        /// </summary>
+        public static string Failed_to_send_report {
+            get {
+                return ResourceManager.GetString("Failed_to_send_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this problem persists, please contact {0} support..
+        /// </summary>
+        public static string If_this_problem_persists_please_contact_0_support {
+            get {
+                return ResourceManager.GetString("If_this_problem_persists_please_contact_0_support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Less Detail.
+        /// </summary>
+        public static string Less_Detail {
+            get {
+                return ResourceManager.GetString("Less_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Detail.
+        /// </summary>
+        public static string More_Detail {
+            get {
+                return ResourceManager.GetString("More_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a brief explanation of events leading up to this exception.
+        /// </summary>
+        public static string Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception {
+            get {
+                return ResourceManager.GetString("Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report sent.
+        /// </summary>
+        public static string Report_sent {
+            get {
+                return ResourceManager.GetString("Report_sent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following details can be used to obtain support for this application.
+        /// </summary>
+        public static string The_following_details_can_be_used_to_obtain_support_for_this_application {
+            get {
+                return ResourceManager.GetString("The_following_details_can_be_used_to_obtain_support_for_this_application", resourceCulture);
             }
         }
     }

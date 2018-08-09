@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,6 +35,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -60,6 +62,7 @@
     </CustomCommands>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <NoStdLib>false</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -70,6 +73,7 @@
     <DocumentationFile>bin\Release\ExceptionReporter.NET.xml</DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <NoStdLib>false</NoStdLib>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -83,9 +87,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="DotNetZip">
-      <HintPath>..\..\packages\DotNetZip.1.11.0\lib\net20\DotNetZip.dll</HintPath>
-    </Reference>
     <Reference Include="SimpleMapi">
       <HintPath>..\..\packages\Simple-MAPI.NET.1.1.0\lib\net20\SimpleMapi.dll</HintPath>
     </Reference>
@@ -100,9 +101,10 @@
     <Compile Include="Core\ExceptionReportInfo.cs" />
     <Compile Include="Core\ScreenshotTaker.cs" />
     <Compile Include="ExceptionReporter.cs" />
-    <Compile Include="Mail\ExceptionReportItem.cs" />
+    <Compile Include="Web\ExceptionReportItem.cs" />
     <Compile Include="Mail\SilentSendEvent.cs" />
-    <Compile Include="Mail\WebServiceSender.cs" />
+    <Compile Include="Web\WebPageSender.cs" />
+    <Compile Include="Web\WebServiceSender.cs" />
     <Compile Include="Views\ExceptionReportPresenter.cs" />
     <Compile Include="Mail\EmailTextBuilder.cs" />
     <Compile Include="Mail\MailSender.cs" />
@@ -129,8 +131,12 @@
     <Compile Include="Views\ExceptionReportView.Designer.cs">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.es-419.resx" />
     <EmbeddedResource Include="Views\ExceptionDetailControl.resx">
       <DependentUpon>ExceptionDetailControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ExceptionReportView.es-419.resx">
+      <DependentUpon>ExceptionReportView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ExceptionReportView.resx">
       <DependentUpon>ExceptionReportView.cs</DependentUpon>
@@ -139,14 +145,14 @@
     <Compile Include="Core\WinformsClipboard.cs" />
     <Compile Include="Mail\AttachAdapter.cs" />
     <Compile Include="Mail\ConsoleSendEvent.cs" />
-    <Compile Include="Mail\IReportSendEvent.cs" />
+    <Compile Include="Core\IReportSendEvent.cs" />
     <Compile Include="Mail\Attacher.cs" />
     <Compile Include="Mail\Zipper.cs" />
     <Compile Include="Core\FileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

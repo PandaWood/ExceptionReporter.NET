@@ -1,7 +1,12 @@
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
 using System.Runtime.Serialization;
 #pragma warning disable 1591
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Web
 {
 	/// <summary>
 	/// A class representing the JSON packet that is sent to the configured WebService

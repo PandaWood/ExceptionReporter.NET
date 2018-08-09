@@ -1,6 +1,11 @@
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
 using System;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting
 {
 	/// <summary>
 	/// Email send event.

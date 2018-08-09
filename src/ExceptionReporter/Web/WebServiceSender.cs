@@ -1,3 +1,8 @@
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
 using System;
 using System.IO;
 using System.Net;
@@ -5,7 +10,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using ExceptionReporting.Core;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Web
 {
 	internal class WebServiceSender
 	{

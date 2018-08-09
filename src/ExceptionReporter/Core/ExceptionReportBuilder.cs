@@ -1,3 +1,8 @@
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,9 +98,9 @@ namespace ExceptionReporting.Core
 			_stringBuilder.AppendLine("[Contact Info]")
 				.AppendLine()
 				.AppendLine("Email:  " + _reportInfo.ContactEmail)
-				.AppendLine("Web:    " + _reportInfo.WebUrl)
-				.AppendLine("Phone:  " + _reportInfo.Phone)
-				.AppendLine("Fax:    " + _reportInfo.Fax)
+				.AppendLine("Web:    " + _reportInfo.ContactWebUrl)
+				.AppendLine("Phone:  " + _reportInfo.ContactPhone)
+				.AppendLine("Fax:    " + _reportInfo.ContactFax)
 				.AppendDottedLine().AppendLine();
 		}
 

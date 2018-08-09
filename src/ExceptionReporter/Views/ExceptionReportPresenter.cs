@@ -1,3 +1,8 @@
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +12,7 @@ using System.Text;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.SystemInfo;
+using ExceptionReporting.Web;
 
 namespace ExceptionReporting.Views
 {
@@ -212,7 +218,7 @@ namespace ExceptionReporting.Views
 		/// </summary>
 		public void NavigateToWebsite()
 		{
-			ShellExecute(ReportInfo.WebUrl);
+			ShellExecute(ReportInfo.ContactWebUrl);
 		}
 
 		void ShellExecute(string executeString)

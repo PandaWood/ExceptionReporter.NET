@@ -1,3 +1,8 @@
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -5,6 +10,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
+using ExceptionReporting.Properties;
 using ExceptionReporting.SystemInfo;
 
 #pragma warning disable 1591
@@ -37,10 +43,10 @@ namespace ExceptionReporting.Views
 		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
 			urlEmail.Text = reportInfo.ContactEmail;
-			txtFax.Text = reportInfo.Fax;
+			txtFax.Text = reportInfo.ContactFax;
 			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
-			txtPhone.Text = reportInfo.Phone;
-			urlWeb.Text = reportInfo.WebUrl;
+			txtPhone.Text = reportInfo.ContactPhone;
+			urlWeb.Text = reportInfo.ContactWebUrl;
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
 			ShowFullDetail = reportInfo.ShowFullDetail;
 			ToggleShowFullDetail();
@@ -89,8 +95,8 @@ namespace ExceptionReporting.Views
 
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
-			lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
-			btnSimpleEmail.Text = string.Format("E-mail {0}", reportInfo.CompanyName);
+			lblContactCompany.Text = string.Format(Resources.If_this_problem_persists_please_contact_0_support, reportInfo.CompanyName);
+			btnSimpleEmail.Text = Resources.Email + " " + reportInfo.CompanyName;
 
 			if (reportInfo.TakeScreenshot)
 			{
@@ -186,14 +192,14 @@ namespace ExceptionReporting.Views
 			{
 				Size = new Size(625, 456);
 				lessDetailPanel.Hide();
-				btnDetailToggle.Text = "Less Detail";
+				btnDetailToggle.Text = Resources.Less_Detail;
 				tabControl.Visible = true;
 			}
 			else
 			{
 				Size = new Size(400, 240);
 				lessDetailPanel.Show();
-				btnDetailToggle.Text = "More Detail";
+				btnDetailToggle.Text = Resources.More_Detail;
 				tabControl.Visible = false;
 			}
 		}
@@ -205,7 +211,7 @@ namespace ExceptionReporting.Views
 
 		public void Completed(bool success)
 		{
-			ProgressMessage = success ? "Report sent" : "Failed to send report";
+			ProgressMessage = success ? Resources.Report_sent : Resources.Failed_to_send_report;
 			ShowProgressBar = false;
 			btnEmail.Enabled = true;
 		}
@@ -293,7 +299,7 @@ namespace ExceptionReporting.Views
 				for (var index = 0; index < exceptions.Count; index++)
 				{
 					var exception = exceptions[index];
-					var tabPage = new TabPage { Text = string.Format("Excepton {0}", index + 1) };
+					var tabPage = new TabPage { Text = string.Format("Exception {0}", index + 1) };
 					innerTabControl.TabPages.Add(tabPage);
 					AddExceptionControl(tabPage, exception);
 				}
@@ -406,7 +412,7 @@ namespace ExceptionReporting.Views
 
 		public void ShowError(string message, Exception exception)
 		{
-			MessageBox.Show(message, "Error sending report", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+			MessageBox.Show(message, Resources.Error_sending_report, MessageBoxButtons.OK, MessageBoxIcon.Error); 
 		}
 
 		private void txtExceptionMessageLarge2_TextChanged(object sender, EventArgs e)

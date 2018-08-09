@@ -1,0 +1,21 @@
+extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+// MIT License
+// Copyright (c) 2008-2018 Peter van der Woude
+// https://github.com/PandaWood/ExceptionReporter.NET
+//
+
+extensions: .aspx .ascx
+<%-- 
+MIT License
+Copyright (c) 2008-2018 Peter van der Woude
+https://github.com/PandaWood/ExceptionReporter.NET
+--%>
+extensions: .vb
+'Sample license text.
+extensions:  .xml .config .xsd
+<!--
+MIT License
+Copyright (c) 2008-2018 Peter van der Woude
+https://github.com/PandaWood/ExceptionReporter.NET
+-->
