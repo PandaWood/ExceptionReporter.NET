@@ -119,6 +119,8 @@ namespace Demo.WinForms
 
 				if (detailView)
 				{
+					exceptionReporter.Config.CompanyName = "Acme";   // this goes alongside email button text
+//					exceptionReporter.Config.SendMethod = ReportSendMethod.WebService;		// this was just for testing text "Send to" or "Email"
 					exceptionReporter.Config.ShowFullDetail = false;
 					exceptionReporter.Config.ShowLessMoreDetailButton = true;
 //					exceptionReporter.Config.ShowEmailButton = false;		// just for testing that removing email button works well positioning etc

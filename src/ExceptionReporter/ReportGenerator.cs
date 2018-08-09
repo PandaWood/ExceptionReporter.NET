@@ -17,9 +17,8 @@ using ExceptionReporting.SystemInfo;
 namespace ExceptionReporting
 {
 	/// <summary>
-	/// ExceptionReportGenerator does everything that needs to happen to generate an ExceptionReport
-	/// This class is the entry point to use 'ExceptionReporter' as a general-purpose exception reporter
-	/// (ie use this class to create an exception report without showing a GUI/dialog)
+	/// ReportGenerator is the entry point to use 'ExceptionReporter.NET' to retrieve the report/data only.
+	/// ie if the user only requires the report info but has no need to use the show or send functionality available
 	/// </summary>
 	public class ReportGenerator : Disposable
 	{

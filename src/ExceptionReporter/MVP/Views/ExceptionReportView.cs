@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using ExceptionReporting.Core;
 using ExceptionReporting.SystemInfo;
 
 #pragma warning disable 1591
@@ -87,7 +88,9 @@ namespace ExceptionReporting.MVP.Views
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 			lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
-			btnSimpleEmail.Text = string.Format("E-mail {0}", reportInfo.CompanyName);
+			btnSimpleEmail.Text = string.Format("{0} {1}", 
+				reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email",
+				reportInfo.SendMethod == ReportSendMethod.WebService ? "to " + reportInfo.CompanyName : reportInfo.CompanyName);
 		}
 
 		private void RemoveEmailButton()
@@ -170,18 +173,26 @@ namespace ExceptionReporting.MVP.Views
 		{
 			if (ShowFullDetail)
 			{
-				Size = new Size(625, 456);
 				lessDetailPanel.Hide();
 				btnDetailToggle.Text = "Less Detail";
 				tabControl.Visible = true;
+				Size = new Size(625, 456);
 			}
 			else
 			{
-				Size = new Size(400, 240);
 				lessDetailPanel.Show();
 				btnDetailToggle.Text = "More Detail";
 				tabControl.Visible = false;
+				Size = new Size(415, 235);
 			}
+		}
+
+		protected override void OnSizeChanged(EventArgs e)
+		{
+			base.OnSizeChanged(e);
+			// this is to make it so the LessDetail view is fixed (it's design doesn't allow for resizing)
+			// but MoreDetail is resizable
+			FormBorderStyle = ShowFullDetail ? FormBorderStyle.Sizable : FormBorderStyle.FixedDialog;
 		}
 
 		public string UserExplanation
