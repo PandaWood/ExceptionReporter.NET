@@ -1,11 +1,10 @@
-# Exception Reporter.NET
+# Shark.NET Error Reporter 
 
-[![AppVeyor Tests](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
-&nbsp;[![NuGet Badge](https://buildstats.info/nuget/ExceptionReporter)](https://www.nuget.org/packages/ExceptionReporter/)
+*Refactor* and *Made* with KISS principles ([Keep It Stupid Simple](http://people.apache.org/~fhanik/kiss.html))
 
-```
-PM> Install-Package ExceptionReporter
-```
+Support for .net 4.7.2 for lasted framework improvements.
+
+# This is a Fork From ExceptionReporter.NET
 
 ## How it Looks
 

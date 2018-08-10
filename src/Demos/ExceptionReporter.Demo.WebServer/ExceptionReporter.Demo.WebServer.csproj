@@ -1,0 +1,321 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExceptionReporter.Demo.WebServer</RootNamespace>
+    <AssemblyName>ExceptionReporter.Demo.WebServer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <None Include="packages.config" />
+    <Content Include="PHP\phpinfo.php" />
+    <Content Include="PHP\ERServer.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\src\SMTP.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\src\POP3.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\src\PHPMailer.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\src\OAuth.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\src\Exception.php" />
+    <Content Include="PHP\ERServerGithub.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\AbstractApi.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\AcceptHeaderTrait.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\ApiInterface.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Apps.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Authorizations.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\Emails.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\Followers.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\Memberships.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\Notifications.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\PublicKeys.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\Starring.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\CurrentUser\Watchers.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Deployment.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Enterprise.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Enterprise\License.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Enterprise\ManagementConsole.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Enterprise\Stats.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Enterprise\UserAdmin.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Gists.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Gist\Comments.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GitData.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GitData\Blobs.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GitData\Commits.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GitData\References.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GitData\Tags.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GitData\Trees.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\GraphQL.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Integrations.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue\Assignees.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue\Comments.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue\Events.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue\Labels.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue\Milestones.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Issue\Timeline.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Markdown.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Meta.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Miscellaneous\CodeOfConduct.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Miscellaneous\Emojis.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Miscellaneous\Gitignore.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Notification.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Organization.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Organization\Hooks.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Organization\Members.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Organization\Projects.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Organization\Teams.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Project\AbstractProjectApi.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Project\Cards.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Project\Columns.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\PullRequest.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\PullRequest\Comments.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\PullRequest\Review.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\PullRequest\ReviewRequest.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\RateLimit.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repo.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Assets.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Collaborators.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Comments.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Commits.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Contents.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\DeployKeys.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Downloads.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Forks.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Hooks.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Labels.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Projects.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Protection.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Releases.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Stargazers.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Statuses.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Repository\Traffic.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\Search.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Api\User.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Client.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\ApiLimitExceedException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\BadMethodCallException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\ErrorException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\ExceptionInterface.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\InvalidArgumentException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\MissingArgumentException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\RuntimeException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\TwoFactorAuthenticationRequiredException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\Exception\ValidationFailedException.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\HttpClient\Builder.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\HttpClient\Message\ResponseMediator.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\HttpClient\Plugin\Authentication.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\HttpClient\Plugin\GithubExceptionThrower.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\HttpClient\Plugin\History.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\HttpClient\Plugin\PathPrepend.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\ResultPager.php" />
+    <Content Include="PHP\libraries\php-github-api-2.9.0\lib\Github\ResultPagerInterface.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\get_oauth_token.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-am.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ar.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-az.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ba.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-be.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-bg.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ca.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ch.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-cs.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-da.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-de.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-el.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-eo.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-es.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-et.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-fa.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-fi.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-fo.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-fr.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-gl.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-he.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-hi.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-hr.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-hu.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-id.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-it.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ja.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ka.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ko.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-lt.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-lv.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ms.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-nb.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-nl.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-pl.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-pt.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-pt_br.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ro.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-rs.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-ru.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-sk.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-sl.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-sv.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-tr.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-uk.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-vi.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-zh.php" />
+    <Content Include="PHP\libraries\phpmailer-6.0.5\language\phpmailer.lang-zh_cn.php" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="WebForms\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56866</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/ExceptionReporter.Demo.WebServer</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
