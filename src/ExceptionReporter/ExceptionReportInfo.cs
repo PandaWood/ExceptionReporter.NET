@@ -330,7 +330,9 @@ namespace ExceptionReporting
 		///<summary>No sending of reports (default) </summary>
 		None,
 
-		///<summary>Tries to use the Windows default Email client eg Outlook</summary>
+		///<summary>Tries to use the Windows default Email client eg Outlook
+		/// <remarks>requires <see cref="ExceptionReportInfo.EmailReportAddress"/> to be set to a valid email</remarks>
+		/// </summary>
 		SimpleMAPI,
 
 		///<summary>Sends Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>

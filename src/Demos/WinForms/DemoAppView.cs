@@ -12,7 +12,7 @@ namespace Demo.WinForms
 			InitializeComponent();
 
 			urlDefault.Click += Show_Default_Report;
-			urlHideDetail.Click += Show_HideDetailView_Click;
+			urlHideDetail.Click += Show_MoreLessDetailsView_Click;
 			urlSendEmail.Click += Send_Report;
 			urlSilentReport.Click += Send_Silent_Report;
 		}
@@ -22,7 +22,7 @@ namespace Demo.WinForms
 			ThrowAndShowExceptionReporter();
 		}
 
-		static void Show_HideDetailView_Click(object sender, EventArgs e)
+		static void Show_MoreLessDetailsView_Click(object sender, EventArgs e)
 		{
 			ThrowAndShowExceptionReporter(detailView:true);
 		}
@@ -56,6 +56,7 @@ namespace Demo.WinForms
 			}
 			catch (Exception exception)
 			{
+				// testing attaching files
 				var file1 = Path.GetTempFileName() + "-file1.txt";	
 				var file2 = Path.GetTempFileName() + "-file2.txt";
 
@@ -115,17 +116,18 @@ namespace Demo.WinForms
 			}
 			catch (Exception exception)
 			{
-				var exceptionReporter = new ExceptionReporter();
+				var er = new ExceptionReporter();
+				er.Config.SendMethod = ReportSendMethod.SimpleMAPI;
+				er.Config.EmailReportAddress = "support@acme.com";
+				er.Config.CompanyName = "Acme";   // this goes alongside email button text
 
 				if (detailView)
 				{
-					exceptionReporter.Config.CompanyName = "Acme";   // this goes alongside email button text
-//					exceptionReporter.Config.SendMethod = ReportSendMethod.WebService;		// this was just for testing text "Send to" or "Email"
-					exceptionReporter.Config.ShowFullDetail = false;
-					exceptionReporter.Config.ShowLessMoreDetailButton = true;
+					er.Config.ShowFullDetail = false;
+					er.Config.ShowLessMoreDetailButton = true;
 //					exceptionReporter.Config.ShowEmailButton = false;		// just for testing that removing email button works well positioning etc
 				}
-				exceptionReporter.Show(exception);
+				er.Show(exception);
 			}
 		}
 
@@ -142,9 +144,9 @@ namespace Demo.WinForms
 		static void AndAnotherOne()
 		{
 			var exception = new IOException(
-				"Unable to establish a connection with the Foo bank account service: " + Guid.NewGuid().ToString(),
+				"Unable to establish a connection with the Fizz photo service",
 				new Exception(
-					"This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller"));
+					"This is an Inner Exception message - with a message that is not too small"));
 			throw exception;
 		}
 
