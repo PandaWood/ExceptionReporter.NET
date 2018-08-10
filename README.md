@@ -1,18 +1,15 @@
-<sub><sup>We've moved from CodePlex - this is now the official home of Exception Reporter</sub></sup>
-
 # Exception Reporter.NET
 
 [![AppVeyor Tests](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
+&nbsp;[![NuGet Badge](https://buildstats.info/nuget/ExceptionReporter)](https://www.nuget.org/packages/ExceptionReporter/)
 
-### The nuget package
- [![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
 ```
 PM> Install-Package ExceptionReporter
 ```
 
 ## How it Looks
 
-If you choose to show a dialog (reports can also be sent silently) there are 2 *modes* - *less details* and *more details*
+If you choose to show a dialog (reports can also be sent silently) there are 2 *modes* - *Less Detail* and *More Detail*
 
 ### **Less Detail** mode
 ![Compact Mode](images/er2-less-detail.png)
@@ -32,9 +29,9 @@ The buttons for *More detail* and *Less Detail* allow the user to switch between
 ## How it works
 
 The Exception Reporter is invoked manually or by setting up it's invocation on a Windows Error event, where it's basically passed the root Exception -
-see [Sample Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
+see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
 
-The report is either sent silently or you can choose to show this dialog which is auto-populated with the exception it was given and certain system details.
+The report is either sent silently or you can choose to show a dialog which is populated with the exception and certain system details.
 A screenshot is also taken (jpeg, multiple screens if present) and you can add file attachments to be sent (if using email as the method of sending).
 
 The ultimate goal is the developer receiving a formatted exception report - see
