@@ -9,7 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter", "src\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.WinForms", "src\Demos\WinForms\Demo.WinForms.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService.ExceptionReporter", "src\WebService.ExceptionReporter\WebService.ExceptionReporter.csproj", "{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService.ExceptionReporter", "src\WebService.ExceptionReporter\WebService.ExceptionReporter.csproj", "{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{F4A46E7D-CAA3-47AB-8007-F3E42107F976}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{CD7BE2D9-7FF4-474A-9F4F-C06FAE73C5FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Demo.WebServer", "src\Demos\ExceptionReporter.Demo.WebServer\ExceptionReporter.Demo.WebServer.csproj", "{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38F62D1C-217F-4B7F-A57F-CABB1ABB45F5}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +63,21 @@ Global
 		{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}.Release|x86.ActiveCfg = Release|Any CPU
 		{1EBDEF2B-664C-4760-BEFE-D6AC900D0AF0}.Release|x86.Build.0 = Release|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Debug|x86.Build.0 = Debug|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Release|x86.ActiveCfg = Release|Any CPU
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E} = {CD7BE2D9-7FF4-474A-9F4F-C06FAE73C5FE}
+		{7060CC03-C582-43A3-8DC0-255AEFBC1AC4} = {CD7BE2D9-7FF4-474A-9F4F-C06FAE73C5FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A41916D2-4760-445D-A8C7-B3058A358266}
