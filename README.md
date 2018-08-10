@@ -1,10 +1,4 @@
-# Shark.NET Error Reporter 
-
-*Refactor* and *Made* with KISS principles ([Keep It Stupid Simple](http://people.apache.org/~fhanik/kiss.html))
-
-Support for .net 4.7.2 for lasted framework improvements.
-
-# This is a Fork From ExceptionReporter.NET
+# ExceptionReporter.NET
 
 ## How it Looks
 
