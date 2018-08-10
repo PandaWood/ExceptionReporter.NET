@@ -1,4 +1,11 @@
-# ExceptionReporter.NET
+# Exception Reporter.NET
+
+[![AppVeyor Tests](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
+&nbsp;[![NuGet Badge](https://buildstats.info/nuget/ExceptionReporter)](https://www.nuget.org/packages/ExceptionReporter/)
+
+```
+PM> Install-Package ExceptionReporter
+```
 
 ## How it Looks
 
