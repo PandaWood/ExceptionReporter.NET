@@ -1,6 +1,6 @@
 # Exception Reporter.NET
 
-[![AppVeyor Tests](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
+[![AppVeyor Tests](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
 &nbsp;[![NuGet Badge](https://buildstats.info/nuget/ExceptionReporter)](https://www.nuget.org/packages/ExceptionReporter/)
 
 ```
@@ -28,11 +28,11 @@ The buttons for *More detail* and *Less Detail* allow the user to switch between
 
 ## How it works
 
-The Exception Reporter is invoked manually or by setting up it's invocation on a Windows Error event, where it's basically passed the root Exception -
+The Exception Reporter can be called manually or by setting up a Windows Exception event - 
 see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
 
-The report is either sent silently or you can choose to show a dialog which is populated with the exception and certain system details.
-A screenshot is also taken (jpeg, multiple screens if present) and you can add file attachments to be sent (if using email as the method of sending).
+The report can be sent silently or the dialog (above) shown, which is then populated with the exception and certain system details.
+A screenshot can be taken and you can easily add file attachments (if using email as the method of sending).
 
 The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
@@ -40,16 +40,20 @@ The ultimate goal is the developer receiving a formatted exception report - see
 
 ## Some Important Features
 
-- Support for inner exceptions and passing multiple exceptions (ie a list of exceptions)
-- Support for generating a report without showing a dialog (sending silently)
-- Support for sending a report to a RESTful API (WebService)
-- Attach additional files to an email (automatically compressed into a single zip file before being attached) - useful for including any log/config files etc to help with diagnosis
-- Support for using the user's installed email client (SimpleMAPI) - as well as an SMTP mail server (or WebService)
+- Gathers and reports on inner exceptions and accepts multiple exceptions
+- Option to send a report silently (and asynchronously) ie without showing a dialog
+- Support for sending a report to a RESTful API/WebService (v3.0)
+- Easily attach additional files to an email (automatically compressed into a single zip file) - useful for including log/config files etc to help with diagnosis
+- Support for using the user's Windows email client (SimpleMAPI) - in addition to using SMTP mail server (and, of course, the WebService option)
 - The solution includes a Demo App for testing config and sending reports via Email/WebService
-- The solution also includes a .NET Core REST/WebService project to demonstrate processing ExceptionReporter.NET reports (it's also configured to run on F5 along with the WinForms Demo and starts listening for reports immediately)
-- The "Report" which is sent is plain text and includes exception stack traces, various related data and important system information (using WMI) such as CPU, memory, Windows versions as well as a list of all the assemblies (with versions) being used by the current executable (see example report below)
+- The solution also includes a .NET Core REST/WebService project to demonstrate the requirements of sending reports to a WebService
+- The report that is sent is plain text and includes exception stack traces, various related data such time/version and important system information (using WMI) such as CPU, memory, Windows version - as well as a list of all referenced assemblies (with versions) being used by the current executable
 
-```
+## Sample Report
+
+This is a sample of the plain text report:
+
+```text
 -----------------------------
 [General Info]
 
@@ -109,4 +113,13 @@ Operating System
 --Manufacturer = Gigabyte Technology Co., Ltd.
 --Model = P35-DS3L
 --TotalPhysicalMemory = 3756515328
-  ```
+```
+
+## Build 
+ExceptionReporter has a dependency on the [.NET4 Framework](https://en.wikipedia.org/wiki/.NET_Framework_version_history#.NET_Framework_4) - so can go as low as supporting Windows XP
+
+There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries. 
+Coverage is not as high as it should be but we're working on that.
+The tests run every commit via AppVeyor
+
+[![Build status](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/PandaWood/exceptionreporter-net)
