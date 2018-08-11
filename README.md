@@ -22,6 +22,8 @@ In the next screenshot, we have an example of some customization that can be mad
 There are no images on the buttons,
 the window title is customised and an extra Tab (_Contact_) is visible
 
+You can also hide the email button and various other options - see the property `Config` on the main `ExceptionReporter` class.
+
 ![Customized Example](images/er-customized.png)
 
 The buttons for *More detail* and *Less Detail* allow the user to switch between these modes.
@@ -32,7 +34,7 @@ The Exception Reporter can be called manually or by setting up a Windows Excepti
 see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
 
 The report can be sent silently or the dialog (above) shown, which is then populated with the exception and certain system details.
-A screenshot can be taken and you can easily add file attachments (if using email as the method of sending).
+A screenshot can be taken and file attachments added (if using email as the method of sending).
 
 The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)

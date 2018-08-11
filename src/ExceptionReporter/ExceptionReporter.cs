@@ -5,7 +5,6 @@
 using System;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.MVP;
 using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
@@ -80,10 +79,10 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// Send the report without showing a dialog (silent send)
+		/// Send the report, asynchronously, without showing a dialog (silent send)
 		/// <see cref="ExceptionReportInfo.SendMethod"/>must be SMTP or WebService, else this is ignored (silently)
 		/// </summary>
-		/// <param name="sendEvent">Provide implementation of IReportSendEvent to receive error/updates</param>
+		/// <param name="sendEvent">Provide implementation of IReportSendEvent to receive error/updates on calling thread</param>
 		/// <param name="exceptions">The exception/s to include in the report</param>
 		public void Send(IReportSendEvent sendEvent = null, params Exception[] exceptions)
 		{
@@ -95,7 +94,7 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// Send the report without showing a dialog (silent send)
+		/// Send the report, asynchronously, without showing a dialog (silent send)
 		/// <see cref="ExceptionReportInfo.SendMethod"/>must be SMTP or WebService, else this is ignored (silently)
 		/// </summary>
 		/// <param name="exceptions">The exception/s to include in the report</param>
