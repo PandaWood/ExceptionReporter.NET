@@ -217,23 +217,10 @@ namespace ExceptionReporting
 		public bool TakeScreenshot { get; set; } = false;
 
 		/// <summary>
-		/// The Screenshot Bitmap, used internally but exposed for flexibility
-		/// </summary>
-		public Bitmap ScreenshotImage { get; set; }
-
-		/// <summary>
 		/// The method used to send the report
 		/// </summary>
 		public ReportSendMethod SendMethod { get; set; } = ReportSendMethod.None;
 		
-		/// <summary>
-		/// Whether a screenshot is configured to be taken and that it has been taken - used internally
-		/// </summary>
-		public bool ScreenshotAvailable
-		{
-			get { return TakeScreenshot && ScreenshotImage != null; }
-		}
-
 		/// <summary>
 		/// Show the Exception Reporter as a "TopMost" window (ie TopMost property on a WinForm)
 		/// This can be quite important in some environments (eg Office Addins) where it might get covered by other UI
@@ -314,12 +301,6 @@ namespace ExceptionReporting
 		
 		[Obsolete("use 'SendMethod' property instead")]
 		public EmailMethod MailMethod { get; set; }
-
-		protected override void DisposeManagedResources()
-		{
-			ScreenshotImage?.Dispose();
-			base.DisposeManagedResources();
-		}
 	}
 	
 	/// <summary>

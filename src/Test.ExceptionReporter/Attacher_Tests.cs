@@ -1,4 +1,3 @@
-using System.Drawing;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using Moq;
@@ -141,29 +140,6 @@ namespace ExceptionReporting.Tests
 				{ ScreenshotTaker = screenshot.Object };
 
 			attacher.AttachFiles(_iattach.Object);
-
-			screenshot.Verify(s => s.TakeScreenShot(), Times.Never);
-		}
-
-		/// <summary>
-		/// There's not actually a pathway in the code to have a screenshot "already taken" - but I think this is a worthwhile guard
-		/// </summary>
-		[Test]
-		public void Should_Not_Take_Screenshot_If_Already_Taken()
-		{
-			var screenshot = new Mock<IScreenshotTaker>();
-
-			using (var bm = new Bitmap(1, 1))
-			{
-				var attacher =
-					new Attacher(new ExceptionReportInfo
-					{
-						TakeScreenshot = true,
-						ScreenshotImage = bm		// this makes the screenshot "already taken" ie exists
-					}) { ScreenshotTaker = screenshot.Object };
-
-				attacher.AttachFiles(_iattach.Object);
-			}
 
 			screenshot.Verify(s => s.TakeScreenShot(), Times.Never);
 		}

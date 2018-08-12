@@ -29,15 +29,8 @@ namespace ExceptionReporting.Mail
 
 			try
 			{
-				if (_config.TakeScreenshot && !_config.ScreenshotAvailable)
-					_config.ScreenshotImage = ScreenshotTaker.TakeScreenShot();
-			}
-			catch { /* ignored */ }
-
-			if (_config.ScreenshotAvailable)
-			{
-				files.Add(ScreenshotTaker.GetImageAsFile(_config.ScreenshotImage));
-			}
+				if (_config.TakeScreenshot) files.Add(ScreenshotTaker.TakeScreenShot());
+			} catch { /* ignored */ }
 
 			var filesThatExist = files.Where(f => File.Exists(f)).ToList();
 
