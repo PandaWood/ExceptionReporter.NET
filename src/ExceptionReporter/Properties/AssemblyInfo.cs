@@ -7,12 +7,12 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: InternalsVisibleTo("ExceptionReporter.Tests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-[assembly: AssemblyTitle("Exception Reporter.NET")]
-[assembly: AssemblyDescription("ExceptionReporter is a .NET component which shows an interface and gathers detailed informaton on an Exception and the application/system running it")]
+[assembly: AssemblyTitle("ExceptionReporter.NET")]
+[assembly: AssemblyDescription("ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("PandaWood")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("https://github.com/PandaWood/ExceptionReporter.NET")]
-[assembly: AssemblyCopyright("Copyright © 2008-2017")]
+[assembly: AssemblyCopyright("Copyright © 2008-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.2.0.0")]
-[assembly: AssemblyFileVersion("2.2.0.0")]
+[assembly: AssemblyVersion("3.0.1.0")]
+[assembly: AssemblyFileVersion("3.0.1.0")]
