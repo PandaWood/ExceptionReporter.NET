@@ -18,7 +18,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PackageId>ExceptionReporter</PackageId>
-    <PackageVersion>2.4.2</PackageVersion>
+    <PackageVersion>3.0.1</PackageVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <PackageLicenseUrl>https://github.com/PandaWood/ExceptionReporter.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
     <Owners>Peter van der Woude,Simon Cropp</Owners>
@@ -27,10 +27,9 @@
     <Title>ExceptionReporter.NET</Title>
     <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>Fixes:
-- Remove the project icon "warning.ico" to ensure that the ExceptionReporter.NET nuget package can be converted to the new "PackageReference" format without odd compile errors - The PackageReference format is described here  https://docs.microsoft.com/en-us/nuget/reference/migrate-packages-config-to-package-reference</PackageReleaseNotes>
-    <PackageTags>exception-reporter,exception,report</PackageTags>
-    <ReleaseVersion>2.4.1</ReleaseVersion>
+    <PackageReleaseNotes>https://github.com/PandaWood/ExceptionReporter.NET/releases/tag/3.0</PackageReleaseNotes>
+    <PackageTags>exception-reporting,crash-reporting</PackageTags>
+    <ReleaseVersion>3.0.1</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <NuGetPackageImportStamp>
