@@ -36,16 +36,5 @@ namespace ExceptionReporting.Tests
 			Assert.That(filterResults.ChildResults[0].Nodes.Count, Is.EqualTo(1));
 			CollectionAssert.Contains(filterResults.ChildResults[0].Nodes, "CodeSet = 7");
 		}
-
-		[Test, Ignore("to fix this we'd need to get a propery key/value pair going")]
-		public void Can_Filter_Just_Key_If_Ends_In_SameKey()
-		{
-			_child.AddNode("ServicePackVersion = 2");
-			_child.AddNode("Version = 6.002");
-			var filterResults = _sysInfoResult.Filter(new[] { "Version" });
-
-			Assert.That(filterResults.ChildResults[0].Nodes.Count, Is.EqualTo(1));
-			CollectionAssert.Contains(filterResults.ChildResults[0].Nodes, "Version = 6.002");
-		}
 	}
 }

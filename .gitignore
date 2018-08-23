@@ -70,3 +70,4 @@ packages/
 .vs
 .vscode
 *.orig
+MigrationBackup/db682600/ExceptionReporter/NuGetUpgradeLog\.html

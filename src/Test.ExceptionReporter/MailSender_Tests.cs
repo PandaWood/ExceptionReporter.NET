@@ -36,7 +36,7 @@ namespace ExceptionReporting.Tests
 		{
 			var mailSender = new MapiMailSender(new ExceptionReportInfo(), null);		// no exceptions set, so message will be null, does mail cater for it?
 
-			Assert.That(mailSender.EmailSubject, Is.EqualTo("Exception Report"));		// reverts to a default message
+			Assert.That(mailSender.EmailSubject, Is.EqualTo("ExceptionReporter given 0 exceptions"));		// reverts to a default message
 		}
 	}
 }

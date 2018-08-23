@@ -3,12 +3,17 @@ using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
 {
-	public class Extensions_Test
+	public class Extensions_Tests
 	{
-		[Test]
-		public void Can_Truncate()
+		[TestCase("123",  4, ExpectedResult = "123")]
+		[TestCase("1234", 4, ExpectedResult = "1234")]
+		[TestCase("1234", 5, ExpectedResult = "1234")]
+		[TestCase("1234", 3, ExpectedResult = "123")]
+		[TestCase("",     3, ExpectedResult = "")]
+		[TestCase(null,   3, ExpectedResult = null)]
+		public string Can_Truncate(string test, int count)
 		{
-			Assert.That("A message too long".Truncate(9), Is.EqualTo("A message"));
+			return test.Truncate(count);
 		}
 	}
 }

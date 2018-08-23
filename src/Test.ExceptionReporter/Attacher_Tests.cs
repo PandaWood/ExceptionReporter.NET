@@ -7,14 +7,14 @@ namespace ExceptionReporting.Tests
 {
 	public class Attacher_Tests
 	{
-		private Mock<IAttach> _iattach;
+		private Mock<IAttach> _iAttach;
 		private Mock<IFileService> _file;
 		private Mock<IZipper> _zip;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_iattach = new Mock<IAttach>();
+			_iAttach = new Mock<IAttach>();
 			_file = new Mock<IFileService>();
 			_zip = new Mock<IZipper>();
 		}
@@ -28,9 +28,9 @@ namespace ExceptionReporting.Tests
 				Zipper = _zip.Object
 			};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
-			_iattach.Verify(a => a.Attach(""), Times.Never);
+			_iAttach.Verify(a => a.Attach(""), Times.Never);
 		}
 
 		[Test]
@@ -45,9 +45,9 @@ namespace ExceptionReporting.Tests
 				Zipper = _zip.Object
 			};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
-			_iattach.Verify(a => a.Attach("attach.zip"), Times.Once);
+			_iAttach.Verify(a => a.Attach("attach.zip"), Times.Once);
 		}
 
 		[Test]
@@ -62,9 +62,9 @@ namespace ExceptionReporting.Tests
 				Zipper = _zip.Object
 			};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
-			_iattach.Verify(a => a.Attach("attach.zip"), Times.Once);
+			_iAttach.Verify(a => a.Attach("attach.zip"), Times.Once);
 		}
 
 		[Test]
@@ -79,9 +79,9 @@ namespace ExceptionReporting.Tests
 				Zipper = _zip.Object
 			};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
-			_iattach.Verify(a => a.Attach("attach.zip"), Times.Never());
+			_iAttach.Verify(a => a.Attach("attach.zip"), Times.Never());
 		}
 
 		[Test]
@@ -94,10 +94,10 @@ namespace ExceptionReporting.Tests
 				Zipper = _zip.Object
 			};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
-			_iattach.Verify(a => a.Attach("file1.zip"), Times.Once());
-			_iattach.Verify(a => a.Attach("file2.zip"), Times.Once());
+			_iAttach.Verify(a => a.Attach("file1.zip"), Times.Once());
+			_iAttach.Verify(a => a.Attach("file2.zip"), Times.Once());
 		}
 
 		[Test]
@@ -112,10 +112,10 @@ namespace ExceptionReporting.Tests
 				Zipper = _zip.Object
 			};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
-			_iattach.Verify(a => a.Attach("file1.zip"), Times.Once());
-			_iattach.Verify(a => a.Attach("attach.zip"), Times.Once());
+			_iAttach.Verify(a => a.Attach("file1.zip"), Times.Once());
+			_iAttach.Verify(a => a.Attach("attach.zip"), Times.Once());
 		}
 
 		[Test]
@@ -124,9 +124,11 @@ namespace ExceptionReporting.Tests
 			var screenshot = new Mock<IScreenshotTaker>();
 			var attacher =
 				new Attacher(new ExceptionReportInfo {TakeScreenshot = true})
-				{ ScreenshotTaker = screenshot.Object };
+				{
+					ScreenshotTaker = screenshot.Object
+				};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
 			screenshot.Verify(s => s.TakeScreenShot(), Times.Once());
 		}
@@ -137,9 +139,11 @@ namespace ExceptionReporting.Tests
 			var screenshot = new Mock<IScreenshotTaker>();
 			var attacher =
 				new Attacher(new ExceptionReportInfo { TakeScreenshot = false })
-				{ ScreenshotTaker = screenshot.Object };
+				{
+					ScreenshotTaker = screenshot.Object
+				};
 
-			attacher.AttachFiles(_iattach.Object);
+			attacher.AttachFiles(_iAttach.Object);
 
 			screenshot.Verify(s => s.TakeScreenShot(), Times.Never);
 		}

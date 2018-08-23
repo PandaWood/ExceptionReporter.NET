@@ -16,13 +16,15 @@ namespace ExceptionReporting.MVP.Views
 		bool ShowProgressBar { set; }
 		bool ShowFullDetail { get; set; }
 		string UserExplanation { get; }
+		
 		void Mapi_Completed();
 		void SetInProgressState();
-		void PopulateExceptionTab(IList<Exception> exceptions);
+		void PopulateExceptionTab(IEnumerable<Exception> exceptions);
 		void PopulateAssembliesTab();
 		void PopulateSysInfoTab();
 		void SetProgressCompleteState();
 		void ToggleShowFullDetail();
+		void ShowWindow();
 	}
 }
 

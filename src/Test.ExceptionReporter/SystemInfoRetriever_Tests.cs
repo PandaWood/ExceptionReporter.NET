@@ -14,7 +14,7 @@ namespace ExceptionReporting.Tests
 	{
 		private readonly SysInfoRetriever _retriever = new SysInfoRetriever();
 
-		[Test]
+		[Test, Ignore("avoid system info calls during tests")]
 		public void Can_Retrieve_SysInfo_For_CPU()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.Machine);
@@ -29,7 +29,7 @@ namespace ExceptionReporting.Tests
 			Assert.That(sysInfoResult.ChildResults[0].Nodes.Count(r => r.Contains("CurrentTimeZone")), Is.GreaterThan(0));
 		}
 
-		[Test]
+		[Test, Ignore("avoid system info calls during tests")]
 		public void Can_Retrieve_SysInfo_For_OS()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.OperatingSystem);

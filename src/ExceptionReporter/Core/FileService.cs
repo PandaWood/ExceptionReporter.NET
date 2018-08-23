@@ -28,7 +28,6 @@ namespace ExceptionReporting.Core
 
 		/// <summary>
 		/// Returns a file with given name, in system TEMP path
-		/// file is never deleted but reused (deleted before being reused)
 		/// </summary>
 		/// <returns>The filename, ready for use</returns>
 		public string TempFile(string file)
@@ -39,7 +38,7 @@ namespace ExceptionReporting.Core
 		}
 
 		/// <summary>
-		/// writes a given filename with the given text content (report) to disk
+		/// writes a given filename with the given text content (presumably a report) to disk
 		/// </summary>
 		/// <param name="file"></param>
 		/// <param name="report"></param>

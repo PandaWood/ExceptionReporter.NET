@@ -4,10 +4,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Net.Mail;
 using System.Reflection;
 
+// ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
@@ -19,18 +21,20 @@ namespace ExceptionReporting
 	/// <summary>
 	/// A bag of configuration and data
 	/// </summary>
-	public class ExceptionReportInfo : Disposable
+	public class ExceptionReportInfo
 	{
 		readonly List<Exception> _exceptions = new List<Exception>();
 
 		/// <summary>
-		/// The Main (for the most part the 'only') exception, which is the subject of this exception 'report'
+		/// The Main (usually the 'only') exception, which is the subject of this exception 'report'
 		/// Setting this property will clear any previously set exceptions
 		/// <remarks>If multiple top-level exceptions are required, use <see cref="SetExceptions(IEnumerable{Exception})"/> instead</remarks>
 		/// </summary>
 		public Exception MainException
 		{
-			get { return _exceptions.Count > 0 ? _exceptions[0] : null; }
+			get { return _exceptions.Count > 0 ? 
+				_exceptions[0] : 
+				new ConfigurationErrorsException("ExceptionReporter given 0 exceptions"); }
 			set
 			{
 				_exceptions.Clear();
@@ -38,9 +42,9 @@ namespace ExceptionReporting
 			}
 		}
 
-		public IList<Exception> Exceptions
+		public Exception[] Exceptions
 		{
-			get { return _exceptions.AsReadOnly(); }
+			get { return _exceptions.ToArray(); }
 		}
 
 		/// <summary>
@@ -59,7 +63,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Override the Exception.Message property
 		/// ie a custom message to show in place of the Exception Message
-		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporter.Show(string, Exception[]))"/>
+		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporter.Show(string, Exception[])"/>
 		/// </summary>
 		public string CustomMessage { get; set; }
 
@@ -93,12 +97,6 @@ namespace ExceptionReporting
 		#endregion
 
 		/// <summary>
-		/// Email that is displayed in the 'Contact Information'
-		/// (ie not the email for sending the report to)
-		/// </summary>
-		public string ContactEmail { get; set; }
-
-		/// <summary>
 		/// The name of the running application calling the exception report
 		/// </summary>
 		public string AppName { get; set; }
@@ -112,6 +110,11 @@ namespace ExceptionReporting
 		/// Region information - set automatically
 		/// </summary>
 		public string RegionInfo { get; set; }
+		
+		/// <summary>
+		/// User Name - optional - not set automatically
+		/// </summary>
+		public string UserName { get; set; }
 
 		/// <summary>
 		/// Date/time of the exception being raised - set automatically
@@ -135,11 +138,6 @@ namespace ExceptionReporting
 		/// </summary>
 		public Assembly AppAssembly { get; set; }
 
-		// user/company details to make available
-		public string WebUrl { get; set; }
-		public string Phone { get; set; }
-		public string Fax { get; set; }
-
 		/// <summary>
 		/// The company/owner of the running application.
 		/// Used in the dialog label that reads '...please contact {0} support'
@@ -148,10 +146,8 @@ namespace ExceptionReporting
 
 		// whether to show certain tabs in the 'More Detail' mode of the main dialog
 		public bool ShowGeneralTab { get; set; } = true;
-		public bool ShowContactTab { get; set; } = false;
 		public bool ShowExceptionsTab { get; set; } = true;
 
-		// cater for mono, which can't access the windows api's to get SysInfo and Assemblies
 		private bool _showSysInfoTab;
 		public bool ShowSysInfoTab
 		{
@@ -269,6 +265,11 @@ namespace ExceptionReporting
 		/// </summary>
 		public bool ShowButtonIcons { get; set; } = true;
 
+		/// <summary>
+		/// Format of the final report (string)
+		/// </summary>
+		public TemplateFormat TemplateFormat { get; set; } = TemplateFormat.Text;
+
 		public ExceptionReportInfo()
 		{
 			SetDefaultValues();
@@ -289,18 +290,6 @@ namespace ExceptionReporting
 		{
 			return SendMethod == ReportSendMethod.SimpleMAPI;
 		}
-
-		[Obsolete("Replace 'ExceptionReportInfo.EmailMethod' with 'ReportSendMethod'")]
-		public enum EmailMethod
-		{
-			///<summary>Tries to launch the installed Email client on Windows (default) </summary>
-			SimpleMAPI,
-			///<summary>Sends Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
-			SMTP
-		}
-		
-		[Obsolete("use 'SendMethod' property instead")]
-		public EmailMethod MailMethod { get; set; }
 	}
 	
 	/// <summary>

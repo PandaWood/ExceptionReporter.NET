@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
 using ExceptionReporting.MVP.Presenters;
 using ExceptionReporting.SystemInfo;
+using ExceptionReporting.Templates;
 
 #pragma warning disable 1591
 
@@ -35,11 +35,6 @@ namespace ExceptionReporting.MVP.Views
 
 		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
-			urlEmail.Text = reportInfo.ContactEmail;
-			txtFax.Text = reportInfo.Fax;
-			lblContactMessageTop.Text = reportInfo.ContactMessageTop;
-			txtPhone.Text = reportInfo.Phone;
-			urlWeb.Text = reportInfo.WebUrl;
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
 			ShowFullDetail = reportInfo.ShowFullDetail;
 			ToggleShowFullDetail();
@@ -48,7 +43,7 @@ namespace ExceptionReporting.MVP.Views
 			//TODO: show all exception messages
 			txtExceptionMessageLarge.Text =
 					txtExceptionMessage.Text =
-					!string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions[0].Message;
+					!string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions.First().Message;
 
 			txtExceptionMessageLarge2.Text = txtExceptionMessageLarge.Text;
 
@@ -62,11 +57,9 @@ namespace ExceptionReporting.MVP.Views
 					btnDetailToggle.FlatStyle =
 					btnCopy.FlatStyle =
 					btnEmail.FlatStyle =
-					btnSave.FlatStyle = (reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard);
+					btnSave.FlatStyle = reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard;
 
 			listviewAssemblies.BackColor =
-					txtFax.BackColor =
-					txtPhone.BackColor =
 					txtRegion.BackColor =
 					txtTime.BackColor =
 					txtTime.BackColor =
@@ -129,9 +122,7 @@ namespace ExceptionReporting.MVP.Views
 			btnClose.Click += Close_Click;
 			btnDetailToggle.Click += Detail_Click;
 			btnSimpleDetailToggle.Click += Detail_Click;
-			urlEmail.LinkClicked += EmailLink_Clicked;
 			btnSave.Click += Save_Click;
-			urlWeb.LinkClicked += UrlLink_Clicked;
 			KeyPreview = true;
 			KeyDown += ExceptionReportView_KeyDown;
 		}
@@ -235,10 +226,6 @@ namespace ExceptionReporting.MVP.Views
 			{
 				tabControl.TabPages.Remove(tabSysInfo);
 			}
-			if (!_presenter.ReportInfo.ShowContactTab)
-			{
-				tabControl.TabPages.Remove(tabContact);
-			}
 		}
 
 		//TODO consider putting on a background thread - and avoid the OnActivated event altogether
@@ -259,7 +246,7 @@ namespace ExceptionReporting.MVP.Views
 			ShowProgressLabel = ShowProgressBar = false;
 		}
 
-		public void ShowExceptionReport()
+		public void ShowWindow()
 		{
 			_isDataRefreshRequired = true;
 			ShowDialog();
@@ -273,21 +260,22 @@ namespace ExceptionReporting.MVP.Views
 			Application.DoEvents();
 		}
 
-		public void PopulateExceptionTab(IList<Exception> exceptions)
+		public void PopulateExceptionTab(IEnumerable<Exception> exceptions)
 		{
-			if (exceptions.Count == 1)
+			var exs = exceptions as Exception[] ?? exceptions.ToArray();
+			if (exs.Length == 1)
 			{
-				var exception = exceptions[0];
+				var exception = exs.FirstOrDefault();
 				AddExceptionControl(tabExceptions, exception);
 			}
 			else
 			{
 				var innerTabControl = new TabControl { Dock = DockStyle.Fill };
 				tabExceptions.Controls.Add(innerTabControl);
-				for (var index = 0; index < exceptions.Count; index++)
+				for (var index = 0; index < exs.Length; index++)
 				{
-					var exception = exceptions[index];
-					var tabPage = new TabPage { Text = string.Format("Excepton {0}", index + 1) };
+					var exception = exs[index];
+					var tabPage = new TabPage { Text = string.Format("Exception {0}", index + 1) };
 					innerTabControl.TabPages.Add(tabPage);
 					AddExceptionControl(tabPage, exception);
 				}
@@ -309,28 +297,17 @@ namespace ExceptionReporting.MVP.Views
 			listviewAssemblies.Columns.Add("Name", 320, HorizontalAlignment.Left);
 			listviewAssemblies.Columns.Add("Version", 150, HorizontalAlignment.Left);
 
-			var assemblies = new List<AssemblyName>(_presenter.AppAssembly.GetReferencedAssemblies())
-																 {
-																		 _presenter.AppAssembly.GetName()
-																 };
-			assemblies.Sort((x, y) => string.CompareOrdinal(x.Name, y.Name));
-			foreach (var assemblyName in assemblies)
+			_presenter.GetReferencedAssemblies().ForEach(this.AddAssembly);
+		}
+
+		private void AddAssembly(AssemblyRef assembly)
+		{
+			var listViewItem = new ListViewItem
 			{
-				AddAssembly(assemblyName);
-			}
-		}
-
-		private void AddAssembly(AssemblyName assemblyName)
-		{
-			var listViewItem = new ListViewItem { Text = assemblyName.Name };
-			listViewItem.SubItems.Add(assemblyName.Version.ToString());
+				Text = assembly.Name
+			};
+			listViewItem.SubItems.Add(assembly.Version);
 			listviewAssemblies.Items.Add(listViewItem);
-		}
-
-		protected override void OnClosing(CancelEventArgs e)
-		{
-			_presenter.Close();
-			base.OnClosing(e);
 		}
 
 		private TreeNode CreateSysInfoTree()
@@ -387,24 +364,9 @@ namespace ExceptionReporting.MVP.Views
 			}
 		}
 
-		private void UrlLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			_presenter.NavigateToWebsite();
-		}
-
-		private void EmailLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			_presenter.SendContactEmail();
-		}
-
 		public void ShowError(string message, Exception exception)
 		{
 			MessageBox.Show(message, "Error sending report", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-		}
-
-		private void txtExceptionMessageLarge2_TextChanged(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

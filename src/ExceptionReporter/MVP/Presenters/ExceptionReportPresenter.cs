@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
-using System.Text;
+using System.Linq;
 using ExceptionReporting.Core;
-using ExceptionReporting.Mail;
 using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
+using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
+using ExceptionReporting.Templates;
 
 namespace ExceptionReporting.MVP.Presenters
 {
@@ -30,25 +29,16 @@ namespace ExceptionReporting.MVP.Presenters
 			ReportInfo = info;
 		}
 
-		/// <summary>
-		/// The application assembly - ie the main application using the exception reporter assembly
-		/// </summary>
-		public Assembly AppAssembly
-		{
-			get { return ReportInfo.AppAssembly; }
-		}
-
-		/// <summary>
-		/// Report configuration and data
-		/// </summary>
+		/// <summary> Report configuration and data  </summary>
 		public ExceptionReportInfo ReportInfo { get; }
 
+		/// <summary> The main dialog/view  </summary>
 		private IExceptionReportView View { get; }
 
 		private string CreateReport()
 		{
 			ReportInfo.UserExplanation = View.UserExplanation;
-			return _reportGenerator.Generate().ToString();
+			return _reportGenerator.Generate();
 		}
 
 		/// <summary>
@@ -120,14 +110,14 @@ namespace ExceptionReporting.MVP.Presenters
 
 		private string CreateEmailReport()
 		{
-			var emailTextBuilder = new EmailTextBuilder();
-			var emailIntroString = emailTextBuilder.CreateIntro(ReportInfo.TakeScreenshot);
-			var entireEmailText = new StringBuilder(emailIntroString);
-
+			var template = new TemplateRenderer(new EmailIntroModel
+			{
+				ScreenshotTaken = ReportInfo.TakeScreenshot
+			});
+			var emailIntro = template.Render();
 			var report = CreateReport();
-			entireEmailText.Append(report);
 
-			return entireEmailText.ToString();
+			return emailIntro + report;
 		}
 
 		/// <summary>
@@ -136,35 +126,6 @@ namespace ExceptionReporting.MVP.Presenters
 		public IEnumerable<SysInfoResult> GetSysInfoResults()
 		{
 			return _reportGenerator.GetOrFetchSysInfoResults();
-		}
-
-		/// <summary>
-		/// Send email (using ShellExecute) to the configured contact email address
-		/// </summary>
-		public void SendContactEmail()
-		{
-			ShellExecute(string.Format("mailto:{0}", ReportInfo.ContactEmail));
-		}
-
-		/// <summary>
-		/// Navigate to the website configured
-		/// </summary>
-		public void NavigateToWebsite()
-		{
-			ShellExecute(ReportInfo.WebUrl);
-		}
-
-		private void ShellExecute(string executeString)
-		{
-			try
-			{
-				var psi = new ProcessStartInfo(executeString) { UseShellExecute = true };
-				Process.Start(psi);
-			}
-			catch (Exception exception)
-			{
-				View.ShowError(string.Format("Unable to (Shell) Execute '{0}'", executeString), exception);
-			}
 		}
 
 		/// <summary>
@@ -187,12 +148,9 @@ namespace ExceptionReporting.MVP.Presenters
 			}
 		}
 
-		/// <summary>
-		/// Close/cleanup
-		/// </summary>
-		public void Close()
+		public List<AssemblyRef> GetReferencedAssemblies()
 		{
-			_reportGenerator.Dispose();
+			return new AssemblyDigger(ReportInfo.AppAssembly).GetAssemblyRefs().ToList();
 		}
 	}
 }

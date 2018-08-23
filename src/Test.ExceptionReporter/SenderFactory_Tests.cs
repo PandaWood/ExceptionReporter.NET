@@ -1,4 +1,5 @@
-﻿using ExceptionReporting.Network;
+﻿using System;
+using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 using ExceptionReporting.Network.Senders;
 using Moq;
@@ -8,55 +9,18 @@ namespace ExceptionReporting.Tests
 {
 	public class SenderFactory_Tests
 	{
-		private IReportSendEvent _sendEvent;
+		[TestCase(ReportSendMethod.None,       ExpectedResult = typeof(GhostSender))]
+		[TestCase(ReportSendMethod.SimpleMAPI, ExpectedResult = typeof(MapiMailSender))]
+		[TestCase(ReportSendMethod.SMTP,       ExpectedResult = typeof(SmtpMailSender))]
+		[TestCase(ReportSendMethod.WebService, ExpectedResult = typeof(WebServiceSender))]
+		public Type Can_Determine_Sender(ReportSendMethod method)
+		{
+			var factory = new SenderFactory(new ExceptionReportInfo 
+			{ 
+				SendMethod = method
+			}, new Mock<IReportSendEvent>().Object);
 
-		[SetUp]
-		public void SetUp()
-		{
-			_sendEvent = new Mock<IReportSendEvent>().Object;
-		}
-		
-		[Test]
-		public void Can_Get_None_Silent_Sender()
-		{
-			var factory = new SenderFactory(new ExceptionReportInfo { 
-				SendMethod = ReportSendMethod.None
-			}, _sendEvent);
-			
-			Assert.That(factory.Get(), Is.TypeOf<GhostSender>());
-		}
-		
-		[Test]
-		public void Can_Get_SimpleMAPI_Sender()
-		{
-			var factory = new SenderFactory(new ExceptionReportInfo
-			{
-				SendMethod = ReportSendMethod.SimpleMAPI
-			}, _sendEvent);
-			
-			Assert.That(factory.Get(), Is.TypeOf<MapiMailSender>());
-		}
-		
-		[Test]
-		public void Can_Get_SMTP_Sender()
-		{
-			var factory = new SenderFactory(new ExceptionReportInfo
-			{
-				SendMethod = ReportSendMethod.SMTP
-			}, _sendEvent);
-			
-			Assert.That(factory.Get(), Is.TypeOf<SmtpMailSender>());
-		}
-		
-		[Test]
-		public void Can_Get_WebService_Sender()
-		{
-			var factory = new SenderFactory(new ExceptionReportInfo
-			{
-				SendMethod = ReportSendMethod.WebService
-			}, _sendEvent);
-			
-			Assert.That(factory.Get(), Is.TypeOf<WebServiceSender>());
+			return factory.Get().GetType();
 		}
 	}
 }

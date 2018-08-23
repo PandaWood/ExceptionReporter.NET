@@ -1,28 +1,18 @@
-using System.Text;
-
 namespace ExceptionReporting.Core
 {
 	/// <summary>
 	/// All extension methods for ExceptionReporter
-	/// It's important this class is internal/not public - else it will pollute the extensions available to the user
+	/// It's important this class is internal/not public - else it will pollute the assembly consumer's extensions
 	/// </summary>
 	internal static class ExceptionReporterExtensions
 	{
-		/// <summary>
-		/// Append a dotted line to the given string
-		/// </summary>
-		public static StringBuilder AppendDottedLine(this StringBuilder stringBuilder)
-		{
-			return stringBuilder.AppendLine("-----------------------------");
-		}
-
 		public static bool IsEmpty(this string input)
 		{
 			return string.IsNullOrWhiteSpace(input);
 		}
 
 		/// <summary>
-		/// Truncate the specified value and maxLength.
+		/// Truncate the specified value and length
 		/// </summary>
 		public static string Truncate(this string value, int maxLength)
 		{

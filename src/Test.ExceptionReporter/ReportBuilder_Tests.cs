@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using ExceptionReporting.Core;
+using System.Linq;
+using AutoMoq;
+using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
+using ExceptionReporting.Templates;
 using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
@@ -11,110 +11,45 @@ namespace ExceptionReporting.Tests
 	public class ReportBuilder_Tests
 	{
 		[Test]
-		public void Can_Build_Referenced_Assemblies_Section()
+		public void Can_Build_Basic_Model_Properties()
 		{
-			using (var reportInfo = CreateReportInfo())
-			{
-				reportInfo.ShowAssembliesTab = true;
-				reportInfo.AppAssembly = Assembly.GetExecutingAssembly();
+			var moqer = new AutoMoqer();
+			var reportBuilder = moqer.Create<ReportBuilder>();
+			
+			var info = moqer.GetMock<ExceptionReportInfo>().Object;
+			info.AppName = "TestApp";
+			info.AppVersion = "1.0";
+			info.MainException = new TestException();
 
-				var builder = new ReportBuilder(reportInfo, new List<SysInfoResult>());
-
-				var exceptionReport = builder.Build();
-
-				Assert.That(exceptionReport, Is.Not.Null);
-
-				var exceptionReportString = exceptionReport.ToString();
-				Assert.That(exceptionReportString.Length, Is.GreaterThan(0));
-				if (!ExceptionReporter.IsRunningMono())
-					Assert.That(exceptionReportString, Does.Contain("System.Core, Version="));
-				Assert.That(exceptionReportString, Does.Contain(Environment.NewLine));
-			}
+			var model = reportBuilder.ReportModel();
+			
+			Assert.That(model.App.Name, Is.EqualTo("TestApp"));
+			Assert.That(model.App.Version, Is.EqualTo("1.0"));
+			Assert.That(model.Error.Message, Is.EqualTo(TestException.ErrorMessage));
 		}
 
 		[Test]
-		public void Can_Build_SysInfo_Section()
+		public void Can_Invoke_Dependencies()
 		{
-			var sysInfoResults = CreateSysInfoResult();
-			var expectedExceptionReport = CreateExpectedReport();
-
-			using (var reportInfo = CreateReportInfo())
+			var moqer = new AutoMoqer();
+			var reportBuilder = moqer.Create<ReportBuilder>();
+			
+			moqer.GetMock<IAssemblyDigger>().Setup(ad => ad.GetAssemblyRefs()).Returns(new List<AssemblyRef>
 			{
-				reportInfo.ShowSysInfoTab = true;
-
-				var builder = new ReportBuilder(reportInfo, sysInfoResults);
-				var exceptionReport = builder.Build();
-
-				if (!ExceptionReporter.IsRunningMono())
-					Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReport.ToString()));
-			}
-		}
-
-		[Test]
-		public void Can_Build_Hierarchy_String_With_Root_And_Inner_Exception()
-		{
-			using (var reportInfo = CreateReportInfo())
-			{
-				reportInfo.ShowExceptionsTab = true;
-				reportInfo.SetExceptions(new List<Exception>
-																						{
-																								new ArgumentOutOfRangeException("OuterException",
-																								new ArgumentNullException("Inner" + "Exception"))
-																						});
-
-				var expectedExceptionReportString = new StringBuilder().AppendDottedLine()
-						.AppendLine("[Exception Info 1]").AppendLine()
-						.AppendLine("Top-level Exception")
-						.AppendLine("Type:        System.ArgumentOutOfRangeException")
-						.AppendLine("Message:     OuterException")
-						.AppendLine("Source:      ")
-						.AppendLine()
-						.AppendLine("Inner Exception 1")
-						.AppendLine("Type:        System.ArgumentNullException")
-						.AppendLine("Message:     Value cannot be null.")
-						.AppendLine("Parameter name: InnerException")
-						.AppendLine("Source:")
-						.AppendLine().AppendDottedLine().AppendLine();
-
-				var builder = new ReportBuilder(reportInfo, new List<SysInfoResult>());
-				var exceptionReport = builder.Build();
-
-				Assert.That(exceptionReport.ToString(), Is.EqualTo(expectedExceptionReportString.ToString()));
-			}
-		}
-
-		private static ExceptionReportInfo CreateReportInfo()
-		{
-			return new ExceptionReportInfo
-			{
-				ShowAssembliesTab = false,
-				ShowGeneralTab = false,
-				ShowSysInfoTab = false,
-				ShowExceptionsTab = false,
-			};
-		}
-
-		private static StringBuilder CreateExpectedReport()
-		{
-			var expectedString = new StringBuilder().AppendDottedLine();
-			expectedString.AppendLine("[System Info]").AppendLine();
-			expectedString.AppendLine("Memory");
-			expectedString.AppendLine("-Physical Memory");
-			expectedString.AppendLine("--Version:2.66");
-			expectedString.AppendLine().AppendDottedLine().AppendLine();
-			return expectedString;
-		}
-
-		private static IEnumerable<SysInfoResult> CreateSysInfoResult()
-		{
-			IList<SysInfoResult> results = new List<SysInfoResult>();
-			var result = new SysInfoResult("Memory");
-			result.Nodes.Add("Physical Memory");
-			var resultChild = new SysInfoResult("Bla");
-			result.ChildResults.Add(resultChild);
-			resultChild.Nodes.Add("Version:2.66");
-			results.Add(result);
-			return results;
+				new AssemblyRef
+				{
+					Name = "Assembly1",
+					Version = "2.1"
+				}
+			});
+			moqer.GetMock<ISysInfoResultMapper>().Setup(si => si.SysInfoString()).Returns("fake tree");
+			moqer.GetMock<IStackTraceMaker>().Setup(st => st.FullStackTrace()).Returns("fake stack trace");
+			
+			var model = reportBuilder.ReportModel();
+			
+			Assert.That(model.App.AssemblyRefs.First().Name, Is.EqualTo("Assembly1"));
+			Assert.That(model.SystemInfo, Is.EqualTo("fake tree"));
+			Assert.That(model.Error.FullStackTrace, Is.EqualTo("fake stack trace"));
 		}
 	}
 }

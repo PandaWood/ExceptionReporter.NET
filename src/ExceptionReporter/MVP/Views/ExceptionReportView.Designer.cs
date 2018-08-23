@@ -50,16 +50,6 @@ namespace ExceptionReporting.MVP.Views
 			this.tabAssemblies = new System.Windows.Forms.TabPage();
 			this.tabSysInfo = new System.Windows.Forms.TabPage();
 			this.treeEnvironment = new System.Windows.Forms.TreeView();
-			this.tabContact = new System.Windows.Forms.TabPage();
-			this.lblContactMessageTop = new System.Windows.Forms.Label();
-			this.txtFax = new System.Windows.Forms.TextBox();
-			this.lblFax = new System.Windows.Forms.Label();
-			this.txtPhone = new System.Windows.Forms.TextBox();
-			this.lblPhone = new System.Windows.Forms.Label();
-			this.lblWebSite = new System.Windows.Forms.Label();
-			this.urlWeb = new System.Windows.Forms.LinkLabel();
-			this.lblEmail = new System.Windows.Forms.Label();
-			this.urlEmail = new System.Windows.Forms.LinkLabel();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.progressBar = new System.Windows.Forms.ProgressBar();
 			this.btnEmail = new System.Windows.Forms.Button();
@@ -82,7 +72,6 @@ namespace ExceptionReporting.MVP.Views
 			((System.ComponentModel.ISupportInitialize)(this.picGeneral)).BeginInit();
 			this.tabAssemblies.SuspendLayout();
 			this.tabSysInfo.SuspendLayout();
-			this.tabContact.SuspendLayout();
 			this.lessDetailPanel.SuspendLayout();
 			this.lessDetail_optionsPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lessDetail_alertIcon)).BeginInit();
@@ -111,7 +100,6 @@ namespace ExceptionReporting.MVP.Views
 			this.tabControl.Controls.Add(this.tabExceptions);
 			this.tabControl.Controls.Add(this.tabAssemblies);
 			this.tabControl.Controls.Add(this.tabSysInfo);
-			this.tabControl.Controls.Add(this.tabContact);
 			this.tabControl.HotTrack = true;
 			this.tabControl.Location = new System.Drawing.Point(6, 6);
 			this.tabControl.MinimumSize = new System.Drawing.Size(200, 0);
@@ -323,122 +311,6 @@ namespace ExceptionReporting.MVP.Views
 			this.treeEnvironment.Size = new System.Drawing.Size(531, 345);
 			this.treeEnvironment.TabIndex = 2;
 			// 
-			// tabContact
-			// 
-			this.tabContact.Controls.Add(this.lblContactMessageTop);
-			this.tabContact.Controls.Add(this.txtFax);
-			this.tabContact.Controls.Add(this.lblFax);
-			this.tabContact.Controls.Add(this.txtPhone);
-			this.tabContact.Controls.Add(this.lblPhone);
-			this.tabContact.Controls.Add(this.lblWebSite);
-			this.tabContact.Controls.Add(this.urlWeb);
-			this.tabContact.Controls.Add(this.lblEmail);
-			this.tabContact.Controls.Add(this.urlEmail);
-			this.tabContact.Location = new System.Drawing.Point(4, 22);
-			this.tabContact.Name = "tabContact";
-			this.tabContact.Size = new System.Drawing.Size(531, 345);
-			this.tabContact.TabIndex = 4;
-			this.tabContact.Text = "Contact";
-			this.tabContact.UseVisualStyleBackColor = true;
-			// 
-			// lblContactMessageTop
-			// 
-			this.lblContactMessageTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblContactMessageTop.Location = new System.Drawing.Point(8, 24);
-			this.lblContactMessageTop.MinimumSize = new System.Drawing.Size(200, 0);
-			this.lblContactMessageTop.Name = "lblContactMessageTop";
-			this.lblContactMessageTop.Size = new System.Drawing.Size(533, 24);
-			this.lblContactMessageTop.TabIndex = 27;
-			this.lblContactMessageTop.Text = "The following details can be used to obtain support for this application.";
-			// 
-			// txtFax
-			// 
-			this.txtFax.BackColor = System.Drawing.SystemColors.Control;
-			this.txtFax.Location = new System.Drawing.Point(72, 168);
-			this.txtFax.MinimumSize = new System.Drawing.Size(200, 0);
-			this.txtFax.Name = "txtFax";
-			this.txtFax.ReadOnly = true;
-			this.txtFax.Size = new System.Drawing.Size(249, 21);
-			this.txtFax.TabIndex = 3;
-			// 
-			// lblFax
-			// 
-			this.lblFax.AutoSize = true;
-			this.lblFax.Location = new System.Drawing.Point(18, 168);
-			this.lblFax.Name = "lblFax";
-			this.lblFax.Size = new System.Drawing.Size(25, 13);
-			this.lblFax.TabIndex = 34;
-			this.lblFax.Text = "Fax";
-			// 
-			// txtPhone
-			// 
-			this.txtPhone.Location = new System.Drawing.Point(72, 142);
-			this.txtPhone.MinimumSize = new System.Drawing.Size(200, 0);
-			this.txtPhone.Name = "txtPhone";
-			this.txtPhone.ReadOnly = true;
-			this.txtPhone.Size = new System.Drawing.Size(249, 21);
-			this.txtPhone.TabIndex = 2;
-			// 
-			// lblPhone
-			// 
-			this.lblPhone.AutoSize = true;
-			this.lblPhone.Location = new System.Drawing.Point(16, 144);
-			this.lblPhone.Name = "lblPhone";
-			this.lblPhone.Size = new System.Drawing.Size(37, 13);
-			this.lblPhone.TabIndex = 32;
-			this.lblPhone.Text = "Phone";
-			// 
-			// lblWebSite
-			// 
-			this.lblWebSite.AutoSize = true;
-			this.lblWebSite.Location = new System.Drawing.Point(16, 80);
-			this.lblWebSite.Name = "lblWebSite";
-			this.lblWebSite.Size = new System.Drawing.Size(29, 13);
-			this.lblWebSite.TabIndex = 30;
-			this.lblWebSite.Text = "Web";
-			// 
-			// urlWeb
-			// 
-			this.urlWeb.ActiveLinkColor = System.Drawing.Color.Orange;
-			this.urlWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.urlWeb.AutoSize = true;
-			this.urlWeb.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.urlWeb.Location = new System.Drawing.Point(72, 77);
-			this.urlWeb.Margin = new System.Windows.Forms.Padding(5);
-			this.urlWeb.MinimumSize = new System.Drawing.Size(200, 0);
-			this.urlWeb.Name = "urlWeb";
-			this.urlWeb.Size = new System.Drawing.Size(200, 18);
-			this.urlWeb.TabIndex = 1;
-			this.urlWeb.TabStop = true;
-			this.urlWeb.Text = "NA";
-			// 
-			// lblEmail
-			// 
-			this.lblEmail.AutoSize = true;
-			this.lblEmail.Location = new System.Drawing.Point(16, 56);
-			this.lblEmail.Name = "lblEmail";
-			this.lblEmail.Size = new System.Drawing.Size(31, 13);
-			this.lblEmail.TabIndex = 28;
-			this.lblEmail.Text = "Email";
-			// 
-			// urlEmail
-			// 
-			this.urlEmail.ActiveLinkColor = System.Drawing.Color.Orange;
-			this.urlEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.urlEmail.AutoSize = true;
-			this.urlEmail.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.urlEmail.Location = new System.Drawing.Point(72, 53);
-			this.urlEmail.Margin = new System.Windows.Forms.Padding(5);
-			this.urlEmail.MinimumSize = new System.Drawing.Size(200, 0);
-			this.urlEmail.Name = "urlEmail";
-			this.urlEmail.Size = new System.Drawing.Size(200, 18);
-			this.urlEmail.TabIndex = 0;
-			this.urlEmail.TabStop = true;
-			this.urlEmail.Text = "NA";
-			// 
 			// btnSave
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -637,7 +509,6 @@ namespace ExceptionReporting.MVP.Views
 			this.txtExceptionMessageLarge2.Size = new System.Drawing.Size(299, 53);
 			this.txtExceptionMessageLarge2.TabIndex = 0;
 			this.txtExceptionMessageLarge2.Text = "No message";
-			this.txtExceptionMessageLarge2.TextChanged += new System.EventHandler(this.txtExceptionMessageLarge2_TextChanged);
 			// 
 			// lessDetail_alertIcon
 			// 
@@ -688,8 +559,6 @@ namespace ExceptionReporting.MVP.Views
 			((System.ComponentModel.ISupportInitialize)(this.picGeneral)).EndInit();
 			this.tabAssemblies.ResumeLayout(false);
 			this.tabSysInfo.ResumeLayout(false);
-			this.tabContact.ResumeLayout(false);
-			this.tabContact.PerformLayout();
 			this.lessDetailPanel.ResumeLayout(false);
 			this.lessDetailPanel.PerformLayout();
 			this.lessDetail_optionsPanel.ResumeLayout(false);
@@ -721,16 +590,6 @@ namespace ExceptionReporting.MVP.Views
         private System.Windows.Forms.TabPage tabAssemblies;
         private System.Windows.Forms.TabPage tabSysInfo;
         private System.Windows.Forms.TreeView treeEnvironment;
-        private System.Windows.Forms.TabPage tabContact;
-        private System.Windows.Forms.Label lblContactMessageTop;
-        private System.Windows.Forms.TextBox txtFax;
-        private System.Windows.Forms.Label lblFax;
-        private System.Windows.Forms.TextBox txtPhone;
-        private System.Windows.Forms.Label lblPhone;
-        private System.Windows.Forms.Label lblWebSite;
-        private System.Windows.Forms.LinkLabel urlWeb;
-        private System.Windows.Forms.Label lblEmail;
-        private System.Windows.Forms.LinkLabel urlEmail;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button btnEmail;

@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -47,7 +48,14 @@ namespace ExceptionReporting.Network.Senders
 
 			_attacher.AttachFiles(new AttachAdapter(message));
 
-			smtp.SendCompleted += (sender, e) =>
+			smtp.SendCompleted += SmtpOnSendCompleted(message, smtp);
+
+			smtp.SendAsync(message, "Exception Report");
+		}
+
+		private SendCompletedEventHandler SmtpOnSendCompleted(IDisposable message, IDisposable smtp)
+		{
+			return (sender, e) =>
 			{
 				try
 				{
@@ -68,8 +76,6 @@ namespace ExceptionReporting.Network.Senders
 					smtp.Dispose();
 				}
 			};
-
-			smtp.SendAsync(message, "Exception Report");
 		}
 	}
 }

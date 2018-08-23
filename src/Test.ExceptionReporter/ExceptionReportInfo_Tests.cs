@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace ExceptionReporting.Tests
@@ -16,17 +17,10 @@ namespace ExceptionReporting.Tests
 			_exception = new Exception("test");
 		}
 
-		[TearDown]
-		public void TearDown()
-		{
-			_info.Dispose();
-		}
-
 		[Test]
 		public void Can_Get_And_Set_1_Exception_Without_Knowing_There_Can_Be_Many()
 		{
 			_info.MainException = _exception;
-
 			Assert.That(_info.MainException, Is.EqualTo(_exception));
 		}
 
@@ -36,7 +30,7 @@ namespace ExceptionReporting.Tests
 			_info.MainException = _exception;
 
 			Assert.That(_info.Exceptions.Count, Is.EqualTo(1));
-			Assert.That(_info.Exceptions[0], Is.EqualTo(_exception));
+			Assert.That(_info.Exceptions.First(), Is.EqualTo(_exception));
 		}
 
 		[Test]
@@ -90,87 +84,35 @@ namespace ExceptionReporting.Tests
 			_info.MainException = _exception;
 			Assert.That(_info.Exceptions.Count, Is.EqualTo(1));
 		}
-
-		[Test]
-		public void Can_Set_Attachment_Filename_Zip_Added()
-		{
-			_info.AttachmentFilename = "test";
-			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));
-		}
-
-		[Test]
-		public void Can_Set_Attachment_Filename_Zip_Already_Exists()
-		{
-			_info.AttachmentFilename = "test.zip";
-			Assert.That(_info.AttachmentFilename, Is.EqualTo("test.zip"));
-		}
 		
-		[Test]
-		public void Can_Determine_IsSimpleMAPI_False_SMTP()
+		[TestCase("test",     ExpectedResult = "test.zip")]
+		[TestCase("test.zip", ExpectedResult = "test.zip")]
+		public string Can_Determine_AttachmentFilename(string attachment)
 		{
-			_info.SendMethod = ReportSendMethod.SMTP;
-			Assert.That(_info.IsSimpleMAPI(), Is.False);
-		}
-		
-		[Test]
-		public void Can_Determine_IsSimpleMAPI_False_WebService()
-		{
-			_info.SendMethod = ReportSendMethod.WebService;
-			Assert.That(_info.IsSimpleMAPI(), Is.False);
-		}
-		
-		[Test]
-		public void Can_Determine_IsSimpleMAPI_False_None()
-		{
-			_info.SendMethod = ReportSendMethod.None;
-			Assert.That(_info.IsSimpleMAPI(), Is.False);
-		}
-		
-		[Test]
-		public void Can_Determine_IsSimpleMAPI_True()
-		{
-			_info.SendMethod = ReportSendMethod.SimpleMAPI;
-			Assert.That(_info.IsSimpleMAPI(), Is.True);
-		}
-		
-		[Test]
-		public void Can_ShowEmailButton_As_False_When_Overriden_By_ReportSendMethod_None()
-		{
-			_info.SendMethod = ReportSendMethod.None;
-			_info.ShowEmailButton = true;
-			Assert.That(_info.ShowEmailButton, Is.False);
-		}
-		
-		[Test]
-		public void Can_ShowEmailButton_As_True_And_Not_Overriden_by_SMTP()
-		{
-			_info.SendMethod = ReportSendMethod.SMTP;
-			_info.ShowEmailButton = true;
-			Assert.That(_info.ShowEmailButton, Is.True);
-		}
-		
-		[Test]
-		public void Can_ShowEmailButton_As_True_And_Not_Overriden_by_WebService()
-		{
-			_info.SendMethod = ReportSendMethod.WebService;
-			_info.ShowEmailButton = true;
-			Assert.That(_info.ShowEmailButton, Is.True);
-		}
-		
-		[Test]
-		public void Can_ShowEmailButton_As_True_And_Not_Overriden_by_SimpleMAPI()
-		{
-			_info.SendMethod = ReportSendMethod.SimpleMAPI;
-			_info.ShowEmailButton = true;
-			Assert.That(_info.ShowEmailButton, Is.True);
+			_info.AttachmentFilename = attachment;
+			return _info.AttachmentFilename;
 		}
 
-		[Test] public void Can_ShowEmailButton_As_False_And_Not_Overriden_By_Valid_ReportSendMethod_SMTP()
+		[TestCase(ReportSendMethod.None,       ExpectedResult = false)]
+		[TestCase(ReportSendMethod.SimpleMAPI, ExpectedResult = true)]
+		[TestCase(ReportSendMethod.SMTP,       ExpectedResult = false)]
+		[TestCase(ReportSendMethod.WebService, ExpectedResult = false)]
+		public bool Can_Determine_IsSimpleMAPI(ReportSendMethod method)
 		{
-			_info.SendMethod = ReportSendMethod.SMTP;
-			_info.ShowEmailButton = false;
-			Assert.That(_info.ShowEmailButton, Is.False);
+			_info.SendMethod = method;
+			return _info.IsSimpleMAPI();
 		}
-
+		
+		[TestCase(ReportSendMethod.None, true,       ExpectedResult = false)]
+		[TestCase(ReportSendMethod.SMTP, true,       ExpectedResult = true)]
+		[TestCase(ReportSendMethod.SMTP, false,      ExpectedResult = false)]
+		[TestCase(ReportSendMethod.SimpleMAPI, true, ExpectedResult = true)]
+		[TestCase(ReportSendMethod.WebService, true, ExpectedResult = true)]
+		public bool Can_Determine_ShowEmailButton(ReportSendMethod method, bool show)
+		{
+			_info.SendMethod = method;
+			_info.ShowEmailButton = show;
+			return _info.ShowEmailButton;
+		}
 	}
 }

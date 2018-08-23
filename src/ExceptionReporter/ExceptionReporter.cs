@@ -4,7 +4,6 @@
 
 using System;
 using System.Reflection;
-using System.Windows.Forms;
 using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
@@ -21,15 +20,22 @@ namespace ExceptionReporting
 	public class ExceptionReporter
 	{
 		private readonly ExceptionReportInfo _reportInfo;
-
+		
+		/// <summary>
+		/// Contract by which to show any dialogs/view
+		/// </summary>
+		public IViewMaker ViewMaker { get; set; }
+		
 		/// <summary>
 		/// Initialise the ExceptionReporter
 		/// </summary>
 		public ExceptionReporter()
 		{
-			var callingAssembly = Assembly.GetCallingAssembly();
-
-			_reportInfo = new ExceptionReportInfo { AppAssembly = callingAssembly };
+			_reportInfo = new ExceptionReportInfo
+			{
+				AppAssembly = Assembly.GetCallingAssembly()
+			};
+			ViewMaker = new ViewMaker(_reportInfo);
 		}
 
 		// One issue we have with Config property here is that we store the exception and other info on it as well
@@ -51,20 +57,28 @@ namespace ExceptionReporting
 		/// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and 
 		/// create and show the report dialog.</remarks>
 		/// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
-		public void Show(params Exception[] exceptions)
+		public bool Show(params Exception[] exceptions)
 		{
-			if (exceptions == null) return;		// silently ignore this mistake of passing null - user won't care
+			// silently ignore the mistake of passing null
+			if (exceptions == null || exceptions.Length >= 1 && exceptions[0] == null) return false;		
+			
+			bool status;
 
 			try
 			{
 				_reportInfo.SetExceptions(exceptions);
-				var view = new ExceptionReportView(_reportInfo);
-				view.ShowExceptionReport();
+				
+				var view = ViewMaker.Create();
+				view.ShowWindow();
+				status = true;
 			}
-			catch (Exception internalException)
+			catch (Exception ex)
 			{
-				MessageBox.Show(internalException.Message, "Failed trying to report an Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				status = false;
+				ViewMaker.ShowError(ex.Message, "Failed trying to report an Error");
 			}
+
+			return status;
 		}
 
 		/// <summary>
@@ -88,9 +102,9 @@ namespace ExceptionReporting
 		{
 			_reportInfo.SetExceptions(exceptions);
 			
-			var generator = new ReportGenerator(_reportInfo);
 			var sender = new SenderFactory(_reportInfo, sendEvent ?? new SilentSendEvent()).Get();
-			sender.Send(generator.Generate().ToString());
+			var report = new ReportGenerator(_reportInfo);
+			sender.Send(report.Generate());
 		}
 
 		/// <summary>
