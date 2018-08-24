@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Deployment.Application;
 using System.Reflection;
 using System.Windows.Forms;
+using ExceptionReporting.Core;
 using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
 using ExceptionReporting.Templates;
@@ -33,11 +34,11 @@ namespace ExceptionReporting
 		/// however 'base' properties such as MachineName</param>
 		public ReportGenerator(ExceptionReportInfo reportInfo)
 		{
-			// this is going to be a dev/learning mistake, so let them now fast and hard
-			_info = reportInfo ?? throw new ArgumentNullException("reportInfo cannot be null");
+			// this is going to be a dev/learning mistake - fail fast and hard
+			_info = reportInfo ?? throw new ArgumentNullException(nameof(reportInfo));
 			
-			_info.AppName = string.IsNullOrEmpty(_info.AppName) ? Application.ProductName : string.Empty;
-			_info.AppVersion = string.IsNullOrEmpty(_info.AppVersion) ? GetAppVersion() : string.Empty;
+			_info.AppName =    _info.AppName.IsEmpty() ? Application.ProductName : _info.AppName;
+			_info.AppVersion = _info.AppVersion.IsEmpty() ? GetAppVersion() : _info.AppVersion;
 			_info.ExceptionDate = _info.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
 			
 			if (_info.AppAssembly == null)
@@ -93,17 +94,23 @@ namespace ExceptionReporting
 			var retriever = new SysInfoRetriever();
 			var results = new List<SysInfoResult>
 			{
-			retriever.Retrieve(SysInfoQueries.OperatingSystem).Filter(
-				new[]
-				{
-					"CodeSet", "CurrentTimeZone", "FreePhysicalMemory",
-					"OSArchitecture", "OSLanguage", "Version"
-				}),
-			retriever.Retrieve(SysInfoQueries.Machine).Filter(
-				new[]
-				{
-					"TotalPhysicalMemory", "Manufacturer", "Model"
-				})
+				retriever.Retrieve(SysInfoQueries.OperatingSystem).Filter(
+					new[]
+					{
+						"CodeSet",
+						"CurrentTimeZone",
+						"FreePhysicalMemory",
+						"OSArchitecture",
+						"OSLanguage",
+						"Version"
+					}),
+				retriever.Retrieve(SysInfoQueries.Machine).Filter(
+					new[]
+					{
+						"TotalPhysicalMemory",
+						"Manufacturer",
+						"Model"
+					})
 			};
 			return results;
 		}
