@@ -293,6 +293,14 @@ namespace ExceptionReporting
 		public TemplateFormat TemplateFormat { get; set; } = TemplateFormat.Text;
 
 		/// <summary>
+		/// A custom/user Handlebar template (Handlebars is almost identical to Mustache) - see https://handlebarsjs.com
+		/// to use instead of the supplied presets
+		/// A populated model will be passed to the template <see cref="ReportModel"/>
+		/// See Templates/ReportTemplate.text for example 
+		/// </summary>
+		public string CustomTemplate { get; set; }
+		
+		/// <summary>
 		/// default constructor
 		/// </summary>
 		public ExceptionReportInfo()
@@ -318,12 +326,12 @@ namespace ExceptionReporting
 	}
 	
 	/// <summary>
-	/// The methods to send a report 
+	/// The communication method used to send a report 
 	/// </summary>
 	public enum ReportSendMethod
 	{
 		///<summary>
-		/// No sending of reports (default)
+		/// No sending (default)
 		/// </summary>
 		None,
 

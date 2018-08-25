@@ -114,7 +114,7 @@ namespace ExceptionReporting.MVP.Presenters
 			{
 				ScreenshotTaken = ReportInfo.TakeScreenshot
 			});
-			var emailIntro = template.Render();
+			var emailIntro = template.RenderPreset();
 			var report = CreateReport();
 
 			return emailIntro + report;

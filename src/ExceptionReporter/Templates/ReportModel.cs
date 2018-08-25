@@ -6,9 +6,11 @@ using System.Globalization;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
+
 #pragma warning disable 1591
 
-namespace ExceptionReporting.Templates
+// ReSharper disable once CheckNamespace
+namespace ExceptionReporting
 {
 	/// <summary>
 	/// The top-level model/object passed to report templates

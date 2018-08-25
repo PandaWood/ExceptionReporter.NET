@@ -1,3 +1,4 @@
+using ExceptionReporting.Core;
 using ExceptionReporting.SystemInfo;
 using ExceptionReporting.Templates;
 
@@ -24,7 +25,9 @@ namespace ExceptionReporting.Report
 		public string Report()
 		{
 			var renderer = new TemplateRenderer(this.ReportModel());
-			return renderer.Render(_info.TemplateFormat);
+			return _info.CustomTemplate.IsEmpty()
+				? renderer.RenderPreset(_info.TemplateFormat)
+				: renderer.RenderCustom(_info.CustomTemplate);
 		}
 		
 		public ReportModel ReportModel()

@@ -24,13 +24,23 @@ namespace ExceptionReporting.Templates
 			_model = model;
 			_name = "ReportTemplate";
 		}
-
-		public string Render(TemplateFormat format = TemplateFormat.Text)
+		
+		private string Render(string template)
 		{
-			var template = GetTemplate(format);
 			var compiledTemplate = Handlebars.Compile(template);
 			var report = compiledTemplate(_model);
 			return report;
+		} 
+
+		public string RenderPreset(TemplateFormat format = TemplateFormat.Text)
+		{
+			var template = GetTemplate(format);
+			return this.Render(template);
+		}
+
+		public string RenderCustom(string template)
+		{
+			return this.Render(template);
 		}
 
 		private string GetTemplate(TemplateFormat format)

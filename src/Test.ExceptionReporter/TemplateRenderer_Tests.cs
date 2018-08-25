@@ -40,7 +40,7 @@ namespace ExceptionReporting.Tests
 				}
 			});
 
-			var result = renderer.Render();
+			var result = renderer.RenderPreset();
 			
 			Assert.That(result, Does.Contain(string.Format("Application: {0}", TestApp)));
 			Assert.That(result, Does.Contain(string.Format("Version:     {0}", Version)));
@@ -68,7 +68,7 @@ namespace ExceptionReporting.Tests
 				}
 			});
 
-			var result = renderer.Render();
+			var result = renderer.RenderPreset();
 			
 			Assert.That(result, Does.Contain(string.Format("Application: {0}", TestApp)));
 			Assert.That(result, Does.Contain(string.Format("Version:     {0}", Version)));
@@ -92,7 +92,7 @@ namespace ExceptionReporting.Tests
 				}
 			});
 
-			var result = renderer.Render(TemplateFormat.Markdown);
+			var result = renderer.RenderPreset(TemplateFormat.Markdown);
 			
 			Assert.That(result, Does.Contain("#Exception Report"));
 			Assert.That(result, Does.Contain(string.Format("**Application**: {0}", TestApp)));
@@ -110,6 +110,7 @@ namespace ExceptionReporting.Tests
 				},
 				App = new App
 				{
+					Title="Error Report",
 					Name = TestApp,
 					Version = Version,
 					AssemblyRefs = new List<AssemblyRef>
@@ -123,11 +124,35 @@ namespace ExceptionReporting.Tests
 				}
 			});
 
-			var result = renderer.Render(TemplateFormat.Html);
+			var result = renderer.RenderPreset(TemplateFormat.Html);
 			
-			Assert.That(result, Does.Contain("<title>Exception Report</title>"));
+			Assert.That(result, Does.Contain("<title> Error Report </title>"));
 			Assert.That(result, Does.Contain(string.Format("<input id=\"app-name\" readonly value=\"{0}\">", TestApp)));
 			Assert.That(result, Does.Contain(string.Format("<li> {0}, Version={1} </li>", AssemblyName, AssemblyVersion)));
+		}
+		
+		[Test]
+		public void Can_Render_Custom_Template()
+		{
+			var renderer = new TemplateRenderer(new ReportModel
+			{
+				Error = new Error
+				{
+					Exception = new TestException()
+				},
+				App = new App
+				{
+					Name = "Appy",
+					Version = "v1.0"
+				}
+			});
+
+			var result = renderer.RenderCustom(@"
+Custom App: {{App.Name}}
+Custom Version: {{App.Version}}
+");
+			Assert.That(result, Does.Contain(string.Format("Custom App: {0}", "Appy")));
+			Assert.That(result, Does.Contain(string.Format("Custom Version: {0}", "v1.0")));
 		}
 	}
 }
