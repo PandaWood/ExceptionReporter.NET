@@ -42,38 +42,44 @@ The ultimate goal is the developer receiving a formatted exception report - see
 
 ## Some Important Features
 
-- Gathers and reports on inner exceptions and accepts multiple exceptions
+- Gathers inner exceptions and accepts multiple exceptions
 - Option to send a report silently (and asynchronously) ie without showing a dialog
-- Support for sending a report to a RESTful API/WebService (v3.0)
-- Easily attach additional files to an email (automatically compressed into a single zip file) - useful for including log/config files etc to help with diagnosis
-- Support for using the user's Windows email client (SimpleMAPI) - in addition to using SMTP mail server (and, of course, the WebService option)
-- The solution includes a Demo App for testing config and sending reports via Email/WebService
+- Send a report to a RESTful API/WebService (v3.0)
+- Send a report via SMTP (Email)
+- Send a report via Email Client (SimpleMAPI) - Support for automatically attaching files 
+and compressing attached files into a single zip file) - useful for including log and 
+config files to help with troubleshooting
+- The report sent to the developer can be in the format:
+  - Plain Text 
+  - HTML
+  - Markdown
+  - Custom - your own Handlebar/Mustache template can be used to create the report
+- The report includes exception stack traces, time/version and important system 
+information (using WMI) such as CPU, 
+memory, OSLanguage, Windows version etc - as well as a list of all referenced 
+assemblies (with versions) being used by the current executable
+
+### Demos & Help
+- The solution includes a Demo App for testing config and sending reports via 
+Email/WebService
 - The solution also includes a .NET Core REST/WebService project to demonstrate the requirements of sending reports to a WebService
-- The report that is sent is plain text and includes exception stack traces, various related data such time/version and important system information (using WMI) such as CPU, memory, Windows version - as well as a list of all referenced assemblies (with versions) being used by the current executable
 
 ## Sample Report
 
-This is a sample of the plain text report:
+Here is a sample of the preset Plain Text report:
 
 ```text
------------------------------
-[General Info]
+====================
 
 Application: ExceptionReporter Demo App
-Version:     2.2.1
+Version:     4.0
 Region:      English (Australia)
-Machine:     PANDAMAN
-User:        JohnGruber
-Date: 30/05/2017
-Time: 12:40 AM
+Date: 25/08/2018
+Time: 2:40 PM
 
-User Explanation:
-
-JohnGruber said "I just pressed Connect and this happened"
------------------------------
+User Explanation: "I just pressed Connect and this error showed immediately"
  
-[Exception Info 1]
-
+[Full Stack Trace]
 Top-level Exception
 Type:        System.IO.IOException
 Message:     Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.
@@ -121,7 +127,6 @@ Operating System
 ExceptionReporter has a dependency on the [.NET4 Framework](https://en.wikipedia.org/wiki/.NET_Framework_version_history#.NET_Framework_4) - so can go as low as supporting Windows XP
 
 There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries. 
-Coverage is not as high as it should be but we're working on that.
-The tests run every commit via AppVeyor
+We're always working toward higher coverage and the tests run every commit via AppVeyor
 
 [![Build status](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/PandaWood/exceptionreporter-net)

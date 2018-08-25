@@ -26,9 +26,9 @@
     <Title>ExceptionReporter.NET</Title>
     <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>https://github.com/PandaWood/ExceptionReporter.NET/releases/tag/3.0</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/PandaWood/ExceptionReporter.NET/releases/tag/4.0</PackageReleaseNotes>
     <PackageTags>exception-reporting,crash-reporting</PackageTags>
-    <ReleaseVersion>3.0.1</ReleaseVersion>
+    <ReleaseVersion>4.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <NuGetPackageImportStamp>
@@ -50,7 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\ExceptionReporter.NET.xml</DocumentationFile>
-    <CustomCommands>      
+    <CustomCommands>
     </CustomCommands>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <NoStdLib>false</NoStdLib>
@@ -170,6 +170,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\EmailIntroTemplate.text" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+    </Content>
+    <Content Include="..\..\README.md">
+      <Link>README.md</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
