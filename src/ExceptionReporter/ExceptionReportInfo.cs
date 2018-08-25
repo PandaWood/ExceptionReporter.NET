@@ -36,8 +36,8 @@ namespace ExceptionReporting
 		{
 			get { return _exceptions.Count > 0 ? 
 				_exceptions[0] : 
-				// while we generally don't want to allow our own exceptions, I'll make an exception here - it's a bit silly
-				// us being explicitly set a null exception to work with
+				// while we generally don't want to allow our own exceptions, I'll make an exception here - it would be too silly
+				// for a user to set a null exception
 				new ConfigurationErrorsException("ExceptionReporter given 0 exceptions"); }
 			set
 			{
@@ -290,7 +290,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Format of the final report (string) - Defaults to TemplateFormat.Text
 		/// </summary>
-		public TemplateFormat TemplateFormat { get; set; } = TemplateFormat.Text;
+		public TemplateFormat ReportTemplateFormat { get; set; } = TemplateFormat.Text;
 
 		/// <summary>
 		/// A custom/user Handlebar template (Handlebars is almost identical to Mustache) - see https://handlebarsjs.com
@@ -298,7 +298,7 @@ namespace ExceptionReporting
 		/// A populated model will be passed to the template <see cref="ReportModel"/>
 		/// See Templates/ReportTemplate.text for example 
 		/// </summary>
-		public string CustomTemplate { get; set; }
+		public string ReportCustomTemplate { get; set; }
 		
 		/// <summary>
 		/// default constructor

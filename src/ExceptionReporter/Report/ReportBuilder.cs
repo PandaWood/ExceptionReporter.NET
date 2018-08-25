@@ -25,9 +25,9 @@ namespace ExceptionReporting.Report
 		public string Report()
 		{
 			var renderer = new TemplateRenderer(this.ReportModel());
-			return _info.CustomTemplate.IsEmpty()
-				? renderer.RenderPreset(_info.TemplateFormat)
-				: renderer.RenderCustom(_info.CustomTemplate);
+			return _info.ReportCustomTemplate.IsEmpty()
+				? renderer.RenderPreset(_info.ReportTemplateFormat)
+				: renderer.RenderCustom(_info.ReportCustomTemplate);
 		}
 		
 		public ReportModel ReportModel()
