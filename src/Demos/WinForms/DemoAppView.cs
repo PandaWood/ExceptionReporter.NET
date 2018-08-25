@@ -37,14 +37,9 @@ namespace Demo.WinForms
 			{
 				var er = new ExceptionReporter();
 
-//				ConfigureSmtpEmail(er.Config);
+				//	ConfigureSmtpEmail(er.Config);
 				ConfigureWebService(er.Config);		//toggle which type to configure
 				er.Send(exception);
-
-				// don't really need ExceptionReportGenerator (as used below) because the ExceptionReporter Send()
-				// method (above) wraps it
-				// var exceptionReportGenerator = new ExceptionReportGenerator(er.Config);
-				// exceptionReportGenerator.SendReportByEmail();
 			}
 		}
 
@@ -76,8 +71,8 @@ namespace Demo.WinForms
 		{
 			var exceptionReporter = new ExceptionReporter();
 						ConfigureWebService(exceptionReporter.Config);
-//						ConfigureSmtpEmail(exceptionReporter.Config);		// comment any of these in/out to test
-//			ConfigureSimpleMAPI(exceptionReporter.Config);
+			//	ConfigureSmtpEmail(exceptionReporter.Config);		// comment any of these in/out to test
+			//	ConfigureSimpleMAPI(exceptionReporter.Config);
 
 			return exceptionReporter;
 		}
@@ -104,7 +99,7 @@ namespace Demo.WinForms
 			config.SmtpPassword = "";
 			config.SmtpFromAddress = "test@test.com";
 			config.EmailReportAddress = "support@support.com";
-			config.SmtpUseSsl = false;     // NB you'll need to have "Allow less secure apps: ON" if using gmail for this
+			config.SmtpUseSsl = false;     // NB you'll need to have "Allow less secure apps: ON" if using Gmail for this
 			//---
 		}
 
@@ -125,7 +120,8 @@ namespace Demo.WinForms
 				{
 					er.Config.ShowFullDetail = false;
 					er.Config.ShowLessMoreDetailButton = true;
-//					exceptionReporter.Config.ShowEmailButton = false;		// just for testing that removing email button works well positioning etc
+					// er.Config.ShowEmailButton = false;		// just for testing that removing email button works
+					// er.Config.TemplateFormat = TemplateFormat.Markdown;
 				}
 				er.Show(exception);
 			}

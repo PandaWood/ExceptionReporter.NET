@@ -33,6 +33,7 @@ namespace ExceptionReporting.Report
 			{
 				App = new App
 				{
+					Title = _info.TitleText,
 					Name = _info.AppName,
 					Version= _info.AppVersion,
 					Region = _info.RegionInfo,

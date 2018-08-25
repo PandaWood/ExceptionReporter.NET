@@ -1,49 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{App.Language}}">
 <head>
 	<meta charset="UTF-8">
-	<title>Exception Report</title>
+	<title> {{App.Title}} </title>
 </head>
 
 <body>
-	<div class="header">
-		<h1> Exception Report </h1>				 
-	</div>
-
-	<div class="content">		
-		<div>	<label for="app-name"> Application: </label> <input id="app-name" readonly value="{{App.Name}}"> </div>
-		<div>	<label for="region"> Region: </label> <input id="region" readonly value="{{App.Region}}"> </div>
-		<div>	<label for="version"> Version: </label> <input id="version" readonly value="{{App.Version}}"> </div>
-{{#if App.User}}
-		<div>	<label for="user"> User: </label> <input id="user" readonly value="{{App.User}}"> </div>
-{{/if}}			
-		<div>	<label for="date"> Date: </label> <input id="date" readonly value="{{Error.Date}}"> </div>
-		<div>	<label for="time"> Time: </label> <input id="time" readonly value="{{Error.Time}}"> </div>
-{{#if Error.Explanation}}
-		<div>	<label for="explanation"> User Explanation: </label> <input id="explanation" readonly value="{{Error.Explanation}}"> </div>
-{{/if}}	
+	<div id="exception-report-{{Error.ID}}" class="exception-report">
 		
-		<div class="error-message">
-			<label for="error-message"> Error Message: </label> <input id="error-message" readonly value="{{Error.Message}}"> </div>
+		<div class="header">
+			<h1> {{App.Title}} </h1>				 
 		</div>
-
-		<div class="stack-trace">
-			<label for="stack-trace"> Stack Trace: </label> 
-			<textarea id="stack-trace" readonly> {{Error.FullStackTrace}} </textarea> 
-		</div>
-
-		<div class="assembly-refs">
-			<h2> Assembly References </h2>
-			<ul>
-			{{#App.AssemblyRefs}}
-				<li> {{Name}}, Version={{Version}} </li>
-			{{/App.AssemblyRefs}}
-			</ul>
-		</div>
-
-		<div class="system-info">
-			<h2> System Information </h2>
-			<div class="info-string"> {{SystemInfo}} </div>
-		</div>
+	
+		<div class="content">		
+			<div class="fields">
+				<div class="field">	<label for="app-name"> Application: </label> 
+					<input id="app-name" readonly value="{{App.Name}}">    
+				</div>
+				<div class="field">	<label for="app-region"> Region: </label> 
+					<input id="app-region" readonly value="{{App.Region}}">  
+				</div>
+				<div class="field">	<label for="app-version"> Version: </label> 
+					<input id="app-version" readonly value="{{App.Version}}"> 
+				</div>
+{{#if App.User}}
+				<div class="field">	<label for="app-user"> User: </label> 
+					<input id="app-user" readonly value="{{App.User}}"> 
+				</div>
+{{/if}}			
+				<div class="field">	<label for="error-date"> Date: </label> 
+					<input id="error-date" readonly value="{{Error.Date}}"> 
+				</div>
+				<div class="field">	<label for="error-time"> Time: </label> 
+					<input id="error-time" readonly value="{{Error.Time}}"> 
+				</div>
+{{#if Error.Explanation}}
+				<div class="field">	<label for="error-explanation"> User Explanation: </label> 
+					<input id="error-explanation" readonly value="{{Error.Explanation}}"> 
+				</div>
+{{/if}}
+			</div>
+			
+			<div class="error-message">
+				<label for="error-message"> Error Message: </label> 
+				<input id="error-message" readonly value="{{Error.Message}}"> 
+			</div>
+	
+			<div class="full-stack-trace">				
+				<label for="full-stack-trace">Stack Trace: 
+					<textarea id="full-stack-trace" readonly> {{Error.FullStackTrace}} </textarea>
+				</label>
+			</div>
+	
+			<div class="assembly-refs">
+				<h2> Assembly References </h2>
+				<ul>
+{{#App.AssemblyRefs}}
+					<li> {{Name}}, Version={{Version}} </li>
+{{/App.AssemblyRefs}}
+				</ul>
+			</div>
+	
+			<div class="system-info">
+				<h2> System Information </h2>
+				<div class="info-string"> {{SystemInfo}} </div>
+			</div>
+	</div>
+</div>
 </body>
 </html>

@@ -28,12 +28,16 @@ namespace ExceptionReporting
 		/// <summary>
 		/// The Main (usually the 'only') exception, which is the subject of this exception 'report'
 		/// Setting this property will clear any previously set exceptions
-		/// <remarks>If multiple top-level exceptions are required, use <see cref="SetExceptions(IEnumerable{Exception})"/> instead</remarks>
+		/// <remarks>
+		/// If multiple top-level exceptions are required, use <see cref="SetExceptions(IEnumerable{Exception})"/> instead
+		/// </remarks>
 		/// </summary>
 		public Exception MainException
 		{
 			get { return _exceptions.Count > 0 ? 
 				_exceptions[0] : 
+				// while we generally don't want to allow our own exceptions, I'll make an exception here - it's a bit silly
+				// us being explicitly set a null exception to work with
 				new ConfigurationErrorsException("ExceptionReporter given 0 exceptions"); }
 			set
 			{
@@ -107,48 +111,63 @@ namespace ExceptionReporting
 		public string AppVersion { get; set; }
 
 		/// <summary>
-		/// Region information - set automatically
+		/// Region information - set automatically by <see cref="ReportGenerator"/>
 		/// </summary>
 		public string RegionInfo { get; set; }
 		
 		/// <summary>
-		/// User Name - optional - not set automatically
+		/// User Name - will be used in a report if set to non-empty value, otherwise completely ignored
 		/// </summary>
 		public string UserName { get; set; }
 
 		/// <summary>
-		/// Date/time of the exception being raised - set automatically
+		/// Date/time of the exception being raised - will be set automatically by <see cref="ReportGenerator"/> depending on
+		/// <see cref="ExceptionDateKind"/>
 		/// </summary>
 		public DateTime ExceptionDate { get; set; }
 
 		/// <summary>
-		/// Whether to report the date/time of the exception in local time or Coordinated Universal Time (UTC).
-		/// Defaults to UTC if not specified.
+		/// Whether to report the date/time of the exception in local or Coordinated Universal Time (UTC).
+		/// Defaults to UTC
 		/// </summary>
 		public DateTimeKind ExceptionDateKind { get; set; } = DateTimeKind.Utc;
 
 		/// <summary>
 		/// The text filled in by the user of the Exception Reporter dialog
+		/// Will be used in a report if set to non-empty value, otherwise completely ignored
 		/// </summary>
 		public string UserExplanation { get; set; }
 
 		/// <summary>
 		/// The calling assembly of the running application
-		/// If not set, will default to <see cref="Assembly.GetEntryAssembly()"/> ?? <see cref="Assembly.GetCallingAssembly()"/>
+		/// If not set, will default to
+		/// <see cref="Assembly.GetEntryAssembly()"/> ??
+		/// <see cref="Assembly.GetCallingAssembly()"/>
 		/// </summary>
 		public Assembly AppAssembly { get; set; }
 
 		/// <summary>
 		/// The company/owner of the running application.
-		/// Used in the dialog label that reads '...please contact {0} support'
+		/// Used in the dialog label that reads "...please contact {0} support" and the Email button "Email {0}"
 		/// </summary>
 		public string CompanyName { get; set; }
 
-		// whether to show certain tabs in the 'More Detail' mode of the main dialog
+		/// <summary>
+		/// Show/hide *General* tab in dialog
+		/// </summary>
 		public bool ShowGeneralTab { get; set; } = true;
+		
+		/// <summary>
+		/// Show/hide *Exceptions* tab in dialog
+		/// </summary>
 		public bool ShowExceptionsTab { get; set; } = true;
 
+		
 		private bool _showSysInfoTab;
+		/// <summary>
+		/// Show/hide *System Information* (SysInfo) tab in dialog
+		/// <remarks> ignored in Mono </remarks> 
+		/// </summary>
 		public bool ShowSysInfoTab
 		{
 			get { return !ExceptionReporter.IsRunningMono() && _showSysInfoTab; }
@@ -156,6 +175,10 @@ namespace ExceptionReporting
 		}
 
 		private bool _showAssembliesTab;
+		/// <summary>
+		/// Show/hide *Assemblies* tab in dialog
+		/// <remarks> ignored in Mono </remarks>
+		/// </summary>
 		public bool ShowAssembliesTab
 		{
 			get { return !ExceptionReporter.IsRunningMono() && _showAssembliesTab; }
@@ -197,7 +220,7 @@ namespace ExceptionReporting
 		public string TitleText { get; set; } = "Error Report";
 
 		/// <summary>
-		/// Background color of the dialog - generally best to avoid changing this
+		/// Background color of the dialog
 		/// </summary>
 		public Color BackgroundColor { get; set; } = Color.WhiteSmoke;
 
@@ -207,7 +230,7 @@ namespace ExceptionReporting
 		public float UserExplanationFontSize { get; set; } = 12f;
 
 		/// <summary>
-		/// Take a screenshot automatically at the point of calling <see cref="ExceptionReporter.Show(System.Exception[])"/>
+		/// Take a screenshot automatically when attaching <see cref="ExceptionReporter.Show(System.Exception[])"/>
 		/// which will then be available if sending an email using the ExceptionReporter dialog functionality
 		/// </summary>
 		public bool TakeScreenshot { get; set; } = false;
@@ -226,14 +249,13 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Any additional files to attach to the outgoing email report (SMTP or SimpleMAPI) 
 		/// This is in addition to the automatically attached screenshot, if configured
-		/// All files (exception those already with .zip extension) will be added into a single zip file and attached to the email
+		/// All files (exception those already with .zip extension) will be added into a single zip file and
+		/// attached to the email
 		/// </summary>
 		public string[] FilesToAttach { get; set; } = {};
 
 		string _attachmentFilename = "ex";
-		/// <summary>
-		/// Gets or sets the attachment filename.
-		/// </summary>
+		/// <summary> Gets or sets the attachment filename </summary>
 		/// <value>The attachment filename, extension .zip applied automatically if not provided</value>
 		public string AttachmentFilename
 		{
@@ -248,7 +270,7 @@ namespace ExceptionReporting
 
 		public string ContactMessageTop { get; set; } = DefaultLabelMessages.DefaultContactMessageTop;
 
-		/// <summary>
+		/// <summary> 
 		/// Show buttons in the "flat" (non 3D) style
 		/// </summary>
 		public bool ShowFlatButtons { get; set; } = true;
@@ -266,10 +288,13 @@ namespace ExceptionReporting
 		public bool ShowButtonIcons { get; set; } = true;
 
 		/// <summary>
-		/// Format of the final report (string)
+		/// Format of the final report (string) - Defaults to TemplateFormat.Text
 		/// </summary>
 		public TemplateFormat TemplateFormat { get; set; } = TemplateFormat.Text;
 
+		/// <summary>
+		/// default constructor
+		/// </summary>
 		public ExceptionReportInfo()
 		{
 			SetDefaultValues();
@@ -297,21 +322,29 @@ namespace ExceptionReporting
 	/// </summary>
 	public enum ReportSendMethod
 	{
-		///<summary>No sending of reports (default) </summary>
+		///<summary>
+		/// No sending of reports (default)
+		/// </summary>
 		None,
 
-		///<summary>Tries to use the Windows default Email client eg Outlook
-		/// <remarks>requires <see cref="ExceptionReportInfo.EmailReportAddress"/> to be set to a valid email</remarks>
+		///<summary>
+		/// Tries to use the Windows default Email client eg Outlook via SMTP
+		/// If a compatible client isn't installed, it will not work, so there is some risk - but in that case, an
+		/// error message will prompt the user to use the "Copy" feature and manually send the result
+		/// <remarks>
+		/// requires <see cref="ExceptionReportInfo.EmailReportAddress"/> to be set to a valid email</remarks>
 		/// </summary>
 		SimpleMAPI,
 
-		///<summary>Sends Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'</summary>
+		///<summary>
+		/// Sends an Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'
+		/// </summary>
 		SMTP,
 
 		/// <summary>
 		/// WebService - requires a REST API server accepting content-type 'application/json' of type POST and a
 		/// JSON packet containing the properties represented in the DataContract class 'ExceptionReportPacket'
-		/// (an example .NET Core REST project doing exactly what is required is included in the ExceptionReporter.NET solution)
+		/// An example project doing exactly what is required is included in the ExceptionReporter.NET solution
 		/// </summary>
 		WebService
 	}

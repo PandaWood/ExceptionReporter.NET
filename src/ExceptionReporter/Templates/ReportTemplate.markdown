@@ -1,4 +1,4 @@
-#Exception Report
+#{{App.Title}}
 
 **Application**: {{App.Name}}  
 **Version**:     {{App.Version}}  
