@@ -13,7 +13,7 @@ namespace ExceptionReporting
 	{
 		/// <summary> Plain text </summary>
 		Text,
-		/// <summary> HTML (5) - CSS todo </summary>
+		/// <summary> HTML (5) </summary>
 		Html,
 		/// <summary> Standard markdown </summary>
 		Markdown
