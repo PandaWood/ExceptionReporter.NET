@@ -2,7 +2,7 @@
 
 **Application**: {{App.Name}}  
 **Version**:     {{App.Version}}  
-**Region**:      {{App.Region}}    
+**Region**:      {{App.Region}}  
 {{#if App.User}}
 **User**:        {{App.User}}  
 {{/if}}    
@@ -15,7 +15,9 @@
 **Error Message**: {{Error.Message}}
  
 ##Stack Traces
+```text
 {{Error.FullStackTrace}} 
+```
  
 ##Assembly References
 {{#App.AssemblyRefs}}
@@ -23,4 +25,6 @@
 {{/App.AssemblyRefs}}
 
 ##System Info  
+```test
 {{SystemInfo}}
+```

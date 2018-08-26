@@ -113,6 +113,7 @@ namespace Demo.WinForms
 				
 				// er.Config.ShowFullDetail = false;
 				er.Config.ShowLessDetailButton = true;
+				er.Config.ReportTemplateFormat = TemplateFormat.Text;
 				// er.Config.ShowEmailButton = false;		// just for testing that removing email button works
 				// er.Config.TemplateFormat = TemplateFormat.Markdown;
 				
