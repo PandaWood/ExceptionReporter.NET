@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using ExceptionReporting.Core;
 using ExceptionReporting.MVP.Presenters;
 using ExceptionReporting.SystemInfo;
 using ExceptionReporting.Templates;
@@ -38,7 +39,7 @@ namespace ExceptionReporting.MVP.Views
 			lblExplanation.Text = reportInfo.UserExplanationLabel;
 			ShowFullDetail = reportInfo.ShowFullDetail;
 			ToggleShowFullDetail();
-			btnDetailToggle.Visible = reportInfo.ShowLessMoreDetailButton;
+			btnDetailToggle.Visible = reportInfo.ShowLessDetailButton;
 
 			//TODO: show all exception messages
 			txtExceptionMessageLarge.Text =
@@ -82,9 +83,10 @@ namespace ExceptionReporting.MVP.Views
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 			lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
-			btnSimpleEmail.Text = string.Format("{0} {1}", 
+			btnSimpleEmail.Text = btnEmail.Text = 
+				string.Format("{0} {1}", 
 				reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email",
-				reportInfo.SendMethod == ReportSendMethod.WebService ? "to " + reportInfo.CompanyName : reportInfo.CompanyName);
+				reportInfo.SendMethod == ReportSendMethod.WebService && !reportInfo.CompanyName.IsEmpty() ? "to " + reportInfo.CompanyName : reportInfo.CompanyName);
 		}
 
 		private void RemoveEmailButton()

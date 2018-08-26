@@ -277,15 +277,21 @@ namespace ExceptionReporting
 		
 		/// <summary>
 		/// Show the button that gives user the option to switch between "Less Detail/More Detail"
+		/// NB the 
 		/// </summary>
-		public bool ShowLessMoreDetailButton { get; set; }
+		public bool ShowLessDetailButton { get; set; }
 
-		public bool ShowFullDetail { get; set; } = true;
+		/// <summary>
+		/// Show the tabbed ("More Detailed") view to user straight away
+		/// The purpose of the non-tabbed ("Less Details") view was to avoid scaring users, so the full detaild view is
+		/// best reserved for advanced or technical users
+		/// </summary>
+		public bool ShowFullDetail { get; set; }
 
 		/// <summary>
 		/// Whether to show relevant icons on the buttons
 		/// </summary>
-		public bool ShowButtonIcons { get; set; } = true;
+		public bool ShowButtonIcons { get; set; }
 
 		/// <summary>
 		/// Format of the final report (string) - Defaults to TemplateFormat.Text

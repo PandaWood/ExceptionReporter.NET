@@ -12,7 +12,6 @@ namespace Demo.WinForms
 			InitializeComponent();
 
 			urlDefault.Click += Show_Default_Report;
-			urlHideDetail.Click += Show_MoreLessDetailsView_Click;
 			urlSendEmail.Click += Send_Report;
 			urlSilentReport.Click += Send_Silent_Report;
 		}
@@ -20,11 +19,6 @@ namespace Demo.WinForms
 		static void Show_Default_Report(object sender, EventArgs e)
 		{
 			ThrowAndShowExceptionReporter();
-		}
-
-		static void Show_MoreLessDetailsView_Click(object sender, EventArgs e)
-		{
-			ThrowAndShowExceptionReporter(detailView:true);
 		}
 
 		void Send_Silent_Report(object sender, EventArgs e)
@@ -115,14 +109,13 @@ namespace Demo.WinForms
 				er.Config.SendMethod = ReportSendMethod.SimpleMAPI;
 				er.Config.EmailReportAddress = "support@acme.com";
 				er.Config.CompanyName = "Acme";   // this goes alongside email button text
-
-				if (detailView)
-				{
-					er.Config.ShowFullDetail = false;
-					er.Config.ShowLessMoreDetailButton = true;
-					// er.Config.ShowEmailButton = false;		// just for testing that removing email button works
-					// er.Config.TemplateFormat = TemplateFormat.Markdown;
-				}
+				er.Config.TitleText = "Acme Error Report";
+				
+				// er.Config.ShowFullDetail = false;
+				er.Config.ShowLessDetailButton = true;
+				// er.Config.ShowEmailButton = false;		// just for testing that removing email button works
+				// er.Config.TemplateFormat = TemplateFormat.Markdown;
+				
 				er.Show(exception);
 			}
 		}
