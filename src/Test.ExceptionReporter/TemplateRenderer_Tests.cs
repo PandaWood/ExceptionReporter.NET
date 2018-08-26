@@ -127,8 +127,8 @@ namespace ExceptionReporting.Tests
 			var result = renderer.RenderPreset(TemplateFormat.Html);
 			
 			Assert.That(result, Does.Contain("<title> Error Report </title>"));
-			Assert.That(result, Does.Contain(string.Format("<input id=\"app-name\" readonly value=\"{0}\">", TestApp)));
-			Assert.That(result, Does.Contain(string.Format("<li> {0}, Version={1} </li>", AssemblyName, AssemblyVersion)));
+			Assert.That(result, Does.Contain("<td> Application: </td>"));
+			Assert.That(result, Does.Contain(string.Format("<td> {0} </td>", TestApp)));
 		}
 		
 		[Test]
