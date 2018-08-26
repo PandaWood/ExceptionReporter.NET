@@ -101,12 +101,14 @@ namespace ExceptionReporting
 		#endregion
 
 		/// <summary>
-		/// The name of the running application calling the exception report
+		/// The name of the application calling the exception report
 		/// </summary>
 		public string AppName { get; set; }
 
 		/// <summary>
-		/// The version of the running application calling the exception report
+		/// The version of the application calling the exception report
+		/// set automatically by <see cref="ReportGenerator"/> from either the assembly or ApplicationDeployment
+		/// if deployed using ClickOnce
 		/// </summary>
 		public string AppVersion { get; set; }
 
@@ -116,13 +118,14 @@ namespace ExceptionReporting
 		public string RegionInfo { get; set; }
 		
 		/// <summary>
-		/// User Name - will be used in a report if set to non-empty value, otherwise completely ignored
+		/// User Name shown in a report.
+		/// If this value is empty, the value and any label/field will be hidden 
 		/// </summary>
 		public string UserName { get; set; }
 
 		/// <summary>
-		/// Date/time of the exception being raised - will be set automatically by <see cref="ReportGenerator"/> depending on
-		/// <see cref="ExceptionDateKind"/>
+		/// Date/time of the exception being raised - will be set automatically by <see cref="ReportGenerator"/>
+		/// depending on <see cref="ExceptionDateKind"/>
 		/// </summary>
 		public DateTime ExceptionDate { get; set; }
 
@@ -133,8 +136,8 @@ namespace ExceptionReporting
 		public DateTimeKind ExceptionDateKind { get; set; } = DateTimeKind.Utc;
 
 		/// <summary>
-		/// The text filled in by the user of the Exception Reporter dialog
-		/// Will be used in a report if set to non-empty value, otherwise completely ignored
+		/// The text filled in by the user of the Exception Reporter dialog, to explain the error
+		/// If this value is empty, the value and any label/field will be hidden
 		/// </summary>
 		public string UserExplanation { get; set; }
 
@@ -294,7 +297,7 @@ namespace ExceptionReporting
 		public bool ShowButtonIcons { get; set; }
 
 		/// <summary>
-		/// Format of the final report (string) - Defaults to TemplateFormat.Text
+		/// Format of the final report - Defaults to TemplateFormat.Text
 		/// </summary>
 		public TemplateFormat ReportTemplateFormat { get; set; } = TemplateFormat.Text;
 

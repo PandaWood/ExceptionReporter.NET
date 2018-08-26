@@ -9,7 +9,8 @@ PM> Install-Package ExceptionReporter
 
 ## How it Looks
 
-If you choose to show a dialog (reports can also be sent silently) there are 2 *modes* - *Less Detail* and *More Detail*
+You can show a dialog to the user (reports can also be sent silently). There are
+ 2 *modes* - *Less Detail* and *More Detail*
 
 ### **Less Detail** mode
 ![Compact Mode](images/er2-less-detail.png)
@@ -18,23 +19,23 @@ If you choose to show a dialog (reports can also be sent silently) there are 2 *
 ![More Detail Mode](images/er2-more-detail.png)
 
 #### Interface Configuration Options
-In the next screenshot, we have an example of some customization that can be made with *configuration*. 
-There are no images on the buttons,
-the window title is customised and an extra Tab (_Contact_) is visible
+We don't want you to have to modify the code yourself to achieve a basic level
+of customization, so various changes can be made with *configuration*. 
 
-You can also hide the email button and various other options - see the property `Config` on the main `ExceptionReporter` class.
+The screenshot below is configured to not show icons on the buttons 
+(`ShowButtonIcons`) and the window title is customised (`TitleText`)
+
+There are various other options available such hiding the email button (`ShowEmailButton`), changing
+ the label text (`UserExplanationLabel`), the background color (`BackgroundColor`) 
+ etc - see the property  `Config` on the main `ExceptionReporter` class.
 
 ![Customized Example](images/er-customized.png)
 
-The buttons for *More detail* and *Less Detail* allow the user to switch between these modes.
-
 ## How it works
 
-The Exception Reporter can be called manually or by setting up a Windows Exception event - 
+The Exception Reporter can be invoked manually or by setting up a Windows 
+Exception event - 
 see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
-
-The report can be sent silently or the dialog (above) shown, which is then populated with the exception and certain system details.
-A screenshot can be taken and file attachments added (if using email as the method of sending).
 
 The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
@@ -43,43 +44,50 @@ The ultimate goal is the developer receiving a formatted exception report - see
 ## Some Important Features
 
 - Gathers inner exceptions and accepts multiple exceptions
-- Option to send a report silently (and asynchronously) ie without showing a dialog
-- Send a report to a RESTful API/WebService (v3.0)
-- Send a report via SMTP (Email)
-- Send a report via Email Client (SimpleMAPI) - Support for automatically attaching files 
-and compressing attached files into a single zip file) - useful for including log and 
-config files to help with troubleshooting
-- The report sent to the developer can be in the format:
+- Option to send a report silently (and asynchronously) - ie without showing a dialog
+- Send a report using various methods:
+  - RESTful API/WebService
+  - to Email address via SMTP 
+  - to Email address via installed client (SimpleMAPI)
+ - Emailing includes support for automatically attaching files and compressing 
+ into a single zip file - useful for including log and config files to help with troubleshooting
+- The report sent to the developer can be in various formats (v4):
   - Plain Text 
   - HTML
   - Markdown
   - Custom - your own Handlebar/Mustache template can be used to create the report
-- The report includes exception stack traces, time/version and important system 
-information (using WMI) such as CPU, 
-memory, OSLanguage, Windows version etc - as well as a list of all referenced 
-assemblies (with versions) being used by the current executable
+- The report includes various information such as:
+  - Full exception **stack trace** (including inner exception and multiple exceptions)
+  - **System information** (using WMI) such as CPU, AvailableMemory, OSLanguage, 
+Versions etc. 
+  - A list of **referenced assemblies** (with versions) being used by the current 
+executable
+   - Details of your App such as name/version/date/time etc
 
 ### Demos & Help
 - The solution includes a Demo App for testing config and sending reports via 
 Email/WebService
-- The solution also includes a .NET Core REST/WebService project to demonstrate the requirements of sending reports to a WebService
+- The solution also includes a .NET Core REST/WebService project to demonstrate
+ the requirements of sending reports to a WebService
 
 ## Sample Report
 
 Here is a sample of the preset Plain Text report:
 
 ```text
-====================
+========================================
+Exception Report
 
 Application: ExceptionReporter Demo App
 Version:     4.0
 Region:      English (Australia)
 Date: 25/08/2018
 Time: 2:40 PM
-
 User Explanation: "I just pressed Connect and this error showed immediately"
+
+Error Message: Unable to establish a connection with the Foo bank account service
  
-[Full Stack Trace]
+[Stack Traces]
 Top-level Exception
 Type:        System.IO.IOException
 Message:     Unable to establish a connection with the Foo bank account service. The error number is #FFF474678.
@@ -93,9 +101,7 @@ Inner Exception 1
 Type:        System.Exception
 Message:     This is an Inner Exception message - with a message that is not too small but perhaps it should be smaller
 
------------------------------
-
-[Assembly Info] 
+[Assembly References] 
 mscorlib, Version=2.0.0.0
 System.Windows.Forms, Version=2.0.0.0
 System, Version=2.0.0.0
@@ -121,6 +127,8 @@ Operating System
 --Manufacturer = Gigabyte Technology Co., Ltd.
 --Model = P35-DS3L
 --TotalPhysicalMemory = 3756515328
+
+========================================
 ```
 
 ## Build 
