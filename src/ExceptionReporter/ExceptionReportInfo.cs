@@ -251,8 +251,8 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Any additional files to attach to the outgoing email report (SMTP or SimpleMAPI) 
-		/// This is in addition to the automatically attached screenshot, if configured
-		/// All files (exception those already with .zip extension) will be added into a single zip file and
+		/// This is in addition to the automatically attached screenshot, if configured.
+		/// All files (except those already with .zip extension) will be added into a single zip file and
 		/// attached to the email
 		/// </summary>
 		public string[] FilesToAttach { get; set; } = {};
@@ -279,8 +279,8 @@ namespace ExceptionReporting
 		public bool ShowFlatButtons { get; set; } = true;
 		
 		/// <summary>
-		/// Show the button that gives user the option to switch between "Less Detail/More Detail"
-		/// NB the 
+		/// Show the button that gives user the option to switch back to "Less Detail".
+		/// NB This was previously fully toggle but we now always show "More Detail" and optionally show "Less Detail"
 		/// </summary>
 		public bool ShowLessDetailButton { get; set; }
 
