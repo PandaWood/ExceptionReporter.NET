@@ -83,10 +83,11 @@ namespace ExceptionReporting.MVP.Views
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 			lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
-			btnSimpleEmail.Text = btnEmail.Text = 
+			btnSimpleEmail.Text = 
 				string.Format("{0} {1}", 
 				reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email",
 				reportInfo.SendMethod == ReportSendMethod.WebService && !reportInfo.CompanyName.IsEmpty() ? "to " + reportInfo.CompanyName : reportInfo.CompanyName);
+			btnEmail.Text = reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email";
 		}
 
 		private void RemoveEmailButton()
