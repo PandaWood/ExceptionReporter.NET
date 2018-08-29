@@ -81,6 +81,9 @@ namespace ExceptionReporting.Network.Senders
 		}
 	}
 
+	/// <summary>
+	/// override of WebClient - this is the only way to set a timeout
+	/// </summary>
 	internal class ExceptionReporterWebClient : WebClient
 	{
 		private readonly int _timeout;

@@ -29,7 +29,7 @@ namespace ExceptionReporting.Network.Senders
 			{
 				DeliveryMethod = SmtpDeliveryMethod.Network,
 				EnableSsl = _config.SmtpUseSsl,
-				UseDefaultCredentials = _config.SmtpUseDefaultCredentials,
+				UseDefaultCredentials = _config.SmtpUseDefaultCredentials
 			};
 
 			if (_config.SmtpPort != 0)		// the default port is used if not set in config
