@@ -12,15 +12,14 @@ PM> Install-Package ExceptionReporter
 You can show a dialog to the user (reports can also be sent silently). There are
  2 *modes* - *Less Detail* and *More Detail*
 
-### **Less Detail** mode
+#### **Less Detail** mode
 ![Compact Mode](images/er2-less-detail.png)
 
-### **More Detail** mode
+#### **More Detail** mode
 ![More Detail Mode](images/er2-more-detail.png)
 
-#### Interface Configuration Options
-We don't want you to have to modify the code yourself to achieve a basic level
-of customization, so various changes can be made with *configuration*. 
+### Interface Configuration
+You don't have to modify the code to achieve a basic level of customization as many changes can be made with *configuration*. 
 
 The screenshot below is configured to not show icons on the buttons 
 (`ShowButtonIcons`) and the window title is customised (`TitleText`)
@@ -31,7 +30,7 @@ There are various other options available such hiding the email button (`ShowEma
 
 ![Customized Example](images/er-customized.png)
 
-## How it works
+## How to use it
 
 The Exception Reporter can be invoked manually or by setting up a Windows 
 Exception event - 
@@ -40,10 +39,9 @@ see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sam
 The ultimate goal is the developer receiving a formatted exception report - see
 [Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
 
+## Why use it
+### Some Important Features
 
-## Some Important Features
-
-- Gathers inner exceptions and accepts multiple exceptions
 - Option to send a report silently (and asynchronously) - ie without showing a dialog
 - Send a report using various methods:
   - RESTful API/WebService
@@ -64,11 +62,10 @@ Versions etc.
 executable
    - Details of your App such as name/version/date/time etc
 
-### Demos & Help
-- The solution includes a Demo App for testing config and sending reports via 
-Email/WebService
-- The solution also includes a .NET Core REST/WebService project to demonstrate
- the requirements of sending reports to a WebService
+### Demos, Design and Testing
+- The solution includes a Demo WinForms app for testing as well as a WebService project to demonstrate the requirements of sending reports to a WebService (written in .NET Core 2.1 - because we can)
+- The source code has an emphasis on testing and testability with over 50 unit tests (and growing) covering most of the code
+- ExceptionReporter is designed using the [MVP or Model-View-Presenter](https://medium.com/@prajvalprabhakar/mvp-vs-mvvm-93657494106b) pattern and the classes and concerns are liberally separated using [SOLID](https://stackify.com/solid-design-principles/) design principles (to the best of our ability)
 
 ## Sample Report
 
