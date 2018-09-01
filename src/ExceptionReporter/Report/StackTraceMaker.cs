@@ -57,7 +57,6 @@ namespace ExceptionReporting.Report
 					stringBuilder.AppendLine("Stack Trace: " + currentException.StackTrace.Trim());
 				}
 
-				stringBuilder.AppendLine();
 				currentException = currentException.InnerException;
 			}
 

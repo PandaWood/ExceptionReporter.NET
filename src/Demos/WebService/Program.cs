@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace WebService.ExceptionReporter
+namespace Demo.WebService
 {
 	public class Program
     {

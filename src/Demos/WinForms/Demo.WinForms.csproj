@@ -20,7 +20,7 @@
     <ReleaseVersion>2.5</ReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,16 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="YourCustomReporterView.cs" />
+    <Compile Include="YourCustomViewMaker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DemoAppView.resx">
-      <DependentUpon>DemoAppView.cs</DependentUpon>
+      <DependentUpon>DemoApp.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="DemoAppView.cs">
+    <Compile Include="DemoApp.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DemoAppView.designer.cs">
-      <DependentUpon>DemoAppView.cs</DependentUpon>
+      <DependentUpon>DemoApp.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

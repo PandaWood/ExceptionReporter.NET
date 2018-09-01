@@ -84,7 +84,7 @@ namespace ExceptionReporting.MVP.Presenters
 			{
 				if (ReportInfo.IsSimpleMAPI())
 				{
-					View.Mapi_Completed();
+					View.MapiSendCompleted();
 				}
 			}
 		}

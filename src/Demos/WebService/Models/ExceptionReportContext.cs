@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace WebService.ExceptionReporter.Models
+namespace Demo.WebService.Models
 {
 	public class ExceptionReportContext : DbContext
 	{

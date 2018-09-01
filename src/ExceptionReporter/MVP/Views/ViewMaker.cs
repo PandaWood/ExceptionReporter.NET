@@ -34,14 +34,9 @@ namespace ExceptionReporting.MVP.Views
 			_reportInfo = reportInfo;
 		}
 		
-		/// <summary>
-		/// set this to an <see cref="IExceptionReportView"/> to be used in place of the default view
-		/// </summary>
-		public IExceptionReportView View { get; set; }
-
 		public IExceptionReportView Create()
 		{
-			return View ?? new ExceptionReportView(_reportInfo);
+			return new ExceptionReportView(_reportInfo);
 		}
 
 		public void ShowError(string message, string description)

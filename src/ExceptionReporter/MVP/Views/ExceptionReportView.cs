@@ -202,7 +202,7 @@ namespace ExceptionReporting.MVP.Views
 			btnEmail.Enabled = true;
 		}
 
-		public void Mapi_Completed()
+		public void MapiSendCompleted()
 		{
 			Completed(true);
 			ProgressMessage = string.Empty;

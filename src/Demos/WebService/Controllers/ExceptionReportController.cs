@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Demo.WebService.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebService.ExceptionReporter.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebService.ExceptionReporter.Controllers
+namespace Demo.WebService.Controllers
 {
 	[Route("api/er")]
 	[ApiController]

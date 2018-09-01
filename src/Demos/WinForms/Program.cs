@@ -13,7 +13,7 @@ namespace Demo.WinForms
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new DemoAppView());
+			Application.Run(new DemoApp());
 		}
 	}
 }

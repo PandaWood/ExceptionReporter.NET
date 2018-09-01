@@ -5,9 +5,9 @@ using ExceptionReporting;
 
 namespace Demo.WinForms
 {
-	public partial class DemoAppView : Form
+	public partial class DemoApp : Form
 	{
-		public DemoAppView()
+		public DemoApp()
 		{
 			InitializeComponent();
 
@@ -138,6 +138,27 @@ namespace Demo.WinForms
 				new Exception(
 					"This is an Inner Exception message - with a message that is not too small"));
 			throw exception;
+		}
+		
+		/// <summary>
+		/// This is a demonstration of using a custom dialog/view - which implements IExceptionReportView
+		/// And how the IViewReportMaker interface is used to set the custom view as the one to be instantiated
+		/// </summary>
+		void UseCustomReportView()
+		{
+			try
+			{
+				SomeMethodThatThrows();
+			}
+			catch (Exception exception)
+			{
+				var er = new ExceptionReporter
+				{
+					ViewMaker = new YourCustomViewMaker()
+				};
+				ConfigureWebService(er.Config);	
+				er.Show(exception);
+			}
 		}
 
 	}

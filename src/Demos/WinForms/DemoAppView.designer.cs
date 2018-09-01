@@ -1,6 +1,6 @@
 namespace Demo.WinForms
 {
-	partial class DemoAppView
+	partial class DemoApp
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -85,7 +85,7 @@ namespace Demo.WinForms
 			this.Controls.Add(this.urlSilentReport);
 			this.Controls.Add(this.urlSendEmail);
 			this.Controls.Add(this.urlDefault);
-			this.Name = "DemoAppView";
+			this.Name = "DemoApp";
 			this.Text = "Exception Reporter Demo";
 			this.ResumeLayout(false);
 			this.PerformLayout();

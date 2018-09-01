@@ -9,9 +9,7 @@ PM> Install-Package ExceptionReporter
 
 ## How it Looks
 
-Show a dialog to the user (or send a report silently). 
-
-There are
+When showing a dialog to the user (can also be sent silently) there are
  2 presentation *modes* - *Less Scary* and *More Detail*
 
 #### **Less Scary**

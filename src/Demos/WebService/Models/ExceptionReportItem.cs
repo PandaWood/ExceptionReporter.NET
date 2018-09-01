@@ -1,4 +1,4 @@
-namespace WebService.ExceptionReporter.Models
+namespace Demo.WebService.Models
 {
 	public class ExceptionReportItem
 	{
