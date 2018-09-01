@@ -9,26 +9,26 @@ PM> Install-Package ExceptionReporter
 
 ## How it Looks
 
-You can show a dialog to the user (reports can also be sent silently). There are
- 2 *modes* - *Less Detail* and *More Detail*
+Show a dialog to the user (or send a report silently). 
 
-#### **Less Detail** mode
+There are
+ 2 presentation *modes* - *Less Scary* and *More Detail*
+
+#### **Less Scary**
 ![Compact Mode](images/er2-less-detail.png)
 
-#### **More Detail** mode
-![More Detail Mode](images/er2-more-detail.png)
+#### **More Detail**
+![More Detail Mode](images/er-customized.png)
 
 ### Interface Configuration
 You don't have to modify the code to achieve a basic level of customization as many changes can be made with *configuration*. 
 
-The screenshot below is configured to not show icons on the buttons 
+The screenshot above is configured to not show icons on the buttons 
 (`ShowButtonIcons`) and the window title is customised (`TitleText`)
 
 There are various other options available such hiding the email button (`ShowEmailButton`), changing
  the label text (`UserExplanationLabel`), the background color (`BackgroundColor`) 
  etc - see the property  `Config` on the main `ExceptionReporter` class.
-
-![Customized Example](images/er-customized.png)
 
 ## How to use it
 
@@ -42,29 +42,27 @@ The ultimate goal is the developer receiving a formatted exception report - see
 ## Why use it
 ### Some Important Features
 
-- Option to send a report silently (and asynchronously) - ie without showing a dialog
+- Option to send a report silently and asynchronously - ie without showing a dialog
 - Send a report using various methods:
   - RESTful API/WebService
   - to Email address via SMTP 
   - to Email address via installed client (SimpleMAPI)
  - Emailing includes support for automatically attaching files and compressing 
- into a single zip file - useful for including log and config files to help with troubleshooting
+ into a single zip file - useful for including log files and configuration files to help with troubleshooting
 - The report sent to the developer can be in various formats (v4):
   - Plain Text 
   - HTML
   - Markdown
-  - Custom - your own Handlebar/Mustache template can be used to create the report
-- The report includes various information such as:
-  - Full exception **stack trace** (including inner exception and multiple exceptions)
-  - **System information** (using WMI) such as CPU, AvailableMemory, OSLanguage, 
-Versions etc. 
-  - A list of **referenced assemblies** (with versions) being used by the current 
-executable
-   - Details of your App such as name/version/date/time etc
+  - Custom - write your own Handlebars/Mustache template to create the report
+- The report includes various useful information such as:
+  - **Full Stack Trace** (including inner exceptions and multiple exceptions)
+  - **System Information** (using WMI) such as OS Version, Memory, Language, TimeZone etc. 
+  - A list of **Referenced Assemblies** (with versions) being used by the current executable
+  - **Details of your App** such as name/version/date/time etc
 
 ### Demos, Design and Testing
-- The solution includes a Demo WinForms app for testing as well as a WebService project to demonstrate the requirements of sending reports to a WebService (written in .NET Core 2.1 - because we can)
-- The source code has an emphasis on testing and testability with over 50 unit tests (and growing) covering most of the code
+- The solution includes a demo WinForms app for testing the dialog as well as a WebService project to demonstrate the requirements of sending reports to a WebService (written in .NET Core 2.1 - why not)
+- The source code has an emphasis on testing and testability with over 60 unit tests (and growing) covering most of the important code
 - ExceptionReporter is designed using the [MVP or Model-View-Presenter](https://medium.com/@prajvalprabhakar/mvp-vs-mvvm-93657494106b) pattern and the classes and concerns are liberally separated using [SOLID](https://stackify.com/solid-design-principles/) design principles (to the best of our ability)
 
 ## Sample Report
@@ -73,7 +71,7 @@ Here is a sample of the preset Plain Text report:
 
 ```text
 ========================================
-Exception Report
+Acme Error Report
 
 Application: ExceptionReporter Demo App
 Version:     4.0
@@ -134,4 +132,4 @@ ExceptionReporter has a dependency on the [.NET4 Framework](https://en.wikipedia
 There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries. 
 We're always working toward higher coverage and the tests run every commit via AppVeyor
 
-[![Build status](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/PandaWood/exceptionreporter-net)
+[![AppVeyor Tests](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)

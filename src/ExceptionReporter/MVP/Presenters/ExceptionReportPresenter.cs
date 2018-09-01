@@ -44,7 +44,7 @@ namespace ExceptionReporting.MVP.Presenters
 		/// <summary>
 		/// Save the exception report to file/disk
 		/// </summary>
-		/// <param name="fileName">the filename to save</param>
+		/// <param name="fileName">the filename to save to</param>
 		public void SaveReportToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName)) return;

@@ -27,8 +27,8 @@ namespace ExceptionReporting.Templates
 		
 		private string Render(string template)
 		{
-			var compiledTemplate = Handlebars.Compile(template);
-			var report = compiledTemplate(_model);
+			var compile = Handlebars.Compile(template);
+			var report = compile(_model);
 			return report;
 		} 
 

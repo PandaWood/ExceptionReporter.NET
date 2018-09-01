@@ -1,6 +1,9 @@
 using System.Windows.Forms;
 using ExceptionReporting.MVP.Views;
 
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 /// <summary>
 /// contract to show view-related things
 /// </summary>
@@ -9,7 +12,7 @@ public interface IViewMaker
 	/// <summary>
 	/// create the main view/dialog
 	/// </summary>
-	/// <returns></returns>
+	/// <returns><see cref="IExceptionReportView"/></returns>
 	IExceptionReportView Create();
 
 	/// <summary>
@@ -30,10 +33,15 @@ namespace ExceptionReporting.MVP.Views
 		{
 			_reportInfo = reportInfo;
 		}
+		
+		/// <summary>
+		/// set this to an <see cref="IExceptionReportView"/> to be used in place of the default view
+		/// </summary>
+		public IExceptionReportView View { get; set; }
 
 		public IExceptionReportView Create()
 		{
-			return new ExceptionReportView(_reportInfo);
+			return View ?? new ExceptionReportView(_reportInfo);
 		}
 
 		public void ShowError(string message, string description)

@@ -7,7 +7,7 @@ using ExceptionReporting.Network.Events;
 namespace ExceptionReporting.MVP.Views
 {
 	/// <summary>
-	/// The interface (contract) for an ExceptionReportView
+	/// The interface (contract) for an ExceptionReport dialog/View
 	/// </summary>
 	public interface IExceptionReportView : IReportSendEvent
 	{
