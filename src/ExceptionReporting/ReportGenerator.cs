@@ -4,7 +4,7 @@
 
 using System;
 using System.Collections.Generic;
-//using System.Deployment.Application;
+using System.Deployment.Application;
 using System.Reflection;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
@@ -44,17 +44,17 @@ namespace ExceptionReporting
 				_info.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
-//		private string GetAppVersion()
-//		{
-//			return ApplicationDeployment.IsNetworkDeployed ? 
-//				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ProductVersion;
-//		}
-		
-//		leave commented out for mono to toggle in/out to be able to compile
 		private string GetAppVersion()
 		{
-			return Application.ProductVersion;
+			return ApplicationDeployment.IsNetworkDeployed ? 
+				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ProductVersion;
 		}
+		
+//		leave commented out for mono to toggle in/out to be able to compile
+//		private string GetAppVersion()
+//		{
+//			return Application.ProductVersion;
+//		}
 
 		/// <summary>
 		/// Generate the exception report
