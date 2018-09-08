@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+		<RootNamespace>ExceptionReporting</RootNamespace>
+		<AssemblyName>ExceptionReporter.NET</AssemblyName>
+		<PackageId>ExceptionReporter</PackageId>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<TargetFramework>net40</TargetFramework>
+		<ReleaseVersion>4.0.3</ReleaseVersion>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/PandaWood/ExceptionReporter.NET/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
+	</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetZip" Version="1.11.0" />
+    <PackageReference Include="Handlebars.Net" Version="1.9.0" />
+    <PackageReference Include="Simple-MAPI.NET" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+		<None Remove="ExceptionReporting\ExceptionReporter.NET.csproj" />
+		<None Remove="Tests\Tests.ExceptionReporter.NET.csproj" />
+    <None Remove="Templates\EmailIntroTemplate.text" />
+    <EmbeddedResource Include="Templates\EmailIntroTemplate.text" />
+    <None Remove="Templates\ReportTemplate.html" />
+    <EmbeddedResource Include="Templates\ReportTemplate.html" />
+    <None Remove="Templates\ReportTemplate.markdown" />
+    <EmbeddedResource Include="Templates\ReportTemplate.markdown" />
+    <None Remove="Templates\ReportTemplate.text" />
+    <EmbeddedResource Include="Templates\ReportTemplate.text" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <PropertyGroup>
+    <Version>4.0.3</Version>
+    <FileVersion>4.0.3</FileVersion>
+    <Authors>Peter van der Woude, Simon Cropp</Authors>
+    <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
+    <Copyright>Copyright (c) Peter van der Woude</Copyright>
+  </PropertyGroup>
+</Project>

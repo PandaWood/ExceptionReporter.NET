@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.NET-sdk", "src\ExceptionReporting\ExceptionReporter.NET-sdk.csproj", "{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ExceptionReporter.NET-sdk", "src\Tests\Tests.ExceptionReporter.NET-sdk.csproj", "{565583C0-0162-4973-962B-7C3F6EE1A4B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{565583C0-0162-4973-962B-7C3F6EE1A4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{565583C0-0162-4973-962B-7C3F6EE1A4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{565583C0-0162-4973-962B-7C3F6EE1A4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{565583C0-0162-4973-962B-7C3F6EE1A4B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		description = "@ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. \nIt allows the user to copy, save or email a report to the developer "
+		version = 4.0.3
+	EndGlobalSection
+EndGlobal
