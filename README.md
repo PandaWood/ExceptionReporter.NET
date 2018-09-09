@@ -127,7 +127,16 @@ Operating System
 ## Build 
 ExceptionReporter has a dependency on the [.NET4 Framework](https://en.wikipedia.org/wiki/.NET_Framework_version_history#.NET_Framework_4) - so can go as low as supporting Windows XP
 
-There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries. 
-We're always working toward higher coverage and the tests run every commit via AppVeyor
+There are 2 solution files
+- *ExceptionReporter.NET-sdk.sln* - this uses [the new csproj format](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj) that was introduced in .NET Core but is backward compatible for .NET projects (like this). This solution doesn't include any demos, and the new format isn't fully compatible with WinForms, so it's really just for working on code and tests. Once VS2019 comes out and this format becomes standard, we will completely move over to this
 
-[![AppVeyor Tests](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
+- *ExceptionReporter.NET-traditional.sln* - this is the old/traditional solution file and contains all projects and demos - so this will be used to work on the UI
+
+There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries - see **src/Tests/Tests.ExceptionReporter.NET**
+
+There is a [Cake](https://cakebuild.net) script to build and run all tests
+- **build/build.sh** for OSX/Mono
+- **build/build.ps1** for Windows
+
+#### Mono 
+We have one issue on Mono in this project (apart from almost total lack of WinForms support in 64-bit) in that the **Application.Deployment** assembly doesn't exist (and will never) so this fails to compile in Mono. For now, when working on tests in Mono, I comment out the code using **Application.Deployment** in **ReportGenerator** class and use a temporary git ignore. I'd really like to figure out a better solution for this - there are no compile-time constants for Mono anymore, so it's not obvious the best way to handle this.
