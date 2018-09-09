@@ -43,9 +43,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.sass-cache
 
-#Project files
-[Bb]uild/
-
 #Subversion files
 .svn
 
@@ -69,4 +66,4 @@ packages/
 .vs
 .vscode
 *.orig
-MigrationBackup/db682600/ExceptionReporter/NuGetUpgradeLog\.html
+MigrationBackup
