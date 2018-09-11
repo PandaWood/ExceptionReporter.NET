@@ -13,7 +13,7 @@ using ExceptionReporting.Network.Events;
 
 [assembly: InternalsVisibleTo("Tests.ExceptionReporter.NET-sdk")]
 [assembly: InternalsVisibleTo("Tests.ExceptionReporter.NET")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]	// for moq
 
 namespace ExceptionReporting
 {
@@ -23,7 +23,7 @@ namespace ExceptionReporting
 	/// </summary>
 	public class ExceptionReporter
 	{
-		private readonly ExceptionReportInfo _reportInfo;
+		private readonly ExceptionReportInfo _info;
 		
 		/// <summary>
 		/// Contract by which to show any dialogs/view
@@ -35,8 +35,8 @@ namespace ExceptionReporting
 		/// </summary>
 		public ExceptionReporter()
 		{
-			_reportInfo = new ExceptionReportInfo();
-			ViewMaker = new ViewMaker(_reportInfo);
+			_info = new ExceptionReportInfo();
+			ViewMaker = new ViewMaker(_info);
 		}
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace ExceptionReporting
 		/// </summary>
 		public ExceptionReportInfo Config
 		{
-			get { return _reportInfo; }
+			get { return _info; }
 		}
 
 		/// <summary>
@@ -56,13 +56,13 @@ namespace ExceptionReporting
 		public bool Show(params Exception[] exceptions)
 		{
 			// silently ignore the mistake of passing null
-			if (exceptions == null || exceptions.Length >= 1 && exceptions[0] == null) return false;		
+			if (exceptions == null || exceptions.Length == 0 || exceptions.Length >= 1 && exceptions[0] == null) return false;		
 			
 			bool status;
 
 			try
 			{
-				_reportInfo.SetExceptions(exceptions);
+				_info.SetExceptions(exceptions);
 				
 				var view = ViewMaker.Create();
 				view.ShowWindow();
@@ -84,7 +84,7 @@ namespace ExceptionReporting
 		/// <param name="exceptions">The exception/s to display in the exception report</param>
 		public void Show(string customMessage, params Exception[] exceptions)
 		{
-			_reportInfo.CustomMessage = customMessage;
+			_info.CustomMessage = customMessage;
 			Show(exceptions);
 		}
 
@@ -96,10 +96,10 @@ namespace ExceptionReporting
 		/// <param name="exceptions">The exception/s to include in the report</param>
 		public void Send(IReportSendEvent sendEvent = null, params Exception[] exceptions)
 		{
-			_reportInfo.SetExceptions(exceptions);
+			_info.SetExceptions(exceptions);
 			
-			var sender = new SenderFactory(_reportInfo, sendEvent ?? new SilentSendEvent()).Get();
-			var report = new ReportGenerator(_reportInfo);
+			var sender = new SenderFactory(_info, sendEvent ?? new SilentSendEvent()).Get();
+			var report = new ReportGenerator(_info);
 			sender.Send(report.Generate());
 		}
 

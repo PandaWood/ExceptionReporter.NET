@@ -9,7 +9,7 @@ namespace Tests.ExceptionReporting
 {
 	/// <summary>
 	/// Testing ExceptionReporter is mostly a case of integration testing (ie using the demo)
-	/// We do a little here
+	/// However, we test all the logical inputs and return values here
 	/// </summary>
 	public class ExceptionReporter_Tests
 	{
@@ -42,6 +42,34 @@ namespace Tests.ExceptionReporting
 				ViewMaker = viewMock.Object
 			};
 			Assert.That(er.Show(new TestException()), Is.True);
+		}
+		
+		[Test]
+		public void Can_Not_Show_If_No_Exception()
+		{
+			var er = new ExceptionReporter
+			{
+				ViewMaker = new Mock<IViewMaker>().Object
+			};
+			Assert.That(er.Show(), Is.False);
+		}
+
+		[Test]
+		public void Can_Init_Config_Using_Object_Initializer()
+		{
+			var er = new ExceptionReporter
+			{
+				Config =
+				{
+					SendMethod = ReportSendMethod.WebService,
+					WebServiceUrl = "http://photofuzz/apiv1", 
+					CompanyName = "photofuzz",
+					FilesToAttach = new[] {"app.log"},
+					AppVersion = "1.0",
+					AppName = "PhotoFuzz"
+				}
+			};
+			er.Show();
 		}
 	}
 }
