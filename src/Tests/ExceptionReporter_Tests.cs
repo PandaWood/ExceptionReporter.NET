@@ -60,13 +60,13 @@ namespace Tests.ExceptionReporting
 			var er = new ExceptionReporter
 			{
 				Config =
-				{
+				{	// test that this style of initialization (settings properties directly on config) remains possible
+					AppName = "PhotoFuzz",
+					AppVersion = "1.0",
+					CompanyName = "photofuzz",
 					SendMethod = ReportSendMethod.WebService,
 					WebServiceUrl = "http://photofuzz/apiv1", 
-					CompanyName = "photofuzz",
-					FilesToAttach = new[] {"app.log"},
-					AppVersion = "1.0",
-					AppName = "PhotoFuzz"
+					FilesToAttach = new[] {"app.log"}
 				}
 			};
 			er.Show();

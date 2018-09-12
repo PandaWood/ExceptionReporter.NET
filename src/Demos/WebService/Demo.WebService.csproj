@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>7.2</LangVersion>
-    <ReleaseVersion>2.5</ReleaseVersion>
+    <ReleaseVersion>4.0.3</ReleaseVersion>
     <AssemblyName>Demo.WebService</AssemblyName>
     <RootNamespace>Demo.WebService</RootNamespace>
   </PropertyGroup>

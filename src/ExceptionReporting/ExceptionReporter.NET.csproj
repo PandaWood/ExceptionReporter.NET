@@ -4,7 +4,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
-    <ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
+		<RuntimeIdentifiers>win;osx</RuntimeIdentifiers>
+		<ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExceptionReporting</RootNamespace>

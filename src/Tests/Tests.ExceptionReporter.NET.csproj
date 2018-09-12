@@ -4,6 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
+		<RuntimeIdentifiers>win;osx</RuntimeIdentifiers>
     <ProjectGuid>{38C592CC-F774-4A0F-95FA-318AB0DDB476}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Tests.ExceptionReporting</RootNamespace>
@@ -13,7 +14,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
-    <ReleaseVersion>2.5</ReleaseVersion>
+    <ReleaseVersion>4.0.3</ReleaseVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
