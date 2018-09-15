@@ -35,7 +35,7 @@ Exception event -
 see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sample-Usage)
 
 The ultimate goal is the developer receiving a formatted exception report - see
-[Creating and Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Creating-and-Sending-a-Report)
+[Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Sending-a-Report)
 
 ## Why use it
 ### Some Important Features
