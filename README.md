@@ -63,10 +63,12 @@ The ultimate goal is the developer receiving a formatted exception report - see
 - The source code has an emphasis on testing and testability with over 60 unit tests (and growing) covering most of the important code
 - ExceptionReporter is designed using the [MVP or Model-View-Presenter](https://medium.com/@prajvalprabhakar/mvp-vs-mvvm-93657494106b) pattern and the classes and concerns are liberally separated using [SOLID](https://stackify.com/solid-design-principles/) design principles (to the best of our ability)
 
-## Sample Report
+## Sample Reports
 
-Here is a sample of the preset Plain Text report:
+### Markdown
+![Markdown](images/er-markdown.png)
 
+### Plain Text
 ```text
 ========================================
 Acme Error Report
@@ -134,7 +136,7 @@ There are 2 solution files
 
 There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries - see **src/Tests/Tests.ExceptionReporter.NET**
 
-There is a [Cake](https://cakebuild.net) script to build and run all tests
+There is a [Cake](https://cakebuild.net) script to build the project and run all tests
 - **build/build.sh** for OSX/Mono
 - **build/build.ps1** for Windows
 
