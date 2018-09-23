@@ -48,7 +48,7 @@ namespace ExceptionReporting.Templates
 			var resource = string.Format("{0}.{1}.{2}", this.GetType().Namespace, _name, format.ToString().ToLower());
 			var assembly = Assembly.GetExecutingAssembly();
 
-				using (var stream = assembly.GetManifestResourceStream(resource))
+			using (var stream = assembly.GetManifestResourceStream(resource))
 			{
 				using (var reader = new StreamReader(stream, Encoding.UTF8))
 				{
