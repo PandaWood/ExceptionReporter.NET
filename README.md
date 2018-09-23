@@ -37,6 +37,8 @@ see [Sample Code Usage](https://github.com/PandaWood/Exception-Reporter/wiki/Sam
 The ultimate goal is the developer receiving a formatted exception report - see
 [Sending a Report](https://github.com/PandaWood/Exception-Reporter/wiki/Sending-a-Report)
 
+You can even format your own report using [Report Templates](https://github.com/PandaWood/Exception-Reporter/wiki/Report-Templates)
+
 ## Why use it
 ### Some Important Features
 
