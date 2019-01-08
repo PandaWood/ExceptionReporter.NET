@@ -26,7 +26,11 @@ namespace ExceptionReporting.Network.Senders
 
 		public string EmailSubject
 		{
-			get { return _config.EmailReportObject; }
+			get { return _config.EmailReportObject.Length > 0 ? _config.EmailReportObject :
+							_config.MainException.Message
+							.Replace('\r', ' ')
+							.Replace('\n', ' ')
+							.Truncate(255) ?? "Exception Report"; }
 		}
 	}
 }
