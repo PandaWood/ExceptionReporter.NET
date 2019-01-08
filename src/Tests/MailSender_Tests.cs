@@ -46,7 +46,7 @@ namespace Tests.ExceptionReporting
 			var exception = new Exception("Exception");
 			var reportInfo = new ExceptionReportInfo { TitleText = "test" };
 			reportInfo.SetExceptions(new[] { exception });
-			reportInfo.EmailReportObject = "hello";
+			reportInfo.EmailReportSubject  = "hello";
 			var mailSender = new MapiMailSender(reportInfo, null);
 
 			Assert.That(mailSender.EmailSubject, Is.EqualTo("hello"));

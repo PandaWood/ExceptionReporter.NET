@@ -195,10 +195,10 @@ namespace ExceptionReporting
 
 		/// <summary>
 		/// Email object
-		/// Appears in the 'object:' field in the default email client if
+		/// Appears in the 'subject:' field in the default email client if
 		/// <see cref="SendMethod"/> is <see cref="ReportSendMethod.SimpleMAPI"/>
 		/// </summary>
-		public string EmailReportObject { get; set; } = "";
+		public string EmailReportSubject  { get; set; } = "";
 
 		/// <summary>
 		/// The URL to be used to submit the exception report to a RESTful WebService
