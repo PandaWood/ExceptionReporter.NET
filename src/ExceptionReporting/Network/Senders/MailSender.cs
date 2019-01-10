@@ -1,4 +1,4 @@
-﻿using ExceptionReporting.Core;
+using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.Network.Events;
 
@@ -26,10 +26,11 @@ namespace ExceptionReporting.Network.Senders
 
 		public string EmailSubject
 		{
-			get { return _config.MainException.Message
-				             .Replace('\r', ' ')
-				             .Replace('\n', ' ')
-				             .Truncate(255) ?? "Exception Report"; }
+			get { return _config.EmailReportSubject .Length > 0 ? _config.EmailReportSubject :
+							_config.MainException.Message
+							.Replace('\r', ' ')
+							.Replace('\n', ' ')
+							.Truncate(255) ?? "Exception Report"; }
 		}
 	}
 }

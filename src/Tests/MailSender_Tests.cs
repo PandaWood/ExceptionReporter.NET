@@ -39,5 +39,17 @@ namespace Tests.ExceptionReporting
 
 			Assert.That(mailSender.EmailSubject, Is.EqualTo("Empty Exception"));		// reverts to a default message
 		}
-	}
+
+		[Test]
+		public void Can_Use_Custom_Subject()
+		{
+			var exception = new Exception("Exception");
+			var reportInfo = new ExceptionReportInfo { TitleText = "test" };
+			reportInfo.SetExceptions(new[] { exception });
+			reportInfo.EmailReportSubject  = "hello";
+			var mailSender = new MapiMailSender(reportInfo, null);
+
+			Assert.That(mailSender.EmailSubject, Is.EqualTo("hello"));
+		}
+  }
 }
