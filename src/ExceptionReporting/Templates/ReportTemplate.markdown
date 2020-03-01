@@ -1,4 +1,4 @@
-#{{App.Title}}
+# {{App.Title}}
 
 **Application**: {{App.Name}}  
 **Version**:     {{App.Version}}  
@@ -14,17 +14,17 @@
 
 **Error Message**: {{Error.Message}}
  
-##Stack Traces
+## Stack Traces
 ```text
 {{Error.FullStackTrace}} 
 ```
  
-##Assembly References
+## Assembly References
 {{#App.AssemblyRefs}}
  - {{Name}}, Version={{Version}}  
 {{/App.AssemblyRefs}}
 
-##System Info  
+## System Info  
 ```test
 {{SystemInfo}}
 ```
