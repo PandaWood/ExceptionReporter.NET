@@ -4,8 +4,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
-		<RuntimeIdentifiers>win;osx</RuntimeIdentifiers>
-		<ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
+    <RuntimeIdentifiers>win;osx</RuntimeIdentifiers>
+    <ProjectGuid>{C49896A3-C0DA-45C4-B30E-4D17E548DBF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExceptionReporting</RootNamespace>
@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetZip">
-      <Version>1.11.0</Version>
+      <Version>1.13.6</Version>
     </PackageReference>
     <PackageReference Include="Handlebars.Net">
       <Version>1.9.0</Version>
