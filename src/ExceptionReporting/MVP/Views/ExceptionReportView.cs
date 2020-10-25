@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ExceptionReporting.Core;
 using ExceptionReporting.MVP.Presenters;
+using ExceptionReporting.Properties;
 using ExceptionReporting.SystemInfo;
 
 #pragma warning disable 1591
@@ -41,7 +42,7 @@ namespace ExceptionReporting.MVP.Views
 
 			//TODO: show all exception messages
 			txtExceptionMessageLarge.Text =
-					txtExceptionMessage.Text =
+				txtExceptionMessage.Text =
 					!string.IsNullOrEmpty(reportInfo.CustomMessage) ? reportInfo.CustomMessage : reportInfo.Exceptions.First().Message;
 
 			txtExceptionMessageLarge2.Text = txtExceptionMessageLarge.Text;
@@ -52,21 +53,22 @@ namespace ExceptionReporting.MVP.Views
 			txtApplicationName.Text = reportInfo.AppName;
 			txtVersion.Text = reportInfo.AppVersion;
 
+
 			btnClose.FlatStyle =
-					btnDetailToggle.FlatStyle =
+				btnDetailToggle.FlatStyle =
 					btnCopy.FlatStyle =
-					btnEmail.FlatStyle =
-					btnSave.FlatStyle = reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard;
+						btnEmail.FlatStyle =
+							btnSave.FlatStyle = reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard;
 
 			listviewAssemblies.BackColor =
-					txtRegion.BackColor =
+				txtRegion.BackColor =
 					txtTime.BackColor =
-					txtTime.BackColor =
-					txtVersion.BackColor =
-					txtApplicationName.BackColor =
-					txtDate.BackColor =
-					txtExceptionMessageLarge.BackColor =
-					txtExceptionMessage.BackColor = reportInfo.BackgroundColor;
+						txtTime.BackColor =
+							txtVersion.BackColor =
+								txtApplicationName.BackColor =
+									txtDate.BackColor =
+										txtExceptionMessageLarge.BackColor =
+											txtExceptionMessage.BackColor = reportInfo.BackgroundColor;
 
 			if (!reportInfo.ShowButtonIcons)
 			{
@@ -80,13 +82,18 @@ namespace ExceptionReporting.MVP.Views
 
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
+			//lblContactCompany.Text =
+			//	string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
 			lblContactCompany.Text =
-				string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
-			btnSimpleEmail.Text = 
-				string.Format("{0} {1}", 
-				reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email",
-				reportInfo.SendMethod == ReportSendMethod.WebService && !reportInfo.CompanyName.IsEmpty() ? "to " + reportInfo.CompanyName : reportInfo.CompanyName);
-			btnEmail.Text = reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email";
+				string.Format(
+					Resources.ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_ +
+					Environment.NewLine, reportInfo.CompanyName);
+			btnSimpleEmail.Text = string.Format("{0} {1}",
+				reportInfo.SendMethod == ReportSendMethod.WebService ? Resources.Send : "Email",
+				reportInfo.SendMethod == ReportSendMethod.WebService && !reportInfo.CompanyName.IsEmpty()
+					? string.Format(Resources.to__0_, reportInfo.CompanyName)
+					: reportInfo.CompanyName);
+			btnEmail.Text = reportInfo.SendMethod == ReportSendMethod.WebService ? Resources.Send : "Email";
 		}
 
 		private void RemoveEmailButton()
@@ -168,14 +175,14 @@ namespace ExceptionReporting.MVP.Views
 			if (ShowFullDetail)
 			{
 				lessDetailPanel.Hide();
-				btnDetailToggle.Text = "Less Detail";
+				btnDetailToggle.Text = Resources.ExceptionReportView_ToggleShowFullDetail_Less_Detail;
 				tabControl.Visible = true;
 				Size = new Size(625, 456);
 			}
 			else
 			{
 				lessDetailPanel.Show();
-				btnDetailToggle.Text = "More Detail";
+				btnDetailToggle.Text = Resources.ExceptionReportView_ToggleShowFullDetail_More_Detail;
 				tabControl.Visible = false;
 				Size = new Size(415, 235);
 			}
@@ -196,7 +203,7 @@ namespace ExceptionReporting.MVP.Views
 
 		public void Completed(bool success)
 		{
-			ProgressMessage = success ? "Report sent" : "Failed to send report";
+			ProgressMessage = success ? Resources.Report_sent : Resources.Failed_to_send_report;
 			ShowProgressBar = false;
 			btnEmail.Enabled = true;
 		}
@@ -368,7 +375,7 @@ namespace ExceptionReporting.MVP.Views
 
 		public void ShowError(string message, Exception exception)
 		{
-			MessageBox.Show(message, "Error sending report", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+			MessageBox.Show(message, Resources.ExceptionReportView_ShowError_Error_sending_report, MessageBoxButtons.OK, MessageBoxIcon.Error); 
 		}
 	}
 }

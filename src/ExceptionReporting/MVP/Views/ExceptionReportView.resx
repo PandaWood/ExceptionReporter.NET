@@ -190,9 +190,6 @@
   <data name="lblRegion.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 127</value>
   </data>
-  <data name="&gt;&gt;lblApplication.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="lblDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 159</value>
   </data>
@@ -289,9 +286,6 @@
   <data name="&gt;&gt;tabGeneral.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
-  <data name="&gt;&gt;tabAssemblies.Name" xml:space="preserve">
-    <value>tabAssemblies</value>
-  </data>
   <data name="&gt;&gt;btnSimpleEmail.Name" xml:space="preserve">
     <value>btnSimpleEmail</value>
   </data>
@@ -344,11 +338,8 @@
   <data name="lessDetail_optionsPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>8, 8, 8, 8</value>
   </data>
-  <data name="&gt;&gt;tabAssemblies.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;picGeneral.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblContactCompany.Name" xml:space="preserve">
+    <value>lblContactCompany</value>
   </data>
   <data name="&gt;&gt;lblExplanation.Parent" xml:space="preserve">
     <value>tabGeneral</value>
@@ -356,11 +347,11 @@
   <data name="&gt;&gt;lessDetailPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;picGeneral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;txtTime.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="progressBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 396</value>
   </data>
   <data name="btnEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -396,20 +387,14 @@
   <data name="lblApplication.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;txtTime.Name" xml:space="preserve">
-    <value>txtTime</value>
-  </data>
   <data name="btnSimpleCopy.Location" type="System.Drawing.Point, System.Drawing">
     <value>144, 36</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>551, 416</value>
+  <data name="treeEnvironment.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="txtApplicationName.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="btnSimpleDetailToggle.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
   </data>
   <data name="&gt;&gt;tabExceptions.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -606,11 +591,11 @@
   <data name="btnSimpleDetailToggle.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
   </data>
-  <data name="btnDetailToggle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 32</value>
-  </data>
   <data name="&gt;&gt;txtTime.ZOrder" xml:space="preserve">
     <value>9</value>
+  </data>
+  <data name="txtExceptionMessageLarge2.Text" xml:space="preserve">
+    <value>No message</value>
   </data>
   <data name="lblProgressMessage.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 380</value>
@@ -720,8 +705,8 @@
   <data name="&gt;&gt;lblRegion.Parent" xml:space="preserve">
     <value>tabGeneral</value>
   </data>
-  <data name="progressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 16</value>
+  <data name="tabExceptions.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
     <value>531, 345</value>
@@ -764,9 +749,6 @@
   <data name="&gt;&gt;txtVersion.Name" xml:space="preserve">
     <value>txtVersion</value>
   </data>
-  <data name="btnSimpleCopy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 32</value>
-  </data>
   <data name="&gt;&gt;treeEnvironment.Type" xml:space="preserve">
     <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -779,6 +761,12 @@
   <data name="label1.Text" xml:space="preserve">
     <value>Operation Failed</value>
   </data>
+  <data name="lblRegion.Text" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="&gt;&gt;btnDetailToggle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;lblRegion.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
@@ -788,11 +776,8 @@
   <data name="btnSimpleDetailToggle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="lblExplanation.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lessDetailPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+  <data name="&gt;&gt;lblApplication.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblContactCompany.Parent" xml:space="preserve">
     <value>lessDetail_optionsPanel</value>
@@ -818,6 +803,9 @@
   <data name="btnEmail.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
   </data>
+  <data name="&gt;&gt;txtApplicationName.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
   <data name="btnDetailToggle.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
   </data>
@@ -829,6 +817,9 @@
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblContactCompany.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 13</value>
   </data>
   <data name="tabSysInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>531, 345</value>
@@ -845,20 +836,26 @@
   <data name="lblVersion.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 16</value>
   </data>
+  <data name="txtExceptionMessageLarge.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="listviewAssemblies.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <data name="tabSysInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="&gt;&gt;txtDate.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
+  <data name="btnEmail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>395, 380</value>
   </data>
   <data name="&gt;&gt;progressBar.Name" xml:space="preserve">
     <value>progressBar</value>
   </data>
   <data name="&gt;&gt;lblDate.Parent" xml:space="preserve">
     <value>tabGeneral</value>
+  </data>
+  <data name="lessDetail_optionsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
   <data name="lessDetailPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -919,9 +916,6 @@
   </data>
   <data name="btnSimpleEmail.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
-  </data>
-  <data name="&gt;&gt;lblContactCompany.Name" xml:space="preserve">
-    <value>lblContactCompany</value>
   </data>
   <data name="&gt;&gt;btnCopy.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1009,6 +1003,9 @@
   <data name="lblDate.Text" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="&gt;&gt;txtDate.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
   <data name="&gt;&gt;lblExplanation.Name" xml:space="preserve">
     <value>lblExplanation</value>
   </data>
@@ -1039,8 +1036,8 @@
   <data name="lblVersion.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 127</value>
   </data>
-  <data name="lessDetail_optionsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
+  <data name="btnDetailToggle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 32</value>
   </data>
   <data name="picGeneral.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1177,8 +1174,14 @@
   <data name="&gt;&gt;txtExceptionMessageLarge.Name" xml:space="preserve">
     <value>txtExceptionMessageLarge</value>
   </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 14.25pt</value>
+  </data>
   <data name="lessDetailPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>400, 200</value>
+  </data>
+  <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;btnDetailToggle.Name" xml:space="preserve">
     <value>btnDetailToggle</value>
@@ -1201,8 +1204,8 @@
   <data name="lblProgressMessage.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 13</value>
   </data>
-  <data name="&gt;&gt;txtExceptionMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="lessDetailPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
   </data>
   <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1210,14 +1213,11 @@
   <data name="btnSimpleEmail.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="lblTime.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;tabAssemblies.Parent" xml:space="preserve">
+    <value>tabControl</value>
   </data>
   <data name="lessDetail_alertIcon.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
-  </data>
-  <data name="&gt;&gt;btnClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lessDetail_optionsPanel.Name" xml:space="preserve">
     <value>lessDetail_optionsPanel</value>
@@ -1234,17 +1234,14 @@
   <data name="btnSimpleDetailToggle.Text" xml:space="preserve">
     <value>More detail</value>
   </data>
-  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="lblTime.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;btnClose.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;txtExceptionMessage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;treeEnvironment.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="btnEmail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>395, 380</value>
   </data>
   <data name="btnClose.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1312,9 +1309,6 @@
   <data name="txtExceptionMessageLarge.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt</value>
   </data>
-  <data name="lessDetail_alertIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 64</value>
-  </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
@@ -1323,6 +1317,9 @@
   </data>
   <data name="btnCopy.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;btnClose.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;lblRegion.Name" xml:space="preserve">
     <value>lblRegion</value>
@@ -1351,6 +1348,9 @@
   <data name="txtTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>310, 156</value>
   </data>
+  <data name="&gt;&gt;lblDate.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="lblProgressMessage.Text" xml:space="preserve">
     <value>Loading system information...</value>
   </data>
@@ -1372,14 +1372,11 @@
   <data name="&gt;&gt;txtVersion.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="treeEnvironment.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
   <data name="txtExceptionMessage.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt</value>
   </data>
-  <data name="&gt;&gt;btnDetailToggle.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;tabAssemblies.Name" xml:space="preserve">
+    <value>tabAssemblies</value>
   </data>
   <data name="btnCopy.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -1405,8 +1402,8 @@
   <data name="lblVersion.Text" xml:space="preserve">
     <value>Version</value>
   </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 14.25pt</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>551, 416</value>
   </data>
   <data name="&gt;&gt;lblTime.Parent" xml:space="preserve">
     <value>tabGeneral</value>
@@ -1414,8 +1411,8 @@
   <data name="&gt;&gt;lblProgressMessage.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="txtExceptionMessageLarge.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;tabSysInfo.Parent" xml:space="preserve">
+    <value>tabControl</value>
   </data>
   <data name="txtTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 20</value>
@@ -1441,17 +1438,17 @@
   <data name="&gt;&gt;btnDetailToggle.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="btnSimpleCopy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 32</value>
   </data>
-  <data name="txtExceptionMessageLarge2.Text" xml:space="preserve">
-    <value>No message</value>
+  <data name="lessDetail_alertIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 64</value>
   </data>
   <data name="&gt;&gt;lblExplanation.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="lblRegion.Text" xml:space="preserve">
-    <value>Region</value>
+  <data name="treeEnvironment.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="picGeneral.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -1462,17 +1459,20 @@
   <data name="&gt;&gt;txtExceptionMessage.Name" xml:space="preserve">
     <value>txtExceptionMessage</value>
   </data>
-  <data name="lblContactCompany.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 13</value>
+  <data name="tabExceptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="progressBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 396</value>
   </data>
   <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
     <value>318, 380</value>
   </data>
-  <data name="tabExceptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="btnSimpleDetailToggle.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;lblDate.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="progressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 16</value>
   </data>
   <data name="&gt;&gt;treeEnvironment.Parent" xml:space="preserve">
     <value>tabSysInfo</value>
@@ -1503,8 +1503,8 @@
   <data name="&gt;&gt;lessDetailPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="treeEnvironment.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnSimpleCopy.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1518,8 +1518,8 @@
   <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
     <value>btnSave</value>
   </data>
-  <data name="tabExceptions.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;txtTime.Name" xml:space="preserve">
+    <value>txtTime</value>
   </data>
   <data name="&gt;&gt;txtExceptionMessageLarge2.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1527,8 +1527,8 @@
   <data name="btnEmail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;tabSysInfo.Parent" xml:space="preserve">
-    <value>tabControl</value>
+  <data name="&gt;&gt;btnClose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabGeneral.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1554,8 +1554,8 @@
   <data name="tabAssemblies.Text" xml:space="preserve">
     <value>Assemblies</value>
   </data>
-  <data name="&gt;&gt;txtApplicationName.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
+  <data name="lblExplanation.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

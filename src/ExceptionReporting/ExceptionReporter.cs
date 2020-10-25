@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
+using ExceptionReporting.Properties;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
@@ -71,7 +72,8 @@ namespace ExceptionReporting
 			catch (Exception ex)
 			{
 				status = false;
-				ViewMaker.ShowError(ex.Message, "Failed trying to report an Error");
+				//ViewMaker.ShowError(ex.Message, "Failed trying to report an Error");
+				ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
 			}
 
 			return status;

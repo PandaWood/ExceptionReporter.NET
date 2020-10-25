@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="listviewAssemblies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 345</value>
+  </data>
   <data name="picGeneral.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
@@ -211,17 +214,26 @@
         AAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="txtExceptionMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>528, 68</value>
+  </data>
   <data name="lblExplanation.Size" type="System.Drawing.Size, System.Drawing">
     <value>478, 13</value>
   </data>
   <data name="lblExplanation.Text" xml:space="preserve">
     <value>Пожалуйста, добаьте краткое описние событий, которые привели к возникновению ошибки</value>
   </data>
+  <data name="txtUserExplanation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>598, 132</value>
+  </data>
   <data name="lblRegion.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 13</value>
   </data>
   <data name="lblRegion.Text" xml:space="preserve">
     <value>Регион</value>
+  </data>
+  <data name="lblDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 159</value>
   </data>
   <data name="lblDate.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 13</value>
@@ -236,31 +248,58 @@
     <value>Время</value>
   </data>
   <data name="lblApplication.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 6.25pt</value>
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblApplication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 95</value>
   </data>
   <data name="lblApplication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 12</value>
+    <value>71, 13</value>
   </data>
   <data name="lblApplication.Text" xml:space="preserve">
     <value>Приложение</value>
   </data>
+  <data name="txtApplicationName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>528, 20</value>
+  </data>
+  <data name="lblVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 127</value>
+  </data>
   <data name="lblVersion.Text" xml:space="preserve">
     <value>Версия</value>
+  </data>
+  <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 345</value>
   </data>
   <data name="tabGeneral.Text" xml:space="preserve">
     <value>Основное</value>
   </data>
+  <data name="tabExceptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 345</value>
+  </data>
   <data name="tabExceptions.Text" xml:space="preserve">
     <value>Исключения</value>
+  </data>
+  <data name="tabAssemblies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 345</value>
   </data>
   <data name="tabAssemblies.Text" xml:space="preserve">
     <value>Библиотеки</value>
   </data>
+  <data name="treeEnvironment.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 345</value>
+  </data>
+  <data name="tabSysInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>621, 345</value>
+  </data>
   <data name="tabSysInfo.Text" xml:space="preserve">
     <value>Система</value>
   </data>
+  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>629, 371</value>
+  </data>
   <data name="btnSave.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 5.25pt</value>
+    <value>Tahoma, 7.25pt</value>
   </data>
   <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -284,6 +323,12 @@
         E0nxW8G9bLDFpuKJLvzoxuvfaXLT7phEOpNHJBo7VbiHe9lgi03FHxZv/h9RnCiifwFzleYIefEWogAA
         AABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
+    <value>368, 380</value>
+  </data>
+  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 32</value>
   </data>
   <data name="btnSave.Text" xml:space="preserve">
     <value>Сохранить</value>
@@ -316,6 +361,12 @@
         31uPWtvOR+JrAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="btnEmail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>459, 380</value>
+  </data>
+  <data name="btnEmail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 32</value>
+  </data>
   <data name="lblProgressMessage.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 13</value>
   </data>
@@ -323,7 +374,7 @@
     <value>Информация о системе ...</value>
   </data>
   <data name="btnCopy.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 5.25pt</value>
+    <value>Tahoma, 6.25pt</value>
   </data>
   <data name="btnCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -344,11 +395,32 @@
         SeHfJKb6X5GT8wcSDSHd8rMm3AAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="btnCopy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>277, 380</value>
+  </data>
+  <data name="btnCopy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 32</value>
+  </data>
   <data name="btnCopy.Text" xml:space="preserve">
     <value>Копировать</value>
   </data>
+  <data name="btnDetailToggle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 380</value>
+  </data>
+  <data name="btnDetailToggle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 32</value>
+  </data>
   <data name="btnDetailToggle.Text" xml:space="preserve">
     <value>Свернуть</value>
+  </data>
+  <data name="txtExceptionMessageLarge.Size" type="System.Drawing.Size, System.Drawing">
+    <value>628, 368</value>
+  </data>
+  <data name="btnClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>550, 380</value>
+  </data>
+  <data name="btnClose.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 32</value>
   </data>
   <data name="btnClose.Text" xml:space="preserve">
     <value>Закрыть</value>
@@ -400,6 +472,10 @@
   </data>
   <data name="btnSimpleDetailToggle.Text" xml:space="preserve">
     <value>Сведения</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnSimpleCopy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="btnSimpleCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -525,6 +601,9 @@
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Ошибка</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>641, 416</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

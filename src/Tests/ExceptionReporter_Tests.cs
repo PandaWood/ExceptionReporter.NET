@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using ExceptionReporting;
 using ExceptionReporting.MVP.Views;
 using Moq;
@@ -72,23 +74,43 @@ namespace Tests.ExceptionReporting
 
 			er.Show();
 		}
+
 		[Test]
+		[Ignore("UI")]
 		public static void TestRunManually()
 		{
-			var er = new ExceptionReporter
+			
+			var thread = new Thread(() =>
 			{
-				Config =
-				{	// test that this style of initialization (settings properties directly on config) remains possible
-					AppName = "PhotoFuzz",
-					AppVersion = "1.0",
-					CompanyName = "photofuzz",
-					SendMethod = ReportSendMethod.WebService,
-					WebServiceUrl = "http://photofuzz/apiv1",
-					FilesToAttach = new[] {"app.log"}
-				}
-			};
-			var ex = new Exception("Test Exception");
-			er.Show(ex);
+			  Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("ru");
+			  Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag("ru");
+			  var er = new ExceptionReporter
+				{
+					Config =
+					{
+						// test that this style of initialization (settings properties directly on config) remains possible
+						//TitleText = "=_=",
+						AppName = "PhotoFuzz",
+						AppVersion = "1.0",
+						CompanyName = "photofuzz",
+						SendMethod = ReportSendMethod.SimpleMAPI,
+						EmailReportAddress = "PhotoFuzz@gmail.com",
+						//RegionInfo = "Region",
+						//ShowButtonIcons = true,
+						ShowLessDetailButton = true,
+						TakeScreenshot = true,
+						ReportTemplateFormat = TemplateFormat.Markdown,
+						ReportCustomTemplate = "Done!",
+						AttachmentFilename = $"{DateTime.UtcNow.ToString("dd-MM-yy_HH-mm")}_report",
+						FilesToAttach = new[] {"app.log"}
+					}
+				};
+				var ex = new Exception("Test Exception");
+				er.Show(ex);
+			});
+			thread.SetApartmentState(ApartmentState.STA);
+			thread.Start();
+			thread.Join();
 		}
 	}
 }
