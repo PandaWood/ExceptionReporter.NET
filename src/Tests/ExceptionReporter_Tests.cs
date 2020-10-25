@@ -69,7 +69,26 @@ namespace Tests.ExceptionReporting
 					FilesToAttach = new[] {"app.log"}
 				}
 			};
+
 			er.Show();
+		}
+		[Test]
+		public static void TestRunManually()
+		{
+			var er = new ExceptionReporter
+			{
+				Config =
+				{	// test that this style of initialization (settings properties directly on config) remains possible
+					AppName = "PhotoFuzz",
+					AppVersion = "1.0",
+					CompanyName = "photofuzz",
+					SendMethod = ReportSendMethod.WebService,
+					WebServiceUrl = "http://photofuzz/apiv1",
+					FilesToAttach = new[] {"app.log"}
+				}
+			};
+			var ex = new Exception("Test Exception");
+			er.Show(ex);
 		}
 	}
 }

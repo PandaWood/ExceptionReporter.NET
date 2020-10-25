@@ -80,7 +80,8 @@ namespace ExceptionReporting.MVP.Views
 
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
-			lblContactCompany.Text = string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
+			lblContactCompany.Text =
+				string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
 			btnSimpleEmail.Text = 
 				string.Format("{0} {1}", 
 				reportInfo.SendMethod == ReportSendMethod.WebService ? "Send" : "Email",
