@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using ExceptionReporting;
 using ExceptionReporting.MVP.Views;
 using Moq;
@@ -69,6 +71,7 @@ namespace Tests.ExceptionReporting
 					FilesToAttach = new[] {"app.log"}
 				}
 			};
+
 			er.Show();
 		}
 	}

@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TestLoc" xml:space="preserve">
-    <value>Test Loc</value>
+    <value>ТестЛок</value>
   </data>
   <data name="Please enter a brief explanation of events leading up to this exception" xml:space="preserve">
-	  <value>Please enter a brief explanation of events leading up to this exception</value>
+	  <value>Пожалуйста, добавьте краткое описние событий, которые привели к возникновению ошибки:</value>
   </data>
   <data name="The following details can be used to obtain support for this application" xml:space="preserve">
-	  <value>The following details can be used to obtain support for this application</value>
-  </data>
-  <data name="ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_" xml:space="preserve">
-	  <value>If this problem persists, please contact {0} support.</value>
+	  <value>Данная информация сможет быть использована для отладки приложения</value>
   </data>
   <data name="Send" xml:space="preserve">
-	  <value>Send</value>
+	  <value>Отправить</value>
   </data>
   <data name="to {0}" xml:space="preserve">
-	  <value>to {0}</value>
+	  <value>в {0}</value>
   </data>
   <data name="ExceptionReportView_ToggleShowFullDetail_Less_Detail" xml:space="preserve">
-	  <value>Less Detail</value>
+	  <value>Свернуть</value>
   </data>
   <data name="ExceptionReportView_ToggleShowFullDetail_More_Detail" xml:space="preserve">
-	  <value>More Detail</value>
+	  <value>Подробнее</value>
   </data>
   <data name="Report sent" xml:space="preserve">
-	  <value>Report sent</value>
-  </data>
-  <data name="Failed to send report" xml:space="preserve">
-	  <value>Failed to send report</value>
+	  <value>Отчёт отправлен</value>
   </data>
   <data name="ExceptionReportView_ShowError_Error_sending_report" xml:space="preserve">
-	  <value>Error sending report</value>
+	  <value>Ошибка отправления отчёта</value>
   </data>
   <data name="Failed trying to report an Error" xml:space="preserve">
-	  <value>Failed trying to report an Error</value>
+	  <value>Ошибка отправки отчёта</value>
   </data>
   <data name="Copied to clipboard" xml:space="preserve">
-	  <value>Copied to clipboard</value>
+	  <value>Скопировано в буфер обмена</value>
   </data>
   <data name="Unable to save file" xml:space="preserve">
-	  <value>Unable to save file</value>
+	  <value>Не удалось сохранить файл</value>
   </data>
   <data name="Unable to setup" xml:space="preserve">
-	  <value>Unable to setup</value>
+	  <value>Не удалось произвести настройку</value>
+  </data>
+  <data name="ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_" xml:space="preserve">
+	  <value>Если проблема сохраняется, обратитесь в поддержку {0}</value>
+  </data>
+  <data name="Failed to send report" xml:space="preserve">
+	  <value>Не удалось отправить отчёт</value>
   </data>
   <data name="ErrorReport" xml:space="preserve">
-	  <value>ErrorReport</value>
+	  <value>Отчёт об ошибке</value>
   </data>
 </root>

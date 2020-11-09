@@ -126,9 +126,6 @@
   <data name="The following details can be used to obtain support for this application" xml:space="preserve">
 	  <value>The following details can be used to obtain support for this application</value>
   </data>
-  <data name="ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_" xml:space="preserve">
-	  <value>If this problem persists, please contact {0} support.</value>
-  </data>
   <data name="Send" xml:space="preserve">
 	  <value>Send</value>
   </data>
@@ -161,6 +158,9 @@
   </data>
   <data name="Unable to setup" xml:space="preserve">
 	  <value>Unable to setup</value>
+  </data>
+  <data name="ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_" xml:space="preserve">
+	  <value>If this problem persists, please contact {0} support.</value>
   </data>
   <data name="ErrorReport" xml:space="preserve">
 	  <value>ErrorReport</value>
