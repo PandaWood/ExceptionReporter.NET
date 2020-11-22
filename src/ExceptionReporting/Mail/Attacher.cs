@@ -10,7 +10,7 @@ namespace ExceptionReporting.Mail
 		
 		private readonly ExceptionReportInfo _config;
 
-		public IFileService File { private get; set; } = new FileService();
+		public IFileService FileService { private get; set; } = new FileService();
 		public IZipper Zipper { private get; set; } = new Zipper();
 		public IScreenshotTaker ScreenshotTaker { private get; set; } = new ScreenshotTaker();
 
@@ -32,7 +32,7 @@ namespace ExceptionReporting.Mail
 				if (_config.TakeScreenshot) files.Add(ScreenshotTaker.TakeScreenShot());
 			} catch { /* ignored */ }
 
-			var filesThatExist = files.Where(f => File.Exists(f)).ToList();
+			var filesThatExist = files.Where(f => FileService.Exists(f)).ToList();
 
 			// attach external zip files separately - admittedly weak detection using just file extension
 			filesThatExist.Where(f => f.EndsWith(ZIP)).ToList().ForEach(attacher.Attach);
@@ -41,7 +41,7 @@ namespace ExceptionReporting.Mail
 			var filesToZip = filesThatExist.Where(f => !f.EndsWith(ZIP)).ToList();
 			if (filesToZip.Any())
 			{
-				var zipFile = File.TempFile(_config.AttachmentFilename);
+				var zipFile = FileService.TempFile(_config.AttachmentFilename);
 				Zipper.Zip(zipFile, filesToZip);
 				attacher.Attach(zipFile);
 			}

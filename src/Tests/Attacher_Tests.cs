@@ -25,7 +25,7 @@ namespace Tests.ExceptionReporting
 		{
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new string[] {} })
 			{
-				File = _file.Object,
+				FileService = _file.Object,
 				Zipper = _zip.Object
 			};
 
@@ -42,7 +42,7 @@ namespace Tests.ExceptionReporting
 
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1" } })
 			{
-				File = _file.Object,
+				FileService = _file.Object,
 				Zipper = _zip.Object
 			};
 
@@ -59,7 +59,7 @@ namespace Tests.ExceptionReporting
 
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1", "file2", "file3" } })
 			{
-				File = _file.Object,
+				FileService = _file.Object,
 				Zipper = _zip.Object
 			};
 
@@ -76,7 +76,7 @@ namespace Tests.ExceptionReporting
 
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1", "file2", "file3" } })
 			{
-				File = _file.Object,
+				FileService = _file.Object,
 				Zipper = _zip.Object
 			};
 
@@ -91,7 +91,7 @@ namespace Tests.ExceptionReporting
 			_file.Setup(f => f.Exists(It.IsAny<string>())).Returns(true);
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1.zip", "file2.zip" } })
 			{
-				File = _file.Object,
+				FileService = _file.Object,
 				Zipper = _zip.Object
 			};
 
@@ -109,7 +109,7 @@ namespace Tests.ExceptionReporting
 
 			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1.zip" , "file2.txt"} })
 			{
-				File = _file.Object,
+				FileService = _file.Object,
 				Zipper = _zip.Object
 			};
 

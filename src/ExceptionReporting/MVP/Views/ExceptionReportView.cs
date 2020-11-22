@@ -360,16 +360,33 @@ namespace ExceptionReporting.MVP.Views
 
 		private void Save_Click(object sender, EventArgs e)
 		{
-			var saveDialog = new SaveFileDialog
+			var saveArchiveToggle = true;
+			if (saveArchiveToggle)
 			{
-				Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
-				FilterIndex = 1,
-				RestoreDirectory = true
-			};
+				var saveDialog = new SaveFileDialog
+				{
+					Filter = "Archive (*.zip)|*.zip|All files (*.*)|*.*",
+					FilterIndex = 1,
+					RestoreDirectory = true
+				};
+				if (saveDialog.ShowDialog() == DialogResult.OK)
+				{
+					_presenter.SaveZipReportToFile(saveDialog.FileName);
+				}
+			}
+			else
+			{
+				var saveDialog = new SaveFileDialog
+				{
+					Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
+					FilterIndex = 1,
+					RestoreDirectory = true
+				};
 
-			if (saveDialog.ShowDialog() == DialogResult.OK)
-			{
-				_presenter.SaveReportToFile(saveDialog.FileName);
+				if (saveDialog.ShowDialog() == DialogResult.OK)
+				{
+					_presenter.SaveTextReportToFile(saveDialog.FileName);
+				}
 			}
 		}
 
