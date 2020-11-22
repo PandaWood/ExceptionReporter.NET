@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ExceptionReporting.Core
 {
 	internal interface IZipReportService
@@ -10,7 +12,7 @@ namespace ExceptionReporting.Core
 		/// Path to zip file.
 		/// Empty if not saved.
 		/// </returns>
-		string CreateZipReport(ExceptionReportInfo reportInfo);
+		string CreateZipReport(ExceptionReportInfo reportInfo, IEnumerable<string> additionalFilesToAttach);
 
 		/// <summary>
 		/// Create Zip file
@@ -19,6 +21,6 @@ namespace ExceptionReporting.Core
 		/// Path to zip file.
 		/// Empty if not saved.
 		/// </returns>
-		string CreateZipReport(ExceptionReportInfo reportInfo, string filepath);
+		string CreateZipReport(ExceptionReportInfo reportInfo, string filepath, IEnumerable<string> additionalFilesToAttach);
 	}
 }

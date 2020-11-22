@@ -81,8 +81,9 @@ namespace ExceptionReporting.MVP.Presenters
 			}
 			else
 			{
-				var zipReport = new ZipReportService(new Zipper(), new ScreenshotTaker());
-				var result = zipReport.CreateZipReport(ReportInfo, zipFilePath);
+				var additionalFilesToAttach = new List<string>(){textReportPath};
+				var zipReport = new ZipReportService(new Zipper(), new ScreenshotTaker(), new FileService());
+				var result = zipReport.CreateZipReport(ReportInfo, zipFilePath, additionalFilesToAttach);
 				if (!File.Exists(result))
 				{
 					//View.ShowError(string.Format("Unable to save file '{0}'", zipFilePath), result.Exception);
