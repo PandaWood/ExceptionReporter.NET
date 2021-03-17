@@ -15,7 +15,7 @@
 **Error Message**: {{Error.Message}}
  
 ## Stack Traces
-```text
+```shell
 {{Error.FullStackTrace}} 
 ```
  
@@ -25,6 +25,6 @@
 {{/App.AssemblyRefs}}
 
 ## System Info  
-```test
+```console
 {{SystemInfo}}
 ```
