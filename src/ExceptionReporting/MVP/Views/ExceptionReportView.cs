@@ -82,8 +82,6 @@ namespace ExceptionReporting.MVP.Views
 
 			Text = reportInfo.TitleText;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
-			//lblContactCompany.Text =
-			//	string.Format("If this problem persists, please contact {0} support.", reportInfo.CompanyName);
 			lblContactCompany.Text =
 				string.Format(
 					Resources.ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_ +

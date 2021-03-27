@@ -55,7 +55,6 @@ namespace ExceptionReporting.MVP.Presenters
 			
 			if (!result.Saved)
 			{
-				//View.ShowError(string.Format("Unable to save file '{0}'", fileName), result.Exception);
 				View.ShowError(Resources.Unable_to_save_file + $" '{fileName}'", result.Exception);
 			}
 		}
@@ -79,8 +78,6 @@ namespace ExceptionReporting.MVP.Presenters
 			catch (Exception exception)
 			{		// most exceptions will be thrown in the Sender - this is just a backup
 				View.Completed(false);
-				//View.ShowError($"Unable to setup" + $" {sender.Description}" + 
-				//               Environment.NewLine + exception.Message, exception);
 				View.ShowError(Resources.Unable_to_setup + $" {sender.Description}" + 
 				               Environment.NewLine + exception.Message, exception);
 			}
@@ -100,7 +97,6 @@ namespace ExceptionReporting.MVP.Presenters
 		{
 			var report = CreateReport();
 			WinFormsClipboard.CopyTo(report);
-			//View.ProgressMessage = "Copied to clipboard";
 			View.ProgressMessage = Resources.Copied_to_clipboard;
 		}
 
