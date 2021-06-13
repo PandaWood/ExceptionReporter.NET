@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using ExceptionReporting.Core;
+using ExceptionReporting.Mail;
 using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Properties;
@@ -46,7 +48,7 @@ namespace ExceptionReporting.MVP.Presenters
 		/// Save the exception report to file/disk
 		/// </summary>
 		/// <param name="fileName">the filename to save to</param>
-		public void SaveReportToFile(string fileName)
+		public void SaveTextReportToFile(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName)) return;
 
@@ -55,8 +57,38 @@ namespace ExceptionReporting.MVP.Presenters
 			
 			if (!result.Saved)
 			{
-				//View.ShowError(string.Format("Unable to save file '{0}'", fileName), result.Exception);
+				//View.ShowError(string.Format("Unable to save file '{0}'", zipFilePath), result.Exception);
 				View.ShowError(Resources.Unable_to_save_file + $" '{fileName}'", result.Exception);
+			}
+		}
+
+		/// <summary>
+		/// Save the exception report to file/disk
+		/// </summary>
+		/// <param name="zipFilePath">the filename to save to</param>
+		public void SaveZipReportToFile(string zipFilePath)
+		{
+			if (string.IsNullOrEmpty(zipFilePath)) return;
+
+			//TODO: select extension by ReportTemplateFormat
+			var textReportPath = Path.Combine(Path.GetTempPath(), @"ExceptionReporter\report.txt");
+			if (!Directory.Exists(textReportPath)) Directory.CreateDirectory(Path.GetDirectoryName(textReportPath));
+			var report = CreateReport();
+			var textFileSaveResult = _fileService.Write(textReportPath, report);
+			if (!textFileSaveResult.Saved)
+			{
+				View.ShowError(Resources.Unable_to_save_file + $" '{textReportPath}'", textFileSaveResult.Exception);
+			}
+			else
+			{
+				var additionalFilesToAttach = new List<string>(){textReportPath};
+				var zipReport = new ZipReportService(new Zipper(), new ScreenshotTaker(), new FileService());
+				var result = zipReport.CreateZipReport(ReportInfo, zipFilePath, additionalFilesToAttach);
+				if (!File.Exists(result))
+				{
+					//View.ShowError(string.Format("Unable to save file '{0}'", zipFilePath), result.Exception);
+					View.ShowError(Resources.Unable_to_save_file + $" '{result}'", new IOException());
+				}
 			}
 		}
 

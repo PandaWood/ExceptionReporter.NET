@@ -14,12 +14,15 @@ namespace Tests.ExceptionReporting
 	{
 		[Test]
 		[Ignore("UI")]
-		public static void ManualLocalizationTest()
+		[TestCase("en")]
+		[TestCase("ru")]
+
+		public static void ManualLocalizationTest(string languageTag)
 		{
 			var thread = new Thread(() =>
 			{
-			  Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("ru");
-			  Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag("ru");
+			  Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(languageTag);
+			  Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(languageTag);
 			  var er = new ExceptionReporter
 				{
 					Config =
