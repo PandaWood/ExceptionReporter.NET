@@ -17,19 +17,19 @@ namespace ExceptionReporting.Core
 			FileService = fileService;
 		}
 
-		public string CreateZipReport(ExceptionReportInfo reportInfo, IEnumerable<string> additionalFilesToAttach = null)
+		public string CreateZipReport(ExceptionReportInfo reportInfo, IList<string> additionalFiles = null)
 		{
 			var zipFilePath = FileService.TempFile(reportInfo.AttachmentFilename);
-			return CreateZipReport(reportInfo, zipFilePath, additionalFilesToAttach);
+			return CreateZipReport(reportInfo, zipFilePath, additionalFiles);
 		}
 
-		public string CreateZipReport(ExceptionReportInfo reportInfo, string zipFilePath, IEnumerable<string> additionalFilesToAttach = null)
+		public string CreateZipReport(ExceptionReportInfo reportInfo, string zipFilePath, IList<string> additionalFiles = null)
 		{
 			if (string.IsNullOrWhiteSpace(zipFilePath)) return string.Empty;
 
 			var files = new List<string>();
 			if (reportInfo.FilesToAttach.Length > 0) files.AddRange(reportInfo.FilesToAttach);
-			if (additionalFilesToAttach?.Count() > 0) files.AddRange(additionalFilesToAttach);
+			if (additionalFiles?.Count > 0) files.AddRange(additionalFiles);
 			try
 			{
 				if (reportInfo.TakeScreenshot) files.Add(ScreenshotTaker.TakeScreenShot());

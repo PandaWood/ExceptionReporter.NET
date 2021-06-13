@@ -12,7 +12,7 @@ namespace ExceptionReporting.Core
 		/// Path to zip file.
 		/// Empty if not saved.
 		/// </returns>
-		string CreateZipReport(ExceptionReportInfo reportInfo, IEnumerable<string> additionalFilesToAttach);
+		string CreateZipReport(ExceptionReportInfo reportInfo, IList<string> additionalFilesToAttach);
 
 		/// <summary>
 		/// Create Zip file
@@ -21,6 +21,6 @@ namespace ExceptionReporting.Core
 		/// Path to zip file.
 		/// Empty if not saved.
 		/// </returns>
-		string CreateZipReport(ExceptionReportInfo reportInfo, string filepath, IEnumerable<string> additionalFilesToAttach);
+		string CreateZipReport(ExceptionReportInfo reportInfo, string filepath, IList<string> additionalFilesToAttach);
 	}
 }

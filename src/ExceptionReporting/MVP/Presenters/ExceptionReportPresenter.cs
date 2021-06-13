@@ -57,7 +57,6 @@ namespace ExceptionReporting.MVP.Presenters
 			
 			if (!result.Saved)
 			{
-				//View.ShowError(string.Format("Unable to save file '{0}'", zipFilePath), result.Exception);
 				View.ShowError(Resources.Unable_to_save_file + $" '{fileName}'", result.Exception);
 			}
 		}
@@ -71,7 +70,7 @@ namespace ExceptionReporting.MVP.Presenters
 			if (string.IsNullOrEmpty(zipFilePath)) return;
 
 			//TODO: select extension by ReportTemplateFormat
-			var textReportPath = Path.Combine(Path.GetTempPath(), @"ExceptionReporter\report.txt");
+			var textReportPath = Path.Combine(Path.GetTempPath(), @"ExceptionReporter" + Path.DirectorySeparatorChar + "report.txt");
 			if (!Directory.Exists(textReportPath)) Directory.CreateDirectory(Path.GetDirectoryName(textReportPath));
 			var report = CreateReport();
 			var textFileSaveResult = _fileService.Write(textReportPath, report);
@@ -81,12 +80,11 @@ namespace ExceptionReporting.MVP.Presenters
 			}
 			else
 			{
-				var additionalFilesToAttach = new List<string>(){textReportPath};
+				var additionalFilesToAttach = new List<string>{ textReportPath };
 				var zipReport = new ZipReportService(new Zipper(), new ScreenshotTaker(), new FileService());
 				var result = zipReport.CreateZipReport(ReportInfo, zipFilePath, additionalFilesToAttach);
 				if (!File.Exists(result))
 				{
-					//View.ShowError(string.Format("Unable to save file '{0}'", zipFilePath), result.Exception);
 					View.ShowError(Resources.Unable_to_save_file + $" '{result}'", new IOException());
 				}
 			}
@@ -111,8 +109,6 @@ namespace ExceptionReporting.MVP.Presenters
 			catch (Exception exception)
 			{		// most exceptions will be thrown in the Sender - this is just a backup
 				View.Completed(false);
-				//View.ShowError($"Unable to setup" + $" {sender.Description}" + 
-				//               Environment.NewLine + exception.Message, exception);
 				View.ShowError(Resources.Unable_to_setup + $" {sender.Description}" + 
 				               Environment.NewLine + exception.Message, exception);
 			}
@@ -132,7 +128,6 @@ namespace ExceptionReporting.MVP.Presenters
 		{
 			var report = CreateReport();
 			WinFormsClipboard.CopyTo(report);
-			//View.ProgressMessage = "Copied to clipboard";
 			View.ProgressMessage = Resources.Copied_to_clipboard;
 		}
 
