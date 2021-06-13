@@ -1,6 +1,6 @@
 namespace ExceptionReporting.Core
 {
-	internal class WinFormsClipboard
+	internal static class WinFormsClipboard
 	{
 		public static void CopyTo(string text)
 		{

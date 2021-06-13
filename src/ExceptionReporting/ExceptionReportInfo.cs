@@ -226,7 +226,6 @@ namespace ExceptionReporting
 		/// <summary>
 		/// The title of the main ExceptionReporter dialog
 		/// </summary>
-		//public string TitleText { get; set; } = "Error Report";
 		public string TitleText { get; set; } = Resources.ErrorReport;
 
 		/// <summary>
@@ -360,11 +359,9 @@ namespace ExceptionReporting
 
 	internal static class DefaultLabelMessages
 	{
-		//"Please enter a brief explanation of events leading up to this exception";
 		public static readonly string DefaultExplanationLabel =
 			Resources.Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception;
 
-		//"The following details can be used to obtain support for this application";
 		public static readonly string DefaultContactMessageTop =
 			Resources.The_following_details_can_be_used_to_obtain_support_for_this_application;
 	}

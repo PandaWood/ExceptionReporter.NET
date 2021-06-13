@@ -12,7 +12,6 @@ using ExceptionReporting.Properties;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 
-[assembly: InternalsVisibleTo("Tests.ExceptionReporter.NET-sdk")]
 [assembly: InternalsVisibleTo("Tests.ExceptionReporter.NET")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]	// for moq
 
@@ -72,7 +71,6 @@ namespace ExceptionReporting
 			catch (Exception ex)
 			{
 				status = false;
-				//ViewMaker.ShowError(ex.Message, "Failed trying to report an Error");
 				ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
 			}
 

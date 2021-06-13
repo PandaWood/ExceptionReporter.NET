@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.NET-sdk", "src\ExceptionReporting\ExceptionReporter.NET-sdk.csproj", "{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Net", "src\ExceptionReporting\ExceptionReporter.Net.csproj", "{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ExceptionReporter.NET-sdk", "src\Tests\Tests.ExceptionReporter.NET-sdk.csproj", "{565583C0-0162-4973-962B-7C3F6EE1A4B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ExceptionReporter.Net", "src\Tests\Tests.ExceptionReporter.Net.csproj", "{565583C0-0162-4973-962B-7C3F6EE1A4B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
