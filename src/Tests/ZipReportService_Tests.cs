@@ -40,7 +40,6 @@ namespace Tests.ExceptionReporting
 
 			Assert.IsTrue(result == string.Empty);
 			_zipper.Verify(z => z.Zip(zipFilename, It.IsAny<IEnumerable<string>>()), Times.Never);
-			Mock.Verify();
 		}
 
 
@@ -67,7 +66,6 @@ namespace Tests.ExceptionReporting
 
 			Assert.IsTrue(result == string.Empty);
 			_zipper.Verify(z => z.Zip(zipFilename, It.IsAny<IEnumerable<string>>()), Times.Never);
-			Mock.Verify();
 		}
 
 		[Test]
