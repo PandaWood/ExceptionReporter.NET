@@ -53,10 +53,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
-    <Version>4.0.3</Version>
-    <FileVersion>4.0.3</FileVersion>
+    <Version>4.1.0</Version>
+    <FileVersion>4.1.0.0</FileVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
-    <Copyright>Copyright (c) Peter van der Woude</Copyright>
+    <Copyright></Copyright>
   </PropertyGroup>
 </Project>

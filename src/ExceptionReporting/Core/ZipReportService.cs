@@ -6,16 +6,9 @@ namespace ExceptionReporting.Core
 {
 	internal class ZipReportService : IZipReportService
 	{
-		private IZipper Zipper { get; } = new Zipper();
-		private IScreenshotTaker ScreenshotTaker { get; } = new ScreenshotTaker();
-		private IFileService FileService { get; } = new FileService();
-
-		public ZipReportService()
-		{
-			Zipper = new Zipper();
-			ScreenshotTaker = new ScreenshotTaker();
-			FileService = new FileService();
-}
+		private IZipper Zipper { get; }
+		private IScreenshotTaker ScreenshotTaker { get; }
+		private IFileService FileService { get; }
 
 		public ZipReportService(IZipper zipper, IScreenshotTaker screenshotTaker, IFileService fileService)
 		{
@@ -26,7 +19,7 @@ namespace ExceptionReporting.Core
 
 		public string CreateZipReport(ExceptionReportInfo reportInfo, IEnumerable<string> additionalFilesToAttach = null)
 		{
-			string zipFilePath = FileService.TempFile(reportInfo.AttachmentFilename);
+			var zipFilePath = FileService.TempFile(reportInfo.AttachmentFilename);
 			return CreateZipReport(reportInfo, zipFilePath, additionalFilesToAttach);
 		}
 
