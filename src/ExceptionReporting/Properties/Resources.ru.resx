@@ -165,4 +165,7 @@
   <data name="ErrorReport" xml:space="preserve">
 	  <value>Отчёт об ошибке</value>
   </data>
+  <data name="Failed to copy to clipboard" xml:space="preserve">
+	  <value>Clipboard copy failed</value>
+  </data>
 </root>

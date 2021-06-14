@@ -116,6 +116,15 @@ namespace ExceptionReporting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clipboard copy failed.
+        /// </summary>
+        internal static string Failed_to_copy_to_clipboard {
+            get {
+                return ResourceManager.GetString("Failed to copy to clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to send report.
         /// </summary>
         internal static string Failed_to_send_report {

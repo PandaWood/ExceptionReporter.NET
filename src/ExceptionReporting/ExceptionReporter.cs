@@ -56,9 +56,7 @@ namespace ExceptionReporting
 		public bool Show(params Exception[] exceptions)
 		{
 			// silently ignore the mistake of passing null
-			if (exceptions == null || exceptions.Length == 0 || exceptions.Length >= 1 && exceptions[0] == null) return false;		
-			
-			bool status;
+			if (exceptions == null || exceptions.Length == 0 || exceptions.Length >= 1 && exceptions[0] == null) return false;
 
 			try
 			{
@@ -66,15 +64,13 @@ namespace ExceptionReporting
 				
 				var view = ViewMaker.Create();
 				view.ShowWindow();
-				status = true;
+				return true;
 			}
 			catch (Exception ex)
 			{
-				status = false;
 				ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
+				return false;
 			}
-
-			return status;
 		}
 
 		/// <summary>

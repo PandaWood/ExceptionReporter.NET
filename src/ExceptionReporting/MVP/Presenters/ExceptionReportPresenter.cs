@@ -122,13 +122,12 @@ namespace ExceptionReporting.MVP.Presenters
 		}
 
 		/// <summary>
-		/// copy the report to the clipboard
+		/// copy the report to clipboard
 		/// </summary>
 		public void CopyReportToClipboard()
 		{
 			var report = CreateReport();
-			WinFormsClipboard.CopyTo(report);
-			View.ProgressMessage = Resources.Copied_to_clipboard;
+			View.ProgressMessage = WinFormsClipboard.CopyTo(report) ? Resources.Copied_to_clipboard : Resources.Failed_to_copy_to_clipboard;
 		}
 
 		/// <summary>

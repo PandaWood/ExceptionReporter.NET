@@ -34,10 +34,14 @@ namespace ExceptionReporting.Core
 			{
 				if (reportInfo.TakeScreenshot) files.Add(ScreenshotTaker.TakeScreenShot());
 			}
-			catch { /* ignored */ }
+			catch
+			{
+				/* ignored */
+			}
 
 			var filesThatExist = files.Where(f => FileService.Exists(f)).ToList();
 			var filesToZip = filesThatExist;
+
 			if (filesToZip.Any())
 				Zipper.Zip(zipFilePath, filesToZip);
 			else

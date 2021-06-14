@@ -156,6 +156,9 @@
   <data name="Copied to clipboard" xml:space="preserve">
 	  <value>Copied to clipboard</value>
   </data>
+  <data name="Failed to copy to clipboard" xml:space="preserve">
+	  <value>Clipboard copy failed</value>
+  </data>
   <data name="Unable to save file" xml:space="preserve">
 	  <value>Unable to save file</value>
   </data>
