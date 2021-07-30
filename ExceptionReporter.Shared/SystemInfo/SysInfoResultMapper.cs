@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
 namespace ExceptionReporting.SystemInfo
 {
@@ -15,6 +15,9 @@ namespace ExceptionReporting.SystemInfo
 	internal class SysInfoResultMapper : ISysInfoResultMapper
 	{
 		private readonly IEnumerable<SysInfoResult> _sysInfoResults;
+
+		protected SysInfoResultMapper()
+		{ }
 
 		public SysInfoResultMapper(IEnumerable<SysInfoResult> sysInfoResults)
 		{
@@ -36,41 +39,15 @@ namespace ExceptionReporting.SystemInfo
 				{
 					sb.AppendLine("-" + nodeValueParent);
 
-					foreach (var childResult in result.ChildResults)
+					foreach (var nodeValue in result.ChildResults.SelectMany(childResult => childResult.Nodes))
 					{
-						foreach (var nodeValue in childResult.Nodes)
-						{
-							sb.AppendLine("--" + nodeValue);		// the max no. of levels is 2, ie '--' is as deep as we go
-						}
+						sb.AppendLine("--" + nodeValue);		// the max no. of levels is 2, ie '--' is as deep as we go
 					}
 				}
 				sb.AppendLine();
 			}
 
 			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Add a tree node to an existing parentNode, by passing the SysInfoResult
-		/// </summary>
-		public static void AddTreeViewNode(TreeNode parentNode, SysInfoResult result)
-		{
-			var nodeRoot = new TreeNode(result.Name);
-
-			foreach (var nodeValueParent in result.Nodes)
-			{
-				var nodeLeaf = new TreeNode(nodeValueParent);
-				nodeRoot.Nodes.Add(nodeLeaf);
-
-				foreach (var childResult in result.ChildResults)
-				{
-					foreach (var nodeValue in childResult.Nodes)
-					{
-						nodeLeaf.Nodes.Add(new TreeNode(nodeValue));
-					}
-				}
-			}
-			parentNode.Nodes.Add(nodeRoot);
 		}
 	}
 }

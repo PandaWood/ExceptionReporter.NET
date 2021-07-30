@@ -10,6 +10,7 @@ using ExceptionReporting.Properties;
 using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
 using ExceptionReporting.Templates;
+using ExceptionReporting.WinForms;
 
 namespace ExceptionReporting.MVP.Presenters
 {

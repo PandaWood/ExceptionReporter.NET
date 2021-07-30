@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Deployment.Application;
 using System.Reflection;
-using System.Windows.Forms;
 using ExceptionReporting.Core;
 using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
@@ -35,27 +34,22 @@ namespace ExceptionReporting
 		{
 			// this is going to be a dev/learning mistake - fail fast and hard
 			_info = reportInfo ?? throw new ArgumentNullException(nameof(reportInfo));
-			
-			_info.AppName =    _info.AppName.IsEmpty() ? Application.ProductName : _info.AppName;
+			if (_info.AppAssembly == null)
+			{
+				_info.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+			}
+
+			_info.AppName =    _info.AppName.IsEmpty() ? _info.AppAssembly.GetName().Name: _info.AppName;
 			_info.AppVersion = _info.AppVersion.IsEmpty() ? GetAppVersion() : _info.AppVersion;
 			_info.ExceptionDate = _info.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
-			
-			if (_info.AppAssembly == null)
-				_info.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 		}
 
 		private string GetAppVersion()
 		{
 			return ApplicationDeployment.IsNetworkDeployed ? 
-				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ProductVersion;
+				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
 		}
 		
-//		leave commented out for mono to toggle in/out to be able to compile
-//		private string GetAppVersion()
-//		{
-//			return Application.ProductVersion;
-//		}
-
 		/// <summary>
 		/// Generate the exception report
 		/// </summary>

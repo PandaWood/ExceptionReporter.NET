@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,11 +13,11 @@ namespace ExceptionReporting.MVP.Views
 			WireUpEvents();
 		}
 
-		public void SetControlBackgrounds(Color color)
+		public void SetControlBackgrounds(string color)
 		{
 			listviewExceptions.BackColor =
 				txtExceptionTabMessage.BackColor =
-				txtExceptionTabStackTrace.BackColor = color;
+					txtExceptionTabStackTrace.BackColor = ColorTranslator.FromHtml(color);
 		}
 
 		//TODO this is duplicated almost entirely (without ListView) in ReportBuilder)

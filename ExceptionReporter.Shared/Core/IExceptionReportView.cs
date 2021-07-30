@@ -4,7 +4,7 @@ using ExceptionReporting.Network.Events;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporting.MVP.Views
+namespace ExceptionReporting.Core
 {
 	/// <summary>
 	/// The interface (contract) for an ExceptionReport dialog/View

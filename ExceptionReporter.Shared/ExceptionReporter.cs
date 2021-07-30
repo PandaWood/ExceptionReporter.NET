@@ -4,7 +4,6 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 using ExceptionReporting.Properties;
@@ -36,16 +35,14 @@ namespace ExceptionReporting
 		public ExceptionReporter()
 		{
 			_info = new ExceptionReportInfo();
-			ViewMaker = new ViewMaker(_info);
+			//TODO make make ViewMaker for wpf/winforms separately
+			// ViewMaker = new ViewMaker(_info);
 		}
 
 		/// <summary>
 		/// Public access to configuration/settings
 		/// </summary>
-		public ExceptionReportInfo Config
-		{
-			get { return _info; }
-		}
+		public ExceptionReportInfo Config => _info;
 
 		/// <summary>
 		/// Show the ExceptionReport dialog

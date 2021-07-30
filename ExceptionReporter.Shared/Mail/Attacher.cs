@@ -12,7 +12,10 @@ namespace ExceptionReporting.Mail
 
 		public IFileService FileService { private get; set; } = new FileService();
 		public IZipper Zipper { private get; set; } = new Zipper();
-		public IScreenshotTaker ScreenshotTaker { private get; set; } = new ScreenshotTaker();
+
+		//TODO move this back into winforms version
+		// public IScreenshotTaker ScreenshotTaker { private get; set; } = new ScreenshotTaker();
+		public IScreenshotTaker ScreenshotTaker { private get; set; }
 
 		public Attacher(ExceptionReportInfo config)
 		{

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>aaeee6cd-9d37-424e-b62a-e7d28d3391f4</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ExceptionReporting</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ExceptionReporterExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\FileService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IExceptionReportView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IZipReportService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ZipReportService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExceptionReporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExceptionReportInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IScreenshotTaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IViewMaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mail\AttachAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mail\Attacher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mail\Zipper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Events\ConsoleSendEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Events\IReportSendEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Events\SilentSendEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\IReportSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\ReportPacket.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\SenderFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ConfigException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\GhostSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\MailSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\MapiMailSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\SmtpMailSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\WebServiceSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ReportGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Report\AssemblyDigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Report\ReportBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Report\StackTraceMaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoQueries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoResultMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoRetriever.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Templates\EmailIntroModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Templates\ReportModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Templates\TemplateFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Templates\TemplateRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.en.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\EmailIntroTemplate.text" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.html" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.markdown" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.text" />
+  </ItemGroup>
+</Project>

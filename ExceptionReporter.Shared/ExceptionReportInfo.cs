@@ -219,8 +219,8 @@ namespace ExceptionReporting
 		/// </summary>
 		public bool ShowEmailButton
 		{
-			get { return SendMethod != ReportSendMethod.None && _showEmailButton; }
-			set { _showEmailButton = value; }
+			get => SendMethod != ReportSendMethod.None && _showEmailButton;
+			set => _showEmailButton = value;
 		}
 
 		/// <summary>
@@ -231,7 +231,8 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Background color of the dialog
 		/// </summary>
-		public Color BackgroundColor { get; set; } = Color.WhiteSmoke;
+		// public Color BackgroundColor { get; set; } = Color.WhiteSmoke;
+		public string BackgroundColor { get; set; } = "#f5f5f5";
 
 		/// <summary>
 		/// The font size of the user input text box
@@ -268,8 +269,8 @@ namespace ExceptionReporting
 		/// <value>The attachment filename, extension .zip applied automatically if not provided</value>
 		public string AttachmentFilename
 		{
-			get { return _attachmentFilename.ToLower().EndsWith(".zip") ? _attachmentFilename : _attachmentFilename + ".zip"; }
-			set { _attachmentFilename = value; }
+			get => _attachmentFilename.ToLower().EndsWith(".zip") ? _attachmentFilename : _attachmentFilename + ".zip";
+			set => _attachmentFilename = value;
 		}
 
 		/// <summary>

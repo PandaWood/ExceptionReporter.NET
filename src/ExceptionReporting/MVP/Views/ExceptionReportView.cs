@@ -1,3 +1,7 @@
+/*
+ * https://github.com/PandaWood/ExceptionReporter.NET
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,6 +11,7 @@ using ExceptionReporting.Core;
 using ExceptionReporting.MVP.Presenters;
 using ExceptionReporting.Properties;
 using ExceptionReporting.SystemInfo;
+using ExceptionReporting.WinForms;
 
 #pragma warning disable 1591
 
@@ -68,7 +73,7 @@ namespace ExceptionReporting.MVP.Views
 								txtApplicationName.BackColor =
 									txtDate.BackColor =
 										txtExceptionMessageLarge.BackColor =
-											txtExceptionMessage.BackColor = reportInfo.BackgroundColor;
+											txtExceptionMessage.BackColor = ColorTranslator.FromHtml("#FFCC66");
 
 			if (!reportInfo.ShowButtonIcons)
 			{
@@ -323,7 +328,7 @@ namespace ExceptionReporting.MVP.Views
 
 			foreach (var sysInfoResult in _presenter.GetSysInfoResults())
 			{
-				SysInfoResultMapper.AddTreeViewNode(rootNode, sysInfoResult);
+				SysInfoResultMapperWinForm.AddTreeViewNode(rootNode, sysInfoResult);
 			}
 
 			return rootNode;

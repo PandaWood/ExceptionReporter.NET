@@ -2,14 +2,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using ExceptionReporting.Core;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporting.WinForms
 {
-	internal interface IScreenshotTaker
-	{
-		string TakeScreenShot();
-	}
-
 	/// <summary>
 	/// Utility to take a screenshot and return as a graphic file 
 	/// </summary>

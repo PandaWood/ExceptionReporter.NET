@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ExceptionReporting;
-using ExceptionReporting.MVP.Views;
+using ExceptionReporting.Core;
 using Moq;
 using NUnit.Framework;
 

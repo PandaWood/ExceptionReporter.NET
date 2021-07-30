@@ -1,5 +1,6 @@
 namespace ExceptionReporting.SystemInfo
 {
+	// ReSharper disable once ClassNeverInstantiated.Global
 	internal class SysInfoQueries
 	{
 		public static readonly SysInfoQuery OperatingSystem = new SysInfoQuery("Operating System", "Win32_OperatingSystem", false);

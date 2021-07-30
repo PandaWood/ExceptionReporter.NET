@@ -1,6 +1,6 @@
 using System;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporting.WinForms
 {
 	internal static class WinFormsClipboard
 	{

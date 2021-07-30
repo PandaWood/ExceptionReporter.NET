@@ -40,10 +40,9 @@ namespace ExceptionReporting.Core
 			}
 
 			var filesThatExist = files.Where(f => FileService.Exists(f)).ToList();
-			var filesToZip = filesThatExist;
 
-			if (filesToZip.Any())
-				Zipper.Zip(zipFilePath, filesToZip);
+			if (filesThatExist.Any())
+				Zipper.Zip(zipFilePath, filesThatExist);
 			else
 				return string.Empty;
 

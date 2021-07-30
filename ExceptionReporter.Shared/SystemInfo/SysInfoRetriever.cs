@@ -25,7 +25,7 @@ namespace ExceptionReporting.SystemInfo
 				return null;
 			}
 			_sysInfoQuery = sysInfoQuery;
-			_sysInfoSearcher = new ManagementObjectSearcher(string.Format("SELECT * FROM {0}", _sysInfoQuery.QueryText));
+			_sysInfoSearcher = new ManagementObjectSearcher($"SELECT * FROM {_sysInfoQuery.QueryText}");
 			_sysInfoResult = new SysInfoResult(_sysInfoQuery.Name);
 
 			foreach (ManagementObject managementObject in _sysInfoSearcher.Get())
@@ -49,7 +49,7 @@ namespace ExceptionReporting.SystemInfo
 					childList.Add(childResult);
 				}
 
-				var nodeValue = string.Format("{0} = {1}", propertyData.Name, Convert.ToString(propertyData.Value));
+				var nodeValue = $"{propertyData.Name} = {Convert.ToString(propertyData.Value)}";
 				childResult.Nodes.Add(nodeValue);
 			}
 

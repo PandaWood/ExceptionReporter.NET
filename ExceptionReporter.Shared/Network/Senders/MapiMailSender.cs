@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.Network.Events;
@@ -30,7 +30,7 @@ namespace ExceptionReporting.Network.Senders
 		{
 			if (_config.EmailReportAddress.IsEmpty())
 			{
-				_sendEvent.ShowError("EmailReportAddress not set", new ConfigurationErrorsException("EmailReportAddress"));
+				_sendEvent.ShowError("EmailReportAddress not set", new ConfigException("EmailReportAddress"));
 				return;
 			}
 			
