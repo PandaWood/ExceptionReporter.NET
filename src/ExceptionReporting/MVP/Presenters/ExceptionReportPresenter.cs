@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
-using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Properties;
 using ExceptionReporting.Report;

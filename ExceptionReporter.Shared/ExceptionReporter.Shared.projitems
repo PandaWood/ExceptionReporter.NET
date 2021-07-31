@@ -33,11 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\MapiMailSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\SmtpMailSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\WebServiceSender.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ReportGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\AssemblyDigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\ReportBuilder.cs" />
@@ -53,22 +48,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Templates\TemplateRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.en.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.resx">
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.ru.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\EmailIntroTemplate.text" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.html" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.markdown" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.text" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Properties\" />
   </ItemGroup>
 </Project>

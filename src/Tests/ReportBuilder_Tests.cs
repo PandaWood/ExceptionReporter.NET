@@ -4,7 +4,6 @@ using AutoMoq;
 using ExceptionReporting;
 using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
-using ExceptionReporting.WinForms;
 using NUnit.Framework;
 
 namespace Tests.ExceptionReporting

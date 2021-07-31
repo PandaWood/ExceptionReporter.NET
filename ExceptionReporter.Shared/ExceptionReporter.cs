@@ -6,7 +6,6 @@ using System;
 using System.Runtime.CompilerServices;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
-using ExceptionReporting.Properties;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
@@ -65,7 +64,9 @@ namespace ExceptionReporting
 			}
 			catch (Exception ex)
 			{
-				ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
+				//TODO figure out shared resources between WinForms and WPF or move messages out of common code
+				// ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
+				ViewMaker.ShowError(ex.Message, "Failed_trying_to_report_an_Error");
 				return false;
 			}
 		}

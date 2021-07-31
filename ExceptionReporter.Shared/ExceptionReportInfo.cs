@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Mail;
 using System.Reflection;
-using ExceptionReporting.Properties;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -226,7 +225,9 @@ namespace ExceptionReporting
 		/// <summary>
 		/// The title of the main ExceptionReporter dialog
 		/// </summary>
-		public string TitleText { get; set; } = Resources.ErrorReport;
+		// public string TitleText { get; set; } = Resources.ErrorReport;
+		//TODO figure out shared resources
+		public string TitleText { get; set; } = "ErrorReport";
 
 		/// <summary>
 		/// Background color of the dialog
@@ -360,11 +361,14 @@ namespace ExceptionReporting
 
 	internal static class DefaultLabelMessages
 	{
+		//TODO shared resources or move messages out
 		public static readonly string DefaultExplanationLabel =
-			Resources.Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception;
+			// Resources.Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception;
+			"Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception";
 
 		public static readonly string DefaultContactMessageTop =
-			Resources.The_following_details_can_be_used_to_obtain_support_for_this_application;
+			// Resources.The_following_details_can_be_used_to_obtain_support_for_this_application;
+			"The_following_details_can_be_used_to_obtain_support_for_this_application";
 	}
 }
 
