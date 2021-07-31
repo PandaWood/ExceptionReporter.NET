@@ -20,10 +20,6 @@ namespace ExceptionReporting.SystemInfo
 		/// <returns>a SysInfoResult ie containing the results of the query</returns>
 		public SysInfoResult Retrieve(SysInfoQuery sysInfoQuery)
 		{
-			if (ExceptionReporter.IsRunningMono())
-			{
-				return null;
-			}
 			_sysInfoQuery = sysInfoQuery;
 			_sysInfoSearcher = new ManagementObjectSearcher($"SELECT * FROM {_sysInfoQuery.QueryText}");
 			_sysInfoResult = new SysInfoResult(_sysInfoQuery.Name);

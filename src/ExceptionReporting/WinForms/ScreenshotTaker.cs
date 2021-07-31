@@ -17,8 +17,6 @@ namespace ExceptionReporting.WinForms
 		/// <returns>temp file name of JPEG image</returns>
 		public string TakeScreenShot()
 		{
-      if (ExceptionReporter.IsRunningMono()) return null;
-
 			var rectangle = Rectangle.Empty;
 
 			foreach (var screen in Screen.AllScreens)

@@ -29,7 +29,6 @@ namespace Tests.ExceptionReporting
 		[Test]
 		public void Can_Create_Report_With_A_Couple_Of_Minimal_Bits_That_Should_Exist()
 		{
-			if (ExceptionReporter.IsRunningMono()) return;
 			var report = _reportGenerator.Generate();
 			var reportString = report;
 

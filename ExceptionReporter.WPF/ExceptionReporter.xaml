@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
-    </Grid>
+
+	    <!-- To be instantiated like this -->
+	    <!-- Window window = new Window { -->
+	    <!-- Title = "My User Control Dialog", -->
+	    <!-- Content = new MyUserControl() }; -->
+	    <!-- window.ShowDialog(); -->
+
+	</Grid>
 </UserControl>

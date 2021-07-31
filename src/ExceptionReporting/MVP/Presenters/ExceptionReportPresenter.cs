@@ -170,8 +170,7 @@ namespace ExceptionReporting.MVP.Presenters
 
 				View.PopulateExceptionTab(ReportInfo.Exceptions);
 				View.PopulateAssembliesTab();
-				if (ExceptionReporter.NotRunningMono())
-					View.PopulateSysInfoTab();
+				View.PopulateSysInfoTab();
 			}
 			finally
 			{

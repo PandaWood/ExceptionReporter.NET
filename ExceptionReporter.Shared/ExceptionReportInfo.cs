@@ -163,28 +163,18 @@ namespace ExceptionReporting
 		/// </summary>
 		public bool ShowExceptionsTab { get; set; } = true;
 
-		
-		private bool _showSysInfoTab = true;
+
 		/// <summary>
 		/// Show/hide *System Information* (SysInfo) tab in dialog
 		/// <remarks> ignored in Mono </remarks> 
 		/// </summary>
-		public bool ShowSysInfoTab
-		{
-			get { return !ExceptionReporter.IsRunningMono() && _showSysInfoTab; }
-			set { _showSysInfoTab = value; }
-		}
+		public bool ShowSysInfoTab { get; set; } = true;
 
-		private bool _showAssembliesTab = true;
 		/// <summary>
 		/// Show/hide *Assemblies* tab in dialog
 		/// <remarks> ignored in Mono </remarks>
 		/// </summary>
-		public bool ShowAssembliesTab
-		{
-			get { return !ExceptionReporter.IsRunningMono() && _showAssembliesTab; }
-			set { _showAssembliesTab = value; }
-		}
+		public bool ShowAssembliesTab { get; set; } = true;
 
 		/// <summary>
 		/// Email address used to send the report via email

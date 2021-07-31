@@ -14,7 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\IExceptionReportView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IZipReportService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ZipReportService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExceptionReporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionReportInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IScreenshotTaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IViewMaker.cs" />
@@ -52,8 +51,5 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.html" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.markdown" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.text" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Properties\" />
   </ItemGroup>
 </Project>

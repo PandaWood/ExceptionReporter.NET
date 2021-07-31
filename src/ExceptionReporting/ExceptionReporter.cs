@@ -4,6 +4,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 
@@ -34,8 +35,7 @@ namespace ExceptionReporting
 		public ExceptionReporter()
 		{
 			_info = new ExceptionReportInfo();
-			//TODO make make ViewMaker for wpf/winforms separately
-			// ViewMaker = new ViewMaker(_info);
+			ViewMaker = new ViewMaker(_info);
 		}
 
 		/// <summary>
@@ -106,14 +106,6 @@ namespace ExceptionReporting
 		{
 			Send(new SilentSendEvent(), exceptions);
 		}
-
-		static readonly bool _isRunningMono = System.Type.GetType("Mono.Runtime") != null;
-
-		/// <returns><c>true</c>, if running mono <c>false</c> otherwise.</returns>
-		public static bool IsRunningMono() { return _isRunningMono; }
-		
-		/// <returns><c>true</c>, if not running mono <c>false</c> otherwise.</returns>
-		public static bool NotRunningMono() { return !_isRunningMono; }
 	}
 }
 
