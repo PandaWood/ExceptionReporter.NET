@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\IExceptionReportView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IZipReportService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ZipReportService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExceptionReporterBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionReportInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IScreenshotTaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IViewMaker.cs" />

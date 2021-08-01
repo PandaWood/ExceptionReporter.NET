@@ -4,12 +4,13 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using ExceptionReporting.MVP.Views;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 
-// ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
+// ReSharper disable ConvertToAutoPropertyWhenPossible
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedType.Global
 
 [assembly: InternalsVisibleTo("Tests.ExceptionReporter.NET")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]	// for moq
@@ -17,70 +18,28 @@ using ExceptionReporting.Network.Events;
 namespace ExceptionReporting
 {
 	/// <summary>
-	/// The entry-point (class) to invoking a (WinForms) ExceptionReporter dialog
+	/// The entry-point (class) to invoking either a WinForms dialog or sending
 	/// eg new ExceptionReporter().Show(exceptions)
 	/// </summary>
-	public class ExceptionReporter
+	public class ExceptionReporterBase
 	{
-		private readonly ExceptionReportInfo _info;
-		
 		/// <summary>
-		/// Contract by which to show any dialogs/view
+		/// 
 		/// </summary>
-		public IViewMaker ViewMaker { get; set; }
+		protected readonly ExceptionReportInfo _info;
 		
 		/// <summary>
 		/// Initialise the ExceptionReporter
 		/// </summary>
-		public ExceptionReporter()
+		public ExceptionReporterBase()
 		{
 			_info = new ExceptionReportInfo();
-			ViewMaker = new ViewMaker(_info);
 		}
 
 		/// <summary>
 		/// Public access to configuration/settings
 		/// </summary>
 		public ExceptionReportInfo Config => _info;
-
-		/// <summary>
-		/// Show the ExceptionReport dialog
-		/// </summary>
-		/// <remarks>The <see cref="ExceptionReporter"/> will analyze the <see cref="Exception"/>s and 
-		/// create and show the report dialog.</remarks>
-		/// <param name="exceptions">The <see cref="Exception"/>s to show.</param>
-		public bool Show(params Exception[] exceptions)
-		{
-			// silently ignore the mistake of passing null
-			if (exceptions == null || exceptions.Length == 0 || exceptions.Length >= 1 && exceptions[0] == null) return false;
-
-			try
-			{
-				_info.SetExceptions(exceptions);
-				
-				var view = ViewMaker.Create();
-				view.ShowWindow();
-				return true;
-			}
-			catch (Exception ex)
-			{
-				//TODO figure out shared resources between WinForms and WPF or move messages out of common code
-				// ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
-				ViewMaker.ShowError(ex.Message, "Failed_trying_to_report_an_Error");
-				return false;
-			}
-		}
-
-		/// <summary>
-		/// Show the ExceptionReport dialog with a custom message instead of the Exception's Message property
-		/// </summary>
-		/// <param name="customMessage">custom (exception) message</param>
-		/// <param name="exceptions">The exception/s to display in the exception report</param>
-		public void Show(string customMessage, params Exception[] exceptions)
-		{
-			_info.CustomMessage = customMessage;
-			Show(exceptions);
-		}
 
 		/// <summary>
 		/// Send the report, asynchronously, without showing a dialog (silent send)
