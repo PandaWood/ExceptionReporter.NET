@@ -2,7 +2,7 @@ namespace ExceptionReporting.Core
 {
 	/// <summary>
 	/// All extension methods for ExceptionReporter
-	/// It's important this class is internal/not public - else it will pollute the assembly consumer's extensions
+	/// It's important this class is internal/not public - else it will pollute the available extensions for users of this library
 	/// </summary>
 	internal static class ExceptionReporterExtensions
 	{
@@ -19,6 +19,5 @@ namespace ExceptionReporting.Core
 			if (string.IsNullOrEmpty(value)) return value;
 			return value.Length <= maxLength ? value : value.Substring(0, maxLength);
 		}
-
 	}
 }

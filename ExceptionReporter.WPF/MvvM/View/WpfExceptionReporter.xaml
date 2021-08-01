@@ -1,0 +1,55 @@
+<UserControl x:Class="ExceptionReporter.WPF.MvvM.View.WpfExceptionReporter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ExceptionReporter.WPF"
+             xmlns:viewModel="clr-namespace:ExceptionReporter.WPF.MvvM.ViewModel"
+             xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
+             xmlns:converters="clr-namespace:ExceptionReporter.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
+             d:DesignHeight="250" d:DesignWidth="400">
+	<UserControl.Resources>
+		<converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
+	</UserControl.Resources>
+
+	<Grid Background="GhostWhite" DataContext="{Binding ExceptionSource}">
+		<Grid.Resources >
+			<Style TargetType="Border" >
+				<Setter Property="Padding" Value="5,5,5,5" />
+			</Style>
+		</Grid.Resources>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" MinHeight="100"></RowDefinition>
+			<RowDefinition Height="2" MinHeight="100"></RowDefinition>
+			<RowDefinition Height="*" ></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+			<ColumnDefinition Width="3*"></ColumnDefinition>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<Viewbox Grid.Column="0" Grid.Row="0" 
+		         Width="64" Height="64" >
+			<Image Source="{Binding Source={x:Static draw:SystemIcons.Warning},
+        Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" />
+		</Viewbox>
+
+		<Border Grid.Row="0" Grid.Column="1">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="Operation Failed" FontSize="20" Grid.Row="1" Grid.Column="0" />
+				<TextBlock Text="{Binding Path=Message}" Grid.Row="2" Grid.Column="0" />
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

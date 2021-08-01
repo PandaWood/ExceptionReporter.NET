@@ -4,6 +4,11 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <StartupObject>Demo.WPF.App</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExceptionReporter.WPF\ExceptionReporter.WPF.csproj" />
+  </ItemGroup>
 
 </Project>

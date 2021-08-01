@@ -17,7 +17,7 @@ using ExceptionReporting.Network.Events;
 namespace ExceptionReporting
 {
 	/// <summary>
-	/// The entry-point (class) to invoking an ExceptionReporter dialog
+	/// The entry-point (class) to invoking a (WinForms) ExceptionReporter dialog
 	/// eg new ExceptionReporter().Show(exceptions)
 	/// </summary>
 	public class ExceptionReporter

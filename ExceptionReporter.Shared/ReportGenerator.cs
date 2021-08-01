@@ -39,7 +39,7 @@ namespace ExceptionReporting
 				_info.AppAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 			}
 
-			_info.AppName =    _info.AppName.IsEmpty() ? _info.AppAssembly.GetName().Name: _info.AppName;
+			_info.AppName = _info.AppName.IsEmpty() ? _info.AppAssembly.GetName().Name: _info.AppName;
 			_info.AppVersion = _info.AppVersion.IsEmpty() ? GetAppVersion() : _info.AppVersion;
 			_info.ExceptionDate = _info.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
 		}

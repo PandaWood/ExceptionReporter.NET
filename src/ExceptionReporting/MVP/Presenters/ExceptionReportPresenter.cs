@@ -47,23 +47,6 @@ namespace ExceptionReporting.MVP.Presenters
 		/// <summary>
 		/// Save the exception report to file/disk
 		/// </summary>
-		/// <param name="fileName">the filename to save to</param>
-		public void SaveTextReportToFile(string fileName)
-		{
-			if (string.IsNullOrEmpty(fileName)) return;
-
-			var report = CreateReport();
-			var result = _fileService.Write(fileName, report);
-			
-			if (!result.Saved)
-			{
-				View.ShowError(Resources.Unable_to_save_file + $" '{fileName}'", result.Exception);
-			}
-		}
-
-		/// <summary>
-		/// Save the exception report to file/disk
-		/// </summary>
 		/// <param name="zipFilePath">the filename to save to</param>
 		public void SaveZipReportToFile(string zipFilePath)
 		{

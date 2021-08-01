@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Net.Mail;
 using System.Reflection;
 
@@ -33,7 +32,7 @@ namespace ExceptionReporting
 		/// </summary>
 		public Exception MainException
 		{
-			get { return _exceptions.Count > 0 ? _exceptions[0] : new Exception("Empty Exception"); }
+			get => _exceptions.Count > 0 ? _exceptions[0] : new Exception("Empty Exception");
 			set
 			{
 				_exceptions.Clear();
@@ -44,10 +43,7 @@ namespace ExceptionReporting
 			}
 		}
 
-		public Exception[] Exceptions
-		{
-			get { return _exceptions.ToArray(); }
-		}
+		public Exception[] Exceptions => _exceptions.ToArray();
 
 		/// <summary>
 		/// Add multiple exceptions
@@ -65,7 +61,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Override the Exception.Message property
 		/// ie a custom message to show in place of the Exception Message
-		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporter.Show(string, Exception[])"/>
+		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporting.Show(string, Exception[])"/>
 		/// </summary>
 		public string CustomMessage { get; set; }
 
@@ -213,7 +209,7 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// The title of the main ExceptionReporter dialog
+		/// The title of the main WpfExceptionReporter dialog
 		/// </summary>
 		// public string TitleText { get; set; } = Resources.ErrorReport;
 		//TODO figure out shared resources
@@ -231,7 +227,7 @@ namespace ExceptionReporting
 		public float UserExplanationFontSize { get; set; } = 12f;
 
 		/// <summary>
-		/// Take a screenshot automatically when attaching <see cref="ExceptionReporter.Show(System.Exception[])"/>
+		/// Take a screenshot automatically when attaching
 		/// which will then be available if sending an email using the ExceptionReporter dialog functionality
 		/// </summary>
 		public bool TakeScreenshot { get; set; } = false;
@@ -300,7 +296,7 @@ namespace ExceptionReporting
 		public TemplateFormat ReportTemplateFormat { get; set; } = TemplateFormat.Text;
 
 		/// <summary>
-		/// A custom/user Handlebar template (Handlebars is almost identical to Mustache) - see https://handlebarsjs.com
+		/// A custom/user Handlebar template (Handlebars is almost identical to Mustache) - <see href="https://handlebarsjs.com"/>
 		/// to use instead of the supplied presets
 		/// A populated model will be passed to the template <see cref="ReportModel"/>
 		/// See Templates/ReportTemplate.text for example 
@@ -315,38 +311,6 @@ namespace ExceptionReporting
 		{
 			return SendMethod == ReportSendMethod.SimpleMAPI;
 		}
-	}
-	
-	/// <summary>
-	/// The communication method used to send a report 
-	/// </summary>
-	public enum ReportSendMethod
-	{
-		///<summary>
-		/// No sending (default)
-		/// </summary>
-		None,
-
-		///<summary>
-		/// Tries to use the Windows default Email client eg Outlook via SMTP
-		/// If a compatible client isn't installed, it will not work, so there is some risk - but in that case, an
-		/// error message will prompt the user to use the "Copy" feature and manually send the result
-		/// <remarks>
-		/// requires <see cref="ExceptionReportInfo.EmailReportAddress"/> to be set to a valid email</remarks>
-		/// </summary>
-		SimpleMAPI,
-
-		///<summary>
-		/// Sends an Email via an SMTP server - requires other config (host/port etc) properties starting with 'Smtp'
-		/// </summary>
-		SMTP,
-
-		/// <summary>
-		/// WebService - requires a REST API server accepting content-type 'application/json' of type POST and a
-		/// JSON packet containing the properties represented in the DataContract class 'ExceptionReportPacket'
-		/// An example project doing exactly what is required is included in the ExceptionReporter.NET solution
-		/// </summary>
-		WebService
 	}
 
 	internal static class DefaultLabelMessages

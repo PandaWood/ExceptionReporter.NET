@@ -33,6 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\SmtpMailSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Senders\WebServiceSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReportGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ReportSendMethod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\AssemblyDigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\ReportBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\StackTraceMaker.cs" />
