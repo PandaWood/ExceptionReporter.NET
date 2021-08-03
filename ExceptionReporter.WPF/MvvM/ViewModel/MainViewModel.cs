@@ -1,13 +1,11 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ExceptionReporting;
 
-namespace ExceptionReporter.WPF.MvvM.ViewModel
+namespace ExceptionReporting.WPF.MvvM.ViewModel
 {
 	public class MainViewModel : INotifyPropertyChanged
 	{
-		private Exception _exception;
 		private ExceptionReportInfo _info;
 
 		public MainViewModel(ExceptionReportInfo info)
@@ -21,16 +19,6 @@ namespace ExceptionReporter.WPF.MvvM.ViewModel
 			set
 			{
 				_info = value;
-				NotifyPropertyChanged();
-			}
-		}
-
-		public Exception ExceptionSource
-		{
-			get => _exception;
-			set
-			{
-				_exception = value;
 				NotifyPropertyChanged();
 			}
 		}

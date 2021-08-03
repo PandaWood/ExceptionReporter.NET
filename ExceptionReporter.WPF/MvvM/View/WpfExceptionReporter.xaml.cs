@@ -1,9 +1,8 @@
 using System;
 using System.Windows.Controls;
-using ExceptionReporter.WPF.MvvM.ViewModel;
-using ExceptionReporting;
+using ExceptionReporting.WPF.MvvM.ViewModel;
 
-namespace ExceptionReporter.WPF.MvvM.View
+namespace ExceptionReporting.WPF.MvvM.View
 {
 	/// <summary>
 	/// Interaction logic for WpfExceptionReporter

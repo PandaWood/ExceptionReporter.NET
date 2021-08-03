@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using ExceptionReporter.WPF.MvvM.View;
 using ExceptionReporting;
+using ExceptionReporting.WPF.MvvM.View;
 
 namespace Demo.WPF
 {
