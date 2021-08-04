@@ -49,9 +49,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Templates\TemplateRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\EmailIntroTemplate.text" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.html" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.markdown" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.text" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\EmailIntroTemplate.text">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.markdown">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.text">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using ExceptionReporting;
 using ExceptionReporting.WPF.MvvM.View;
@@ -7,11 +6,11 @@ using ExceptionReporting.WPF.MvvM.View;
 namespace Demo.WPF
 {
 	/// <summary>
-	/// Interaction logic for DummyWindow.xaml
+	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class DummyWindow : Window
+	public partial class MainWindow : Window
 	{
-		public DummyWindow()
+		public MainWindow()
 		{
 			InitializeComponent();
 		}

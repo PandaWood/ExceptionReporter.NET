@@ -1,4 +1,5 @@
-﻿using System.IO;
+using System;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using HandlebarsDotNet;
@@ -45,12 +46,12 @@ namespace ExceptionReporting.Templates
 
 		private string GetTemplate(TemplateFormat format)
 		{
-			var resource = string.Format("{0}.{1}.{2}", this.GetType().Namespace, _name, format.ToString().ToLower());
+			var resource = $"{this.GetType().Namespace}.{_name}.{format.ToString().ToLower()}";
 			var assembly = Assembly.GetExecutingAssembly();
 
 			using (var stream = assembly.GetManifestResourceStream(resource))
 			{
-				using (var reader = new StreamReader(stream, Encoding.UTF8))
+				using (var reader = new StreamReader(stream ?? throw new InvalidOperationException($"resource not found: {resource}"), Encoding.UTF8))
 				{
 					var template = reader.ReadToEnd();
 					return template;

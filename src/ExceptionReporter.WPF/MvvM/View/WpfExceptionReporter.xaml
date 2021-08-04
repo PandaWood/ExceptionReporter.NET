@@ -24,6 +24,10 @@
 		</Style>
 	</UserControl.Resources>
 
+	<UserControl.CommandBindings>
+		<CommandBinding Command="Copy" CanExecute="CopyCanExecute" Executed="CopyExecute"></CommandBinding>
+	</UserControl.CommandBindings>
+
 	<Grid Background="GhostWhite" DataContext="{Binding Info}">
 		<Grid.Resources >
 			<Style TargetType="Border" >
@@ -62,8 +66,8 @@
 		           Opacity="0.25">
 			<Rectangle.Fill>
 			<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-				<GradientStop Color="DarkGray" Offset="0.0" />
-				<GradientStop Color="Gray" Offset="0.5" />
+				<GradientStop Color="DarkGray" Offset="0.25" />
+				<GradientStop Color="Gray" Offset="0.75" />
 				<GradientStop Color="DimGray" Offset="1.0" />
 			</LinearGradientBrush>
 			</Rectangle.Fill>
@@ -84,11 +88,11 @@
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Images/magnifying-glass.png" 
 					       Style="{StaticResource ButtonFooterImageStyle}"/>
-					<TextBlock VerticalAlignment="Center">More Detail</TextBlock>
+					<TextBlock VerticalAlignment="Center">Show details</TextBlock>
 				</StackPanel>
 			</Button>
 
-			<Button Style="{StaticResource ButtonFooterStyle}" >
+			<Button Command="Copy" Style="{StaticResource ButtonFooterStyle}" >
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Images/clipboard.png" 
 					       Style="{StaticResource ButtonFooterImageStyle}"/>

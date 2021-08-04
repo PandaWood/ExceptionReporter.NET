@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+// ReSharper disable once CheckNamespace
 namespace ExceptionReporting.WPF.MvvM.ViewModel
 {
 	public class MainViewModel : INotifyPropertyChanged

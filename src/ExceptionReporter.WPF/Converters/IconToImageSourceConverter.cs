@@ -8,6 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+// ReSharper disable once CheckNamespace
 namespace ExceptionReporting.WPF.Converters
 {
 	public class IconToImageSourceConverter : IValueConverter
