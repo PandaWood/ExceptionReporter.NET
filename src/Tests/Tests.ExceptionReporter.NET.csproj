@@ -15,7 +15,7 @@
 		<None Remove="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporting\ExceptionReporter.WinForms.csproj" />
+    <ProjectReference Include="..\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Deployment" />

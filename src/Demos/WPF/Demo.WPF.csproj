@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporter.WPF\ExceptionReporter.WPF.csproj" />
+    <ProjectReference Include="..\..\ExceptionReporter.WPF\ExceptionReporter.WPF.csproj" />
   </ItemGroup>
 
 </Project>

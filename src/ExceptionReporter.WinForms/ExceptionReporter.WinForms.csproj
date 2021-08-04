@@ -46,7 +46,7 @@
     <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <Copyright></Copyright>
   </PropertyGroup>
-  <Import Project="..\..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
+  <Import Project="..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
   <ItemGroup>
     <Compile Update="C:\code\ExceptionReporter.NET\ExceptionReporter.Shared\Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>

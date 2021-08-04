@@ -44,17 +44,51 @@
 			</StackPanel>
 		</Border>
 
+		<Rectangle Grid.Row="2" Grid.Column="0" 
+		           Grid.ColumnSpan="2" Grid.RowSpan="2"
+							 Margin="0,15,0,0"
+		           Fill="Gray" Opacity="0.2"></Rectangle>
+
+		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" 
+							 VerticalAlignment="Bottom"
+							 Margin="10" Foreground="DimGray"
+		  Text="{Binding CompanyName, 
+				StringFormat='If this problem persists, please contact {0} support'}"></TextBlock>
+
+		<!-- Icons made by https://www.flaticon.com -->
 		<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
-		            Orientation="Horizontal" HorizontalAlignment="Stretch">
-			<Button Margin="10" Padding="5">
-				More Detail
+		            Orientation="Horizontal" 
+		            HorizontalAlignment="Stretch">
+			<Button Margin="5,10,5,5" Padding="5,0,5,0" MinHeight="32">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Images/magnify.png" Height="16" Margin="0,0,5,0"
+					       RenderOptions.BitmapScalingMode="HighQuality"
+					       RenderOptions.EdgeMode="Aliased">
+					</Image>
+					<TextBlock VerticalAlignment="Center">More Detail</TextBlock>
+				</StackPanel>
 			</Button>
-			<Button Margin="10" Padding="5">
-				Copy Details
+			<Button Margin="5,10,5,5" Padding="5,0,5,0" MinHeight="32">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Images/clipboard.png" Height="16" Margin="0,0,5,0"
+					       RenderOptions.BitmapScalingMode="HighQuality"
+					       RenderOptions.EdgeMode="Aliased">
+					</Image>
+					<TextBlock VerticalAlignment="Center">Copy to clipboard</TextBlock>
+				</StackPanel>
 			</Button>
-			<Button Margin="10" Padding="5" >
-				<TextBlock Text="{Binding CompanyName, StringFormat=Email {0}}"></TextBlock>
+
+			<Button Margin="5,10,5,5" Padding="5,0,5,0" MinHeight="32">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Images/envelope.png" Height="16" Margin="0,0,5,0"
+					       RenderOptions.BitmapScalingMode="HighQuality"
+					       RenderOptions.EdgeMode="Aliased">
+					</Image>
+					<TextBlock VerticalAlignment="Center" 
+					           Text="{Binding CompanyName, StringFormat=Email {0}}"></TextBlock>
+				</StackPanel>
 			</Button>
+
 		</StackPanel>
 	</Grid>
 </UserControl>

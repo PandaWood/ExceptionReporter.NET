@@ -65,7 +65,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ExceptionReporting\ExceptionReporter.WinForms.csproj">
+    <ProjectReference Include="..\..\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj">
       <Project>{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}</Project>
       <Name>ExceptionReporter.WinForms</Name>
     </ProjectReference>

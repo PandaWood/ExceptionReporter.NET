@@ -91,6 +91,11 @@
   <ItemGroup>
     <Folder Include="MvvM\Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\clipboard.png" />
+    <Resource Include="Images\envelope.png" />
+    <Resource Include="Images\magnify.png" />
+  </ItemGroup>
   <Import Project="..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionReporter.WinForms", "src\ExceptionReporting\ExceptionReporter.WinForms.csproj", "{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionReporter.WinForms", "src\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj", "{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.ExceptionReporter.Net", "src\Tests\Tests.ExceptionReporter.Net.csproj", "{565583C0-0162-4973-962B-7C3F6EE1A4B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.WinForms", "src\Demos\WinForms\Demo.WinForms.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ExceptionReporter.Shared", "ExceptionReporter.Shared\ExceptionReporter.Shared.shproj", "{AAEEE6CD-9D37-424E-B62A-E7D28D3391F4}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ExceptionReporter.Shared", "src\ExceptionReporter.Shared\ExceptionReporter.Shared.shproj", "{AAEEE6CD-9D37-424E-B62A-E7D28D3391F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.WPF", "Demo.WPF\Demo.WPF.csproj", "{37CAA53A-D158-4E3A-B760-16AEE4008154}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.WPF", "src\Demos\WPF\Demo.WPF.csproj", "{37CAA53A-D158-4E3A-B760-16AEE4008154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.WPF", "ExceptionReporter.WPF\ExceptionReporter.WPF.csproj", "{EF418EF6-D1DB-4CB0-9E77-AFC5D7C64AED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.WPF", "src\ExceptionReporter.WPF\ExceptionReporter.WPF.csproj", "{EF418EF6-D1DB-4CB0-9E77-AFC5D7C64AED}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		ExceptionReporter.Shared\ExceptionReporter.Shared.projitems*{1aeec57b-fb44-4f88-ad50-a2a3686dbc97}*SharedItemsImports = 5
-		ExceptionReporter.Shared\ExceptionReporter.Shared.projitems*{aaeee6cd-9d37-424e-b62a-e7d28d3391f4}*SharedItemsImports = 13
-		ExceptionReporter.Shared\ExceptionReporter.Shared.projitems*{ef418ef6-d1db-4cb0-9e77-afc5d7c64aed}*SharedItemsImports = 4
+		src\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems*{1aeec57b-fb44-4f88-ad50-a2a3686dbc97}*SharedItemsImports = 5
+		src\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems*{aaeee6cd-9d37-424e-b62a-e7d28d3391f4}*SharedItemsImports = 13
+		src\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems*{ef418ef6-d1db-4cb0-9e77-afc5d7c64aed}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
