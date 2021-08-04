@@ -93,8 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\clipboard.png" />
-    <Resource Include="Images\envelope.png" />
-    <Resource Include="Images\magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\message.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\magnifying-glass.png" />
   </ItemGroup>
   <Import Project="..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
