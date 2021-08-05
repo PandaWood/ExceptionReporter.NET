@@ -26,6 +26,8 @@
 
 	<UserControl.CommandBindings>
 		<CommandBinding Command="Copy" CanExecute="CopyCanExecute" Executed="CopyExecute"></CommandBinding>
+		<CommandBinding Command="viewModel:ExceptionReporterCommands.EmailCommand" 
+		                CanExecute="EmailCanExecute" Executed="EmailExecute"></CommandBinding>
 	</UserControl.CommandBindings>
 
 	<Grid Background="GhostWhite" DataContext="{Binding Info}">
@@ -62,8 +64,7 @@
 
 		<Rectangle Grid.Row="2" Grid.Column="0" 
 		           Grid.ColumnSpan="2" Grid.RowSpan="2"
-		           Margin="0,0,0,0"
-		           Opacity="0.25">
+		           Margin="0,0,0,0" Opacity="0.25">
 			<Rectangle.Fill>
 			<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 				<GradientStop Color="DarkGray" Offset="0.25" />
@@ -81,8 +82,7 @@
 
 		<!-- Icons made by https://www.flaticon.com -->
 		<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
-		            Orientation="Horizontal" 
-		            HorizontalAlignment="Stretch">
+		            Orientation="Horizontal" HorizontalAlignment="Stretch">
 
 			<Button Style="{StaticResource ButtonFooterStyle}">
 				<StackPanel Orientation="Horizontal">
@@ -100,7 +100,8 @@
 				</StackPanel>
 			</Button>
 
-		<Button Style="{StaticResource ButtonFooterStyle}" >
+			<Button Command="viewModel:ExceptionReporterCommands.EmailCommand"
+			        Style="{StaticResource ButtonFooterStyle}" >
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Images/message.png" 
 					       Style="{StaticResource ButtonFooterImageStyle}"/>

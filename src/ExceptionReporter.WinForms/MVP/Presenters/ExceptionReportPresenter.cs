@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.Network;
@@ -122,6 +123,7 @@ namespace ExceptionReporting.MVP.Presenters
 			View.ToggleShowFullDetail();
 		}
 
+		//TODO move this out of presenter
 		private string CreateEmailReport()
 		{
 			var template = new TemplateRenderer(new EmailIntroModel

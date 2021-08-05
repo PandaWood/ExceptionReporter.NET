@@ -13,10 +13,7 @@ namespace ExceptionReporting.Network.Senders
 			base(reportInfo, sendEvent)
 		{ }
 		
-		public override string Description
-		{
-			get { return "SMTP"; }
-		}
+		public override string Description => "SMTP";
 
 		/// <summary>
 		/// Send SMTP email, uses native .NET SmtpClient library
@@ -66,8 +63,7 @@ namespace ExceptionReporting.Network.Senders
 					else
 					{
 						_sendEvent.Completed(success: false);
-						_sendEvent.ShowError(string.Format("{0}: ", Description) +
-							(e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
+						_sendEvent.ShowError($"{Description}: " + (e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
 					}
 				}
 				finally 
