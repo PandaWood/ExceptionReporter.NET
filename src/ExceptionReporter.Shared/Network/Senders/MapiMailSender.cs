@@ -1,4 +1,3 @@
-using System.Configuration;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.Network.Events;

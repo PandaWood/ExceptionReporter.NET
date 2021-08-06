@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporting.Zip
 {
 	internal interface IZipAttachmentService
 	{

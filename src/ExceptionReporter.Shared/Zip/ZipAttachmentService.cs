@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using ExceptionReporting.Mail;
+using ExceptionReporting.Core;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporting.Zip
 {
 	internal class ZipAttachmentService : IZipAttachmentService
 	{

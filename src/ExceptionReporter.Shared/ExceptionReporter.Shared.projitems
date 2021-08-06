@@ -12,15 +12,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\ExceptionReporterExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\FileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IExceptionReportView.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\IZipAttachmentService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\ZipAttachmentService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mail\EmailReporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Zip\IZipAttachmentService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Zip\ZipAttachmentService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionReporterBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionReportInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IScreenshotTaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IViewMaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mail\AttachAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mail\Attacher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Mail\Zipper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Zip\Zipper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Events\ConsoleSendEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Events\IReportSendEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Events\SilentSendEvent.cs" />
@@ -36,8 +37,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ReportGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReportSendMethod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\AssemblyDigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Report\NoScreenShot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\ReportBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Report\ReportZipper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Zip\ReportFileZipper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Report\StackTraceMaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoQueries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemInfo\SysInfoQuery.cs" />
@@ -62,5 +64,8 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Templates\ReportTemplate.text">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Zip\" />
   </ItemGroup>
 </Project>

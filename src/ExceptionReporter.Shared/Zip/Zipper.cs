@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Ionic.Zip;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporting.Zip
 {
 	internal interface IZipper 
 	{

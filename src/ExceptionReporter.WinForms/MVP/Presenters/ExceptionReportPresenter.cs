@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExceptionReporting.Core;
+using ExceptionReporting.Mail;
 using ExceptionReporting.Network;
 using ExceptionReporting.Properties;
 using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;
-using ExceptionReporting.Templates;
+using ExceptionReporting.Zip;
 using ExceptionReporting.WinForms;
 
 namespace ExceptionReporting.MVP.Presenters
@@ -17,7 +18,7 @@ namespace ExceptionReporting.MVP.Presenters
 	internal class ExceptionReportPresenter
 	{
 		private readonly ReportGenerator _reportGenerator;
-		private readonly ReportZipper _reportZipper;
+		private readonly ReportFileZipper _reportFileZipper;
 
 		/// <summary>
 		/// constructor accepting a view and the data/config of the report
@@ -25,7 +26,7 @@ namespace ExceptionReporting.MVP.Presenters
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_reportGenerator = new ReportGenerator(info);
-			_reportZipper = new ReportZipper(new FileService(), _reportGenerator, info);
+			_reportFileZipper = new ReportFileZipper(new FileService(), _reportGenerator, info);
 			View = view;
 			ReportInfo = info;
 		}
@@ -36,11 +37,11 @@ namespace ExceptionReporting.MVP.Presenters
 		/// <summary> The main dialog/view  </summary>
 		private IExceptionReportView View { get; }
 
-		private string CreateReport()
-		{
-			ReportInfo.UserExplanation = View.UserExplanation;
-			return _reportGenerator.Generate();
-		}
+		// private string CreateReport()
+		// {
+		// 	ReportInfo.UserExplanation = View.UserExplanation;
+		// 	return _reportGenerator.Generate();
+		// }
 
 		/// <summary>
 		/// Save the exception report to file/disk
@@ -49,7 +50,11 @@ namespace ExceptionReporting.MVP.Presenters
 		public void SaveZipReportToFile(string zipFilePath)
 		{
 			if (string.IsNullOrEmpty(zipFilePath)) return;
-			_reportZipper.CreateReportZip(zipFilePath);
+			var result = _reportFileZipper.Save(zipFilePath);
+			if (!result.Saved)
+			{
+				View.ShowError(Resources.Unable_to_save_file + $"'{result}'", result.Exception);
+			}
 		}
 
 		/// <summary>
@@ -65,11 +70,11 @@ namespace ExceptionReporting.MVP.Presenters
 			
 			try
 			{
-				var report = ReportInfo.IsSimpleMAPI() ? CreateEmailReport() : CreateReport();
+				var report = ReportInfo.IsSimpleMAPI() ? new EmailReporter(ReportInfo).Create() : _reportGenerator.Generate();
 				sender.Send(report);
 			}
 			catch (Exception exception)
-			{		// most exceptions will be thrown in the Sender - this is just a backup
+			{	
 				View.Completed(false);
 				View.ShowError(Resources.Unable_to_setup + $" {sender.Description}" + 
 				               Environment.NewLine + exception.Message, exception);
@@ -88,7 +93,7 @@ namespace ExceptionReporting.MVP.Presenters
 		/// </summary>
 		public void CopyReportToClipboard()
 		{
-			var report = CreateReport();
+			var report = _reportGenerator.Generate();
 			View.ProgressMessage = WinFormsClipboard.CopyTo(report) ? Resources.Copied_to_clipboard : Resources.Failed_to_copy_to_clipboard;
 		}
 
@@ -99,19 +104,6 @@ namespace ExceptionReporting.MVP.Presenters
 		{
 			View.ShowFullDetail = !View.ShowFullDetail;
 			View.ToggleShowFullDetail();
-		}
-
-		//TODO move this out of presenter
-		private string CreateEmailReport()
-		{
-			var template = new TemplateRenderer(new EmailIntroModel
-			{
-				ScreenshotTaken = ReportInfo.TakeScreenshot
-			});
-			var emailIntro = template.RenderPreset();
-			var report = CreateReport();
-
-			return emailIntro + report;
 		}
 
 		/// <summary>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExceptionReporting;
 using ExceptionReporting.Core;
-using ExceptionReporting.Mail;
+using ExceptionReporting.Zip;
 using Moq;
 using NUnit.Framework;
 

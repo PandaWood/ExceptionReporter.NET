@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExceptionReporting.Core;
+using ExceptionReporting.Zip;
 
 namespace ExceptionReporting.Mail
 {

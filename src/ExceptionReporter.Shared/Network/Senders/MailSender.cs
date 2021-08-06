@@ -19,18 +19,13 @@ namespace ExceptionReporting.Network.Senders
 
 		public abstract string Description { get; }
 
-		public virtual string ConnectingMessage
-		{
-			get { return string.Format("Connecting {0}...", Description); }
-		}
+		public virtual string ConnectingMessage => $"Connecting {Description}...";
 
-		public string EmailSubject
-		{
-			get { return _config.EmailReportSubject .Length > 0 ? _config.EmailReportSubject :
-							_config.MainException.Message
-							.Replace('\r', ' ')
-							.Replace('\n', ' ')
-							.Truncate(255) ?? "Exception Report"; }
-		}
+		public string EmailSubject =>
+			_config.EmailReportSubject .Length > 0 ? _config.EmailReportSubject :
+				_config.MainException.Message
+					.Replace('\r', ' ')
+					.Replace('\n', ' ')
+					.Truncate(255) ?? "Exception Report";
 	}
 }
