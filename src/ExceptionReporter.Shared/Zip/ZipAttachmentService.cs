@@ -7,13 +7,13 @@ namespace ExceptionReporting.Zip
 	internal class ZipAttachmentService : IZipAttachmentService
 	{
 		private IZipper Zipper { get; }
-		private IScreenshotTaker ScreenshotTaker { get; }
+		private IScreenShooter ScreenShooter { get; }
 		private IFileService FileService { get; }
 
-		public ZipAttachmentService(IZipper zipper, IScreenshotTaker screenshotTaker, IFileService fileService)
+		public ZipAttachmentService(IZipper zipper, IScreenShooter screenShooter, IFileService fileService)
 		{
 			Zipper = zipper;
-			ScreenshotTaker = screenshotTaker;
+			ScreenShooter = screenShooter;
 			FileService = fileService;
 		}
 
@@ -32,7 +32,7 @@ namespace ExceptionReporting.Zip
 			if (additionalFiles?.Count > 0) files.AddRange(additionalFiles);
 			try
 			{
-				if (reportInfo.TakeScreenshot) files.Add(ScreenshotTaker.TakeScreenShot());
+				if (reportInfo.TakeScreenshot) files.Add(ScreenShooter.TakeScreenShot());
 			}
 			catch
 			{

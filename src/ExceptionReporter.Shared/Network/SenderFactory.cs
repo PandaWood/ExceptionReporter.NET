@@ -1,4 +1,5 @@
-﻿using ExceptionReporting.Network.Events;
+using ExceptionReporting.Core;
+using ExceptionReporting.Network.Events;
 using ExceptionReporting.Network.Senders;
 
 namespace ExceptionReporting.Network
@@ -7,11 +8,13 @@ namespace ExceptionReporting.Network
 	{
 		private readonly ExceptionReportInfo _config;
 		private readonly IReportSendEvent _sendEvent;
+		private readonly IScreenShooter _screenShooter;
 
-		public SenderFactory(ExceptionReportInfo config, IReportSendEvent sendEvent)
+		public SenderFactory(ExceptionReportInfo config, IReportSendEvent sendEvent, IScreenShooter screenShooter)
 		{
 			_config = config;
 			_sendEvent = sendEvent;
+			_screenShooter = screenShooter;
 		}
 
 		public IReportSender Get()
@@ -21,9 +24,9 @@ namespace ExceptionReporting.Network
 				case ReportSendMethod.WebService:
 					return new WebServiceSender(_config, _sendEvent);
 				case ReportSendMethod.SMTP:
-					return new SmtpMailSender(_config, _sendEvent);
+					return new SmtpMailSender(_config, _sendEvent, _screenShooter);
 				case ReportSendMethod.SimpleMAPI:
-					return new MapiMailSender(_config, _sendEvent);
+					return new MapiMailSender(_config, _sendEvent, _screenShooter);
 				case ReportSendMethod.None:
 					return new GhostSender();
 				default:

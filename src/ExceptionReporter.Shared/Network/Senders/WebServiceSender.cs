@@ -19,15 +19,9 @@ namespace ExceptionReporting.Network.Senders
 			_sendEvent = sendEvent;
 		}
 		
-		public string Description
-		{
-			get { return "WebService"; }
-		}
-		
-		public string ConnectingMessage
-		{
-			get { return string.Format("Connecting to {0}", Description); }
-		}
+		public string Description => "WebService";
+
+		public string ConnectingMessage => $"Connecting to {Description}";
 
 		public void Send(string report)
 		{
@@ -69,8 +63,8 @@ namespace ExceptionReporting.Network.Senders
 					else
 					{
 						_sendEvent.Completed(success: false);
-						_sendEvent.ShowError(string.Format("{0}: ", Description) +
-							(e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
+						_sendEvent.ShowError($"{Description}: " +
+						                     (e.Error.InnerException != null ? e.Error.InnerException.Message : e.Error.Message), e.Error);
 					}
 				}
 				finally

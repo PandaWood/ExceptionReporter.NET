@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using ExceptionReporting;
+using ExceptionReporting.Core;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 using ExceptionReporting.Network.Senders;
+using ExceptionReporting.Report;
 using Moq;
 using NUnit.Framework;
 
@@ -19,7 +21,7 @@ namespace Tests.ExceptionReporting
 			var factory = new SenderFactory(new ExceptionReportInfo 
 			{ 
 				SendMethod = method
-			}, new Mock<IReportSendEvent>().Object);
+			}, new Mock<IReportSendEvent>().Object, new Mock<IScreenShooter>().Object);
 
 			return factory.Get().GetType();
 		}

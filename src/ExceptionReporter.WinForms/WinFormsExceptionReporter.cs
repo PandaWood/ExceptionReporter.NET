@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using ExceptionReporting.Network.Events;
 using ExceptionReporting.WinForms;
 
 // ReSharper disable UnusedMember.Global
@@ -71,6 +72,16 @@ namespace ExceptionReporting
 		{
 			_info.CustomMessage = customMessage;
 			Show(exceptions);
+		}
+
+		/// <summary>
+		/// Send the report, asynchronously, without showing a dialog (silent send)
+		/// <see cref="ExceptionReportInfo.SendMethod"/>must be SMTP or WebService, else this is ignored (silently)
+		/// </summary>
+		/// <param name="exceptions">The exception/s to include in the report</param>
+		public void Send(params Exception[] exceptions)
+		{
+			base.Send(new WinFormsScreenShooter(), new SilentSendEvent(), exceptions);
 		}
 	}
 }

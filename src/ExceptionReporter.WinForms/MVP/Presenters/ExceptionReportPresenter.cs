@@ -37,11 +37,11 @@ namespace ExceptionReporting.MVP.Presenters
 		/// <summary> The main dialog/view  </summary>
 		private IExceptionReportView View { get; }
 
-		// private string CreateReport()
-		// {
-		// 	ReportInfo.UserExplanation = View.UserExplanation;
-		// 	return _reportGenerator.Generate();
-		// }
+		private string CreateReport()
+		{
+			ReportInfo.UserExplanation = View.UserExplanation;
+			return _reportGenerator.Generate();
+		}
 
 		/// <summary>
 		/// Save the exception report to file/disk
@@ -65,12 +65,12 @@ namespace ExceptionReporting.MVP.Presenters
 			View.EnableEmailButton = false;
 			View.ShowProgressBar = true;
 			
-			var sender = new SenderFactory(ReportInfo, View).Get();
+			var sender = new SenderFactory(ReportInfo, View, new WinFormsScreenShooter()).Get();
 			View.ProgressMessage = sender.ConnectingMessage;
 			
 			try
 			{
-				var report = ReportInfo.IsSimpleMAPI() ? new EmailReporter(ReportInfo).Create() : _reportGenerator.Generate();
+				var report = ReportInfo.IsSimpleMAPI() ? new EmailReporter(ReportInfo).Create() : CreateReport();
 				sender.Send(report);
 			}
 			catch (Exception exception)
@@ -93,7 +93,7 @@ namespace ExceptionReporting.MVP.Presenters
 		/// </summary>
 		public void CopyReportToClipboard()
 		{
-			var report = _reportGenerator.Generate();
+			var report = CreateReport();
 			View.ProgressMessage = WinFormsClipboard.CopyTo(report) ? Resources.Copied_to_clipboard : Resources.Failed_to_copy_to_clipboard;
 		}
 

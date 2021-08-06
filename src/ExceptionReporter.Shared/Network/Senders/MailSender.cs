@@ -10,11 +10,11 @@ namespace ExceptionReporting.Network.Senders
 		protected readonly IReportSendEvent _sendEvent;
 		protected readonly Attacher _attacher;
 
-		protected MailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent)
+		protected MailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent, IScreenShooter screenShooter)
 		{
 			_config = reportInfo;
 			_sendEvent = sendEvent;
-			_attacher = new Attacher(reportInfo);
+			_attacher = new Attacher(reportInfo, screenShooter);
 		}
 
 		public abstract string Description { get; }

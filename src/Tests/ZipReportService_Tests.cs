@@ -10,14 +10,14 @@ namespace Tests.ExceptionReporting
 {
 	public class ZipReportService_Tests
 	{
-		private Mock<IScreenshotTaker> _screenshotTaker;
+		private Mock<IScreenShooter> _screenshotTaker;
 		private Mock<IFileService> _fileService;
 		private Mock<IZipper> _zipper;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_screenshotTaker = new Mock<IScreenshotTaker>();
+			_screenshotTaker = new Mock<IScreenShooter>();
 			_fileService = new Mock<IFileService>();
 			_zipper = new Mock<IZipper>();
 		}

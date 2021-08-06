@@ -17,7 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Zip\ZipAttachmentService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionReporterBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionReportInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\IScreenshotTaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IScreenShooter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IViewMaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mail\AttachAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mail\Attacher.cs" />

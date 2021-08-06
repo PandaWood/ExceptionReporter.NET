@@ -5,6 +5,7 @@ using System.Windows.Input;
 using ExceptionReporting.Mail;
 using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
+using ExceptionReporting.Report;
 using ExceptionReporting.WPF.MvvM.ViewModel;
 
 // ReSharper disable CheckNamespace
@@ -46,7 +47,7 @@ namespace ExceptionReporting.WPF.MvvM.View
 		private void EmailExecute(object sender, ExecutedRoutedEventArgs e)
 		{
 			var report = _info.IsSimpleMAPI() ? new EmailReporter(_info).Create() : _reportGenerator.Generate();
-			var sendFactory  = new SenderFactory(_info, new SilentSendEvent()).Get();
+			var sendFactory  = new SenderFactory(_info, new SilentSendEvent(), new NoScreenShot()).Get();
 			sendFactory.Send(report);
 		}
 	}

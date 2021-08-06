@@ -22,6 +22,5 @@ namespace ExceptionReporting.Mail
 
 			return emailIntro + report;
 		}
-
 	}
 }

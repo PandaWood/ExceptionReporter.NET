@@ -14,13 +14,12 @@ namespace ExceptionReporting.Mail
 		public IFileService FileService { private get; set; } = new FileService();
 		public IZipper Zipper { private get; set; } = new Zipper();
 
-		//TODO move this back into winforms version
-		// public IScreenshotTaker ScreenshotTaker { private get; set; } = new ScreenshotTaker();
-		public IScreenshotTaker ScreenshotTaker { private get; set; }
+		public IScreenShooter ScreenShooter { get; set; }
 
-		public Attacher(ExceptionReportInfo config)
+		public Attacher(ExceptionReportInfo config, IScreenShooter screenShooter)
 		{
 			_config = config;
+			ScreenShooter = screenShooter;
 		}
 
 		public void AttachFiles(IAttach attacher)
@@ -33,7 +32,7 @@ namespace ExceptionReporting.Mail
 
 			try
 			{
-				if (_config.TakeScreenshot) files.Add(ScreenshotTaker.TakeScreenShot());
+				if (_config.TakeScreenshot) files.Add(ScreenShooter.TakeScreenShot());
 			} catch { /* ignored */ }
 
 			var filesThatExist = files.Where(f => FileService.Exists(f)).ToList();

@@ -9,7 +9,7 @@ namespace ExceptionReporting.WinForms
 	/// <summary>
 	/// Utility to take a screenshot and return as a graphic file 
 	/// </summary>
-	internal class ScreenshotTaker : IScreenshotTaker
+	internal class WinFormsScreenShooter : IScreenShooter
 	{
 		private const string ScreenshotFileName = "exceptionreport-screenshot.jpg";
 		

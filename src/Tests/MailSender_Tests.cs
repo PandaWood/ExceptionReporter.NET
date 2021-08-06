@@ -1,6 +1,9 @@
 using System;
 using ExceptionReporting;
+using ExceptionReporting.Core;
 using ExceptionReporting.Network.Senders;
+using ExceptionReporting.Report;
+using Moq;
 using NUnit.Framework;
 
 namespace Tests.ExceptionReporting
@@ -13,7 +16,7 @@ namespace Tests.ExceptionReporting
 			var exception = new Exception("hello");
 			var reportInfo = new ExceptionReportInfo { TitleText = "test" };
 			reportInfo.SetExceptions(new[] { exception });
-			var mailSender = new MapiMailSender(reportInfo, null);
+			var mailSender = new MapiMailSender(reportInfo, null, new Mock<IScreenShooter>().Object);
 
 			Assert.That(mailSender.EmailSubject, Is.EqualTo("hello"));
 		}
@@ -26,7 +29,7 @@ namespace Tests.ExceptionReporting
 		{
 			var reportInfo = new ExceptionReportInfo();
 			reportInfo.SetExceptions(new[] { new Exception("hello\r\nagain") });
-			var mailSender = new MapiMailSender(reportInfo, null);
+			var mailSender = new MapiMailSender(reportInfo, null, new Mock<IScreenShooter>().Object);
 
 			Assert.That(mailSender.EmailSubject, Does.Not.Contain("\r"));
 			Assert.That(mailSender.EmailSubject, Does.Not.Contain("\n"));
@@ -35,7 +38,7 @@ namespace Tests.ExceptionReporting
 		[Test]
 		public void Can_Create_Subject_If_Exception_Is_Null()
 		{
-			var mailSender = new MapiMailSender(new ExceptionReportInfo(), null);		// no exceptions set, so message will be null, does mail cater for it?
+			var mailSender = new MapiMailSender(new ExceptionReportInfo(), null, new Mock<IScreenShooter>().Object);		// no exceptions set, so message will be null, does mail cater for it?
 
 			Assert.That(mailSender.EmailSubject, Is.EqualTo("Empty Exception"));		// reverts to a default message
 		}
@@ -47,7 +50,7 @@ namespace Tests.ExceptionReporting
 			var reportInfo = new ExceptionReportInfo { TitleText = "test" };
 			reportInfo.SetExceptions(new[] { exception });
 			reportInfo.EmailReportSubject  = "hello";
-			var mailSender = new MapiMailSender(reportInfo, null);
+			var mailSender = new MapiMailSender(reportInfo, null, new Mock<IScreenShooter>().Object);
 
 			Assert.That(mailSender.EmailSubject, Is.EqualTo("hello"));
 		}

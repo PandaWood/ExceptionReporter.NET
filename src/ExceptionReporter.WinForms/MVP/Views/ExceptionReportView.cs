@@ -90,11 +90,8 @@ namespace ExceptionReporting.MVP.Views
 				string.Format(
 					Resources.ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_ +
 					Environment.NewLine, reportInfo.CompanyName);
-			btnSimpleEmail.Text = string.Format("{0} {1}",
-				reportInfo.SendMethod == ReportSendMethod.WebService ? Resources.Send : "Email",
-				reportInfo.SendMethod == ReportSendMethod.WebService && !reportInfo.CompanyName.IsEmpty()
-					? string.Format(Resources.to__0_, reportInfo.CompanyName)
-					: reportInfo.CompanyName);
+			btnSimpleEmail.Text =
+				$"{(reportInfo.SendMethod == ReportSendMethod.WebService ? Resources.Send : "Email")} {(reportInfo.SendMethod == ReportSendMethod.WebService && !reportInfo.CompanyName.IsEmpty() ? string.Format(Resources.to__0_, reportInfo.CompanyName) : reportInfo.CompanyName)}";
 			btnEmail.Text = reportInfo.SendMethod == ReportSendMethod.WebService ? Resources.Send : "Email";
 		}
 
@@ -157,17 +154,17 @@ namespace ExceptionReporting.MVP.Views
 
 		public bool EnableEmailButton
 		{
-			set { btnEmail.Enabled = value; }
+			set => btnEmail.Enabled = value;
 		}
 
 		public bool ShowProgressBar
 		{
-			set { progressBar.Visible = value; }
+			set => progressBar.Visible = value;
 		}
 
 		private bool ShowProgressLabel
 		{
-			set { lblProgressMessage.Visible = value; }
+			set => lblProgressMessage.Visible = value;
 		}
 
 		public bool ShowFullDetail { get; set; }
@@ -198,10 +195,7 @@ namespace ExceptionReporting.MVP.Views
 			FormBorderStyle = ShowFullDetail ? FormBorderStyle.Sizable : FormBorderStyle.FixedDialog;
 		}
 
-		public string UserExplanation
-		{
-			get { return txtUserExplanation.Text; }
-		}
+		public string UserExplanation => txtUserExplanation.Text;
 
 		public void Completed(bool success)
 		{
@@ -286,7 +280,7 @@ namespace ExceptionReporting.MVP.Views
 				for (var index = 0; index < exs.Length; index++)
 				{
 					var exception = exs[index];
-					var tabPage = new TabPage { Text = string.Format("Exception {0}", index + 1) };
+					var tabPage = new TabPage { Text = $"Exception {index + 1}"};
 					innerTabControl.TabPages.Add(tabPage);
 					AddExceptionControl(tabPage, exception);
 				}

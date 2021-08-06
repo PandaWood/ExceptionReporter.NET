@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
 using ExceptionReporting.Network.Events;
 
@@ -9,8 +10,8 @@ namespace ExceptionReporting.Network.Senders
 {
 	internal class SmtpMailSender : MailSender, IReportSender
 	{
-		public SmtpMailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent) : 
-			base(reportInfo, sendEvent)
+		public SmtpMailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent, IScreenShooter screenShooter) : 
+			base(reportInfo, sendEvent, screenShooter)
 		{ }
 		
 		public override string Description => "SMTP";

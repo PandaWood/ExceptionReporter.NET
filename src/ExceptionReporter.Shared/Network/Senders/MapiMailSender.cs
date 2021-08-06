@@ -7,8 +7,8 @@ namespace ExceptionReporting.Network.Senders
 {
 	internal class MapiMailSender : MailSender, IReportSender
 	{
-		public MapiMailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent) : 
-			base(reportInfo, sendEvent)
+		public MapiMailSender(ExceptionReportInfo reportInfo, IReportSendEvent sendEvent, IScreenShooter screenShooter) : 
+			base(reportInfo, sendEvent, screenShooter)
 		{ }
 
 		public override string Description => "Email Client";
