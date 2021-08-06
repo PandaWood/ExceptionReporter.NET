@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // ReSharper disable once CheckNamespace
 namespace ExceptionReporting.WPF.MvvM.ViewModel
 {
-	public class MainViewModel : INotifyPropertyChanged
+	public class ExceptionReporterViewModel : INotifyPropertyChanged
 	{
 		private ExceptionReportInfo _info;
 
-		public MainViewModel(ExceptionReportInfo info)
+		public ExceptionReporterViewModel(ExceptionReportInfo info)
 		{
 			_info = info;
 		}

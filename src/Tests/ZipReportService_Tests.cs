@@ -36,7 +36,7 @@ namespace Tests.ExceptionReporting
 				TakeScreenshot = false, 
 				AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
 
 			Assert.IsTrue(result == string.Empty);
@@ -67,7 +67,7 @@ namespace Tests.ExceptionReporting
 				TakeScreenshot = false, 
 				AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
 
 			Assert.That(result, Is.EqualTo(string.Empty));
@@ -91,7 +91,7 @@ namespace Tests.ExceptionReporting
 				TakeScreenshot = false, 
 				AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
 
 			Assert.That(result, Is.EqualTo(zipFilename));
@@ -116,7 +116,7 @@ namespace Tests.ExceptionReporting
 				TakeScreenshot = true, 
 				AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
 
 			Assert.That(result, Is.EqualTo(zipFilename));
@@ -140,7 +140,7 @@ namespace Tests.ExceptionReporting
 			{
 				FilesToAttach = filesToAttach.ToArray(), TakeScreenshot = false, AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
 
 			Assert.That(result, Is.EqualTo(zipFilename));
@@ -162,7 +162,7 @@ namespace Tests.ExceptionReporting
 				TakeScreenshot = true, 
 				AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			zip.CreateZipReport(config);
 
 			_screenshotTaker.Verify(s => s.TakeScreenShot(), Times.Once());
@@ -183,7 +183,7 @@ namespace Tests.ExceptionReporting
 				TakeScreenshot = false, 
 				AttachmentFilename = zipFilename
 			};
-			var zip = new ZipReportService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
+			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			zip.CreateZipReport(config);
 
 			_screenshotTaker.Verify(s => s.TakeScreenShot(), Times.Never());

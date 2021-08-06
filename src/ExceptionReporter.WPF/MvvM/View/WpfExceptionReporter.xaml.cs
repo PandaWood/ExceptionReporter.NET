@@ -25,7 +25,7 @@ namespace ExceptionReporting.WPF.MvvM.View
 			_info = info;
 			_info.MainException = exception;
 			_reportGenerator = new ReportGenerator(_info);
-			this.DataContext = new MainViewModel(info);
+			this.DataContext = new ExceptionReporterViewModel(info);
 		}
 
 		private void CopyExecute(object sender, ExecutedRoutedEventArgs e)

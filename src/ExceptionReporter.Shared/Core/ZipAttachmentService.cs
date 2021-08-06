@@ -4,13 +4,13 @@ using ExceptionReporting.Mail;
 
 namespace ExceptionReporting.Core
 {
-	internal class ZipReportService : IZipReportService
+	internal class ZipAttachmentService : IZipAttachmentService
 	{
 		private IZipper Zipper { get; }
 		private IScreenshotTaker ScreenshotTaker { get; }
 		private IFileService FileService { get; }
 
-		public ZipReportService(IZipper zipper, IScreenshotTaker screenshotTaker, IFileService fileService)
+		public ZipAttachmentService(IZipper zipper, IScreenshotTaker screenshotTaker, IFileService fileService)
 		{
 			Zipper = zipper;
 			ScreenshotTaker = screenshotTaker;

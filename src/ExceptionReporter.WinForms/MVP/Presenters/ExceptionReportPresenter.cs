@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using ExceptionReporting.Core;
-using ExceptionReporting.Mail;
 using ExceptionReporting.Network;
 using ExceptionReporting.Properties;
 using ExceptionReporting.Report;
@@ -19,8 +16,8 @@ namespace ExceptionReporting.MVP.Presenters
 	/// </summary>
 	internal class ExceptionReportPresenter
 	{
-		private readonly IFileService _fileService;
 		private readonly ReportGenerator _reportGenerator;
+		private readonly ReportZipper _reportZipper;
 
 		/// <summary>
 		/// constructor accepting a view and the data/config of the report
@@ -28,7 +25,7 @@ namespace ExceptionReporting.MVP.Presenters
 		public ExceptionReportPresenter(IExceptionReportView view, ExceptionReportInfo info)
 		{
 			_reportGenerator = new ReportGenerator(info);
-			_fileService = new FileService();
+			_reportZipper = new ReportZipper(new FileService(), _reportGenerator, info);
 			View = view;
 			ReportInfo = info;
 		}
@@ -52,26 +49,7 @@ namespace ExceptionReporting.MVP.Presenters
 		public void SaveZipReportToFile(string zipFilePath)
 		{
 			if (string.IsNullOrEmpty(zipFilePath)) return;
-
-			//TODO: select extension by ReportTemplateFormat
-			var textReportPath = Path.Combine(Path.GetTempPath(), @"ExceptionReporter" + Path.DirectorySeparatorChar + "report.txt");
-			if (!Directory.Exists(textReportPath)) Directory.CreateDirectory(Path.GetDirectoryName(textReportPath));
-			var report = CreateReport();
-			var textFileSaveResult = _fileService.Write(textReportPath, report);
-			if (!textFileSaveResult.Saved)
-			{
-				View.ShowError(Resources.Unable_to_save_file + $" '{textReportPath}'", textFileSaveResult.Exception);
-			}
-			else
-			{
-				var additionalFilesToAttach = new List<string>{ textReportPath };
-				var zipReport = new ZipReportService(new Zipper(), new ScreenshotTaker(), new FileService());
-				var result = zipReport.CreateZipReport(ReportInfo, zipFilePath, additionalFilesToAttach);
-				if (!File.Exists(result))
-				{
-					View.ShowError(Resources.Unable_to_save_file + $" '{result}'", new IOException());
-				}
-			}
+			_reportZipper.CreateReportZip(zipFilePath);
 		}
 
 		/// <summary>

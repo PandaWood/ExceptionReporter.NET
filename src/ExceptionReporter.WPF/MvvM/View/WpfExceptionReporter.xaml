@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:ExceptionReporting.WPF.Converters"
              xmlns:viewModel="clr-namespace:ExceptionReporting.WPF.MvvM.ViewModel"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewModel:ExceptionReporterViewModel}"
              d:DesignHeight="250" d:DesignWidth="400">
 
 	<UserControl.Resources>

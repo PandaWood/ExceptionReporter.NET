@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ExceptionReporting.Core
 {
-	internal interface IZipReportService
+	internal interface IZipAttachmentService
 	{
 		/// <summary>
 		/// Create Zip file
