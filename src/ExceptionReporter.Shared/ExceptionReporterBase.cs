@@ -9,7 +9,6 @@ using ExceptionReporting.Network;
 using ExceptionReporting.Network.Events;
 using ExceptionReporting.Report;
 
-// ReSharper disable UnusedMember.Global
 // ReSharper disable ConvertToAutoPropertyWhenPossible
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedType.Global
@@ -20,8 +19,10 @@ using ExceptionReporting.Report;
 namespace ExceptionReporting
 {
 	/// <summary>
-	/// The entry-point (class) to invoking either a WinForms dialog or sending
-	/// eg new ExceptionReporter().Show(exceptions)
+	/// A class at a lower-level than ExceptionReporter due to the need to abstract out the option for the
+	/// implementation of IScreenshooter
+	/// Call Send() method here directly with any IScreenshooter implementation (including the dummy provided <see cref="NoScreenShot"/> - which will be
+	/// effectively the same as setting <see cref="ExceptionReportInfo.TakeScreenshot"/>to false)
 	/// </summary>
 	public class ExceptionReporterBase
 	{
@@ -33,7 +34,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Initialise the ExceptionReporter
 		/// </summary>
-		public ExceptionReporterBase()
+		protected ExceptionReporterBase()
 		{
 			_info = new ExceptionReportInfo();
 		}
@@ -47,18 +48,16 @@ namespace ExceptionReporting
 		/// Send the report, asynchronously, without showing a dialog (silent send)
 		/// <see cref="ExceptionReportInfo.SendMethod"/>must be SMTP or WebService, else this is ignored (silently)
 		/// </summary>
-		/// <param name="screeshooter"></param>
+		/// <param name="screenShooter">The screen-shotting code might be specific to WinForms, so this is an option to send anything that implements IScreenshooter</param>
 		/// <param name="sendEvent">Provide implementation of IReportSendEvent to receive error/updates on calling thread</param>
 		/// <param name="exceptions">The exception/s to include in the report</param>
-		public void Send(IScreenShooter screeshooter, IReportSendEvent sendEvent = null, params Exception[] exceptions)
+		protected void Send(IScreenShooter screenShooter, IReportSendEvent sendEvent = null, params Exception[] exceptions)
 		{
 			_info.SetExceptions(exceptions);
 			
-			var sender = new SenderFactory(_info, sendEvent ?? new SilentSendEvent(), screeshooter).Get();
+			var sender = new SenderFactory(_info, sendEvent ?? new SilentSendEvent(), screenShooter).Get();
 			var report = new ReportGenerator(_info);
 			sender.Send(report.Generate());
 		}
 	}
 }
-
-// ReSharper restore UnusedMember.Global
