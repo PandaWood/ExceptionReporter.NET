@@ -70,7 +70,7 @@ namespace ExceptionReporting.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ErrorReport.
+        ///   Looks up a localized string similar to Error Report.
         /// </summary>
         internal static string ErrorReport {
             get {

@@ -21,7 +21,7 @@ namespace ExceptionReporting
 		/// </summary>
 		public ExceptionReporter()
 		{
-			ViewMaker = new ViewMaker(_info);
+			ViewMaker = new DefaultWinFormsViewmaker(_info);
 		}
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace ExceptionReporting
 			if (exceptions == null || exceptions.Length == 0 || exceptions.Length >= 1 && exceptions[0] == null) return false;
 			if (ViewMaker == null)
 			{
-				Debug.WriteLine("ViewMaker must be initialized. Add `er.ViewMaker = new ViewMaker(er.Config);` where 'er'` is ExceptionReporter object");
+				Debug.WriteLine("DefaultWinFormsViewmaker must be initialized (not null). Add `er.DefaultWinFormsViewmaker = new DefaultWinFormsViewmaker(er.Config);` where 'er' is the ExceptionReporter object");
 				return false;
 			}
 
@@ -56,9 +56,7 @@ namespace ExceptionReporting
 			}
 			catch (Exception ex)
 			{
-				//TODO figure out shared resources between WinForms and WPF or move messages out of common code
-				// ViewMaker.ShowError(ex.Message, Resources.Failed_trying_to_report_an_Error);
-				ViewMaker.ShowError(ex.Message, "Failed_trying_to_report_an_Error");
+				ViewMaker.ShowError(ex.Message);
 				return false;
 			}
 		}

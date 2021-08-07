@@ -118,7 +118,6 @@ namespace Demo.WinForms
 				// er.Config.ShowEmailButton = false;		// just for testing that removing email button works
 				er.Config.ReportTemplateFormat = TemplateFormat.Markdown;
 
-				er.ViewMaker = new ViewMaker(er.Config);
 				er.Show(exception);
 			}
 		}

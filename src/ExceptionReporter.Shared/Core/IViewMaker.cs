@@ -1,7 +1,7 @@
 using ExceptionReporting.Core;
 
 /// <summary>
-/// contract to show view-related things
+/// An interface/contract to replace the default view (currently only applicable to WinForms)
 /// </summary>
 public interface IViewMaker
 {
@@ -12,9 +12,8 @@ public interface IViewMaker
 	IExceptionReportView Create();
 
 	/// <summary>
-	/// show error 
+	/// show an error 
 	/// </summary>
 	/// <param name="message"></param>
-	/// <param name="description"></param>
-	void ShowError(string message, string description);
+	void ShowError(string message);
 }

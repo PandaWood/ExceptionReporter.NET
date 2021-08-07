@@ -1,0 +1,3 @@
+IViewMaker.ShowError method dropped the 2nd argument `description` - this is now taken from localized resources
+ExceptionReportInfo property `BackgroundColor` is now a hex color code string, not a System.Drawing.Color object
+Saving zip file set the file extension to use the template type (ie markdown/txt/html)

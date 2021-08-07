@@ -61,7 +61,7 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Override the Exception.Message property
 		/// ie a custom message to show in place of the Exception Message
-		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporting.Show(string, Exception[])"/>
+		/// NB this can also be set in the 1st parameter of <see cref="ExceptionReporter.Show(string, Exception[])"/>
 		/// </summary>
 		public string CustomMessage { get; set; }
 
@@ -205,11 +205,9 @@ namespace ExceptionReporting
 		}
 
 		/// <summary>
-		/// The title of the main WpfExceptionReporter dialog
+		/// The title of the main ExceptionReporter dialog
 		/// </summary>
-		// public string TitleText { get; set; } = Resources.ErrorReport;
-		//TODO figure out shared resources
-		public string TitleText { get; set; } = "ErrorReport";
+		public string TitleText { get; set; }
 
 		/// <summary>
 		/// Background color of the dialog
@@ -260,7 +258,7 @@ namespace ExceptionReporting
 		/// </summary>
 		public string UserExplanationLabel { get; set; }
 
-		[Obsolete("Not actually used anywhere, not sure since when, but remove all uses")]
+		[Obsolete("Not actually used anywhere")]
 		public string ContactMessageTop { get; set; }
 
 		/// <summary> 

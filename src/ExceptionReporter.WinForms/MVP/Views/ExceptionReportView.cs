@@ -85,7 +85,7 @@ namespace ExceptionReporting.MVP.Views
 				RemoveEmailButton();
 			}
 
-			Text = reportInfo.TitleText;
+			Text = reportInfo.TitleText ?? Resources.ErrorReport;
 			txtUserExplanation.Font = new Font(txtUserExplanation.Font.FontFamily, reportInfo.UserExplanationFontSize);
 			lblContactCompany.Text =
 				string.Format(

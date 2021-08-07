@@ -121,51 +121,51 @@
     <value>Test Loc</value>
   </data>
   <data name="Please enter a brief explanation of events leading up to this exception" xml:space="preserve">
-	  <value>Please enter a brief explanation of events leading up to this exception</value>
+    <value>Please enter a brief explanation of events leading up to this exception</value>
   </data>
   <data name="The following details can be used to obtain support for this application" xml:space="preserve">
-	  <value>The following details can be used to obtain support for this application</value>
+    <value>The following details can be used to obtain support for this application</value>
   </data>
   <data name="Send" xml:space="preserve">
-	  <value>Send</value>
+    <value>Send</value>
   </data>
   <data name="to {0}" xml:space="preserve">
-	  <value>to {0}</value>
+    <value>to {0}</value>
   </data>
   <data name="ExceptionReportView_ToggleShowFullDetail_Less_Detail" xml:space="preserve">
-	  <value>Less Detail</value>
+    <value>Less Detail</value>
   </data>
   <data name="ExceptionReportView_ToggleShowFullDetail_More_Detail" xml:space="preserve">
-	  <value>More Detail</value>
+    <value>More Detail</value>
   </data>
   <data name="Report sent" xml:space="preserve">
-	  <value>Report sent</value>
+    <value>Report sent</value>
   </data>
   <data name="Failed to send report" xml:space="preserve">
-	  <value>Failed to send report</value>
+    <value>Failed to send report</value>
   </data>
   <data name="ExceptionReportView_ShowError_Error_sending_report" xml:space="preserve">
-	  <value>Error sending report</value>
+    <value>Error sending report</value>
   </data>
   <data name="Failed trying to report an Error" xml:space="preserve">
-	  <value>Failed trying to report an Error</value>
+    <value>Failed trying to report an Error</value>
   </data>
   <data name="Copied to clipboard" xml:space="preserve">
-	  <value>Copied to clipboard</value>
+    <value>Copied to clipboard</value>
   </data>
   <data name="Unable to save file" xml:space="preserve">
-	  <value>Unable to save file</value>
+    <value>Unable to save file</value>
   </data>
   <data name="Unable to setup" xml:space="preserve">
-	  <value>Unable to setup</value>
+    <value>Unable to setup</value>
   </data>
   <data name="ExceptionReportView_PopulateReportInfo_If_this_problem_persists__please_contact__0__support_" xml:space="preserve">
-	  <value>If this problem persists, please contact {0} support.</value>
+    <value>If this problem persists, please contact {0} support.</value>
   </data>
   <data name="ErrorReport" xml:space="preserve">
-	  <value>ErrorReport</value>
+    <value>Error Report</value>
   </data>
   <data name="Failed to copy to clipboard" xml:space="preserve">
-	  <value>Clipboard copy failed</value>
+    <value>Clipboard copy failed</value>
   </data>
 </root>
