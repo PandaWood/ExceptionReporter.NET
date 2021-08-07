@@ -39,7 +39,8 @@ namespace ExceptionReporting.MVP.Views
 
 		private void PopulateReportInfo(ExceptionReportInfo reportInfo)
 		{
-			lblExplanation.Text = reportInfo.UserExplanationLabel;
+			lblExplanation.Text = reportInfo.UserExplanationLabel ??
+			                      Resources.Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception;
 			ShowFullDetail = reportInfo.ShowFullDetail;
 			ToggleShowFullDetail();
 			btnDetailToggle.Visible = reportInfo.ShowLessDetailButton;

@@ -65,8 +65,6 @@ namespace ExceptionReporting
 		/// </summary>
 		public string CustomMessage { get; set; }
 
-		#region SMTP settings
-		
 		public string SmtpUsername { get; set; }
 		public string SmtpPassword { get; set; }
 		public string SmtpFromAddress { get; set; } = "";
@@ -92,8 +90,6 @@ namespace ExceptionReporting
 		/// </summary>
 		public MailPriority SmtpMailPriority { get; set; } = MailPriority.Normal;
 		
-		#endregion
-
 		/// <summary>
 		/// The name of the application calling the exception report
 		/// </summary>
@@ -218,7 +214,6 @@ namespace ExceptionReporting
 		/// <summary>
 		/// Background color of the dialog
 		/// </summary>
-		// public Color BackgroundColor { get; set; } = Color.WhiteSmoke;
 		public string BackgroundColor { get; set; } = "#f5f5f5";
 
 		/// <summary>
@@ -263,9 +258,10 @@ namespace ExceptionReporting
 		/// <summary>
 		/// The text to show in the label that prompts the user to input any relevant message
 		/// </summary>
-		public string UserExplanationLabel { get; set; } = DefaultLabelMessages.DefaultExplanationLabel;
+		public string UserExplanationLabel { get; set; }
 
-		public string ContactMessageTop { get; set; } = DefaultLabelMessages.DefaultContactMessageTop;
+		[Obsolete("Not actually used anywhere, not sure since when, but remove all uses")]
+		public string ContactMessageTop { get; set; }
 
 		/// <summary> 
 		/// Show buttons in the "flat" (non 3D) style
@@ -311,18 +307,6 @@ namespace ExceptionReporting
 		{
 			return SendMethod == ReportSendMethod.SimpleMAPI;
 		}
-	}
-
-	internal static class DefaultLabelMessages
-	{
-		//TODO shared resources or move messages out
-		public static readonly string DefaultExplanationLabel =
-			// Resources.Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception;
-			"Please_enter_a_brief_explanation_of_events_leading_up_to_this_exception";
-
-		public static readonly string DefaultContactMessageTop =
-			// Resources.The_following_details_can_be_used_to_obtain_support_for_this_application;
-			"The_following_details_can_be_used_to_obtain_support_for_this_application";
 	}
 }
 
