@@ -72,12 +72,16 @@
 
 		<!-- Icons made by https://www.flaticon.com -->
 		<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
-		            Orientation="Horizontal" HorizontalAlignment="Stretch">
+		            Orientation="Horizontal" 
+		            HorizontalAlignment="Stretch">
 
 			<StackPanel.Resources>
 				<Style TargetType="Button">
 					<Setter Property="Margin" Value="5,10,5,5" />
 					<Setter Property="Padding" Value="5,0,5,0" />
+				</Style>
+				<Style TargetType="StackPanel">
+					<Setter Property="Orientation" Value="Horizontal" />
 				</Style>
 				<Style TargetType="Image">
 					<Setter Property="Height" Value="16" />
@@ -85,26 +89,29 @@
 					<Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
 					<Setter Property="RenderOptions.EdgeMode" Value="Aliased" />
 				</Style>
+				<Style TargetType="TextBlock">
+					<Setter Property="VerticalAlignment" Value="Center" />
+				</Style>
 			</StackPanel.Resources>
 
-			<Button>
-				<StackPanel Orientation="Horizontal">
+			<Button Command="viewModel:ExceptionReporterCommands.ShowDetailsCommand">
+				<StackPanel>
 					<Image Source="../../Images/magnifying-glass.png" />
-					<TextBlock VerticalAlignment="Center">Show details</TextBlock>
+					<TextBlock>Show details</TextBlock>
 				</StackPanel>
 			</Button>
 
 			<Button Command="Copy" >
-				<StackPanel Orientation="Horizontal">
+				<StackPanel>
 					<Image Source="../../Images/clipboard.png" />
-					<TextBlock VerticalAlignment="Center">Copy to clipboard</TextBlock>
+					<TextBlock>Copy to clipboard</TextBlock>
 				</StackPanel>
 			</Button>
 
 			<Button Command="viewModel:ExceptionReporterCommands.EmailCommand">
-				<StackPanel Orientation="Horizontal">
+				<StackPanel>
 					<Image Source="../../Images/message.png" />
-					<TextBlock VerticalAlignment="Center" Text="{Binding CompanyName, StringFormat=Email {0}}">
+					<TextBlock Text="{Binding CompanyName, StringFormat=Email {0}}">
 					</TextBlock>
 				</StackPanel>
 			</Button>
