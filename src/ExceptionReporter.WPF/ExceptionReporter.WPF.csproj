@@ -61,7 +61,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Converters\IconToImageSourceConverter.cs" />
-    <Compile Include="MvvM\ViewModel\ExceptionReporterCommands.cs" />
     <Compile Include="MvvM\View\WpfExceptionReporter.xaml.cs">
       <DependentUpon>WpfExceptionReporter.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -69,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MvvM\ViewModel\ExceptionReporterViewModel.cs" />
+    <Compile Include="Plumbing\RelayCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

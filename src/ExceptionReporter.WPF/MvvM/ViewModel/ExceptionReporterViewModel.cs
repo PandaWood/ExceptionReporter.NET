@@ -1,34 +1,59 @@
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
+using ExceptionReporting.Mail;
+using ExceptionReporting.Network;
+using ExceptionReporting.Network.Events;
+using ExceptionReporting.Plumbing;
+using ExceptionReporting.Report;
 
 // ReSharper disable once CheckNamespace
 namespace ExceptionReporting.WPF.MvvM.ViewModel
 {
-	public class ExceptionReporterViewModel : INotifyPropertyChanged
+	public class ExceptionReporterViewModel
 	{
-		private ExceptionReportInfo _info;
+		private RelayCommand _copyCommand;
+		private RelayCommand _emailCommand;
+		private RelayCommand _showDetailsCommand;
+
+		public ExceptionReportInfo Info { get; }
+		private readonly ReportGenerator _reportGenerator;
 
 		public ExceptionReporterViewModel(ExceptionReportInfo info)
 		{
-			_info = info;
+			Info = info;
+			_reportGenerator = new ReportGenerator(Info);
 		}
 
-		public ExceptionReportInfo Info
+		public ICommand CopyCommand
 		{
-			get => _info;
-			set
-			{
-				_info = value;
-				NotifyPropertyChanged();
-			}
+			get { return _copyCommand ?? (_copyCommand = new RelayCommand(_ => Copy(), _ => true)); }
 		}
 
-		// a quick/simple implementation of observable object - we only need it once
-		public event PropertyChangedEventHandler PropertyChanged;
-		private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+		public ICommand EmailCommand
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			get { return _emailCommand ?? (_emailCommand = new RelayCommand(_ => SendEmail(), _ => true)); }
+		}
+
+		public ICommand ShowDetailsCommand
+		{
+			get { return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand(_ => ShowDetails(), _ => true)); }
+		}
+
+		private void Copy()
+		{
+			Clipboard.SetText(_reportGenerator.Generate());
+		}
+
+		private void SendEmail()
+		{
+			var report = Info.IsSimpleMAPI() ? new EmailReporter(Info).Create() : _reportGenerator.Generate();
+			var sendFactory = new SenderFactory(Info, new SilentSendEvent(), new NoScreenShot()).Get();
+			sendFactory.Send(report);
+		}
+
+		private void ShowDetails()
+		{
+			//TODO ui stuff?
 		}
 	}
 }

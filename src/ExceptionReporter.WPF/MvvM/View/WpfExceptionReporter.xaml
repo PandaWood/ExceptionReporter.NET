@@ -14,16 +14,10 @@
 		<converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
 	</UserControl.Resources>
 
-	<UserControl.CommandBindings>
-		<CommandBinding Command="Copy" CanExecute="CopyCanExecute" Executed="CopyExecute"></CommandBinding>
-		<CommandBinding Command="viewModel:ExceptionReporterCommands.EmailCommand" 
-		                CanExecute="EmailCanExecute" Executed="EmailExecute"></CommandBinding>
-	</UserControl.CommandBindings>
-
-	<Grid Background="GhostWhite" DataContext="{Binding Info}">
+	<Grid Background="GhostWhite">
 		<Grid.Resources >
 			<Style TargetType="Border" >
-				<Setter Property="Padding" Value="5,5,5,5" />
+				<Setter Property="Padding" Value="5" />
 			</Style>
 		</Grid.Resources>
 		<Grid.RowDefinitions>
@@ -50,7 +44,7 @@
 
 		<TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 		           FontSize="14" Margin="10,0,10,0"
-		           Text="{Binding Path=MainException.Message}" />
+		           Text="{Binding Path=Info.MainException.Message}" />
 
 		<Rectangle Grid.Row="2" Grid.Column="0" 
 		           Grid.ColumnSpan="2" Grid.RowSpan="2"
@@ -67,7 +61,7 @@
 		<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" 
 							 VerticalAlignment="Bottom"
 							 Margin="5" Foreground="DimGray"
-		  Text="{Binding CompanyName, 
+		  Text="{Binding Info.CompanyName, 
 				StringFormat='If this problem persists, please contact {0} support'}"></TextBlock>
 
 		<!-- Icons made by https://www.flaticon.com -->
@@ -94,24 +88,24 @@
 				</Style>
 			</StackPanel.Resources>
 
-			<Button Command="viewModel:ExceptionReporterCommands.ShowDetailsCommand">
+			<Button Command="{Binding ShowDetailsCommand}">
 				<StackPanel>
 					<Image Source="../../Images/magnifying-glass.png" />
 					<TextBlock>Show details</TextBlock>
 				</StackPanel>
 			</Button>
 
-			<Button Command="Copy" >
+			<Button Command="{Binding CopyCommand}" >
 				<StackPanel>
 					<Image Source="../../Images/clipboard.png" />
 					<TextBlock>Copy to clipboard</TextBlock>
 				</StackPanel>
 			</Button>
 
-			<Button Command="viewModel:ExceptionReporterCommands.EmailCommand">
+			<Button Command="{Binding EmailCommand}">
 				<StackPanel>
 					<Image Source="../../Images/message.png" />
-					<TextBlock Text="{Binding CompanyName, StringFormat=Email {0}}">
+					<TextBlock Text="{Binding Info.CompanyName, StringFormat=Email {0}}">
 					</TextBlock>
 				</StackPanel>
 			</Button>
