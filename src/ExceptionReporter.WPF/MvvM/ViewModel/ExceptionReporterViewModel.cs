@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using ExceptionReporting.Mail;
@@ -9,7 +10,7 @@ using ExceptionReporting.Report;
 // ReSharper disable once CheckNamespace
 namespace ExceptionReporting.WPF.MvvM.ViewModel
 {
-	public class ExceptionReporterViewModel
+	public class ExceptionReporterViewModel : ObservableObject
 	{
 		private RelayCommand _copyCommand;
 		private RelayCommand _emailCommand;
@@ -17,6 +18,7 @@ namespace ExceptionReporting.WPF.MvvM.ViewModel
 
 		public ExceptionReportInfo Info { get; }
 		private readonly ReportGenerator _reportGenerator;
+		private bool _showingDetails;
 
 		public ExceptionReporterViewModel(ExceptionReportInfo info)
 		{
@@ -39,6 +41,19 @@ namespace ExceptionReporting.WPF.MvvM.ViewModel
 			get { return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand(_ => ShowDetails(), _ => true)); }
 		}
 
+		public bool ShowingSummary => !ShowingDetails;
+
+		public bool ShowingDetails
+		{
+			get => _showingDetails;
+			set
+			{
+				_showingDetails = value;
+				NotifyPropertyChanged();
+				NotifyPropertyChanged(nameof(ShowingSummary));
+			}
+		}
+
 		private void Copy()
 		{
 			Clipboard.SetText(_reportGenerator.Generate());
@@ -53,7 +68,7 @@ namespace ExceptionReporting.WPF.MvvM.ViewModel
 
 		private void ShowDetails()
 		{
-			//TODO ui stuff?
+			ShowingDetails = !ShowingDetails;
 		}
 	}
 }

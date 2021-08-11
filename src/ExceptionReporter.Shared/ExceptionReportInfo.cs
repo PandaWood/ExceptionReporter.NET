@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Reflection;
+using System.Text;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -304,6 +305,25 @@ namespace ExceptionReporting
 		public bool IsSimpleMAPI()
 		{
 			return SendMethod == ReportSendMethod.SimpleMAPI;
+		}
+
+		public string StackTrace
+		{
+			get
+			{
+				var s = new StringBuilder();
+				var ex = MainException;
+
+				while (ex != null)
+				{
+					s.AppendLine(ex.Message);
+					s.AppendLine(ex.StackTrace);
+
+					ex = ex.InnerException;
+				}
+
+				return s.ToString();
+			}
 		}
 	}
 }

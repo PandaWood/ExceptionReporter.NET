@@ -49,7 +49,7 @@ namespace ExceptionReporting.MVP.Views
 				currentException = currentException.InnerException;
 				listViewItem = new ListViewItem
 				{
-					Text = string.Format("Inner Exception {0}", index)
+					Text = $"Inner Exception {index}"
 				};
 				listViewItem.SubItems.Add(currentException.GetType().ToString());
 				AddTargetSite(listViewItem, currentException);

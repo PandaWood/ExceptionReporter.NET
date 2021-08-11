@@ -9,7 +9,7 @@
 	<Grid>
 		<StackPanel>
 			<Button Margin="50,50,50.2,50" MaxWidth="300" Click="ButtonBase_OnClick" Height="38">
-				Open WPF Exception Report
+				WPF Exception Report
 			</Button>
 		</StackPanel>
 	</Grid>
