@@ -306,25 +306,6 @@ namespace ExceptionReporting
 		{
 			return SendMethod == ReportSendMethod.SimpleMAPI;
 		}
-
-		public string StackTrace
-		{
-			get
-			{
-				var s = new StringBuilder();
-				var ex = MainException;
-
-				while (ex != null)
-				{
-					s.AppendLine(ex.Message);
-					s.AppendLine(ex.StackTrace);
-
-					ex = ex.InnerException;
-				}
-
-				return s.ToString();
-			}
-		}
 	}
 }
 

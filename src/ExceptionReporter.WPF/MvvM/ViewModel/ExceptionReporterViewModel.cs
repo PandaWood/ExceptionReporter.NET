@@ -19,11 +19,13 @@ namespace ExceptionReporting.WPF.MvvM.ViewModel
 		public ExceptionReportInfo Info { get; }
 		private readonly ReportGenerator _reportGenerator;
 		private bool _showingDetails;
+		private string _reportText;
 
 		public ExceptionReporterViewModel(ExceptionReportInfo info)
 		{
 			Info = info;
 			_reportGenerator = new ReportGenerator(Info);
+			_reportText = _reportGenerator.Generate();
 		}
 
 		public ICommand CopyCommand
@@ -39,6 +41,16 @@ namespace ExceptionReporting.WPF.MvvM.ViewModel
 		public ICommand ShowDetailsCommand
 		{
 			get { return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand(_ => ShowDetails(), _ => true)); }
+		}
+
+		public string ReportText
+		{
+			get => _reportText;
+			set
+			{
+				_reportText = value;
+				NotifyPropertyChanged();
+			}
 		}
 
 		public bool ShowingSummary => !ShowingDetails;
