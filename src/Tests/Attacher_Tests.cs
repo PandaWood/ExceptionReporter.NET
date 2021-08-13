@@ -1,6 +1,7 @@
 using ExceptionReporting;
 using ExceptionReporting.Core;
 using ExceptionReporting.Mail;
+using ExceptionReporting.Zip;
 using Moq;
 using NUnit.Framework;
 
@@ -23,7 +24,7 @@ namespace Tests.ExceptionReporting
 		[Test]
 		public void Can_Attach_Nothing_If_None_To_Attach()
 		{
-			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new string[] {} })
+			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new string[] {} }, new Mock<IScreenShooter>().Object)
 			{
 				FileService = _file.Object,
 				Zipper = _zip.Object
@@ -40,7 +41,7 @@ namespace Tests.ExceptionReporting
 			_file.Setup(f => f.Exists("file1")).Returns(true);
 			_file.Setup(f => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
 
-			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1" } })
+			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1" } }, new Mock<IScreenShooter>().Object)
 			{
 				FileService = _file.Object,
 				Zipper = _zip.Object
@@ -57,7 +58,7 @@ namespace Tests.ExceptionReporting
 			_file.Setup(f => f.Exists(It.IsAny<string>())).Returns(true);
 			_file.Setup(f => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
 
-			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1", "file2", "file3" } })
+			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1", "file2", "file3" } }, new Mock<IScreenShooter>().Object)
 			{
 				FileService = _file.Object,
 				Zipper = _zip.Object
@@ -74,7 +75,7 @@ namespace Tests.ExceptionReporting
 			_file.Setup(f => f.Exists(It.IsAny<string>())).Returns(false);
 			_file.Setup(f => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
 
-			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1", "file2", "file3" } })
+			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1", "file2", "file3" } }, new Mock<IScreenShooter>().Object)
 			{
 				FileService = _file.Object,
 				Zipper = _zip.Object
@@ -89,7 +90,7 @@ namespace Tests.ExceptionReporting
 		public void Can_Attach_1_For_Each_Already_Zipped()
 		{
 			_file.Setup(f => f.Exists(It.IsAny<string>())).Returns(true);
-			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1.zip", "file2.zip" } })
+			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1.zip", "file2.zip" } }, new Mock<IScreenShooter>().Object)
 			{
 				FileService = _file.Object,
 				Zipper = _zip.Object
@@ -107,7 +108,7 @@ namespace Tests.ExceptionReporting
 			_file.Setup(f => f.TempFile(It.IsAny<string>())).Returns("attach.zip");
 			_file.Setup(f => f.Exists(It.IsAny<string>())).Returns(true);
 
-			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1.zip" , "file2.txt"} })
+			var attacher = new Attacher(new ExceptionReportInfo { FilesToAttach = new[] { "file1.zip" , "file2.txt"} }, new Mock<IScreenShooter>().Object)
 			{
 				FileService = _file.Object,
 				Zipper = _zip.Object
@@ -122,11 +123,11 @@ namespace Tests.ExceptionReporting
 		[Test]
 		public void Should_Take_Screenshot_If_Configured()
 		{
-			var screenshot = new Mock<IScreenshotTaker>();
+			var screenshot = new Mock<IScreenShooter>();
 			var attacher =
-				new Attacher(new ExceptionReportInfo {TakeScreenshot = true})
+				new Attacher(new ExceptionReportInfo {TakeScreenshot = true}, new Mock<IScreenShooter>().Object)
 				{
-					ScreenshotTaker = screenshot.Object
+					ScreenShooter = screenshot.Object
 				};
 
 			attacher.AttachFiles(_iAttach.Object);
@@ -137,11 +138,11 @@ namespace Tests.ExceptionReporting
 		[Test]
 		public void Should_Not_Take_Screenshot_If_Not_Configured()
 		{
-			var screenshot = new Mock<IScreenshotTaker>();
+			var screenshot = new Mock<IScreenShooter>();
 			var attacher =
-				new Attacher(new ExceptionReportInfo { TakeScreenshot = false })
+				new Attacher(new ExceptionReportInfo { TakeScreenshot = false }, new Mock<IScreenShooter>().Object)
 				{
-					ScreenshotTaker = screenshot.Object
+					ScreenShooter = screenshot.Object
 				};
 
 			attacher.AttachFiles(_iAttach.Object);

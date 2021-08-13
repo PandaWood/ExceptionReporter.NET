@@ -18,11 +18,6 @@ namespace Tests.ExceptionReporting
 		public void Can_Retrieve_SysInfo_For_CPU()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.Machine);
-			if (ExceptionReporter.IsRunningMono())
-			{
-				Assert.That(sysInfoResult, Is.Null);
-				return;
-			};
 
 			Assert.That(sysInfoResult.Nodes.Count, Is.EqualTo(1));      // at least 1 machine name
 			Assert.That(sysInfoResult.ChildResults[0].Nodes.Count, Is.GreaterThan(0));
@@ -33,11 +28,6 @@ namespace Tests.ExceptionReporting
 		public void Can_Retrieve_SysInfo_For_OS()
 		{
 			var sysInfoResult = _retriever.Retrieve(SysInfoQueries.OperatingSystem);
-			if (ExceptionReporter.IsRunningMono())
-			{
-				Assert.That(sysInfoResult, Is.Null);
-				return;
-			};
 			Assert.That(sysInfoResult.Nodes[0], Does.Contain("Windows"));
 		}
 	}

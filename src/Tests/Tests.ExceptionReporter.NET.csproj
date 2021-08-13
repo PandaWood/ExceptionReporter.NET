@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
 		<RootNamespace>Tests.ExceptionReporting</RootNamespace>
 		<ReleaseVersion>4.0.3</ReleaseVersion>
 	</PropertyGroup>
@@ -15,6 +15,15 @@
 		<None Remove="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionReporting\ExceptionReporter.Net.csproj" />
+    <ProjectReference Include="..\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Management" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="C:\code\ExceptionReporter.NET\ExceptionReporter.Shared\Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
 </Project>

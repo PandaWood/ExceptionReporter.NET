@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ExceptionReporting.MVP.Views;
+using ExceptionReporting.Core;
 
 namespace Demo.WinForms
 {

@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+		<RootNamespace>ExceptionReporting</RootNamespace>
+		<AssemblyName>ExceptionReporter.NET</AssemblyName>
+		<PackageId>ExceptionReporter</PackageId>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<TargetFramework>net40</TargetFramework>
+		<ReleaseVersion>4.0.3</ReleaseVersion>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/PandaWood/ExceptionReporter.NET/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
+	</PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\Resources.en.resx" />
+    <EmbeddedResource Remove="Properties\Resources.ru.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetZip" Version="1.15.0" />
+    <PackageReference Include="Handlebars.Net" Version="1.9.0" />
+    <PackageReference Include="Simple-MAPI.NET" Version="1.1.0" />
+  </ItemGroup>
+    <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.en.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <PropertyGroup>
+    <Version>4.1.0</Version>
+    <FileVersion>4.1.0.0</FileVersion>
+    <Authors>Peter van der Woude, Simon Cropp</Authors>
+    <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
+    <Copyright></Copyright>
+  </PropertyGroup>
+  <Import Project="..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <Compile Update="C:\code\ExceptionReporter.NET\ExceptionReporter.Shared\Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

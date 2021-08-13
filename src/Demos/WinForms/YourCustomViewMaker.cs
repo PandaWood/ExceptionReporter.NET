@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-using ExceptionReporting.MVP.Views;
+using ExceptionReporting.Core;
 
 namespace Demo.WinForms
 {
@@ -13,9 +13,9 @@ namespace Demo.WinForms
 			return new YourCustomReporterView();
 		}
 
-		public void ShowError(string message, string description)
+		public void ShowError(string message)
 		{
-			MessageBox.Show(message, description);
+			MessageBox.Show(message);
 		}
 	}
 }
