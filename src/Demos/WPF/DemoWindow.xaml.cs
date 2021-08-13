@@ -44,7 +44,7 @@ namespace Demo.WPF
 
 		private void TestMethod()
 		{
-			throw new DataException("Data is horribly incorrect");
+			throw new DataException("The server responded with warning 477 (Internal error). Error code 777999");
 		}
 	}
 }

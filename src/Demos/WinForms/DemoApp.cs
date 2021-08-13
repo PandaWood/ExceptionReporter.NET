@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using ExceptionReporting;
-using ExceptionReporting.WinForms;
 
 namespace Demo.WinForms
 {
