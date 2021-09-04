@@ -105,17 +105,22 @@ namespace Demo.WinForms
 			}
 			catch (Exception exception)
 			{
-				var er = new ExceptionReporter();
-				er.Config.SendMethod = ReportSendMethod.SimpleMAPI;
-				er.Config.EmailReportAddress = "support@acme.com";
-				er.Config.CompanyName = "Acme";   // this goes alongside email button text
-				er.Config.TitleText = "Acme Error Report";
-				
-				// er.Config.ShowFullDetail = false;
-				er.Config.ShowLessDetailButton = true;
-				er.Config.ReportTemplateFormat = TemplateFormat.Text;
+				var er = new ExceptionReporter
+				{
+					Config =
+					{
+						SendMethod = ReportSendMethod.SimpleMAPI,
+						EmailReportAddress = "support@acme.com",
+						CompanyName = "Acme", // this goes alongside email button text
+						TitleText = "Acme Error Report",
+						// er.Config.ShowFullDetail = false;
+						ShowLessDetailButton = true,
+						ReportTemplateFormat = TemplateFormat.Text,
+						EmailReportSubject = "サブジェクト" }
+				};
+
 				// er.Config.ShowEmailButton = false;		// just for testing that removing email button works
-				er.Config.ReportTemplateFormat = TemplateFormat.Markdown;
+				er.Config.ReportTemplateFormat = TemplateFormat.Text;
 
 				er.Show(exception);
 			}

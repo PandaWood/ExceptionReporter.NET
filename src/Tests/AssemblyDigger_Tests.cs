@@ -13,7 +13,7 @@ namespace Tests.ExceptionReporting
 			var digger = new AssemblyDigger(Assembly.Load("ExceptionReporter.NET"));
 			var refs = digger.GetAssemblyRefs().ToList();
 
-			Assert.That(refs.Select(r => r.Name), Is.SupersetOf(new [] {"System.Core", "DotNetZip", "SimpleMapi"}));
+			Assert.That(refs.Select(r => r.Name), Is.SupersetOf(new [] {"System.Core", "DotNetZip", "SimpleMapi.NET"}));
 		}
 
 		[Test]
