@@ -73,7 +73,7 @@ namespace ExceptionReporting.MVP.Views
 								txtApplicationName.BackColor =
 									txtDate.BackColor =
 										txtExceptionMessageLarge.BackColor =
-											txtExceptionMessage.BackColor = ColorTranslator.FromHtml("#FFCC66");
+											txtExceptionMessage.BackColor = ColorTranslator.FromHtml(reportInfo.BackgroundColor);
 
 			if (!reportInfo.ShowButtonIcons)
 			{
