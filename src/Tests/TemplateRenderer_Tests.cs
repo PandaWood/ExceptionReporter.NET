@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ExceptionReporting;
 using ExceptionReporting.Templates;
@@ -43,14 +43,14 @@ namespace Tests.ExceptionReporting
 
 			var result = renderer.RenderPreset();
 			
-			Assert.That(result, Does.Contain(string.Format("Application: {0}", TestApp)));
-			Assert.That(result, Does.Contain(string.Format("Version:     {0}", Version)));
-			Assert.That(result, Does.Contain(string.Format("User:        {0}", User)));
-			Assert.That(result, Does.Contain(string.Format("Message: {0}", TestException.ErrorMessage)));
-			Assert.That(result, Does.Contain(string.Format("User Explanation: {0}", UserExplanation)));
-			Assert.That(result, Does.Contain(string.Format("{0}, Version={1}", AssemblyName, AssemblyVersion)));
-			Assert.That(result, Does.Contain(string.Format("Date: {0}", DateTime.Now.ToShortDateString())));
-			Assert.That(result, Does.Contain(string.Format("Time: {0}", DateTime.Now.ToShortTimeString())));
+			Assert.That(result, Does.Contain($"Application: {TestApp}"));
+			Assert.That(result, Does.Contain($"Version:     {Version}"));
+			Assert.That(result, Does.Contain($"User:        {User}"));
+			Assert.That(result, Does.Contain($"Message: {TestException.ErrorMessage}"));
+			Assert.That(result, Does.Contain($"User Explanation: {UserExplanation}"));
+			Assert.That(result, Does.Contain($"{AssemblyName}, Version={AssemblyVersion}"));
+			Assert.That(result, Does.Contain($"Date: {DateTime.Now.ToShortDateString()}"));
+			Assert.That(result, Does.Contain($"Time: {DateTime.Now.ToShortTimeString()}"));
 		}
 		
 		[Test]
@@ -71,8 +71,8 @@ namespace Tests.ExceptionReporting
 
 			var result = renderer.RenderPreset();
 			
-			Assert.That(result, Does.Contain(string.Format("Application: {0}", TestApp)));
-			Assert.That(result, Does.Contain(string.Format("Version:     {0}", Version)));
+			Assert.That(result, Does.Contain($"Application: {TestApp}"));
+			Assert.That(result, Does.Contain($"Version:     {Version}"));
 			Assert.That(result, Does.Not.Contain("User Explanation:"));		// whole section not shown  
 			Assert.That(result, Does.Not.Contain("User:"));								// whole section not shown  
 		}
@@ -96,8 +96,8 @@ namespace Tests.ExceptionReporting
 			var result = renderer.RenderPreset(TemplateFormat.Markdown);
 			
 			Assert.That(result, Does.Contain("# Exception Report"));
-			Assert.That(result, Does.Contain(string.Format("**Application**: {0}", TestApp)));
-			Assert.That(result, Does.Contain(string.Format("**Version**:     {0}", Version)));
+			Assert.That(result, Does.Contain($"**Application**: {TestApp}"));
+			Assert.That(result, Does.Contain($"**Version**:     {Version}"));
 		}
 		
 		[Test]
@@ -129,7 +129,7 @@ namespace Tests.ExceptionReporting
 			
 			Assert.That(result, Does.Contain("<title> Error Report </title>"));
 			Assert.That(result, Does.Contain("<td> Application: </td>"));
-			Assert.That(result, Does.Contain(string.Format("<td> {0} </td>", TestApp)));
+			Assert.That(result, Does.Contain($"<td> {TestApp} </td>"));
 		}
 		
 		[Test]
@@ -152,8 +152,8 @@ namespace Tests.ExceptionReporting
 Custom App: {{App.Name}}
 Custom Version: {{App.Version}}
 ");
-			Assert.That(result, Does.Contain(string.Format("Custom App: {0}", "Appy")));
-			Assert.That(result, Does.Contain(string.Format("Custom Version: {0}", "v1.0")));
+			Assert.That(result, Does.Contain($"Custom App: {"Appy"}"));
+			Assert.That(result, Does.Contain($"Custom Version: {"v1.0"}"));
 		}
 	}
 }

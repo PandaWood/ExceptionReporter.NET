@@ -27,14 +27,14 @@ namespace Demo.WPF
 				new Window
 				{
 					Title = "Error Report",
-					Height = 250,
-					Width = 400,
+					Height = 300,
+					Width = 480,
 					Content = new WpfExceptionReporter(ex, new ExceptionReportInfo
 					{
 						SendMethod = ReportSendMethod.SimpleMAPI,
-						EmailReportAddress = "support@acme.com",
-						CompanyName = "Acme",
-						TitleText = "Acme Error Report",
+						EmailReportAddress = "support@amcotest.com",
+						CompanyName = "Amco",
+						TitleText = "Amco Error Report",
 						ShowLessDetailButton = true,
 						ReportTemplateFormat = TemplateFormat.Text,
 					})
@@ -44,7 +44,7 @@ namespace Demo.WPF
 
 		private void TestMethod()
 		{
-			throw new DataException("The server responded with warning 477 (Internal error). Error code 777999");
+			throw new DataException("The server was unable to respond (internal error). \nError code 777999 - please contact support for assistance");
 		}
 	}
 }

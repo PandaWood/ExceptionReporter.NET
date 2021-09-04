@@ -4,9 +4,9 @@
 		<AssemblyName>ExceptionReporter.NET</AssemblyName>
 		<PackageId>ExceptionReporter</PackageId>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<TargetFramework>net40</TargetFramework>
-		<ReleaseVersion>4.0.3</ReleaseVersion>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/PandaWood/ExceptionReporter.NET/master/LICENSE.txt</PackageLicenseUrl>
+		<TargetFrameworks>net40</TargetFrameworks>
+		<ReleaseVersion>5.0</ReleaseVersion>
+		<PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
 	</PropertyGroup>
   <ItemGroup>
@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="DotNetZip" Version="1.15.0" />
     <PackageReference Include="Handlebars.Net" Version="1.9.0" />
-    <PackageReference Include="Simple-MAPI.NET" Version="1.1.0" />
+    <PackageReference Include="Simple-MAPI.NET" Version="1.2.0" />
   </ItemGroup>
     <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.en.resx">
@@ -36,11 +36,23 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>4.1.0</Version>
-    <FileVersion>4.1.0.0</FileVersion>
+    <Version>5.0</Version>
+    <FileVersion>5.0.0.0</FileVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
-    <Description>ExceptionReporter is a .NET component that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
+    <Description>ExceptionReporter is a .NET UserControl/Dialog that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <Copyright></Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/PandaWood/ExceptionReporter.NET</RepositoryUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <PackageTags>exception,error, reporting, reporter</PackageTags>
+    <PackageReleaseNotes>Functional:
+- IViewMaker.ShowError method dropped the 2nd argument `description` - this is now taken from localized resources. Technically, a breaking change, this will only affect users who used the API to swap the default view with their own - this feature was more of a novelty, I doubt anyone uses it.
+- ExceptionReportInfo property `BackgroundColor` is now a hex color code string, not a `System.Drawing.Color` object. Technically, a breaking change, this will only affect users who custom set a background color
+- Saving zip file now sets the file extension of the template type it is using (ie markdown/txt/html)
+Dependencies Updated:
+- DotNetZip from 1.11 to 1.15
+- Simple-MAPI.NET 1.1 to 1.2</PackageReleaseNotes>
   </PropertyGroup>
   <Import Project="..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
   <ItemGroup>
@@ -59,5 +71,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>

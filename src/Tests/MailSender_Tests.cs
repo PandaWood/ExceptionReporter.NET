@@ -2,7 +2,6 @@ using System;
 using ExceptionReporting;
 using ExceptionReporting.Core;
 using ExceptionReporting.Network.Senders;
-using ExceptionReporting.Report;
 using Moq;
 using NUnit.Framework;
 

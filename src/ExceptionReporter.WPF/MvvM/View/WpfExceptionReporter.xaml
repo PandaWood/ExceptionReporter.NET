@@ -8,7 +8,7 @@
              xmlns:viewModel="clr-namespace:ExceptionReporting.WPF.MvvM.ViewModel"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModel:ExceptionReporterViewModel}"
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="250" d:DesignWidth="400">
 
 	<UserControl.Resources>
 		<converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
