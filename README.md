@@ -61,8 +61,8 @@ You can even format your own report using [Report Templates](https://github.com/
   - **Details of your App** such as name/version/date/time etc
 
 ### Demos, Design and Testing
-- The solution includes a demo WinForms app for testing the dialog as well as a WebService project to demonstrate the requirements of sending reports to a WebService (written in .NET Core 2.1 - why not)
-- The source code has an emphasis on testing and testability with over 60 unit tests (and growing) covering most of the important code
+- The solution includes a demo WinForms (and WPF - see below) app for testing the dialog as well as a WebService project to demonstrate the requirements of sending reports to a WebService (written in .NET Core)
+- The source code has tried to incorporate unit testing and testability with over 60 unit tests (and growing) covering most of the important code
 - ExceptionReporter is designed using the [MVP or Model-View-Presenter](https://medium.com/@prajvalprabhakar/mvp-vs-mvvm-93657494106b) pattern and the classes and concerns are liberally separated using [SOLID](https://stackify.com/solid-design-principles/) design principles (to the best of our ability)
 
 ## Sample Reports
@@ -131,8 +131,7 @@ Operating System
 ## Build 
 ExceptionReporter has a dependency on the [.NET4 Framework](https://en.wikipedia.org/wiki/.NET_Framework_version_history#.NET_Framework_4) - so can go as low as supporting Windows XP
 
-There are 2 solution files
-- *ExceptionReporter.NET-sdk.sln* - this uses [the new csproj format](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj) that was introduced in .NET Core but is backward compatible for .NET projects (like this). This solution doesn't include any demos, and the new format isn't fully compatible with WinForms, so it's really just for working on code and tests. Once VS2019 comes out and this format becomes standard, we will completely move over to this
+*ExceptionReporter.NET.sln* - this uses [the new csproj format](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj) that was introduced in .NET Core but is backward compatible for .NET projects (like this).
 
 - *ExceptionReporter.NET-traditional.sln* - this is the old/traditional solution file and contains all projects and demos - so this will be used to work on the UI
 
@@ -142,5 +141,11 @@ There is a [Cake](https://cakebuild.net) script to build the project and run all
 - **build/build.sh** for OSX/Mono
 - **build/build.ps1** for Windows
 
-#### Mono 
-We have one issue on Mono in this project (apart from almost total lack of WinForms support in 64-bit) in that the **Application.Deployment** assembly doesn't exist (and will never) so this fails to compile in Mono. For now, when working on tests in Mono, I comment out the code using **Application.Deployment** in **ReportGenerator** class and use a temporary git ignore. I'd really like to figure out a better solution for this - there are no compile-time constants for Mono anymore, so it's not obvious the best way to handle this.
+## WPF
+I have worked a WPF version of ExceptionReporter into the solution by using a [Shared Project](https://docs.microsoft.com/en-us/xamarin/cross-platform/app-fundamentals/shared-projects). There is no nuget library for the WPF version yet, so it's in a kind of alpha-mode.
+The usage is slightly different as it's implemented as a UserControl, so you create your own Window object and set the `Content` property to the `WpfExceptionReporter` - see the `Demo.WPF` project for an example.
+The WPF version cuts out the resizing and the less/more detail view. For "Show Details" we just show the report in a read-only text component. I'm actually liking the simplicity, so I don't think it will take long to progress this into a sister nuget library.
+
+![WPF version](images/wpf-sample.jpg)
+
+
