@@ -54,7 +54,6 @@ namespace ExceptionReporting.MVP.Views
 
 			txtDate.Text = reportInfo.ExceptionDate.ToShortDateString();
 			txtTime.Text = reportInfo.ExceptionDate.ToShortTimeString();
-			txtRegion.Text = reportInfo.RegionInfo;
 			txtApplicationName.Text = reportInfo.AppName;
 			txtVersion.Text = reportInfo.AppVersion;
 
@@ -66,7 +65,6 @@ namespace ExceptionReporting.MVP.Views
 							btnSave.FlatStyle = reportInfo.ShowFlatButtons ? FlatStyle.Flat : FlatStyle.Standard;
 
 			listviewAssemblies.BackColor =
-				txtRegion.BackColor =
 					txtTime.BackColor =
 						txtTime.BackColor =
 							txtVersion.BackColor =

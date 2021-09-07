@@ -36,8 +36,6 @@ namespace ExceptionReporting.MVP.Views
             this.txtExceptionMessage = new System.Windows.Forms.TextBox();
             this.lblExplanation = new System.Windows.Forms.Label();
             this.txtUserExplanation = new System.Windows.Forms.TextBox();
-            this.lblRegion = new System.Windows.Forms.Label();
-            this.txtRegion = new System.Windows.Forms.TextBox();
             this.lblDate = new System.Windows.Forms.Label();
             this.txtDate = new System.Windows.Forms.TextBox();
             this.lblTime = new System.Windows.Forms.Label();
@@ -107,8 +105,6 @@ namespace ExceptionReporting.MVP.Views
             this.tabGeneral.Controls.Add(this.txtExceptionMessage);
             this.tabGeneral.Controls.Add(this.lblExplanation);
             this.tabGeneral.Controls.Add(this.txtUserExplanation);
-            this.tabGeneral.Controls.Add(this.lblRegion);
-            this.tabGeneral.Controls.Add(this.txtRegion);
             this.tabGeneral.Controls.Add(this.lblDate);
             this.tabGeneral.Controls.Add(this.txtDate);
             this.tabGeneral.Controls.Add(this.lblTime);
@@ -143,18 +139,6 @@ namespace ExceptionReporting.MVP.Views
             resources.ApplyResources(this.txtUserExplanation, "txtUserExplanation");
             this.txtUserExplanation.BackColor = System.Drawing.Color.Cornsilk;
             this.txtUserExplanation.Name = "txtUserExplanation";
-            // 
-            // lblRegion
-            // 
-            resources.ApplyResources(this.lblRegion, "lblRegion");
-            this.lblRegion.Name = "lblRegion";
-            // 
-            // txtRegion
-            // 
-            resources.ApplyResources(this.txtRegion, "txtRegion");
-            this.txtRegion.BackColor = System.Drawing.Color.Snow;
-            this.txtRegion.Name = "txtRegion";
-            this.txtRegion.ReadOnly = true;
             // 
             // lblDate
             // 
@@ -386,8 +370,6 @@ namespace ExceptionReporting.MVP.Views
         private System.Windows.Forms.TabPage tabGeneral;
         private System.Windows.Forms.Label lblExplanation;
         private System.Windows.Forms.TextBox txtUserExplanation;
-        private System.Windows.Forms.Label lblRegion;
-        private System.Windows.Forms.TextBox txtRegion;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.Label lblTime;

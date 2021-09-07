@@ -133,8 +133,6 @@ ExceptionReporter has a dependency on the [.NET4 Framework](https://en.wikipedia
 
 *ExceptionReporter.NET.sln* - this uses [the new csproj format](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj) that was introduced in .NET Core but is backward compatible for .NET projects (like this).
 
-- *ExceptionReporter.NET-traditional.sln* - this is the old/traditional solution file and contains all projects and demos - so this will be used to work on the UI
-
 There is a suite of Unit Tests to support ExceptionReporter using [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) libraries - see **src/Tests/Tests.ExceptionReporter.NET**
 
 There is a [Cake](https://cakebuild.net) script to build the project and run all tests
