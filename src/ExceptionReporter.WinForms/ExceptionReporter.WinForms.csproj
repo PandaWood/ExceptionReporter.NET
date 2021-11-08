@@ -4,7 +4,8 @@
 		<AssemblyName>ExceptionReporter.NET</AssemblyName>
 		<PackageId>ExceptionReporter</PackageId>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<TargetFrameworks>net40</TargetFrameworks>
+		<TargetFrameworks>net40;net5.0-windows</TargetFrameworks>
+		<UseWindowsForms>true</UseWindowsForms>
 		<ReleaseVersion>5.0</ReleaseVersion>
 		<PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
@@ -13,10 +14,17 @@
     <EmbeddedResource Remove="Properties\Resources.en.resx" />
     <EmbeddedResource Remove="Properties\Resources.ru.resx" />
   </ItemGroup>
-  <ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+		<PackageReference Include="Simple-MAPI.NET" Version="1.2.0" />
     <PackageReference Include="DotNetZip" Version="1.15.0" />
     <PackageReference Include="Handlebars.Net" Version="1.9.0" />
-    <PackageReference Include="Simple-MAPI.NET" Version="1.2.0" />
+	</ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows' ">
+		<PackageReference Include="Simple-MAPI.NET" Version="1.2.1" />
+		<PackageReference Include="DotNetZip" Version="1.15.0" />
+		<PackageReference Include="Handlebars.Net" Version="2.0.9" />
+		<PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
   </ItemGroup>
     <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.en.resx">
@@ -29,14 +37,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>5.0</Version>
+    <Version>5.0.1</Version>
     <FileVersion>5.0.0.0</FileVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <Description>ExceptionReporter is a .NET UserControl/Dialog that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>

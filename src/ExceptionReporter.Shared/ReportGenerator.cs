@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Deployment.Application;
 using System.Reflection;
 using ExceptionReporting.Core;
 using ExceptionReporting.Report;
@@ -46,8 +45,10 @@ namespace ExceptionReporting
 
 		private string GetAppVersion()
 		{
-			return ApplicationDeployment.IsNetworkDeployed ? 
-				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
+			return _info.AppAssembly.GetName().Version.ToString();
+			// lost during migration to net5.0
+			//return ApplicationDeployment.IsNetworkDeployed ? 
+			//	ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
 		}
 		
 		/// <summary>
