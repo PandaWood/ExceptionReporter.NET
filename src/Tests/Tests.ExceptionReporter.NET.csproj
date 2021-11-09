@@ -1,16 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
 		<RootNamespace>Tests.ExceptionReporting</RootNamespace>
 		<ReleaseVersion>4.0.3</ReleaseVersion>
 	</PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="AutoMoq" Version="2.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
-    <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+		<PackageReference Include="AutoMoq" Version="2.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="Moq" Version="4.16.1" />
+		<PackageReference Include="NUnit" Version="3.13.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows' ">
+		<PackageReference Include="System.Management" Version="6.0.0" />
+		<PackageReference Include="AutoMoqCore" Version="2.1.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="Moq" Version="4.16.1" />
+		<PackageReference Include="NUnit" Version="3.13.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+	</ItemGroup>
   <ItemGroup>
 		<None Remove="packages.config" />
   </ItemGroup>
@@ -18,7 +26,6 @@
     <ProjectReference Include="..\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Management" />
   </ItemGroup>
   <ItemGroup>

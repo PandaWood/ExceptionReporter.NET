@@ -6,6 +6,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<TargetFrameworks>net40;net5.0-windows</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<ReleaseVersion>5.0</ReleaseVersion>
 		<PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
@@ -22,7 +23,7 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows' ">
 		<PackageReference Include="Simple-MAPI.NET" Version="1.2.1" />
 		<PackageReference Include="DotNetZip" Version="1.15.0" />
-		<PackageReference Include="Handlebars.Net" Version="2.0.9" />
+		<PackageReference Include="Handlebars.Net" Version="2.0.2" />
 		<PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
   </ItemGroup>
