@@ -50,10 +50,20 @@ namespace ExceptionReporting.MVP.Presenters
 		public void SaveZipReportToFile(string zipFilePath)
 		{
 			if (string.IsNullOrEmpty(zipFilePath)) return;
-			var result = _reportFileZipper.Save(zipFilePath);
-			if (!result.Saved)
+
+			FileSaveResult result = null;
+			try
 			{
-				View.ShowError(Resources.Unable_to_save_file + $"'{result}'", result.Exception);
+				result = _reportFileZipper.Save(zipFilePath);
+			}
+			catch (Exception ex)
+			{
+				View.ShowError(Resources.Unable_to_save_file + $"'{ex.Message}'", ex);
+			}
+
+			if (result == null || !result.Saved)
+			{
+				View.ShowError(Resources.Unable_to_save_file + $"'{result}'", result?.Exception);
 			}
 		}
 

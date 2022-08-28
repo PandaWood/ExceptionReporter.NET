@@ -29,16 +29,14 @@ namespace ExceptionReporting.Zip
 
 			var report = _reportGenerator.Generate();
 			var saveResult = _fileService.Write(reportPath, report);
-			if (saveResult.Saved)
+			if (!saveResult.Saved) return saveResult;
+
+			var zipReport = new ZipAttachmentService(new Zipper(), new NoScreenShot(), _fileService);
+			var savedPath = zipReport.CreateZipReport(_info, zipFilePath, new List<string> {reportPath});
+			return File.Exists(savedPath) ? saveResult: new FileSaveResult
 			{
-				var zipReport = new ZipAttachmentService(new Zipper(), new NoScreenShot(), _fileService);
-				var savedPath = zipReport.CreateZipReport(_info, zipFilePath, new List<string> {reportPath});
-				if (!File.Exists(savedPath))
-				{	// we might be guilty of using exceptions to control flow here, but it's complying with existing design, so maybe we can let it slide
-					return new FileSaveResult {Exception = new IOException(savedPath)};
-				}
-			}
-			return saveResult;
+				Exception = new IOException(savedPath)
+			};
 		}
 	}
 }
