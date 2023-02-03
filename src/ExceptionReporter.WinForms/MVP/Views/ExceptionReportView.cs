@@ -11,6 +11,8 @@ using ExceptionReporting.Core;
 using ExceptionReporting.MVP.Presenters;
 using ExceptionReporting.Properties;
 using ExceptionReporting.WinForms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+
 
 #pragma warning disable 1591
 
@@ -32,6 +34,7 @@ namespace ExceptionReporting.MVP.Views
 
 			_presenter = new ExceptionReportPresenter(this, reportInfo);
 
+			SetLabelsWithResources();
 			WireUpEvents();
 			PopulateTabs();
 			PopulateReportInfo(reportInfo);
@@ -120,6 +123,12 @@ namespace ExceptionReporting.MVP.Views
 			}
 		}
 
+		private void SetLabelsWithResources()
+		{
+			btnSimpleDetailToggle.Text = Resources.ExceptionReportView_ToggleShowFullDetail_More_Detail;
+			btnSimpleCopy.Text = Resources.Copy_details;
+
+		}
 		private void WireUpEvents()
 		{
 			btnEmail.Click += Email_Click;
@@ -133,6 +142,8 @@ namespace ExceptionReporting.MVP.Views
 			KeyPreview = true;
 			KeyDown += ExceptionReportView_KeyDown;
 		}
+
+
 
 		private void ExceptionReportView_KeyDown(object sender, KeyEventArgs e)
 		{

@@ -323,6 +323,10 @@
         2Z5/PH+ZAAAAAElFTkSuQmCC
 </value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnSimpleDetailToggle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="btnSimpleCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -345,6 +349,9 @@
         KpPZ/BtVVlZSVVUVVd1nMJ7hftERPWazGUJk44bcrYwyClUpcC160It7lFVGoTICPdx76eoHFEKItCso
         iJQAAAAASUVORK5CYII=
 </value>
+  </data>
+  <data name="btnSimpleCopy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lessDetail_alertIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
