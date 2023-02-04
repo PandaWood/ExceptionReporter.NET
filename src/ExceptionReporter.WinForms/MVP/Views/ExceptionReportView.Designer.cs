@@ -80,6 +80,7 @@ namespace ExceptionReporting.MVP.Views
             resources.ApplyResources(this.listviewAssemblies, "listviewAssemblies");
             this.listviewAssemblies.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listviewAssemblies.FullRowSelect = true;
+            this.listviewAssemblies.HideSelection = false;
             this.listviewAssemblies.HotTracking = true;
             this.listviewAssemblies.HoverSelection = true;
             this.listviewAssemblies.Name = "listviewAssemblies";
