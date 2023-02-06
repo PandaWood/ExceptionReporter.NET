@@ -67,3 +67,4 @@ packages/
 .vscode
 *.orig
 MigrationBackup
+/src/ExceptionReporter.WinForms/Properties/PublishProfiles/FolderProfile.pubxml

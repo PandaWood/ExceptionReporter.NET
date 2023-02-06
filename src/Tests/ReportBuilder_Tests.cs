@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+#if !NETCOREAPP
 using AutoMoq;
+#else
+using AutoMoqCore;
+#endif
 using ExceptionReporting;
 using ExceptionReporting.Report;
 using ExceptionReporting.SystemInfo;

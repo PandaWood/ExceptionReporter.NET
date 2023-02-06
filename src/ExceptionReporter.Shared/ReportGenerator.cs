@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+#if NETFRAMEWORK
 using System.Deployment.Application;
+#endif
 using System.Reflection;
 using ExceptionReporting.Core;
 using ExceptionReporting.Report;
@@ -42,14 +44,18 @@ namespace ExceptionReporting
 			_info.AppName = _info.AppName.IsEmpty() ? _info.AppAssembly.GetName().Name: _info.AppName;
 			_info.AppVersion = _info.AppVersion.IsEmpty() ? GetAppVersion() : _info.AppVersion;
 			_info.ExceptionDate = _info.ExceptionDateKind != DateTimeKind.Local ? DateTime.UtcNow : DateTime.Now;
-		}
+	}
 
 		private string GetAppVersion()
 		{
-			return ApplicationDeployment.IsNetworkDeployed ? 
+#if NETFRAMEWORK
+			return ApplicationDeployment.IsNetworkDeployed ?
 				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
+#else
+			return _info.AppAssembly.GetName().Version.ToString();
+#endif
 		}
-		
+
 		/// <summary>
 		/// Generate the exception report
 		/// </summary>
