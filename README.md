@@ -1,6 +1,6 @@
 # Exception Reporter.NET
 
-[![AppVeyor Tests](https://ci.appveyor.com/api/projects/status/e2b3sruf4fpmcohm?svg=true)](https://ci.appveyor.com/project/pandawood/exceptionreporter-net/build/tests)
+[![build](https://github.com/PandaWood/ExceptionReporter.NET/actions/workflows/build.yml/badge.svg)](https://github.com/PandaWood/ExceptionReporter.NET/actions/workflows/build.yml)
 &nbsp;[![NuGet Badge](https://buildstats.info/nuget/ExceptionReporter)](https://www.nuget.org/packages/ExceptionReporter/)
 
 ```

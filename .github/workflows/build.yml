@@ -1,0 +1,24 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Build libraries (skip demos)
+        run: |
+          dotnet build src/ExceptionReporter.WinForms/ExceptionReporter.WinForms.csproj -c Release
+          dotnet build src/ExceptionReporter.WPF/ExceptionReporter.WPF.csproj -c Release
+
+      - name: Test
+        run: dotnet test src/Tests/Tests.ExceptionReporter.NET.csproj -c Release
