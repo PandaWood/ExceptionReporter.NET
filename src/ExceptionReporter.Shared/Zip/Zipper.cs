@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Ionic.Zip;
+using System.IO;
+using System.IO.Compression;
 
 namespace ExceptionReporting.Zip
 {
-	internal interface IZipper 
+	internal interface IZipper
 	{
 		void Zip(string zipFile, IEnumerable<string> files);
 	}
@@ -12,10 +13,14 @@ namespace ExceptionReporting.Zip
 	{
 		public void Zip(string zipFile, IEnumerable<string> files)
 		{
-			using (var zip = new ZipFile(zipFile))
+			if (File.Exists(zipFile)) File.Delete(zipFile);
+
+			using (var archive = ZipFile.Open(zipFile, ZipArchiveMode.Create))
 			{
-				zip.AddFiles(files, directoryPathInArchive: "");
-				zip.Save();
+				foreach (var file in files)
+				{
+					archive.CreateEntryFromFile(file, Path.GetFileName(file));
+				}
 			}
 		}
 	}

@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+#if !NET5_0_OR_GREATER
 using System.Deployment.Application;
+#endif
 using System.Reflection;
 using ExceptionReporting.Core;
 using ExceptionReporting.Report;
@@ -46,8 +48,12 @@ namespace ExceptionReporting
 
 		private string GetAppVersion()
 		{
-			return ApplicationDeployment.IsNetworkDeployed ? 
-				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
+#if !NET5_0_OR_GREATER
+			// ClickOnce (System.Deployment) is only available on .NET Framework
+			if (ApplicationDeployment.IsNetworkDeployed)
+				return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+#endif
+			return _info.AppAssembly.GetName().Version.ToString();
 		}
 		
 		/// <summary>

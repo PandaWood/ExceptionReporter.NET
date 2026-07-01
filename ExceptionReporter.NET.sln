@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionReporter.WinForms", "src\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj", "{1AEEC57B-FB44-4F88-AD50-A2A3686DBC97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.ExceptionReporter.Net", "src\Tests\Tests.ExceptionReporter.Net.csproj", "{565583C0-0162-4973-962B-7C3F6EE1A4B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.ExceptionReporter.NET", "src\Tests\Tests.ExceptionReporter.NET.csproj", "{565583C0-0162-4973-962B-7C3F6EE1A4B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.WinForms", "src\Demos\WinForms\Demo.WinForms.csproj", "{2FC9BAC6-3AC4-43C2-A8E2-C9655446531E}"
 EndProject

@@ -1,15 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net48;net10.0-windows</TargetFrameworks>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<RootNamespace>Tests.ExceptionReporting</RootNamespace>
-		<ReleaseVersion>4.0.3</ReleaseVersion>
+		<ReleaseVersion>6.0</ReleaseVersion>
+		<IsPackable>false</IsPackable>
+		<!-- AutoMoq 2.0.0 (and its Unity/CommonServiceLocator deps) are Framework-only test
+		     helpers consumed via the compat shim; these restore warnings are accepted -->
+		<NoWarn>$(NoWarn);NU1701;NU1602</NoWarn>
 	</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMoq" Version="2.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
 		<None Remove="packages.config" />
@@ -17,13 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ExceptionReporter.WinForms\ExceptionReporter.WinForms.csproj" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <!-- provides the Framework reference assemblies so net48 also resolves off-Windows (CLI + C# Dev Kit on Linux) -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Management" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="C:\code\ExceptionReporter.NET\ExceptionReporter.Shared\Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
 </Project>

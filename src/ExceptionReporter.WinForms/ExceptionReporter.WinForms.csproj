@@ -4,8 +4,13 @@
 		<AssemblyName>ExceptionReporter.NET</AssemblyName>
 		<PackageId>ExceptionReporter</PackageId>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<TargetFrameworks>net40</TargetFrameworks>
-		<ReleaseVersion>5.0</ReleaseVersion>
+		<TargetFrameworks>net48;net10.0-windows</TargetFrameworks>
+		<UseWindowsForms>true</UseWindowsForms>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<!-- Resources.resx embeds binary (image/icon) resources; the modern SDK resource
+		     pipeline requires pre-serialized resources + System.Resources.Extensions -->
+		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+		<ReleaseVersion>6.0</ReleaseVersion>
 		<PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/PandaWood/ExceptionReporter.NET</PackageProjectUrl>
 	</PropertyGroup>
@@ -14,11 +19,12 @@
     <EmbeddedResource Remove="Properties\Resources.ru.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetZip" Version="1.15.0" />
     <PackageReference Include="Handlebars.Net" Version="1.9.0" />
-    <PackageReference Include="Simple-MAPI.NET" Version="1.2.0" />
+    <PackageReference Include="Simple-MAPI.NET" Version="1.2.1" />
+    <!-- needed only on net48 to deserialize the binary (image) resources; in-box on net10 -->
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" Condition="'$(TargetFramework)' == 'net48'" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.en.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -28,16 +34,23 @@
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
+  <!-- .NET Framework: ClickOnce, WMI and config come from the GAC reference assemblies -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <!-- provides the Framework reference assemblies so net48 also resolves off-Windows (CLI + C# Dev Kit on Linux) -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+  </ItemGroup>
+  <!-- Modern .NET: WMI ships as a NuGet package (Windows-only); ClickOnce is not available -->
+  <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
+    <PackageReference Include="System.Management" Version="9.0.0" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>5.0</Version>
-    <FileVersion>5.0.0.0</FileVersion>
+    <Version>6.0</Version>
+    <FileVersion>6.0.0.0</FileVersion>
     <Authors>Peter van der Woude, Simon Cropp</Authors>
     <Description>ExceptionReporter is a .NET UserControl/Dialog that gathers detailed information on an Exception and the application/system running it. It allows the user to copy, save or email a report to the developer</Description>
     <Copyright></Copyright>
@@ -47,18 +60,13 @@
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <PackageTags>exception,error, reporting, reporter</PackageTags>
     <PackageReleaseNotes>Functional:
-- IViewMaker.ShowError method dropped the 2nd argument `description` - this is now taken from localized resources. Technically, a breaking change, this will only affect users who used the API to swap the default view with their own - this feature was more of a novelty, I doubt anyone uses it.
-- ExceptionReportInfo property `BackgroundColor` is now a hex color code string, not a `System.Drawing.Color` object. Technically, a breaking change, this will only affect users who custom set a background color
-- Saving zip file now sets the file extension of the template type it is using (ie markdown/txt/html)
+- Minimum supported .NET Framework raised from 4.0 to 4.8; added support for .NET 10 (net10.0-windows)
+- Removed the DotNetZip dependency in favour of the built-in System.IO.Compression
 Dependencies Updated:
-- DotNetZip from 1.11 to 1.15
-- Simple-MAPI.NET 1.1 to 1.2</PackageReleaseNotes>
+- DotNetZip dependency removed</PackageReleaseNotes>
   </PropertyGroup>
   <Import Project="..\ExceptionReporter.Shared\ExceptionReporter.Shared.projitems" Label="Shared" />
   <ItemGroup>
-    <Compile Update="C:\code\ExceptionReporter.NET\ExceptionReporter.Shared\Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>

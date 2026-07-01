@@ -1,0 +1,19 @@
+<Project>
+  <!--
+    Shared build settings for all projects under src/.
+
+    These suppressions are intentional and apply repo-wide:
+
+    CA1416  - This is a Windows-only library (WinForms/WPF/WMI/MAPI). Every UI and
+              system-info API is Windows-only by design and the assemblies target a
+              '-windows' TFM, so the platform-compatibility analyzer is pure noise here.
+
+    SYSLIB0014 - WebClient is obsolete on modern .NET, but ExceptionReporterWebClient
+                 subclasses it specifically to set a request timeout (see
+                 Network/Senders/WebServiceSender.cs). Kept deliberately; migrating to
+                 HttpClient is a separate, behaviour-sensitive change.
+  -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1416;SYSLIB0014</NoWarn>
+  </PropertyGroup>
+</Project>
