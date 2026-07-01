@@ -1,7 +1,7 @@
 # Exception Reporter.NET
 
 [![build](https://github.com/PandaWood/ExceptionReporter.NET/actions/workflows/build.yml/badge.svg)](https://github.com/PandaWood/ExceptionReporter.NET/actions/workflows/build.yml)
-&nbsp;[![NuGet Badge](https://buildstats.info/nuget/ExceptionReporter)](https://www.nuget.org/packages/ExceptionReporter/)
+&nbsp;[![NuGet](https://img.shields.io/nuget/v/ExceptionReporter.svg)](https://www.nuget.org/packages/ExceptionReporter/)
 
 ```
 PM> Install-Package ExceptionReporter
